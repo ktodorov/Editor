@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>PHOENIX-HP</Machine>
+    <WindowsUser>Phoenix</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\bin\Debug\Imageff_project.exe">
+      <PackagePath>Imageff_project.exe</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\bin\Debug\Imageff_project.pdb">
+      <PackagePath>Imageff_project.pdb</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\Assets\Background.jpg">
+      <PackagePath>Assets\Background.jpg</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\Assets\Logo.png">
+      <PackagePath>Assets\Logo.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\Assets\SmallLogo.png">
+      <PackagePath>Assets\SmallLogo.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\Assets\SplashScreen.png">
+      <PackagePath>Assets\SplashScreen.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\Assets\StoreLogo.png">
+      <PackagePath>Assets\StoreLogo.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\Common\ReadMe.txt">
+      <PackagePath>Common\ReadMe.txt</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\bin\Debug\App.xaml">
+      <PackagePath>App.xaml</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\bin\Debug\Common\StandardStyles.xaml">
+      <PackagePath>Common\StandardStyles.xaml</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\bin\Debug\MainPage.xaml">
+      <PackagePath>MainPage.xaml</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="F:\Work\Visual Studio 2012\Diplom\Projects\Imageff_project\Imageff_project\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
