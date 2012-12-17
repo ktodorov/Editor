@@ -204,9 +204,11 @@ namespace Imageff_project
 				FileSavePicker savePicker = new FileSavePicker();
 				savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
 				// Dropdown of file types the user can save the file as
-				savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".bmp" });
-				// Default file name if the user does not type one in or select a file to replace
+				savePicker.FileTypeChoices.Add("JPEG", new List<string>() { ".jpg" });
+				savePicker.FileTypeChoices.Add("PNG", new List<string>() { ".png" });
+				savePicker.FileTypeChoices.Add("Bitmap", new List<string>() { ".bmp" });
 				savePicker.SuggestedFileName = fileName.Text;
+				// Default file name if the user does not type one in or select a file to replace
 				StorageFile file = await savePicker.PickSaveFileAsync();
 
 				if (file != null)
@@ -216,13 +218,9 @@ namespace Imageff_project
 					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, writeStream);
 					encoder.SetPixelData(BitmapPixelFormat.Rgba8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, tempBitmap.PixelWidth, tempBitmap.PixelHeight, dstPixels);
 					await encoder.FlushAsync();
-					//writeStream.GetOutputStreamAt(0).FlushAsync().Start();
-					debugText.Text = "SUCCESFUL";
 				}
 			}
-		}
-
-		
+		}	
 
 		private void OnSizeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
@@ -240,11 +238,6 @@ namespace Imageff_project
 				setStream();
 			}
 		}
-		private void BlackAndWhiteButton_PointerEntered_1(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-		{
-			//BlackAndWhiteButton.Foreground = new SolidColorBrush(Colors.Yellow);
-		}
-
 		
 	}
 	#endregion

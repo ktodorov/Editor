@@ -50,7 +50,7 @@ namespace Imageff_project.Common
 					dstPixels[currentByte++] -= 255;
 					dstPixels[currentByte++] -= 255;
 					dstPixels[currentByte++] -= 255;
-					dstPixels[currentByte++] = srcPixels[currentByte - 3];
+					dstPixels[currentByte++] = srcPixels[currentByte - 4];
 				}
 
 			}
