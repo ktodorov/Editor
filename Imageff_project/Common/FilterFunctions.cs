@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
 
-namespace Imageff_project.Common
+namespace RemedyPic.Common
 {
 	class FilterFunctions
 	{

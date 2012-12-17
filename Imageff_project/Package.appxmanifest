@@ -2,7 +2,7 @@
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
   <Identity Name="4afe9811-e321-46f3-a4cd-8e5cd3fe8116" Publisher="CN=Phoenix" Version="1.0.0.0" />
   <Properties>
-    <DisplayName>Imageff_project</DisplayName>
+    <DisplayName>RemedyPic</DisplayName>
     <PublisherDisplayName>Phoenix</PublisherDisplayName>
     <Logo>Assets\StoreLogo2.png</Logo>
   </Properties>
@@ -14,10 +14,10 @@
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Imageff_project.App">
-      <VisualElements DisplayName="Imageff_project" Logo="Assets\Logo2.png" SmallLogo="Assets\SmallLogo2.png" Description="Imageff_project" ForegroundText="light" BackgroundColor="#510000">
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="RemedyPic.App">
+      <VisualElements DisplayName="RemedyPic" Logo="Assets\Logo2.png" SmallLogo="Assets\SmallLogo2.png" Description="RemedyPic" ForegroundText="light" BackgroundColor="#3ae100">
         <DefaultTile WideLogo="Assets\WideLogo.png" />
-        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#510000" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#3ae100" />
       </VisualElements>
     </Application>
   </Applications>

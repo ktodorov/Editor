@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Data;
 
-namespace Imageff_project.Common
+namespace RemedyPic.Common
 {
 	/// <summary>
 	/// Implementation of <see cref="INotifyPropertyChanged"/> to simplify models.

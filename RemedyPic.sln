@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imageff_project", "Imageff_project\Imageff_project.csproj", "{DC5AB2DD-7BD3-4010-9292-40EE2E2CFECE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemedyPic", "Imageff_project\RemedyPic.csproj", "{DC5AB2DD-7BD3-4010-9292-40EE2E2CFECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

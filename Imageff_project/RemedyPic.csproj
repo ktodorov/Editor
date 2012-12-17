@@ -7,8 +7,8 @@
     <ProjectGuid>{DC5AB2DD-7BD3-4010-9292-40EE2E2CFECE}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Imageff_project</RootNamespace>
-    <AssemblyName>Imageff_project</AssemblyName>
+    <RootNamespace>RemedyPic</RootNamespace>
+    <AssemblyName>RemedyPic</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -124,9 +124,12 @@
   <ItemGroup>
     <Content Include="Assets\Background.jpg" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\Logo2.scale-80.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\WideLogo.scale-100.png" />
     <Content Include="Common\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

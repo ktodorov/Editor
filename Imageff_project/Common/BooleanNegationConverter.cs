@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace Imageff_project.Common
+namespace RemedyPic.Common
 {
 	/// <summary>
 	/// Value converter that translates true to false and vice versa.

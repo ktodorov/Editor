@@ -11,7 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Imageff_project.Common
+namespace RemedyPic.Common
 {
 	/// <summary>
 	/// Typical implementation of Page that provides several important conveniences:

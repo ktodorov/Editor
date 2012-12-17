@@ -11,14 +11,14 @@ using Windows.UI.Xaml.Media;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
-using Imageff_project.Common;
+using RemedyPic.Common;
 
 
-#region Namespace Imageff_project
-namespace Imageff_project
+#region Namespace RemedyPic
+namespace RemedyPic
 {
 	#region MainPage class
-	public sealed partial class MainPage : Imageff_project.Common.LayoutAwarePage
+	public sealed partial class MainPage : RemedyPic.Common.LayoutAwarePage
 	{
 		private string mruToken = null;
 		private WriteableBitmap tempBitmap;

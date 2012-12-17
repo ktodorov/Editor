@@ -13,13 +13,13 @@ namespace RemedyPic
 {
     public partial class App : global::Windows.UI.Xaml.Markup.IXamlMetadataProvider
     {
-        private global::RemedyPic.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider _provider;
+        private global::Imageff_project.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider _provider;
 
         public global::Windows.UI.Xaml.Markup.IXamlType GetXamlType(global::System.Type type)
         {
             if(_provider == null)
             {
-                _provider = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider();
+                _provider = new global::Imageff_project.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider();
             }
             return _provider.GetXamlTypeByType(type);
         }
@@ -28,7 +28,7 @@ namespace RemedyPic
         {
             if(_provider == null)
             {
-                _provider = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider();
+                _provider = new global::Imageff_project.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider();
             }
             return _provider.GetXamlTypeByName(fullName);
         }
@@ -40,7 +40,7 @@ namespace RemedyPic
     }
 }
 
-namespace RemedyPic.RemedyPic_XamlTypeInfo
+namespace Imageff_project.RemedyPic_XamlTypeInfo
 {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Windows.UI.Xaml.Build.Tasks", "4.0.0.0")]    
@@ -119,27 +119,27 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(string typeName)
         {
-            global::RemedyPic.RemedyPic_XamlTypeInfo.XamlSystemBaseType xamlType = null;
-            global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType userType;
+            global::Imageff_project.RemedyPic_XamlTypeInfo.XamlSystemBaseType xamlType = null;
+            global::Imageff_project.RemedyPic_XamlTypeInfo.XamlUserType userType;
 
             switch (typeName)
             {
             case "Windows.UI.Xaml.Controls.Page":
-                xamlType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlSystemBaseType(typeName, typeof(global::Windows.UI.Xaml.Controls.Page));
+                xamlType = new global::Imageff_project.RemedyPic_XamlTypeInfo.XamlSystemBaseType(typeName, typeof(global::Windows.UI.Xaml.Controls.Page));
                 break;
 
             case "Windows.UI.Xaml.Controls.UserControl":
-                xamlType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlSystemBaseType(typeName, typeof(global::Windows.UI.Xaml.Controls.UserControl));
+                xamlType = new global::Imageff_project.RemedyPic_XamlTypeInfo.XamlSystemBaseType(typeName, typeof(global::Windows.UI.Xaml.Controls.UserControl));
                 break;
 
             case "RemedyPic.Common.LayoutAwarePage":
-                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.Common.LayoutAwarePage), GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType = new global::Imageff_project.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.Common.LayoutAwarePage), GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
                 userType.Activator = Activate_0_LayoutAwarePage;
                 xamlType = userType;
                 break;
 
             case "RemedyPic.MainPage":
-                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.MainPage), GetXamlTypeByName("RemedyPic.Common.LayoutAwarePage"));
+                userType = new global::Imageff_project.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.MainPage), GetXamlTypeByName("RemedyPic.Common.LayoutAwarePage"));
                 userType.Activator = Activate_1_MainPage;
                 xamlType = userType;
                 break;
@@ -152,7 +152,7 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
 
         private global::Windows.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
         {
-            global::RemedyPic.RemedyPic_XamlTypeInfo.XamlMember xamlMember = null;
+            global::Imageff_project.RemedyPic_XamlTypeInfo.XamlMember xamlMember = null;
             // No Local Properties
             return xamlMember;
         }
@@ -208,9 +208,9 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Windows.UI.Xaml.Build.Tasks", "4.0.0.0")]    
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-    internal class XamlUserType : global::RemedyPic.RemedyPic_XamlTypeInfo.XamlSystemBaseType
+    internal class XamlUserType : global::Imageff_project.RemedyPic_XamlTypeInfo.XamlSystemBaseType
     {
-        global::RemedyPic.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider _provider;
+        global::Imageff_project.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider _provider;
         global::Windows.UI.Xaml.Markup.IXamlType _baseType;
         bool _isArray;
         bool _isMarkupExtension;
@@ -222,7 +222,7 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
         global::System.Collections.Generic.Dictionary<string, string> _memberNames;
         global::System.Collections.Generic.Dictionary<string, object> _enumValues;
 
-        public XamlUserType(global::RemedyPic.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider provider, string fullName, global::System.Type fullType, global::Windows.UI.Xaml.Markup.IXamlType baseType)
+        public XamlUserType(global::Imageff_project.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider provider, string fullName, global::System.Type fullType, global::Windows.UI.Xaml.Markup.IXamlType baseType)
             :base(fullName, fullType)
         {
             _provider = provider;
@@ -403,7 +403,7 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     internal class XamlMember : global::Windows.UI.Xaml.Markup.IXamlMember
     {
-        global::RemedyPic.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider _provider;
+        global::Imageff_project.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider _provider;
         string _name;
         bool _isAttachable;
         bool _isDependencyProperty;
@@ -412,7 +412,7 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
         string _typeName;
         string _targetTypeName;
 
-        public XamlMember(global::RemedyPic.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider provider, string name, string typeName)
+        public XamlMember(global::Imageff_project.RemedyPic_XamlTypeInfo.XamlTypeInfoProvider provider, string name, string typeName)
         {
             _name = name;
             _typeName = typeName;

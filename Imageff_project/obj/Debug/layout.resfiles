@@ -1,8 +1,11 @@
 Assets\Background.jpg
 Assets\Logo.png
+Assets\Logo2.scale-80.png
 Assets\SmallLogo.png
 Assets\SplashScreen.png
+Assets\SplashScreen.scale-100.png
 Assets\StoreLogo.png
+Assets\WideLogo.scale-100.png
 App.xaml
 Common\StandardStyles.xaml
 MainPage.xaml

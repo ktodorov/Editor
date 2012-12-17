@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
-namespace Imageff_project
+namespace RemedyPic
 {
 	/// <summary>
 	/// Provides application-specific behavior to supplement the default Application class.
@@ -40,12 +40,12 @@ namespace Imageff_project
 			{
 				// Create a Frame to act as the navigation context and navigate to the first page
 				rootFrame = new Frame();
-				Imageff_project.Common.SuspensionManager.RegisterFrame(rootFrame, "appFrame");
+				RemedyPic.Common.SuspensionManager.RegisterFrame(rootFrame, "appFrame");
 
 				if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
 				{
 					// Load state from previously suspended application
-					await Imageff_project.Common.SuspensionManager.RestoreAsync();
+					await RemedyPic.Common.SuspensionManager.RestoreAsync();
 				}
 
 				// Place the frame in the current Window
@@ -57,7 +57,7 @@ namespace Imageff_project
 				// When the navigation stack isn't restored navigate to the first page,
 				// configuring the new page by passing required information as a navigation
 				// parameter
-				if (!rootFrame.Navigate(typeof(Imageff_project.MainPage), args.Arguments))
+				if (!rootFrame.Navigate(typeof(RemedyPic.MainPage), args.Arguments))
 				{
 					throw new Exception("Failed to create initial page");
 				}
@@ -77,7 +77,7 @@ namespace Imageff_project
 		{
 			var deferral = e.SuspendingOperation.GetDeferral();
 			//TODO: Save application state and stop any background activity
-			await Imageff_project.Common.SuspensionManager.SaveAsync();
+			await RemedyPic.Common.SuspensionManager.SaveAsync();
 			deferral.Complete();
 		}
 	}
