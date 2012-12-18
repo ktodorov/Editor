@@ -15,9 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="RemedyPic.App">
-      <VisualElements DisplayName="RemedyPic" Logo="Assets\Logo2.png" SmallLogo="Assets\SmallLogo2.png" Description="RemedyPic" ForegroundText="light" BackgroundColor="#3ae100">
+      <VisualElements DisplayName="RemedyPic" Logo="Assets\Logo2.png" SmallLogo="Assets\SmallLogo.png" Description="RemedyPic" ForegroundText="light" BackgroundColor="#3ae100">
         <DefaultTile WideLogo="Assets\WideLogo.png" />
-        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#3ae100" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#339b0f" />
       </VisualElements>
     </Application>
   </Applications>

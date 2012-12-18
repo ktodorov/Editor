@@ -124,11 +124,10 @@
   <ItemGroup>
     <Content Include="Assets\Background.jpg" />
     <Content Include="Assets\Logo.png" />
-    <Content Include="Assets\Logo2.scale-80.png" />
+    <Content Include="Assets\RemedyPicLogo.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\WideLogo.scale-100.png" />
     <Content Include="Common\ReadMe.txt" />
   </ItemGroup>

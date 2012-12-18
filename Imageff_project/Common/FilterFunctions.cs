@@ -44,15 +44,14 @@ namespace RemedyPic.Common
 			}
 			else
 			{
+				invertedAlreadyArray = srcPixels;
 				while (currentByte < (4 * height * width))
 				{
-					invertedAlreadyArray = srcPixels;
-					dstPixels[currentByte++] -= 255;
-					dstPixels[currentByte++] -= 255;
-					dstPixels[currentByte++] -= 255;
+					dstPixels[currentByte++] = (byte)(-srcPixels[currentByte - 1] + 255);
+					dstPixels[currentByte++] = (byte)(-srcPixels[currentByte - 1] + 255);
+					dstPixels[currentByte++] = (byte)(-srcPixels[currentByte - 1] + 255);
 					dstPixels[currentByte++] = srcPixels[currentByte - 4];
 				}
-
 			}
 		}
 
@@ -72,8 +71,11 @@ namespace RemedyPic.Common
 			}
 		}
 
+		#region Lighten function
 		public static void Lighten(ref byte[] dstPixels, ref byte[] srcPixels, ref int height, ref int width, double value)
 		{
+			// This function lighten the Writeablebitmap picture
+			// by taking the array and multiplying every pixel with the (value of the slider * 0,05) + 1
 			double brightness = (value * 0.05) + 1;
 			int currentByte = 0;
 			while (currentByte < (4 * height * width))
@@ -93,6 +95,7 @@ namespace RemedyPic.Common
 				dstPixels[currentByte] = srcPixels[currentByte++];
 			}
 		}
+		#endregion
 
 	}
 }

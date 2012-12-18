@@ -216,7 +216,7 @@ namespace RemedyPic
 					//Windows.Storage.Streams.IRandomAccessStream fileStream =
 					IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
 					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, writeStream);
-					encoder.SetPixelData(BitmapPixelFormat.Rgba8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, tempBitmap.PixelWidth, tempBitmap.PixelHeight, dstPixels);
+					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, tempBitmap.PixelWidth, tempBitmap.PixelHeight, dstPixels);
 					await encoder.FlushAsync();
 				}
 			}
