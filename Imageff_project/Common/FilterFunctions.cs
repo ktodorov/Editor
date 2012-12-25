@@ -10,8 +10,55 @@ namespace RemedyPic.Common
 	class FilterFunctions
 	{
 		static byte[] invertedAlreadyArray, blackWhiteAlreadyArray;
+        private int _width, _height;
+        private byte[] _dstPixels, _srcPixels;
+        public byte[] dstPixels 
+        {
+            get 
+            {
+                return _dstPixels;
+            }
+            set 
+            {
+                _dstPixels = value;
+            }
+        }
+        public byte[] srcPixels 
+        {
+            get 
+            {
+                return _srcPixels;
+            }
+            set 
+            {
+                _srcPixels = value;
+            }
+        }
+        public int height
+        {
+            get 
+            {
+                return _height;
+            }
+            set 
+            {
+                _height = value;
+            }
+        }
+        public int width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                _width = value;
+            }
+        }
 
-		public static void BlackAndWhite(ref byte[] dstPixels, ref byte[] srcPixels, ref int height, ref int width, bool alreadyDone = false)
+        #region BlackAndWhite
+        public void BlackAndWhite(bool alreadyDone = false)
 		{
 			int currentByte = 0;
 			if (alreadyDone)
@@ -33,8 +80,10 @@ namespace RemedyPic.Common
 				}
 			}
 		}
+        #endregion
 
-		public static void Filter(ref byte[] dstPixels, ref byte[] srcPixels, ref int height, ref int width, bool invertedAlready = false)
+        #region Filter
+        public void Filter(bool invertedAlready = false)
 		{
 			int currentByte = 0;
 			if (invertedAlready)
@@ -54,8 +103,40 @@ namespace RemedyPic.Common
 				}
 			}
 		}
+        #endregion
 
-		public static void Darken(ref byte[] dstPixels, ref byte[] srcPixels, ref int height, ref int width, double value)
+        #region EmbossFilter
+        public void EmbossFilter()
+        {
+            _dstPixels = (byte[]) _srcPixels.Clone();      
+            int currentByte = 0, width_border = 1;
+
+            while (currentByte < 4 * (_height - 1) * _width)
+            {
+
+                if (width_border != _width)
+                {
+                    _dstPixels[currentByte] = (byte)(_srcPixels[currentByte] - _srcPixels[currentByte + (4 * _width) + 4] + 128);
+                    currentByte++;
+                    _dstPixels[currentByte] = (byte)(_srcPixels[currentByte] - _srcPixels[currentByte + (4 * _width) + 4] + 128);
+                    currentByte++;
+                    _dstPixels[currentByte] = (byte)(_srcPixels[currentByte] - _srcPixels[currentByte + (4 * _width) + 4] + 128);
+                    currentByte += 2;                    
+                }
+                else
+                {
+                    width_border = 0;
+                    currentByte += 4;
+                }
+
+                width_border++;
+            }
+  
+        }
+        #endregion
+
+        #region Darken
+        public void Darken(double value)
 		{
 			double darkness = -value;
 			darkness = (1 / darkness);
@@ -70,9 +151,10 @@ namespace RemedyPic.Common
 				dstPixels[currentByte] = srcPixels[currentByte++];
 			}
 		}
+        #endregion
 
-		#region Lighten function
-		public static void Lighten(ref byte[] dstPixels, ref byte[] srcPixels, ref int height, ref int width, double value)
+        #region Lighten function
+        public void Lighten(double value)
 		{
 			// This function lighten the Writeablebitmap picture
 			// by taking the array and multiplying every pixel with the (value of the slider * 0,05) + 1
@@ -96,6 +178,5 @@ namespace RemedyPic.Common
 			}
 		}
 		#endregion
-
 	}
 }

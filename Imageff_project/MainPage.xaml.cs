@@ -22,13 +22,12 @@ namespace RemedyPic
 	{
 		private string mruToken = null;
 		private WriteableBitmap tempBitmap;
-		byte[] srcPixels, dstPixels;
-		int width, height;
 		Stream temp;
 		bool invertedAlready = false, blackWhiteAlready = false;
 		static readonly long cycleDuration = TimeSpan.FromSeconds(3).Ticks;
 		bool pictureIsLoaded = false;
 		Windows.Storage.StorageFile Globalfile;
+        FilterFunctions image = new FilterFunctions();
 
 
 		public MainPage()
@@ -120,7 +119,7 @@ namespace RemedyPic
 
 						// I know the parameterless version of GetPixelDataAsync works for this image
 						PixelDataProvider pixelProvider = await frame.GetPixelDataAsync();
-						srcPixels = pixelProvider.DetachPixelData();
+                        image.srcPixels = pixelProvider.DetachPixelData();
 
 						tempBitmap = new WriteableBitmap((int)frame.PixelWidth, (int)frame.PixelHeight);
 					}
@@ -154,7 +153,7 @@ namespace RemedyPic
 			if (pictureIsLoaded)
 			{
 				prepareImage();
-				FilterFunctions.Filter(ref dstPixels, ref srcPixels, ref height, ref width, invertedAlready);
+				image.Filter(invertedAlready);
 				invertedAlready = !invertedAlready;
 				setStream();
 			}
@@ -168,7 +167,7 @@ namespace RemedyPic
 			if (pictureIsLoaded)
 			{
 				prepareImage();
-				FilterFunctions.BlackAndWhite(ref dstPixels, ref srcPixels, ref height, ref width, blackWhiteAlready);
+				image.BlackAndWhite(blackWhiteAlready);
 				blackWhiteAlready = !blackWhiteAlready;
 				setStream();
 			}
@@ -179,8 +178,8 @@ namespace RemedyPic
 		void setStream()
 		{
 			// This sets the pixels to the bitmap
-			temp.Seek(0, SeekOrigin.Begin);
-			temp.Write(dstPixels, 0, dstPixels.Length);
+            temp.Seek(0, SeekOrigin.Begin);            
+			temp.Write(image.dstPixels, 0, image.dstPixels.Length);
 			tempBitmap.Invalidate();
 		}
 		#endregion
@@ -190,10 +189,10 @@ namespace RemedyPic
 		{
 			// This calculates the width and height of the bitmap image
 			// and sets the Stream and the pixels byte array
-			width = tempBitmap.PixelWidth;
-			height = tempBitmap.PixelHeight;
+			image.width = (int)tempBitmap.PixelWidth;
+			image.height = (int)tempBitmap.PixelHeight;
 			temp = tempBitmap.PixelBuffer.AsStream();
-			dstPixels = new byte[4 * tempBitmap.PixelWidth * tempBitmap.PixelHeight];
+			image.dstPixels = new byte[4 * tempBitmap.PixelWidth * tempBitmap.PixelHeight];
 		}
 		#endregion
 
@@ -216,7 +215,7 @@ namespace RemedyPic
 					//Windows.Storage.Streams.IRandomAccessStream fileStream =
 					IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
 					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, writeStream);
-					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, tempBitmap.PixelWidth, tempBitmap.PixelHeight, dstPixels);
+					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, tempBitmap.PixelWidth, tempBitmap.PixelHeight, image.dstPixels);
 					await encoder.FlushAsync();
 				}
 			}
@@ -229,16 +228,29 @@ namespace RemedyPic
 				prepareImage();
 				if (brightSlider.Value < 0)
 				{
-					FilterFunctions.Darken(ref dstPixels, ref srcPixels, ref height, ref width, brightSlider.Value);
+					image.Darken(brightSlider.Value);
 				}
 				else if (brightSlider.Value >= 0)
 				{
-					FilterFunctions.Lighten(ref dstPixels, ref srcPixels, ref height, ref width, brightSlider.Value);
+					image.Lighten(brightSlider.Value);
 				}
 				setStream();
 			}
 		}
-		
+
+        #region OnEmbossClick event
+        private void OnEmbossClick(object sender, RoutedEventArgs e)
+        {
+            // This occures when InvertFilterButton is clicked
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.EmbossFilter();                
+                setStream();
+            }
+        }
+        #endregion
+        		
 	}
 	#endregion
 }
