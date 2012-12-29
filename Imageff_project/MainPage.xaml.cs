@@ -35,7 +35,7 @@ namespace RemedyPic
 			this.InitializeComponent();
 		}
 
-		#region This is the LoadState.
+		#region LoadState
 		protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
 		{
 			if (pageState != null && pageState.ContainsKey("mruToken"))
@@ -68,17 +68,7 @@ namespace RemedyPic
 		}
 		#endregion
 
-		#region This is the SaveState.
-		protected override void SaveState(Dictionary<String, Object> pageState)
-		{
-			if (!String.IsNullOrEmpty(mruToken))
-			{
-				pageState["mruToken"] = mruToken;
-			}
-		}
-		#endregion
-
-		#region GetPhotoButton_Click function
+		#region Get Photo
 		// This occures when GetPhoto button is clicked
 		private async void GetPhotoButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -137,66 +127,49 @@ namespace RemedyPic
 		}
 		#endregion
 
-		#region setFileProperties function
-		void setFileProperties(Windows.Storage.StorageFile file)
-		{
-			// This sets the file name, path and date created
-			// to the text boxes
-			fileName.Text = file.DisplayName;
-		}
-		#endregion
+        #region Invert Filter
+        private void OnInvertClick(object sender, RoutedEventArgs e)
+        {
+            // This occures when InvertFilterButton is clicked
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.Filter(invertedAlready);
+                invertedAlready = !invertedAlready;
+                setStream();
+            }
+        }
+        #endregion
 
-		#region OnInvertClick event
-		private void OnInvertClick(object sender, RoutedEventArgs e)
-		{
-			// This occures when InvertFilterButton is clicked
-			if (pictureIsLoaded)
-			{
-				prepareImage();
-				image.Filter(invertedAlready);
-				invertedAlready = !invertedAlready;
-				setStream();
-			}
-		}
-		#endregion
+        #region B&W Filter
+        private void OnBlackWhiteClick(object sender, RoutedEventArgs e)
+        {
+            // This occures when OnBlackWhiteButton is clicked
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.BlackAndWhite(blackWhiteAlready);
+                blackWhiteAlready = !blackWhiteAlready;
+                setStream();
+            }
+        }
+        #endregion
 
-		#region OnBlackWhiteClick event
-		private void OnBlackWhiteClick(object sender, RoutedEventArgs e)
-		{
-			// This occures when OnBlackWhiteButton is clicked
-			if (pictureIsLoaded)
-			{
-				prepareImage();
-				image.BlackAndWhite(blackWhiteAlready);
-				blackWhiteAlready = !blackWhiteAlready;
-				setStream();
-			}
-		}
-		#endregion
+        #region Emboss Filter
+        private void OnEmbossClick(object sender, RoutedEventArgs e)
+        {
+            // This occures when InvertFilterButton is clicked
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.EmbossFilter();
+                setStream();
+            }
+        }
+        #endregion
 
-		#region setStream function
-		void setStream()
-		{
-			// This sets the pixels to the bitmap
-            temp.Seek(0, SeekOrigin.Begin);            
-			temp.Write(image.dstPixels, 0, image.dstPixels.Length);
-			tempBitmap.Invalidate();
-		}
-		#endregion
-
-		#region prepareImage function
-		void prepareImage()
-		{
-			// This calculates the width and height of the bitmap image
-			// and sets the Stream and the pixels byte array
-			image.width = (int)tempBitmap.PixelWidth;
-			image.height = (int)tempBitmap.PixelHeight;
-			temp = tempBitmap.PixelBuffer.AsStream();
-			image.dstPixels = new byte[4 * tempBitmap.PixelWidth * tempBitmap.PixelHeight];
-		}
-		#endregion
-
-		private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
+        #region Save
+        private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
@@ -219,9 +192,21 @@ namespace RemedyPic
 					await encoder.FlushAsync();
 				}
 			}
-		}	
+		}
+        #endregion
 
-		private void OnSizeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        #region Save State
+        protected override void SaveState(Dictionary<String, Object> pageState)
+        {
+            if (!String.IsNullOrEmpty(mruToken))
+            {
+                pageState["mruToken"] = mruToken;
+            }
+        }
+        #endregion
+
+        #region Change Size
+        private void OnSizeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
@@ -237,21 +222,33 @@ namespace RemedyPic
 				setStream();
 			}
 		}
-
-        #region OnEmbossClick event
-        private void OnEmbossClick(object sender, RoutedEventArgs e)
-        {
-            // This occures when InvertFilterButton is clicked
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                image.EmbossFilter();                
-                setStream();
-            }
-        }
         #endregion
-        		
-	}
+
+        void setFileProperties(Windows.Storage.StorageFile file)
+        {
+            // This sets the file name, path and date created
+            // to the text boxes
+            fileName.Text = file.DisplayName;
+        }
+
+        void setStream()
+        {
+            // This sets the pixels to the bitmap
+            temp.Seek(0, SeekOrigin.Begin);
+            temp.Write(image.dstPixels, 0, image.dstPixels.Length);
+            tempBitmap.Invalidate();
+        }
+
+        void prepareImage()
+        {
+            // This calculates the width and height of the bitmap image
+            // and sets the Stream and the pixels byte array
+            image.width = (int)tempBitmap.PixelWidth;
+            image.height = (int)tempBitmap.PixelHeight;
+            temp = tempBitmap.PixelBuffer.AsStream();
+            image.dstPixels = new byte[4 * tempBitmap.PixelWidth * tempBitmap.PixelHeight];
+        }
+    }
 	#endregion
 }
 #endregion

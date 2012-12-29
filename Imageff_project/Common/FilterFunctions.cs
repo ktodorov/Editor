@@ -57,6 +57,45 @@ namespace RemedyPic.Common
             }
         }
 
+        #region EmbossFilter
+        public void EmbossFilter()
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+            int current_byte = 0, current_width = 1, current_height = 1;
+
+            while (current_byte < _srcPixels.Length && current_height != _height)
+            {                
+                if (current_width != _width)
+                {   
+                    _dstPixels[current_byte] = EmbossFilter_CalculatePixel(current_byte++);
+                    _dstPixels[current_byte] = EmbossFilter_CalculatePixel(current_byte++);
+                    _dstPixels[current_byte] = EmbossFilter_CalculatePixel(current_byte++);                   
+ 
+                    current_byte++;
+                    current_width++;
+                }
+                else
+                {
+                    current_width = 1;
+                    current_height++;
+                    current_byte += 4;
+                }
+            }
+        }
+
+        public byte EmbossFilter_CalculatePixel(int current_byte)
+        {
+            int val = (_srcPixels[current_byte] - _srcPixels[current_byte + (4 * _width) + 4] + 128);
+            
+            if (val > 255)
+                val = 255;
+            else if (val < 0)
+                val = 0;
+
+            return (byte) val;
+        }
+        #endregion
+        
         #region BlackAndWhite
         public void BlackAndWhite(bool alreadyDone = false)
 		{
@@ -85,7 +124,7 @@ namespace RemedyPic.Common
         #region Filter
         public void Filter(bool invertedAlready = false)
 		{
-			int currentByte = 0;
+			int currentByte = 240000;
 			if (invertedAlready)
 			{
 				dstPixels = invertedAlreadyArray;
@@ -94,45 +133,16 @@ namespace RemedyPic.Common
 			else
 			{
 				invertedAlreadyArray = srcPixels;
+                _dstPixels = (byte[])_srcPixels.Clone();
 				while (currentByte < (4 * height * width))
 				{
 					dstPixels[currentByte++] = (byte)(-srcPixels[currentByte - 1] + 255);
 					dstPixels[currentByte++] = (byte)(-srcPixels[currentByte - 1] + 255);
 					dstPixels[currentByte++] = (byte)(-srcPixels[currentByte - 1] + 255);
-					dstPixels[currentByte++] = srcPixels[currentByte - 4];
+                    currentByte++;
 				}
 			}
 		}
-        #endregion
-
-        #region EmbossFilter
-        public void EmbossFilter()
-        {
-            _dstPixels = (byte[]) _srcPixels.Clone();      
-            int currentByte = 0, width_border = 1;
-
-            while (currentByte < 4 * (_height - 1) * _width)
-            {
-
-                if (width_border != _width)
-                {
-                    _dstPixels[currentByte] = (byte)(_srcPixels[currentByte] - _srcPixels[currentByte + (4 * _width) + 4] + 128);
-                    currentByte++;
-                    _dstPixels[currentByte] = (byte)(_srcPixels[currentByte] - _srcPixels[currentByte + (4 * _width) + 4] + 128);
-                    currentByte++;
-                    _dstPixels[currentByte] = (byte)(_srcPixels[currentByte] - _srcPixels[currentByte + (4 * _width) + 4] + 128);
-                    currentByte += 2;                    
-                }
-                else
-                {
-                    width_border = 0;
-                    currentByte += 4;
-                }
-
-                width_border++;
-            }
-  
-        }
         #endregion
 
         #region Darken
