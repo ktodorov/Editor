@@ -23,7 +23,7 @@ namespace RemedyPic
 		private string mruToken = null;
 		private WriteableBitmap tempBitmap;
 		Stream temp;
-		bool invertedAlready = false, blackWhiteAlready = false;
+		bool blackWhiteAlready = false;
 		static readonly long cycleDuration = TimeSpan.FromSeconds(3).Ticks;
 		bool pictureIsLoaded = false;
 		Windows.Storage.StorageFile Globalfile;
@@ -130,14 +130,25 @@ namespace RemedyPic
         #region Invert Filter
         private void OnInvertClick(object sender, RoutedEventArgs e)
         {
-            // This occures when InvertFilterButton is clicked
             if (pictureIsLoaded)
             {
                 prepareImage();
-                image.Filter(invertedAlready);
-                invertedAlready = !invertedAlready;
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Invert_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
                 setStream();
             }
+        }
+
+        private void Invert_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = -1;
+            offset = 255;
+            scale = 1;
         }
         #endregion
 
@@ -158,13 +169,111 @@ namespace RemedyPic
         #region Emboss Filter
         private void OnEmbossClick(object sender, RoutedEventArgs e)
         {
-            // This occures when InvertFilterButton is clicked
             if (pictureIsLoaded)
             {
                 prepareImage();
-                image.EmbossFilter();
+                int[,] coeff = new int[5, 5];                
+                int offset = 0, scale = 0;
+                Emboss_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
                 setStream();
             }
+        }
+
+        private void Emboss_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {                
+            coeff[2, 2] = 1;
+            coeff[3, 3] = -1;
+            offset = 128;
+            scale = 1;            
+        }
+        #endregion
+
+        #region Sharpen Filter
+        private void OnSharpenClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Sharpen_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream();
+            }
+        }
+
+        private void Sharpen_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = 5;
+            coeff[2, 3] = -1;
+            coeff[2, 1] = -1;
+            coeff[1, 2] = -1;
+            coeff[3, 2] = -1;
+            offset = 0;
+            scale = 1;
+        }
+        #endregion
+
+        #region Blur Filter
+        private void OnBlurClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Blur_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream();
+            }
+        }
+
+        private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = 3;
+            coeff[0, 0] = coeff[1, 0] = coeff[2, 0] = coeff[3, 0] = coeff[4, 0] = 1;
+            coeff[0, 1] = coeff[0, 2] = coeff[0, 3] = coeff[4, 1] = coeff[4, 2] = coeff[4, 3] = 1;
+            coeff[0, 4] = coeff[1, 4] = coeff[2, 4] = coeff[3, 4] = coeff[4, 4] = 1;
+            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 2;
+            coeff[1, 2] = coeff[3, 2] = 2;
+            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 2;
+            offset = 0;
+            scale = 35;
+        }
+        #endregion
+
+        #region Custom Filter
+        private void OnCustomClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Custom_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream();
+            }
+        }
+
+        private void Custom_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = -1; //Set All values from fields...
+            offset = 255;
+            scale = 1;
         }
         #endregion
 

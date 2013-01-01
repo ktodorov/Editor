@@ -9,7 +9,7 @@ namespace RemedyPic.Common
 {
 	class FilterFunctions
 	{
-		static byte[] invertedAlreadyArray, blackWhiteAlreadyArray;
+		static byte[] blackWhiteAlreadyArray;
         private int _width, _height;
         private byte[] _dstPixels, _srcPixels;
         public byte[] dstPixels 
@@ -56,45 +56,6 @@ namespace RemedyPic.Common
                 _width = value;
             }
         }
-
-        #region EmbossFilter
-        public void EmbossFilter()
-        {
-            _dstPixels = (byte[])_srcPixels.Clone();
-            int current_byte = 0, current_width = 1, current_height = 1;
-
-            while (current_byte < _srcPixels.Length && current_height != _height)
-            {                
-                if (current_width != _width)
-                {   
-                    _dstPixels[current_byte] = EmbossFilter_CalculatePixel(current_byte++);
-                    _dstPixels[current_byte] = EmbossFilter_CalculatePixel(current_byte++);
-                    _dstPixels[current_byte] = EmbossFilter_CalculatePixel(current_byte++);                   
- 
-                    current_byte++;
-                    current_width++;
-                }
-                else
-                {
-                    current_width = 1;
-                    current_height++;
-                    current_byte += 4;
-                }
-            }
-        }
-
-        public byte EmbossFilter_CalculatePixel(int current_byte)
-        {
-            int val = (_srcPixels[current_byte] - _srcPixels[current_byte + (4 * _width) + 4] + 128);
-            
-            if (val > 255)
-                val = 255;
-            else if (val < 0)
-                val = 0;
-
-            return (byte) val;
-        }
-        #endregion
         
         #region BlackAndWhite
         public void BlackAndWhite(bool alreadyDone = false)
@@ -119,31 +80,7 @@ namespace RemedyPic.Common
 				}
 			}
 		}
-        #endregion
-
-        #region Filter
-        public void Filter(bool invertedAlready = false)
-		{
-			int currentByte = 240000;
-			if (invertedAlready)
-			{
-				dstPixels = invertedAlreadyArray;
-				invertedAlreadyArray = new byte[0];
-			}
-			else
-			{
-				invertedAlreadyArray = srcPixels;
-                _dstPixels = (byte[])_srcPixels.Clone();
-				while (currentByte < (4 * height * width))
-				{
-					dstPixels[currentByte++] = (byte)(-srcPixels[currentByte - 1] + 255);
-					dstPixels[currentByte++] = (byte)(-srcPixels[currentByte - 1] + 255);
-					dstPixels[currentByte++] = (byte)(-srcPixels[currentByte - 1] + 255);
-                    currentByte++;
-				}
-			}
-		}
-        #endregion
+        #endregion      
 
         #region Darken
         public void Darken(double value)
