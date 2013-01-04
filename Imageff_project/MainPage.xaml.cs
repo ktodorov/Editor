@@ -120,7 +120,7 @@ namespace RemedyPic
 					brightSlider.Value = 0;
 					contentGrid.Opacity = 100;
 					pictureIsLoaded = true;
-					border.BorderThickness = new Thickness(1,1,1,1);
+					border.BorderThickness = new Thickness(1, 1, 1, 1);
 					border.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
 				}
 			}
