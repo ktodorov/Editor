@@ -8,12 +8,10 @@ using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
 using RemedyPic.Common;
-using Windows.ApplicationModel.DataTransfer;
 
 
 #region Namespace RemedyPic
@@ -24,13 +22,12 @@ namespace RemedyPic
 	{
 		private string mruToken = null;
 		private WriteableBitmap tempBitmap;
-		byte[] srcPixels, dstPixels;
-		int width, height;
 		Stream temp;
-		bool invertedAlready = false, blackWhiteAlready = false;
+		bool blackWhiteAlready = false;
 		static readonly long cycleDuration = TimeSpan.FromSeconds(3).Ticks;
 		bool pictureIsLoaded = false;
 		Windows.Storage.StorageFile Globalfile;
+        FilterFunctions image = new FilterFunctions();
 
 
 		public MainPage()
@@ -38,7 +35,7 @@ namespace RemedyPic
 			this.InitializeComponent();
 		}
 
-		#region This is the LoadState.
+		#region LoadState
 		protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
 		{
 			if (pageState != null && pageState.ContainsKey("mruToken"))
@@ -71,17 +68,7 @@ namespace RemedyPic
 		}
 		#endregion
 
-		#region This is the SaveState.
-		protected override void SaveState(Dictionary<String, Object> pageState)
-		{
-			if (!String.IsNullOrEmpty(mruToken))
-			{
-				pageState["mruToken"] = mruToken;
-			}
-		}
-		#endregion
-
-		#region GetPhotoButton_Click function
+		#region Get Photo
 		// This occures when GetPhoto button is clicked
 		private async void GetPhotoButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -113,6 +100,7 @@ namespace RemedyPic
 						await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
 
 					RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
+
 					using (IRandomAccessStreamWithContentType tempStream =
 						   await streamRef.OpenReadAsync())
 					{
@@ -121,8 +109,7 @@ namespace RemedyPic
 
 						// I know the parameterless version of GetPixelDataAsync works for this image
 						PixelDataProvider pixelProvider = await frame.GetPixelDataAsync();
-						srcPixels = pixelProvider.DetachPixelData();
-						dstPixels = srcPixels;
+                        image.srcPixels = pixelProvider.DetachPixelData();
 
 						tempBitmap = new WriteableBitmap((int)frame.PixelWidth, (int)frame.PixelHeight);
 					}
@@ -140,85 +127,168 @@ namespace RemedyPic
 		}
 		#endregion
 
-		#region setFileProperties function
-		void setFileProperties(Windows.Storage.StorageFile file)
-		{
-			// This sets the file name, path and date created
-			// to the text boxes
-			fileName.Text = file.DisplayName;
-		}
-		#endregion
+        #region Invert Filter
+        private void OnInvertClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Invert_SetValues(ref coeff, ref offset, ref scale);
 
-		#region OnInvertClick event
-		private void OnInvertClick(object sender, RoutedEventArgs e)
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream();
+            }
+        }
+
+        private void Invert_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = -1;
+            offset = 255;
+            scale = 1;
+        }
+        #endregion
+
+        #region B&W Filter
+        private void OnBlackWhiteClick(object sender, RoutedEventArgs e)
+        {
+            // This occures when OnBlackWhiteButton is clicked
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.BlackAndWhite(blackWhiteAlready);
+                blackWhiteAlready = !blackWhiteAlready;
+                setStream();
+            }
+        }
+        #endregion
+
+        #region Emboss Filter
+        private void OnEmbossClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                int[,] coeff = new int[5, 5];                
+                int offset = 0, scale = 0;
+                Emboss_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream();
+            }
+        }
+
+        private void Emboss_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {                
+            coeff[2, 2] = 1;
+            coeff[3, 3] = -1;
+            offset = 128;
+            scale = 1;            
+        }
+        #endregion
+
+        #region Sharpen Filter
+        private void OnSharpenClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Sharpen_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream();
+            }
+        }
+
+        private void Sharpen_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = 5;
+            coeff[2, 3] = -1;
+            coeff[2, 1] = -1;
+            coeff[1, 2] = -1;
+            coeff[3, 2] = -1;
+            offset = 0;
+            scale = 1;
+        }
+        #endregion
+
+        #region Blur Filter
+        private void OnBlurClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Blur_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream();
+            }
+        }
+
+        private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = 3;
+            coeff[0, 0] = coeff[1, 0] = coeff[2, 0] = coeff[3, 0] = coeff[4, 0] = 1;
+            coeff[0, 1] = coeff[0, 2] = coeff[0, 3] = coeff[4, 1] = coeff[4, 2] = coeff[4, 3] = 1;
+            coeff[0, 4] = coeff[1, 4] = coeff[2, 4] = coeff[3, 4] = coeff[4, 4] = 1;
+            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 2;
+            coeff[1, 2] = coeff[3, 2] = 2;
+            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 2;
+            offset = 0;
+            scale = 35;
+        }
+        #endregion
+
+        #region Custom Filter
+        private void OnCustomClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Custom_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream();
+            }
+        }
+
+        private void Custom_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = -1; //Set All values from fields...
+            offset = 255;
+            scale = 1;
+        }
+        #endregion
+
+        #region Save
+        private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
 		{
-			// This occures when InvertFilterButton is clicked
 			if (pictureIsLoaded)
-			{
-				prepareImage();
-				FilterFunctions.Filter(ref dstPixels, ref srcPixels, ref height, ref width, invertedAlready);
-				invertedAlready = !invertedAlready;
-				setStream();
-			}
-		}
-		#endregion
-
-		#region OnBlackWhiteClick event
-		private void OnBlackWhiteClick(object sender, RoutedEventArgs e)
-		{
-			// This occures when OnBlackWhiteButton is clicked
-			if (pictureIsLoaded)
-			{
-				prepareImage();
-				FilterFunctions.BlackAndWhite(ref dstPixels, ref srcPixels, ref height, ref width, blackWhiteAlready);
-				blackWhiteAlready = !blackWhiteAlready;
-				setStream();
-			}
-		}
-		#endregion
-
-		#region setStream function
-		void setStream()
-		{
-			// This sets the pixels to the bitmap
-			temp.Seek(0, SeekOrigin.Begin);
-			temp.Write(dstPixels, 0, dstPixels.Length);
-			tempBitmap.Invalidate();
-		}
-		#endregion
-
-		#region prepareImage function
-		void prepareImage()
-		{
-			// This calculates the width and height of the bitmap image
-			// and sets the Stream and the pixels byte array
-			width = tempBitmap.PixelWidth;
-			height = tempBitmap.PixelHeight;
-			temp = tempBitmap.PixelBuffer.AsStream();
-			dstPixels = new byte[4 * tempBitmap.PixelWidth * tempBitmap.PixelHeight];
-		}
-		#endregion
-
-		#region OnSaveButtonClick event
-		// Occures when Save Button is clicked
-		private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
-		{
-			// The save button must activate only if there is a picture loaded.
-			// File picker APIs don't work if the app is in a snapped state.
-			// If the app is snapped, try to unsnap it first. Only show the picker if it unsnaps.
-			if (pictureIsLoaded && (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
-				 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true))
 			{
 				FileSavePicker savePicker = new FileSavePicker();
 				savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
 				// Dropdown of file types the user can save the file as
 				savePicker.FileTypeChoices.Add("JPEG", new List<string>() { ".jpg" });
 				savePicker.FileTypeChoices.Add("PNG", new List<string>() { ".png" });
 				savePicker.FileTypeChoices.Add("Bitmap", new List<string>() { ".bmp" });
-				
 				savePicker.SuggestedFileName = fileName.Text;
-
 				// Default file name if the user does not type one in or select a file to replace
 				StorageFile file = await savePicker.PickSaveFileAsync();
 
@@ -227,31 +297,67 @@ namespace RemedyPic
 					//Windows.Storage.Streams.IRandomAccessStream fileStream =
 					IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
 					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, writeStream);
-					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, tempBitmap.PixelWidth, tempBitmap.PixelHeight, dstPixels);
+					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, tempBitmap.PixelWidth, tempBitmap.PixelHeight, image.dstPixels);
 					await encoder.FlushAsync();
 				}
 			}
 		}
-		#endregion
+        #endregion
 
-		private void OnSliderChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        #region Save State
+        protected override void SaveState(Dictionary<String, Object> pageState)
+        {
+            if (!String.IsNullOrEmpty(mruToken))
+            {
+                pageState["mruToken"] = mruToken;
+            }
+        }
+        #endregion
+
+        #region Change Size
+        private void OnSizeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
 				prepareImage();
 				if (brightSlider.Value < 0)
 				{
-					FilterFunctions.Darken(ref dstPixels, ref srcPixels, ref height, ref width, brightSlider.Value);
+					image.Darken(brightSlider.Value);
 				}
 				else if (brightSlider.Value >= 0)
 				{
-					FilterFunctions.Lighten(ref dstPixels, ref srcPixels, ref height, ref width, brightSlider.Value);
+					image.Lighten(brightSlider.Value);
 				}
 				setStream();
 			}
 		}
+        #endregion
 
-	}
+        void setFileProperties(Windows.Storage.StorageFile file)
+        {
+            // This sets the file name, path and date created
+            // to the text boxes
+            fileName.Text = file.DisplayName;
+        }
+
+        void setStream()
+        {
+            // This sets the pixels to the bitmap
+            temp.Seek(0, SeekOrigin.Begin);
+            temp.Write(image.dstPixels, 0, image.dstPixels.Length);
+            tempBitmap.Invalidate();
+        }
+
+        void prepareImage()
+        {
+            // This calculates the width and height of the bitmap image
+            // and sets the Stream and the pixels byte array
+            image.width = (int)tempBitmap.PixelWidth;
+            image.height = (int)tempBitmap.PixelHeight;
+            temp = tempBitmap.PixelBuffer.AsStream();
+            image.dstPixels = new byte[4 * tempBitmap.PixelWidth * tempBitmap.PixelHeight];
+        }
+    }
 	#endregion
 }
 #endregion
