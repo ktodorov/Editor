@@ -25,6 +25,10 @@
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\Assets\Logo2.scale-80.png">
+      <PackagePath>Assets\Logo2.scale-80.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\Assets\RemedyPicLogo.png">
       <PackagePath>Assets\RemedyPicLogo.png</PackagePath>
     </AppxPackagedFile>

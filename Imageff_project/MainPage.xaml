@@ -173,21 +173,35 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="fileName">
                             <DiscreteObjectKeyFrame KeyTime="0">
                                 <DiscreteObjectKeyFrame.Value>
-                                    <Thickness>1,16,0,0</Thickness>
+                                    <Thickness>30,40,0,0</Thickness>
                                 </DiscreteObjectKeyFrame.Value>
                             </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.RowSpan)" Storyboard.TargetName="fileName">
                             <DiscreteObjectKeyFrame KeyTime="0">
                                 <DiscreteObjectKeyFrame.Value>
-                                    <x:Int32>1</x:Int32>
+                                    <x:Int32>4</x:Int32>
                                 </DiscreteObjectKeyFrame.Value>
                             </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Row)" Storyboard.TargetName="fileName">
                             <DiscreteObjectKeyFrame KeyTime="0">
                                 <DiscreteObjectKeyFrame.Value>
-                                    <x:Int32>2</x:Int32>
+                                    <x:Int32>0</x:Int32>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="stackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Thickness>0,448,38,0</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.RowSpan)" Storyboard.TargetName="stackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Int32>1</x:Int32>
                                 </DiscreteObjectKeyFrame.Value>
                             </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
@@ -197,19 +211,19 @@
         </VisualStateManager.VisualStateGroups>
 
         <!-- Back button and page title -->
-        <Grid Margin="0,0,0,606" Grid.RowSpan="2">
+        <Grid Margin="0,0,0,606" Grid.RowSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image HorizontalAlignment="Left" Height="130" Margin="10,0,0,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png"/>
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="60,100,30,0" Grid.Row="1">
-                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                     <Button x:Name="browseButton" Content="Browse" FontFamily="Segoe UI" FontSize="23" Click="GetPhotoButton_Click" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
                     <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,0,0,0" Style="{StaticResource TextButtonStyle}" FontSize="23" FontWeight="Thin" Click="OnSaveButtonClick" Foreground="#FFF1E9E9"/>
                 </StackPanel>
-                <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource PageSubheaderTextStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" Margin="100,0,0,0" FontSize="34" FontWeight="Normal"/>
             </StackPanel>
+            <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource PageSubheaderTextStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="White" Margin="100,0,0,0" FontSize="34" FontWeight="Normal"/>
         </Grid>
         <Grid x:Name="contentGrid" Margin="-32,121,57,37" Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -225,11 +239,11 @@
             </StackPanel>
             <!--<Button x:Name="invertButton" Content="Invert filter" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485" Foreground="White" Background="#669E9191" Tapped="OnInvertClick" Width="200"/>
                 <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#FF510000" Foreground="White" Height="43" Width="200" Content="Black&amp;White" Background="#669E9191" Tapped="OnBlackWhiteClick" PointerEntered="BlackAndWhiteButton_PointerEntered_1"/>-->
-            <StackPanel HorizontalAlignment="Right" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Row="2" Width="200">
+            <StackPanel x:Name="stackPanel" HorizontalAlignment="Right" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Row="2" Width="200">
                 <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="OnBlackWhiteClick" Height="40" Width="200" Content="Black&amp;White" Margin="0,0,-51,0" BorderThickness="1" BorderBrush="#4CFFFFFF" Background="#7F744605"/>
                 <Button x:Name="invertButton" Content="Invert filter" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485" Click="OnInvertClick" Foreground="White" Height="40" Width="200" Margin="0,0,-51,0" BorderThickness="1" BorderBrush="#4CFFFFFF" Background="#7F744605"/>
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="ADJUST BRIGHTNESS/DARKNESS" VerticalAlignment="Top" Margin="0,0,-105,0" FontFamily="Segoe UI" FontSize="14" Foreground="White"/>
-                <Slider x:Name ="brightSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnSizeChanged" BorderThickness="2" Margin="0" Foreground="#FF7C4A03" BorderBrush="#7FFFFFFF" />
+                <Slider x:Name ="brightSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnSliderChanged" BorderThickness="2" Margin="0" Foreground="#FF7C4A03" BorderBrush="#7FFFFFFF" />
             </StackPanel>
         </Grid>
         <TextBlock Opacity="0" x:Name="debugText" HorizontalAlignment="Left" Margin="854,494,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="97" Width="205" Foreground="White"/>

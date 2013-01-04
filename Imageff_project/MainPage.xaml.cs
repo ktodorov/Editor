@@ -8,10 +8,12 @@ using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
 using RemedyPic.Common;
+using Windows.ApplicationModel.DataTransfer;
 
 
 #region Namespace RemedyPic
@@ -111,7 +113,6 @@ namespace RemedyPic
 						await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
 
 					RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
-
 					using (IRandomAccessStreamWithContentType tempStream =
 						   await streamRef.OpenReadAsync())
 					{
@@ -121,6 +122,7 @@ namespace RemedyPic
 						// I know the parameterless version of GetPixelDataAsync works for this image
 						PixelDataProvider pixelProvider = await frame.GetPixelDataAsync();
 						srcPixels = pixelProvider.DetachPixelData();
+						dstPixels = srcPixels;
 
 						tempBitmap = new WriteableBitmap((int)frame.PixelWidth, (int)frame.PixelHeight);
 					}
@@ -197,17 +199,26 @@ namespace RemedyPic
 		}
 		#endregion
 
+		#region OnSaveButtonClick event
+		// Occures when Save Button is clicked
 		private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
 		{
-			if (pictureIsLoaded)
+			// The save button must activate only if there is a picture loaded.
+			// File picker APIs don't work if the app is in a snapped state.
+			// If the app is snapped, try to unsnap it first. Only show the picker if it unsnaps.
+			if (pictureIsLoaded && (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
+				 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true))
 			{
 				FileSavePicker savePicker = new FileSavePicker();
 				savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+
 				// Dropdown of file types the user can save the file as
 				savePicker.FileTypeChoices.Add("JPEG", new List<string>() { ".jpg" });
 				savePicker.FileTypeChoices.Add("PNG", new List<string>() { ".png" });
 				savePicker.FileTypeChoices.Add("Bitmap", new List<string>() { ".bmp" });
+				
 				savePicker.SuggestedFileName = fileName.Text;
+
 				// Default file name if the user does not type one in or select a file to replace
 				StorageFile file = await savePicker.PickSaveFileAsync();
 
@@ -220,9 +231,10 @@ namespace RemedyPic
 					await encoder.FlushAsync();
 				}
 			}
-		}	
+		}
+		#endregion
 
-		private void OnSizeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		private void OnSliderChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
@@ -238,7 +250,7 @@ namespace RemedyPic
 				setStream();
 			}
 		}
-		
+
 	}
 	#endregion
 }
