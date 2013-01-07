@@ -22,7 +22,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="RemedyPic.exe" EntryPoint="RemedyPic.App">
-      <VisualElements DisplayName="RemedyPic" Logo="Assets\Logo2.png" SmallLogo="Assets\SmallLogo.png" Description="RemedyPic" ForegroundText="light" BackgroundColor="#515050">
+      <VisualElements DisplayName="RemedyPic" Logo="Assets\Logo2.png" SmallLogo="Assets\SmallLogo.png" Description="RemedyPic" ForegroundText="light" BackgroundColor="#585757">
         <DefaultTile WideLogo="Assets\WideLogo.png" />
         <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#585757" />
       </VisualElements>
