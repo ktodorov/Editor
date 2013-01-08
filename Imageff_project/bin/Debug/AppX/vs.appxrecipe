@@ -5,7 +5,7 @@
     <WindowsUser>Phoenix</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>B1758AD4E29A9E9CF2AA5EFE1832D597B7576002C8B89CA5E230B6E16B0524D1</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>90860E9543525D1311C7CEB56A76C68CEE8090DD9AFA2CC4103FAC1EB1C9DF0B</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_pexwghfzd4yhp!App</RegisteredUserModeAppID>
     <RegisteredPackageID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116</RegisteredPackageID>
@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-01-08T10:30:30.177</Modified>
+      <Modified>2013-01-08T18:17:54.594</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-01-08T16:05:01.362</Modified>
+      <Modified>2013-01-08T18:24:25.884</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-01-08T16:05:01.342</Modified>
+      <Modified>2013-01-08T18:24:25.863</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\Assets\Background.jpg">
       <PackagePath>Assets\Background.jpg</PackagePath>
@@ -74,7 +74,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-01-08T16:04:58.800</Modified>
+      <Modified>2013-01-08T18:23:12.079</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>

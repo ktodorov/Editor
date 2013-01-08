@@ -62,11 +62,54 @@ namespace RemedyPic.Common
 				_width = value;
 			}
 		}
+        public enum ColorType
+        {
+            Red,
+            Green,
+            Blue,
+            Purple
+        };  
 
 		public void Reset()
 		{
 			dstPixels = srcPixels;
 		}
+
+        #region Color Change
+        public void ColorChange(double value, ColorType color)
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+            int temp;
+            int currentByte = ColorChange(color);
+            for (; currentByte < 4 * height * width; currentByte += 4)
+            {
+                temp = dstPixels[currentByte] + (int)value;
+                ColorChange_CheckVal(ref temp);
+                dstPixels[currentByte] = (byte)temp;
+            }
+        }
+
+        public int ColorChange(ColorType color)
+        {
+            switch (color)
+            {
+                case ColorType.Red:
+                    return 2;
+                case ColorType.Green:
+                    return 1;
+                default:
+                    return 0;
+            }
+        }
+
+        public void ColorChange_CheckVal(ref int val)
+        {
+            if (val > 200)
+                val = 200;
+            else if (val < 20)
+                val = 20;
+        }
+        #endregion
 
 		#region BlackAndWhite
 		public void BlackAndWhite()

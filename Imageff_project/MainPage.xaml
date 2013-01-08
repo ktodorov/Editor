@@ -264,12 +264,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image HorizontalAlignment="Left" Height="103" Margin="40,10,0,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png"/>
-            <StackPanel x:Name="stackPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="40,113,0,0">
+            <StackPanel x:Name="stackPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="30,113,0,0">
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
                     <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
                     <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,0,0,0" Style="{StaticResource TextButtonStyle}" FontSize="19" FontWeight="Thin" Click="OnSaveButtonClick" Foreground="#FFF1E9E9"/>
                 </StackPanel>
-                <TextBlock TextWrapping="Wrap" x:Name ="fileName_Copy" Style="{StaticResource BaselineTextStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#B2FFFFFF" Margin="100,0,0,0" FontSize="19" FontWeight="{StaticResource Light}" Text="FILE NAME:"/>
+                <TextBlock TextWrapping="Wrap" x:Name ="fileName_Copy" Style="{StaticResource BaselineTextStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#B2FFFFFF" Margin="100,0,0,0" FontSize="19" Text="FILE NAME:"/>
                 <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource BaselineTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" Margin="20,0,0,0" FontSize="25" FontWeight="Normal"/>
             </StackPanel>
         </Grid>
@@ -304,6 +304,7 @@
                         </LinearGradientBrush>
                     </Slider.Foreground>
                 </Slider>
+                <Slider x:Name ="RedColorSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100" ValueChanged="OnRColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" />
                 <StackPanel x:Name="ApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                     <Button x:Name="ApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                     <Button x:Name="ResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>

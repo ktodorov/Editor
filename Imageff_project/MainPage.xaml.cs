@@ -369,11 +369,14 @@ namespace RemedyPic
 
 		private void OnResetClick(object sender, RoutedEventArgs e)
 		{
-			brightSlider.Value = 0;
-			prepareImage();
-			image.Reset();
-			setStream();
-			resetInterface();
+			if (pictureIsLoaded)
+			{
+				brightSlider.Value = 0;
+				prepareImage();
+				image.Reset();
+				setStream();
+				resetInterface();
+			}
 		}
 
 		private void OnApplyClick(object sender, RoutedEventArgs e)
@@ -406,6 +409,17 @@ namespace RemedyPic
 			resetButton(ref blurButton);
 			resetButton(ref SharpenButton);
 			brightSlider.Value = 0;
+			RedColorSlider.Value = 0;
+		}
+
+		private void OnRColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				image.ColorChange(RedColorSlider.Value, FilterFunctions.ColorType.Red);
+				setStream();
+			}
 		}
 
 	}
