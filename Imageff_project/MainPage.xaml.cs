@@ -23,11 +23,10 @@ namespace RemedyPic
 		private string mruToken = null;
 		private WriteableBitmap tempBitmap;
 		Stream temp;
-		bool blackWhiteAlready = false;
 		static readonly long cycleDuration = TimeSpan.FromSeconds(3).Ticks;
 		bool pictureIsLoaded = false;
 		Windows.Storage.StorageFile Globalfile;
-        FilterFunctions image = new FilterFunctions();
+		FilterFunctions image = new FilterFunctions();
 
 
 		public MainPage()
@@ -109,7 +108,7 @@ namespace RemedyPic
 
 						// I know the parameterless version of GetPixelDataAsync works for this image
 						PixelDataProvider pixelProvider = await frame.GetPixelDataAsync();
-                        image.srcPixels = pixelProvider.DetachPixelData();
+						image.srcPixels = pixelProvider.DetachPixelData();
 
 						tempBitmap = new WriteableBitmap((int)frame.PixelWidth, (int)frame.PixelHeight);
 					}
@@ -127,158 +126,167 @@ namespace RemedyPic
 		}
 		#endregion
 
-        #region Invert Filter
-        private void OnInvertClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Invert_SetValues(ref coeff, ref offset, ref scale);
+		#region Invert Filter
+		private void OnInvertClick(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				int[,] coeff = new int[5, 5];
+				int offset = 0, scale = 0;
+				Invert_SetValues(ref coeff, ref offset, ref scale);
 
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
+				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+				image.dstPixels = custom_image.Filter();
+				setStream();
+				resetInterface();
+				changeButton(ref invertButton);
+			}
+		}
 
-                setStream();
-            }
-        }
+		private void Invert_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		{
+			coeff[2, 2] = -1;
+			offset = 255;
+			scale = 1;
+		}
+		#endregion
 
-        private void Invert_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = -1;
-            offset = 255;
-            scale = 1;
-        }
-        #endregion
+		#region B&W Filter
+		private void OnBlackWhiteClick(object sender, RoutedEventArgs e)
+		{
+			// This occures when OnBlackWhiteButton is clicked
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				image.BlackAndWhite();
+				setStream();
+				resetInterface();
+				changeButton(ref BlackAndWhiteButton);
+			}
+		}
+		#endregion
 
-        #region B&W Filter
-        private void OnBlackWhiteClick(object sender, RoutedEventArgs e)
-        {
-            // This occures when OnBlackWhiteButton is clicked
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                image.BlackAndWhite(blackWhiteAlready);
-                blackWhiteAlready = !blackWhiteAlready;
-                setStream();
-            }
-        }
-        #endregion
+		#region Emboss Filter
+		private void OnEmbossClick(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				int[,] coeff = new int[5, 5];
+				int offset = 0, scale = 0;
+				Emboss_SetValues(ref coeff, ref offset, ref scale);
 
-        #region Emboss Filter
-        private void OnEmbossClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                int[,] coeff = new int[5, 5];                
-                int offset = 0, scale = 0;
-                Emboss_SetValues(ref coeff, ref offset, ref scale);
+				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+				image.dstPixels = custom_image.Filter();
+				setStream();
+				resetInterface();
+				changeButton(ref embossButton);
+			}
+		}
 
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
+		private void Emboss_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		{
+			coeff[2, 2] = 1;
+			coeff[3, 3] = -1;
+			offset = 128;
+			scale = 1;
+		}
+		#endregion
 
-                setStream();
-            }
-        }
+		#region Sharpen Filter
+		private void OnSharpenClick(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				int[,] coeff = new int[5, 5];
+				int offset = 0, scale = 0;
+				Sharpen_SetValues(ref coeff, ref offset, ref scale);
 
-        private void Emboss_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {                
-            coeff[2, 2] = 1;
-            coeff[3, 3] = -1;
-            offset = 128;
-            scale = 1;            
-        }
-        #endregion
+				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+				image.dstPixels = custom_image.Filter();
 
-        #region Sharpen Filter
-        private void OnSharpenClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Sharpen_SetValues(ref coeff, ref offset, ref scale);
+				setStream();
 
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
+				resetInterface();
+				changeButton(ref SharpenButton);
+			}
+		}
 
-                setStream();
-            }
-        }
+		private void Sharpen_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		{
+			coeff[2, 2] = 5;
+			coeff[2, 3] = -1;
+			coeff[2, 1] = -1;
+			coeff[1, 2] = -1;
+			coeff[3, 2] = -1;
+			offset = 0;
+			scale = 1;
+		}
+		#endregion
 
-        private void Sharpen_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 5;
-            coeff[2, 3] = -1;
-            coeff[2, 1] = -1;
-            coeff[1, 2] = -1;
-            coeff[3, 2] = -1;
-            offset = 0;
-            scale = 1;
-        }
-        #endregion
+		#region Blur Filter
+		private void OnBlurClick(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				int[,] coeff = new int[5, 5];
+				int offset = 0, scale = 0;
+				Blur_SetValues(ref coeff, ref offset, ref scale);
 
-        #region Blur Filter
-        private void OnBlurClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Blur_SetValues(ref coeff, ref offset, ref scale);
+				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+				image.dstPixels = custom_image.Filter();
 
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
+				setStream();
 
-                setStream();
-            }
-        }
+				resetInterface();
+				changeButton(ref blurButton);
+			}
+		}
 
-        private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 3;
-            coeff[0, 0] = coeff[1, 0] = coeff[2, 0] = coeff[3, 0] = coeff[4, 0] = 1;
-            coeff[0, 1] = coeff[0, 2] = coeff[0, 3] = coeff[4, 1] = coeff[4, 2] = coeff[4, 3] = 1;
-            coeff[0, 4] = coeff[1, 4] = coeff[2, 4] = coeff[3, 4] = coeff[4, 4] = 1;
-            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 2;
-            coeff[1, 2] = coeff[3, 2] = 2;
-            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 2;
-            offset = 0;
-            scale = 35;
-        }
-        #endregion
+		private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		{
+			coeff[2, 2] = 3;
+			coeff[0, 0] = coeff[1, 0] = coeff[2, 0] = coeff[3, 0] = coeff[4, 0] = 1;
+			coeff[0, 1] = coeff[0, 2] = coeff[0, 3] = coeff[4, 1] = coeff[4, 2] = coeff[4, 3] = 1;
+			coeff[0, 4] = coeff[1, 4] = coeff[2, 4] = coeff[3, 4] = coeff[4, 4] = 1;
+			coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 2;
+			coeff[1, 2] = coeff[3, 2] = 2;
+			coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 2;
+			offset = 0;
+			scale = 35;
+		}
+		#endregion
 
-        #region Custom Filter
-        private void OnCustomClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Custom_SetValues(ref coeff, ref offset, ref scale);
+		#region Custom Filter
+		private void OnCustomClick(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				int[,] coeff = new int[5, 5];
+				int offset = 0, scale = 0;
+				Custom_SetValues(ref coeff, ref offset, ref scale);
 
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
+				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+				image.dstPixels = custom_image.Filter();
 
-                setStream();
-            }
-        }
+				setStream();
+			}
+		}
 
-        private void Custom_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = -1; //Set All values from fields...
-            offset = 255;
-            scale = 1;
-        }
-        #endregion
+		private void Custom_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		{
+			coeff[2, 2] = -1; //Set All values from fields...
+			offset = 255;
+			scale = 1;
+		}
+		#endregion
 
-        #region Save
-        private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
+		#region Save
+		private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
@@ -302,20 +310,20 @@ namespace RemedyPic
 				}
 			}
 		}
-        #endregion
+		#endregion
 
-        #region Save State
-        protected override void SaveState(Dictionary<String, Object> pageState)
-        {
-            if (!String.IsNullOrEmpty(mruToken))
-            {
-                pageState["mruToken"] = mruToken;
-            }
-        }
-        #endregion
+		#region Save State
+		protected override void SaveState(Dictionary<String, Object> pageState)
+		{
+			if (!String.IsNullOrEmpty(mruToken))
+			{
+				pageState["mruToken"] = mruToken;
+			}
+		}
+		#endregion
 
-        #region Change Size
-        private void OnSizeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		#region Change Size
+		private void OnSizeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
@@ -331,46 +339,84 @@ namespace RemedyPic
 				setStream();
 			}
 		}
-        #endregion
+		#endregion
 
-        #region Change RColor
+		void setFileProperties(Windows.Storage.StorageFile file)
+		{
+			// This sets the file name to the text box
+			fileName.Text = file.DisplayName;
+		}
+
+		void setStream()
+		{
+			// This sets the pixels to the bitmap
+			temp.Seek(0, SeekOrigin.Begin);
+			temp.Write(image.dstPixels, 0, image.dstPixels.Length);
+			tempBitmap.Invalidate();
+		}
+
+		void prepareImage()
+		{
+			// This calculates the width and height of the bitmap image
+			// and sets the Stream and the pixels byte array
+			image.width = (int)tempBitmap.PixelWidth;
+			image.height = (int)tempBitmap.PixelHeight;
+			temp = tempBitmap.PixelBuffer.AsStream();
+			image.dstPixels = new byte[4 * tempBitmap.PixelWidth * tempBitmap.PixelHeight];
+		}
+
+		private void OnResetClick(object sender, RoutedEventArgs e)
+		{
+			brightSlider.Value = 0;
+			prepareImage();
+			image.Reset();
+			setStream();
+			resetInterface();
+		}
+
+		private void OnApplyClick(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				image.srcPixels = (byte[])image.dstPixels.Clone();
+				resetInterface();
+			}
+		}
+
+		private void resetButton(ref Windows.UI.Xaml.Controls.Button but)
+		{
+			but.BorderThickness = new Thickness(1, 1, 1, 1);
+			but.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
+		}
+
+		private void changeButton(ref Windows.UI.Xaml.Controls.Button but)
+		{
+			but.BorderThickness = new Thickness(3, 3, 3, 3);
+			but.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Green);
+		}
+
+
+		private void resetInterface()
+		{
+			resetButton(ref BlackAndWhiteButton);
+			resetButton(ref embossButton);
+			resetButton(ref invertButton);
+			resetButton(ref blurButton);
+			resetButton(ref SharpenButton);
+			brightSlider.Value = 0;
+		}
+
         private void OnRColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (pictureIsLoaded)
             {
                 prepareImage();
-                image.ColorChange_R(RedColorSlider.Value, FilterFunctions.ColorType.Blue);
-
+                image.ColorChange(RedColorSlider.Value, FilterFunctions.ColorType.Red);
                 setStream();
             }
         }
-        #endregion
 
-        void setFileProperties(Windows.Storage.StorageFile file)
-        {
-            // This sets the file name, path and date created
-            // to the text boxes
-            fileName.Text = file.DisplayName;
-        }
-
-        void setStream()
-        {
-            // This sets the pixels to the bitmap
-            temp.Seek(0, SeekOrigin.Begin);
-            temp.Write(image.dstPixels, 0, image.dstPixels.Length);
-            tempBitmap.Invalidate();
-        }
-
-        void prepareImage()
-        {
-            // This calculates the width and height of the bitmap image
-            // and sets the Stream and the pixels byte array
-            image.width = (int)tempBitmap.PixelWidth;
-            image.height = (int)tempBitmap.PixelHeight;
-            temp = tempBitmap.PixelBuffer.AsStream();
-            image.dstPixels = new byte[4 * tempBitmap.PixelWidth * tempBitmap.PixelHeight];
-        }
-    }
+	}
 	#endregion
 }
 #endregion

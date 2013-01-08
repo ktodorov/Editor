@@ -10,74 +10,80 @@ namespace RemedyPic.Common
 	class FilterFunctions
 	{
 		static byte[] blackWhiteAlreadyArray;
-        private int _width, _height;
-        private byte[] _dstPixels, _srcPixels;
-        public byte[] dstPixels 
-        {
-            get 
-            {
-                return _dstPixels;
-            }
-            set 
-            {
-                _dstPixels = value;
-            }
-        }
-        public byte[] srcPixels 
-        {
-            get 
-            {
-                return _srcPixels;
-            }
-            set 
-            {
-                _srcPixels = value;
-            }
-        }
-        public int height
-        {
-            get 
-            {
-                return _height;
-            }
-            set 
-            {
-                _height = value;
-            }
-        }
-        public int width
-        {
-            get
-            {
-                return _width;
-            }
-            set
-            {
-                _width = value;
-            }
-        }
+		private int _width, _height;
+		private byte[] _dstPixels, _srcPixels;
+		public byte[] dstPixels
+		{
+			get
+			{
+				return _dstPixels;
+			}
+			set
+			{
+				_dstPixels = value;
+			}
+		}
+		public byte[] srcPixels
+		{
+			get
+			{
+				return _srcPixels;
+			}
+			set
+			{
+				_srcPixels = value;
+			}
+		}
+		public int height
+		{
+			get
+			{
+				return _height;
+			}
+			set
+			{
+				_height = value;
+			}
+		}
+		public int width
+		{
+			get
+			{
+				return _width;
+			}
+			set
+			{
+				_width = value;
+			}
+		}
         public enum ColorType
         {
             Red,
             Green,
             Blue,
-        };    
+            Purple
+        };  
+
+		public void Reset()
+		{
+			dstPixels = srcPixels;
+		}
 
         #region Color Change
-        public void ColorChange_R(double value, ColorType color)
+        public void ColorChange(double value, ColorType color)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
             int temp;
             int currentByte = ColorChange(color);
-            for (; currentByte < 4 * height * width; currentByte+=4)
+            for (; currentByte < 4 * height * width; currentByte += 4)
             {
-                temp = dstPixels[currentByte] + (int) value;
+                temp = dstPixels[currentByte] + (int)value;
                 ColorChange_CheckVal(ref temp);
-                dstPixels[currentByte] = (byte)temp;                
-            }            
+                dstPixels[currentByte] = (byte)temp;
+            }
         }
 
-        public int ColorChange(ColorType color) 
+        public int ColorChange(ColorType color)
         {
             switch (color)
             {
@@ -99,33 +105,28 @@ namespace RemedyPic.Common
         }
         #endregion
 
-        #region BlackAndWhite
-        public void BlackAndWhite(bool alreadyDone = false)
+		#region BlackAndWhite
+		public void BlackAndWhite()
 		{
 			int currentByte = 0;
-			if (alreadyDone)
-			{
-				dstPixels = blackWhiteAlreadyArray;
-			}
-			else
-			{
-				while (currentByte < (4 * height * width))
-				{
-					blackWhiteAlreadyArray = srcPixels;
-					int baw = (srcPixels[currentByte] + srcPixels[currentByte + 1] + srcPixels[currentByte + 2]) / 3;
-					Color tempColor = Color.FromArgb(srcPixels[currentByte + 3], (byte)baw, (byte)baw, (byte)baw);
-					dstPixels[currentByte++] = tempColor.B;
-					dstPixels[currentByte++] = tempColor.G;
-					dstPixels[currentByte++] = tempColor.R;
-					dstPixels[currentByte++] = tempColor.A;
 
-				}
+			while (currentByte < (4 * height * width))
+			{
+				blackWhiteAlreadyArray = srcPixels;
+				int baw = (srcPixels[currentByte] + srcPixels[currentByte + 1] + srcPixels[currentByte + 2]) / 3;
+				Color tempColor = Color.FromArgb(srcPixels[currentByte + 3], (byte)baw, (byte)baw, (byte)baw);
+				dstPixels[currentByte++] = tempColor.B;
+				dstPixels[currentByte++] = tempColor.G;
+				dstPixels[currentByte++] = tempColor.R;
+				dstPixels[currentByte++] = tempColor.A;
+
 			}
+
 		}
-        #endregion      
+		#endregion
 
-        #region Darken
-        public void Darken(double value)
+		#region Darken
+		public void Darken(double value)
 		{
 			double darkness = -value;
 			darkness = (1 / darkness);
@@ -140,10 +141,10 @@ namespace RemedyPic.Common
 				dstPixels[currentByte] = srcPixels[currentByte++];
 			}
 		}
-        #endregion
+		#endregion
 
-        #region Lighten function
-        public void Lighten(double value)
+		#region Lighten function
+		public void Lighten(double value)
 		{
 			// This function lighten the Writeablebitmap picture
 			// by taking the array and multiplying every pixel with the (value of the slider * 0,05) + 1

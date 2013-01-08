@@ -188,6 +188,92 @@
                                 </DiscreteObjectKeyFrame.Value>
                             </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock" d:IsOptimized="True" To="1"/>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Row)" Storyboard.TargetName="stackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Int32>2</x:Int32>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)" Storyboard.TargetName="stackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <VerticalAlignment>Bottom</VerticalAlignment>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="stackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <HorizontalAlignment>Left</HorizontalAlignment>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.RowSpan)" Storyboard.TargetName="stackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Int32>1</x:Int32>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="stackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Double>280</x:Double>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Double>317</x:Double>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="textBlock">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Thickness>122,30,0,0</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Row)" Storyboard.TargetName="textBlock">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Int32>2</x:Int32>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.RowSpan)" Storyboard.TargetName="textBlock">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Int32>1</x:Int32>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="fileName" d:IsOptimized="True"/>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)" Storyboard.TargetName="fileName">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <VerticalAlignment>Stretch</VerticalAlignment>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="stackPanel1">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Thickness>20,80,0,0</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.RowSpan)" Storyboard.TargetName="stackPanel1">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Int32>2</x:Int32>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
@@ -200,12 +286,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image HorizontalAlignment="Left" Height="103" Margin="40,10,0,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png"/>
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="60,100,30,0" Grid.Row="1">
+            <StackPanel x:Name="stackPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="60,100,30,0" Grid.Row="1">
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
-                    <Button x:ConnectionId='9' x:Name="browseButton" Content="Browse" FontFamily="Segoe UI" FontSize="23"                              Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
-                    <Button x:ConnectionId='10' x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,0,0,0" Style="{StaticResource TextButtonStyle}" FontSize="23" FontWeight="Thin"                           Foreground="#FFF1E9E9"/>
+                    <Button x:ConnectionId='10' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
+                    <Button x:ConnectionId='11' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,0,0,0" Style="{StaticResource TextButtonStyle}" FontSize="19" FontWeight="Thin"                           Foreground="#FFF1E9E9"/>
                 </StackPanel>
-                <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource PageSubheaderTextStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" Margin="100,0,0,0" FontSize="34" FontWeight="Normal"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource PageSubheaderTextStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="White" Margin="100,0,0,0" FontSize="34" FontWeight="Normal"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="contentGrid" Margin="10,121,25,37" Grid.RowSpan="2">
@@ -220,21 +306,44 @@
                     <Image x:Name="displayImage" Margin="0" MaxWidth="1050"/>
                 </Border>
             </StackPanel>
-            <!--<Button x:Name="invertButton" Content="Invert filter" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485" Foreground="White" Background="#669E9191" Tapped="OnInvertClick" Width="200"/>
-                <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#FF510000" Foreground="White" Height="43" Width="200" Content="Black&amp;White" Background="#669E9191" Tapped="OnBlackWhiteClick" PointerEntered="BlackAndWhiteButton_PointerEntered_1"/>-->
-            <StackPanel HorizontalAlignment="Right" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Row="2" Width="200">
-                <Button x:ConnectionId='1' x:Name="BlackAndWhiteButton" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                           Height="40" Width="200" Content="Black&amp;White" BorderThickness="1" BorderBrush="#4CFFFFFF" Background="#FF6A6A6A"/>
-                <Button x:ConnectionId='2' x:Name="invertButton" Content="Invert filter" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485"                       Foreground="White" Height="40" Width="200" Margin="0,0,-51,0" BorderThickness="1" BorderBrush="#4CFFFFFF" Background="#FF6A6A6A"/>
-                <Button x:ConnectionId='3' x:Name="embossButton" Content="Emboss Filter" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485"                       Foreground="White" Height="40" Width="200" BorderThickness="1" BorderBrush="#4CFFFFFF" Background="#FF6A6A6A"/>
-                <Button x:ConnectionId='4' x:Name="SharpenButton" Content="Sharpen Filter" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485"                        Foreground="White" Height="40" Width="200" BorderThickness="1" BorderBrush="#4CFFFFFF" Background="#FF6A6A6A"/>
-                <Button x:ConnectionId='5' x:Name="blurButton" Content="Blur Filter" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485"                     Foreground="White" Height="40" Width="200" BorderThickness="1" BorderBrush="#4CFFFFFF" Background="#FF6A6A6A"/>
-                <Button x:ConnectionId='6' x:Name="customButton" Content="Custom Filter" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485"                       Foreground="White" Height="40" Width="200" BorderThickness="1" BorderBrush="#4CFFFFFF" Background="#FF6A6A6A"/>
+            <StackPanel x:Name="stackPanel" HorizontalAlignment="Right" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Row="2">
+                <Button x:ConnectionId='1' x:Name="BlackAndWhiteButton" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black"                           Height="40" Width="200" Content="BLACK&amp;WHITE" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>
+                <Button x:ConnectionId='2' x:Name="invertButton" Content="INVERT" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485"                       Foreground="Black" Height="40" Width="200" Margin="0,0,-51,0" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>
+                <Button x:ConnectionId='3' x:Name="embossButton" Content="EMBOSS" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485"                       Foreground="Black" Height="40" Width="200" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>
+                <Button x:ConnectionId='4' x:Name="SharpenButton" Content="SHARPEN" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485"                        Foreground="Black" Height="40" Width="200" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>
+                <Button x:ConnectionId='5' x:Name="blurButton" Content="BLUR" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485"                     Foreground="Black" Height="40" Width="200" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>
+                <!--<Button x:Name="customButton" Content="CUSTOM" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485" Click="OnCustomClick" Foreground="Black" Height="40" Width="200" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>-->
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="ADJUST BRIGHTNESS/DARKNESS" VerticalAlignment="Top" Margin="0,0,-105,0" FontFamily="Segoe UI" FontSize="14" Foreground="White"/>
-                <Slider x:ConnectionId='7' x:Name ="brightSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25"                              BorderThickness="2" Margin="0" Foreground="#FF787878" BorderBrush="#7FFFFFFF" Background="#FF6A6A6A" />
-                <Slider x:ConnectionId='8' x:Name ="RedColorSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100"                                BorderThickness="1" Margin="0" Foreground="#FF787878" BorderBrush="#7FFFFFFF" Background="#FF6A6A6A" />
+                <Slider x:ConnectionId='6' x:Name ="brightSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25"                              BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" >
+                    <Slider.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="260"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Slider.Foreground>
+                </Slider>
+                <Slider x:ConnectionId='7' x:Name ="RedColorSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100"                                BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" >
+                    
+                    <Slider.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="260"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Slider.Foreground>
+                </Slider>
+                <StackPanel x:Name="ApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                    <Button x:ConnectionId='8' x:Name="ApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                      Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                    <Button x:ConnectionId='9' x:Name="ResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                      Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                </StackPanel>
             </StackPanel>
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="184,22,0,0" Opacity="0" Grid.Row="1" Grid.RowSpan="2" TextWrapping="Wrap" Text="textBlock" VerticalAlignment="Top"/>
         </Grid>
-        <TextBlock Opacity="0" x:Name="debugText" HorizontalAlignment="Left" Margin="854,494,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="97" Width="205" Foreground="White"/>
 
 
     </Grid>
