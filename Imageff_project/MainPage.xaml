@@ -231,6 +231,7 @@
                 <Button x:Name="customButton" Content="Custom Filter" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485" Click="OnCustomClick" Foreground="White" Height="40" Width="200" BorderThickness="1" BorderBrush="#4CFFFFFF" Background="#FF6A6A6A"/>
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="ADJUST BRIGHTNESS/DARKNESS" VerticalAlignment="Top" Margin="0,0,-105,0" FontFamily="Segoe UI" FontSize="14" Foreground="White"/>
                 <Slider x:Name ="brightSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnSizeChanged" BorderThickness="2" Margin="0" Foreground="#FF787878" BorderBrush="#7FFFFFFF" Background="#FF6A6A6A" />
+                <Slider x:Name ="RedColorSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100" ValueChanged="OnRColorChanged" BorderThickness="1" Margin="0" Foreground="#FF787878" BorderBrush="#7FFFFFFF" Background="#FF6A6A6A" />
             </StackPanel>
         </Grid>
         <TextBlock Opacity="0" x:Name="debugText" HorizontalAlignment="Left" Margin="854,494,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="97" Width="205" Foreground="White"/>

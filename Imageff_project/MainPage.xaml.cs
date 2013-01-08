@@ -333,6 +333,19 @@ namespace RemedyPic
 		}
         #endregion
 
+        #region Change RColor
+        private void OnRColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.ColorChange_R(RedColorSlider.Value, FilterFunctions.ColorType.Blue);
+
+                setStream();
+            }
+        }
+        #endregion
+
         void setFileProperties(Windows.Storage.StorageFile file)
         {
             // This sets the file name, path and date created
