@@ -20,6 +20,8 @@ namespace RemedyPic
 	#region MainPage class
 	public sealed partial class MainPage : RemedyPic.Common.LayoutAwarePage
 	{
+
+		#region Variables
 		private string mruToken = null;
 		private WriteableBitmap tempBitmap;
 		Stream temp;
@@ -27,7 +29,7 @@ namespace RemedyPic
 		bool pictureIsLoaded = false;
 		Windows.Storage.StorageFile Globalfile;
 		FilterFunctions image = new FilterFunctions();
-
+		#endregion
 
 		public MainPage()
 		{

@@ -11,7 +11,10 @@ namespace RemedyPic.Common
 	{
 		static byte[] blackWhiteAlreadyArray;
 		private int _width, _height;
+		
+		
 		private byte[] _dstPixels, _srcPixels;
+
 		public byte[] dstPixels
 		{
 			get
@@ -23,6 +26,7 @@ namespace RemedyPic.Common
 				_dstPixels = value;
 			}
 		}
+		
 		public byte[] srcPixels
 		{
 			get
@@ -34,6 +38,7 @@ namespace RemedyPic.Common
 				_srcPixels = value;
 			}
 		}
+		
 		public int height
 		{
 			get
@@ -45,6 +50,7 @@ namespace RemedyPic.Common
 				_height = value;
 			}
 		}
+		
 		public int width
 		{
 			get
