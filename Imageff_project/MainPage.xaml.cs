@@ -372,6 +372,9 @@ namespace RemedyPic
 			if (pictureIsLoaded)
 			{
 				brightSlider.Value = 0;
+                RedColorSlider.Value = 0;
+                GreenColorSlider.Value = 0;
+                BlueColorSlider.Value = 0;
 				prepareImage();
 				image.Reset();
 				setStream();
@@ -410,9 +413,12 @@ namespace RemedyPic
 			resetButton(ref SharpenButton);
 			brightSlider.Value = 0;
 			RedColorSlider.Value = 0;
+            GreenColorSlider.Value = 0;
+            BlueColorSlider.Value = 0;
 		}
 
-		private void OnRColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        #region Color Change RGB
+        private void OnRColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
@@ -422,7 +428,27 @@ namespace RemedyPic
 			}
 		}
 
-	}
+        private void OnGColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.ColorChange(GreenColorSlider.Value, FilterFunctions.ColorType.Green);
+                setStream();
+            }
+        }
+
+        private void OnBColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.ColorChange(BlueColorSlider.Value, FilterFunctions.ColorType.Blue);
+                setStream();
+            }
+        }
+        #endregion
+    }
 	#endregion
 }
 #endregion

@@ -72,7 +72,7 @@ namespace RemedyPic.Common
 
 		public void Reset()
 		{
-			dstPixels = srcPixels;
+			_dstPixels = (byte[]) _srcPixels.Clone();
 		}
 
         #region Color Change
