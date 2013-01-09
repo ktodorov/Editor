@@ -16,7 +16,7 @@
     <AppXManifest Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-01-09T08:36:47.236</Modified>
+      <Modified>2013-01-09T23:36:33.296</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +78,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-01-09T08:36:46.720</Modified>
+      <Modified>2013-01-09T23:36:33.171</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
