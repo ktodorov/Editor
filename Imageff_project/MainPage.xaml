@@ -266,7 +266,7 @@
             <Image HorizontalAlignment="Left" Height="103" Margin="40,10,0,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png"/>
             <StackPanel x:Name="stackPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="30,113,0,0">
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
-                    <Button x:Name="browseButton" Content="OPEN" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
+                    <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
                     <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,0,0,0" Style="{StaticResource TextButtonStyle}" FontSize="19" FontWeight="Thin" Click="OnSaveButtonClick" Foreground="#FFF1E9E9"/>
                 </StackPanel>
                 <TextBlock TextWrapping="Wrap" x:Name ="fileName_Copy" Style="{StaticResource BaselineTextStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#B2FFFFFF" Margin="100,0,0,0" FontSize="19" Text="FILE NAME:"/>
