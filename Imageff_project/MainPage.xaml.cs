@@ -2,15 +2,16 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.UI.Xaml;
 using Windows.UI;
-using Windows.Graphics.Imaging;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
+using Windows.Storage.Streams;
 using RemedyPic.Common;
 
 
@@ -22,12 +23,20 @@ namespace RemedyPic
 	{
 
 		#region Variables
+
+		// mruToken is used for LoadState and SaveState functions.
 		private string mruToken = null;
-		private WriteableBitmap tempBitmap;
-		Stream temp;
+
+		// bitmapImage is the image that is edited in RemedyPic.
+		private WriteableBitmap bitmapImage;
+
+		// bitmapStream is used to save the pixel stream to bitmapImage.
+		Stream bitmapStream;
+
 		static readonly long cycleDuration = TimeSpan.FromSeconds(3).Ticks;
+		// This is true if the user load a picture.
 		bool pictureIsLoaded = false;
-		Windows.Storage.StorageFile Globalfile;
+
 		FilterFunctions image = new FilterFunctions();
 		#endregion
 
@@ -57,14 +66,24 @@ namespace RemedyPic
 							// Open a stream for the selected file.
 							Windows.Storage.Streams.IRandomAccessStream fileStream =
 								await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
-							tempBitmap.SetSource(fileStream);
-							displayImage.Source = tempBitmap;
+							bitmapImage.SetSource(fileStream);
+							displayImage.Source = bitmapImage;
 
 							// Set the data context for the page.
 							this.DataContext = file;
 						}
 					}
 				}
+			}
+		}
+		#endregion
+
+		#region Save State
+		protected override void SaveState(Dictionary<String, Object> pageState)
+		{
+			if (!String.IsNullOrEmpty(mruToken))
+			{
+				pageState["mruToken"] = mruToken;
 			}
 		}
 		#endregion
@@ -91,7 +110,6 @@ namespace RemedyPic
 
 				// Open the file picker.
 				Windows.Storage.StorageFile file = await openPicker.PickSingleFileAsync();
-				Globalfile = file;
 
 				// file is null if user cancels the file picker.
 				if (file != null)
@@ -112,22 +130,43 @@ namespace RemedyPic
 						PixelDataProvider pixelProvider = await frame.GetPixelDataAsync();
 						image.srcPixels = pixelProvider.DetachPixelData();
 
-						tempBitmap = new WriteableBitmap((int)frame.PixelWidth, (int)frame.PixelHeight);
+						bitmapImage = new WriteableBitmap((int)frame.PixelWidth, (int)frame.PixelHeight);
 					}
-					tempBitmap.SetSource(fileStream);
-					// apply pixels to bitmap
-					displayImage.Source = tempBitmap;
+					// Apply the fileStream that the user have selected to the WriteableBitmap file.
+					bitmapImage.SetSource(fileStream);
+					// Apply pixels to bitmap.
+					displayImage.Source = bitmapImage;
+					// Sets the file name to the screen.
 					setFileProperties(file);
-					brightSlider.Value = 0;
-					contentGrid.Opacity = 100;
+					// If the interface was changed from previous image, it should be resetted.
+					resetInterface();
+					// Show the interface after the picture is loaded.
+					contentGrid.Visibility = Visibility.Visible;
 					pictureIsLoaded = true;
+					// Set the border of the image panel.
 					border.BorderThickness = new Thickness(1, 1, 1, 1);
 					border.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-					// TO DO: Resize function
+					// Set the left margin of the file name text block.
+					SetMargin();
+					// TO DO: Resize function.
 				}
+			}
+			else
+			{
+				// If the window can't be unsnapped, show alert.
+				MessageDialog messageDialog = new MessageDialog("Can't save in snapped state. Please unsnap the app and try again", "Close");
+				await messageDialog.ShowAsync();
 			}
 		}
 		#endregion
+
+		private void SetMargin()
+		{
+			// Set the left margin of the file name text block to half of the loaded image width.
+			Thickness margin = fileName.Margin;
+			margin.Left = (displayImage.ActualWidth / 2) - 20 - fileName.Text.Length;
+			fileName.Margin = margin;
+		}
 
 		#region Invert Filter
 		private void OnInvertClick(object sender, RoutedEventArgs e)
@@ -161,6 +200,9 @@ namespace RemedyPic
 			// This occures when OnBlackWhiteButton is clicked
 			if (pictureIsLoaded)
 			{
+				// First we prepare the image for filtrating, then we call the filter.
+				// After that we save the new data to the current image,
+				// reset all other highlighted buttons and make the B&W button selected
 				prepareImage();
 				image.BlackAndWhite();
 				setStream();
@@ -291,45 +333,80 @@ namespace RemedyPic
 		#region Save
 		private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
 		{
-			if (pictureIsLoaded)
-			{
-				FileSavePicker savePicker = new FileSavePicker();
-				savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-				// Dropdown of file types the user can save the file as
-				savePicker.FileTypeChoices.Add("JPEG", new List<string>() { ".jpg" });
-				savePicker.FileTypeChoices.Add("PNG", new List<string>() { ".png" });
-				savePicker.FileTypeChoices.Add("Bitmap", new List<string>() { ".bmp" });
-				savePicker.SuggestedFileName = fileName.Text;
-				// Default file name if the user does not type one in or select a file to replace
-				StorageFile file = await savePicker.PickSaveFileAsync();
 
-				if (file != null)
+			// File picker APIs don't work if the app is in a snapped state.
+			// If the app is snapped, try to unsnap it first. Only show the picker if it unsnaps.
+			if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
+				 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
+			{
+
+				// Only execute if there is a picture that is loaded
+				if (pictureIsLoaded)
 				{
-					//Windows.Storage.Streams.IRandomAccessStream fileStream =
-					IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
-					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, writeStream);
-					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, 96.0, 96.0, image.dstPixels);
-					await encoder.FlushAsync();
+					FileSavePicker savePicker = new FileSavePicker();
+
+					// Set My Documents folder as suggested location if no past selected folder is available
+					savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+
+					// Dropdown of file types the user can save the file as
+					savePicker.FileTypeChoices.Add("JPEG", new List<string>() { ".jpg" });
+					savePicker.FileTypeChoices.Add("PNG", new List<string>() { ".png" });
+					savePicker.FileTypeChoices.Add("Bitmap", new List<string>() { ".bmp" });
+
+					savePicker.SuggestedFileName = fileName.Text;
+
+					// Default file name if the user does not type one in or select a file to replace
+					StorageFile file = await savePicker.PickSaveFileAsync();
+					System.Guid fileType = BitmapEncoder.JpegEncoderId;
+
+					// File is null if the user press Cancel without choosing file
+					if (file != null)
+					{
+						// Check the file type that the user had selected and set the BitmapEncoder to that type
+						switch (file.FileType)
+						{
+							case ".jpeg":
+							case ".jpg":
+								fileType = BitmapEncoder.JpegEncoderId;
+								break;
+							case ".png":
+								fileType = BitmapEncoder.PngEncoderId;
+								break;
+							case ".bmp":
+								fileType = BitmapEncoder.BmpEncoderId;
+								break;
+							default:
+								break;
+						}
+
+						IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
+						BitmapEncoder encoder = await BitmapEncoder.CreateAsync(fileType, writeStream);
+						encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
+														   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, image.dstPixels);
+						// Flush all the data to the encoder(file)
+						await encoder.FlushAsync();
+					}
 				}
 			}
-		}
-		#endregion
-
-		#region Save State
-		protected override void SaveState(Dictionary<String, Object> pageState)
-		{
-			if (!String.IsNullOrEmpty(mruToken))
+			else
 			{
-				pageState["mruToken"] = mruToken;
+				MessageDialog messageDialog = new MessageDialog("Can't save in snapped state. Please unsnap the app and try again", "Close");
+				await messageDialog.ShowAsync();
 			}
 		}
 		#endregion
 
-		#region Change Size
-		private void OnSizeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		#region Brightness Scroll
+		private void OnValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
+			// This occures when the brightness scroll value is changed.
 			if (pictureIsLoaded)
 			{
+				// We prepare the image for editing
+				// Then we check if the changed value 
+				// is higher than 0 - we call the brightness function
+				// is lower than 0  - we call the darkness function
+				// And finally we save the new byte array to the image.
 				prepareImage();
 				if (brightSlider.Value < 0)
 				{
@@ -353,23 +430,25 @@ namespace RemedyPic
 		void setStream()
 		{
 			// This sets the pixels to the bitmap
-			temp.Seek(0, SeekOrigin.Begin);
-			temp.Write(image.dstPixels, 0, image.dstPixels.Length);
-			tempBitmap.Invalidate();
+			bitmapStream.Seek(0, SeekOrigin.Begin);
+			bitmapStream.Write(image.dstPixels, 0, image.dstPixels.Length);
+			bitmapImage.Invalidate();
 		}
 
 		void prepareImage()
 		{
 			// This calculates the width and height of the bitmap image
 			// and sets the Stream and the pixels byte array
-			image.width = (int)tempBitmap.PixelWidth;
-			image.height = (int)tempBitmap.PixelHeight;
-			temp = tempBitmap.PixelBuffer.AsStream();
-			image.dstPixels = new byte[4 * tempBitmap.PixelWidth * tempBitmap.PixelHeight];
+			image.width = (int)bitmapImage.PixelWidth;
+			image.height = (int)bitmapImage.PixelHeight;
+			bitmapStream = bitmapImage.PixelBuffer.AsStream();
+			image.dstPixels = new byte[4 * bitmapImage.PixelWidth * bitmapImage.PixelHeight];
+			image.Reset();
 		}
 
 		private void OnResetClick(object sender, RoutedEventArgs e)
 		{
+			// This resets the interface and returns the last applied image.
 			if (pictureIsLoaded)
 			{
 				brightSlider.Value = 0;
@@ -385,6 +464,8 @@ namespace RemedyPic
 
 		private void OnApplyClick(object sender, RoutedEventArgs e)
 		{
+			// This applies the current dstPixels array to the source pixel array
+			// so the user can apply new functions over the image.
 			if (pictureIsLoaded)
 			{
 				image.srcPixels = (byte[])image.dstPixels.Clone();
@@ -394,12 +475,14 @@ namespace RemedyPic
 
 		private void resetButton(ref Windows.UI.Xaml.Controls.Button but)
 		{
+			// This resets the passed button with normal border.
 			but.BorderThickness = new Thickness(1, 1, 1, 1);
 			but.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
 		}
 
 		private void changeButton(ref Windows.UI.Xaml.Controls.Button but)
 		{
+			// This make the passed button "selected" - it makes its border bigger and green.
 			but.BorderThickness = new Thickness(3, 3, 3, 3);
 			but.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Green);
 		}
@@ -407,6 +490,8 @@ namespace RemedyPic
 
 		private void resetInterface()
 		{
+			// This calls the reset function for every button
+			// and sets the values of all sliders to 0.
 			resetButton(ref BlackAndWhiteButton);
 			resetButton(ref embossButton);
 			resetButton(ref invertButton);
@@ -451,6 +536,7 @@ namespace RemedyPic
 		#endregion
 
 		#region Resizing image
+		// TO DO: Resize function...
 		private void resize()
 		{
 		}
