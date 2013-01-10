@@ -38,10 +38,6 @@ C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\Common\StandardStyles.xaml
 C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\MainPage.xaml
 C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\RemedyPic.exe
 C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\RemedyPic.pdb
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\priconfig.xml.intermediate
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\layout.resfiles.intermediate
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\resources.resfiles.intermediate
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\pri.resfiles.intermediate
 C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\priconfig.xml
 C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\layout.resfiles
 C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\resources.resfiles

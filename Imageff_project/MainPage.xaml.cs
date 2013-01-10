@@ -123,6 +123,7 @@ namespace RemedyPic
 					pictureIsLoaded = true;
 					border.BorderThickness = new Thickness(1, 1, 1, 1);
 					border.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
+					// TO DO: Resize function
 				}
 			}
 		}
@@ -307,7 +308,7 @@ namespace RemedyPic
 					//Windows.Storage.Streams.IRandomAccessStream fileStream =
 					IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
 					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, writeStream);
-					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, tempBitmap.PixelWidth, tempBitmap.PixelHeight, image.dstPixels);
+					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, (uint)tempBitmap.PixelWidth, (uint)tempBitmap.PixelHeight, 96.0, 96.0, image.dstPixels);
 					await encoder.FlushAsync();
 				}
 			}
@@ -372,9 +373,9 @@ namespace RemedyPic
 			if (pictureIsLoaded)
 			{
 				brightSlider.Value = 0;
-                RedColorSlider.Value = 0;
-                GreenColorSlider.Value = 0;
-                BlueColorSlider.Value = 0;
+				RedColorSlider.Value = 0;
+				GreenColorSlider.Value = 0;
+				BlueColorSlider.Value = 0;
 				prepareImage();
 				image.Reset();
 				setStream();
@@ -413,12 +414,12 @@ namespace RemedyPic
 			resetButton(ref SharpenButton);
 			brightSlider.Value = 0;
 			RedColorSlider.Value = 0;
-            GreenColorSlider.Value = 0;
-            BlueColorSlider.Value = 0;
+			GreenColorSlider.Value = 0;
+			BlueColorSlider.Value = 0;
 		}
 
-        #region Color Change RGB
-        private void OnRColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		#region Color Change RGB
+		private void OnRColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
@@ -428,27 +429,34 @@ namespace RemedyPic
 			}
 		}
 
-        private void OnGColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                image.ColorChange(GreenColorSlider.Value, FilterFunctions.ColorType.Green);
-                setStream();
-            }
-        }
+		private void OnGColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				image.ColorChange(GreenColorSlider.Value, FilterFunctions.ColorType.Green);
+				setStream();
+			}
+		}
 
-        private void OnBColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                image.ColorChange(BlueColorSlider.Value, FilterFunctions.ColorType.Blue);
-                setStream();
-            }
-        }
-        #endregion
-    }
+		private void OnBColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				image.ColorChange(BlueColorSlider.Value, FilterFunctions.ColorType.Blue);
+				setStream();
+			}
+		}
+		#endregion
+
+		#region Resizing image
+		private void resize()
+		{
+		}
+		#endregion
+
+	}
 	#endregion
 }
 #endregion
