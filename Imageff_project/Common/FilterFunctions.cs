@@ -15,6 +15,7 @@ namespace RemedyPic.Common
 		
 		private byte[] _dstPixels, _srcPixels;
 
+		#region getters and setters
 		public byte[] dstPixels
 		{
 			get
@@ -62,7 +63,9 @@ namespace RemedyPic.Common
 				_width = value;
 			}
 		}
-        public enum ColorType
+		#endregion
+
+		public enum ColorType
         {
             Red,
             Green,
@@ -115,7 +118,6 @@ namespace RemedyPic.Common
 		public void BlackAndWhite()
 		{
 			int currentByte = 0;
-
 			while (currentByte < (4 * height * width))
 			{
 				blackWhiteAlreadyArray = srcPixels;

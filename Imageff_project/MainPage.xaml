@@ -264,28 +264,27 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image HorizontalAlignment="Left" Height="103" Margin="40,10,0,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png"/>
-            <StackPanel x:Name="stackPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="30,113,0,0">
+            <StackPanel x:Name="stackPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="30,113,0,0" Grid.RowSpan="2">
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
                     <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
                     <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,0,0,0" Style="{StaticResource TextButtonStyle}" FontSize="19" FontWeight="Thin" Click="OnSaveButtonClick" Foreground="#FFF1E9E9"/>
                 </StackPanel>
-                <TextBlock TextWrapping="Wrap" x:Name ="fileName_Copy" Style="{StaticResource BaselineTextStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#B2FFFFFF" Margin="100,0,0,0" FontSize="19" Text="FILE NAME:"/>
-                <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource BaselineTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" Margin="20,0,0,0" FontSize="25" FontWeight="Normal"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="contentGrid" Margin="10,121,25,37" Grid.RowSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="86"/>
-                <RowDefinition Height="26"/>
+                <RowDefinition Height="69"/>
+                <RowDefinition Height="43"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource HeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" Margin="0,0,0,5" FontSize="21" Grid.Row="1"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,2,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding DisplayName}" VerticalAlignment="Top" Style="{StaticResource SubheaderTextStyle}" Height="30" Width="0" Foreground="White"/>
             <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="10,0,220,6" Grid.Row="2" MaxWidth="1100">
                 <Border x:Name="border" Margin="0" MaxWidth="1050">
                     <Image x:Name="displayImage" Margin="0" MaxWidth="1050"/>
                 </Border>
             </StackPanel>
-            <StackPanel x:Name="stackPanel" HorizontalAlignment="Right" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Row="2">
+            <StackPanel x:Name="stackPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Height="499" Margin="0,0,0,-1" Width="200">
                 <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" Click="OnBlackWhiteClick" Height="40" Width="200" Content="BLACK&amp;WHITE" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>
                 <Button x:Name="invertButton" Content="INVERT" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485" Click="OnInvertClick" Foreground="Black" Height="40" Width="200" Margin="0,0,-51,0" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>
                 <Button x:Name="embossButton" Content="EMBOSS" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485" Click="OnEmbossClick" Foreground="Black" Height="40" Width="200" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>
@@ -293,7 +292,7 @@
                 <Button x:Name="blurButton" Content="BLUR" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485" Click="OnBlurClick" Foreground="Black" Height="40" Width="200" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>
                 <!--<Button x:Name="customButton" Content="CUSTOM" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.485" Click="OnCustomClick" Foreground="Black" Height="40" Width="200" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF"/>-->
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="ADJUST BRIGHTNESS/DARKNESS" VerticalAlignment="Top" Margin="0,0,-105,0" FontFamily="Segoe UI" FontSize="14" Foreground="White"/>
-                <Slider x:Name ="brightSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnSizeChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" >
+                <Slider x:Name ="brightSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnValueChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" >
                     <Slider.Foreground>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
