@@ -102,33 +102,47 @@ namespace RemedyPic.Common
         #endregion
 
         #region Contrast Change 
-        public void ContrastChange(double contrast, ColorType color)
+        public void Contrast(double contrast, ColorType color)
         {
-            _dstPixels = (byte[])_srcPixels.Clone();
-            double temp;
             int currentByte = GetColor(color);
-            contrast = (100.0 + contrast) / 100.0;
-            contrast *= contrast;
+            _dstPixels = (byte[])_srcPixels.Clone(); 
+            contrast = Contrast_GetContrastValue(contrast);
+            Contrast_GetNewPixels(currentByte, contrast);           
+        }
+
+        public void Contrast_GetNewPixels(int currentByte, double contrast)
+        {
+            double temp;
 
             for (; currentByte < 4 * height * width; currentByte += 4)
             {
-                temp = dstPixels[currentByte];
-                temp /= 255.0;
-                temp -= 0.5;
-                temp *= contrast;
-                temp += 0.5;
-                temp *= 255;
-                ContrastChange_CheckValue(ref temp);
+                temp = Contrast_GetNewColor(dstPixels[currentByte], contrast);
+                Contrast_CheckValue(ref temp);
                 dstPixels[currentByte] = (byte)temp;
             }
         }
 
-        public void ContrastChange_CheckValue(ref double val)
+        public double Contrast_GetNewColor(double temp, double contrast)
+        {
+            temp /= 255.0;
+            temp -= 0.5;
+            temp *= contrast;
+            temp += 0.5;
+            return temp *= 255;
+        }
+
+        public void Contrast_CheckValue(ref double val)
         {
             if (val > 255)
                 val = 255;
             else if (val < 0)
                 val = 0;
+        }
+
+        public double Contrast_GetContrastValue(double contrast)
+        {
+            contrast = (100.0 + contrast) / 100.0;
+            return contrast *= contrast;
         }
         #endregion
 
@@ -143,9 +157,7 @@ namespace RemedyPic.Common
                 default:
                     return 0;
             }
-        }
-
-       
+        }       
 
         #region BlackAndWhite
         public void BlackAndWhite()

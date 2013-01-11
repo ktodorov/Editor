@@ -500,6 +500,9 @@ namespace RemedyPic
 			RedColorSlider.Value = 0;
 			GreenColorSlider.Value = 0;
 			BlueColorSlider.Value = 0;
+            RedContrastSlider.Value = 0;
+            GreenContrastSlider.Value = 0;
+            BlueContrastSlider.Value = 0;
 		}
 
 		#region Color Change RGB
@@ -578,7 +581,7 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage();
-                image.ContrastChange(RedContrastSlider.Value, FilterFunctions.ColorType.Red);
+                image.Contrast(RedContrastSlider.Value, FilterFunctions.ColorType.Red);
                 setStream();
             }
         }
@@ -588,7 +591,7 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage();
-                image.ContrastChange(GreenContrastSlider.Value, FilterFunctions.ColorType.Green);
+                image.Contrast(GreenContrastSlider.Value, FilterFunctions.ColorType.Green);
                 setStream();
             }
         }
@@ -598,7 +601,7 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage();
-                image.ContrastChange(BlueContrastSlider.Value, FilterFunctions.ColorType.Blue);
+                image.Contrast(BlueContrastSlider.Value, FilterFunctions.ColorType.Blue);
                 setStream();
             }
         }
