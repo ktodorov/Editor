@@ -22,11 +22,19 @@
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
+<<<<<<< HEAD
       <Modified>2013-01-10T19:33:00.860</Modified>
+=======
+      <Modified>2013-01-11T11:41:23.458</Modified>
+>>>>>>> 26cd8351825064d163c139781fb5e0e147f9f88a
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
+<<<<<<< HEAD
       <Modified>2013-01-10T19:33:00.843</Modified>
+=======
+      <Modified>2013-01-11T11:41:23.438</Modified>
+>>>>>>> 26cd8351825064d163c139781fb5e0e147f9f88a
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Background.jpg">
       <PackagePath>Assets\Background.jpg</PackagePath>
@@ -72,7 +80,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
+<<<<<<< HEAD
       <Modified>2013-01-10T19:31:39.906</Modified>
+=======
+      <Modified>2013-01-11T11:41:21.726</Modified>
+>>>>>>> 26cd8351825064d163c139781fb5e0e147f9f88a
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>

@@ -32,7 +32,6 @@ namespace RemedyPic
 
 		// bitmapStream is used to save the pixel stream to bitmapImage.
 		Stream bitmapStream;
-
 		static readonly long cycleDuration = TimeSpan.FromSeconds(3).Ticks;
 		// This is true if the user load a picture.
 		bool pictureIsLoaded = false;
@@ -540,7 +539,38 @@ namespace RemedyPic
 		private void resize()
 		{
 		}
-		#endregion
+		#endregion	
+
+		private void OnFiltersClicked(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+		{
+			// This checks which item from the ListView is selected
+			// and opens the attached popup
+			// after it closes all other open popups.
+			if (popups.SelectedItem == filtersButton)
+			{
+				if (filters1.IsOpen == false)
+				{
+					filters1.IsOpen = true;
+					sliders.IsOpen = false;
+				}
+				else
+				{
+					filters1.IsOpen = false;
+				}
+			}
+			if (popups.SelectedItem == slidersButton)
+			{
+				if (sliders.IsOpen == false)
+				{
+					sliders.IsOpen = true;
+					filters1.IsOpen = false;
+				}
+				else
+				{
+					sliders.IsOpen = false;
+				}
+			}
+		}
 
 	}
 	#endregion
