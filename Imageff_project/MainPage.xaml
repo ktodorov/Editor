@@ -275,7 +275,10 @@
                         </Slider>
                         <Slider x:Name ="RedColorSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnRColorChanged" BorderThickness="2" Margin="34,0,-134,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" />
                         <Slider x:Name ="GreenColorSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnGColorChanged" BorderThickness="2" Margin="34,0,-134,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" />
-                        <Slider x:Name ="BlueColorSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnBColorChanged" BorderThickness="2" Margin="34,0,-134,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" />
+                        <Slider x:Name ="BlueColorSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnBColorChanged" BorderThickness="2" Margin="34,0,0,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" />
+                        <Slider x:Name ="RedContrastSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100" ValueChanged="OnRContrastChanged" BorderThickness="2" Margin="34,0,0,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" />
+                        <Slider x:Name ="GreenContrastSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100" ValueChanged="OnGContrastChanged" BorderThickness="2" Margin="34,0,0,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" />
+                        <Slider x:Name ="BlueContrastSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100" ValueChanged="OnBContrastChanged" BorderThickness="2" Margin="34,0,0,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" />
                     </StackPanel>
                 </Border>
             </Popup>

@@ -572,7 +572,38 @@ namespace RemedyPic
 			}
 		}
 
-	}
+        #region Contrast Change
+        private void OnRContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.ContrastChange(RedContrastSlider.Value, FilterFunctions.ColorType.Red);
+                setStream();
+            }
+        }
+
+        private void OnGContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.ContrastChange(GreenContrastSlider.Value, FilterFunctions.ColorType.Green);
+                setStream();
+            }
+        }
+
+        private void OnBContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage();
+                image.ContrastChange(BlueContrastSlider.Value, FilterFunctions.ColorType.Blue);
+                setStream();
+            }
+        }
+        #endregion
+    }
 	#endregion
 }
 #endregion

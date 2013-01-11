@@ -83,16 +83,56 @@ namespace RemedyPic.Common
         {
             _dstPixels = (byte[])_srcPixels.Clone();
             int temp;
-            int currentByte = ColorChange(color);
+            int currentByte = GetColor(color);
             for (; currentByte < 4 * height * width; currentByte += 4)
             {
                 temp = dstPixels[currentByte] + (int)value;
-                ColorChange_CheckVal(ref temp);
+                ColorChange_CheckValue(ref temp);
                 dstPixels[currentByte] = (byte)temp;
             }
         }
 
-        public int ColorChange(ColorType color)
+        public void ColorChange_CheckValue(ref int val)
+        {
+            if (val > 200)
+                val = 200;
+            else if (val < 20)
+                val = 20;
+        }
+        #endregion
+
+        #region Contrast Change 
+        public void ContrastChange(double contrast, ColorType color)
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+            double temp;
+            int currentByte = GetColor(color);
+            contrast = (100.0 + contrast) / 100.0;
+            contrast *= contrast;
+
+            for (; currentByte < 4 * height * width; currentByte += 4)
+            {
+                temp = dstPixels[currentByte];
+                temp /= 255.0;
+                temp -= 0.5;
+                temp *= contrast;
+                temp += 0.5;
+                temp *= 255;
+                ContrastChange_CheckValue(ref temp);
+                dstPixels[currentByte] = (byte)temp;
+            }
+        }
+
+        public void ContrastChange_CheckValue(ref double val)
+        {
+            if (val > 255)
+                val = 255;
+            else if (val < 0)
+                val = 0;
+        }
+        #endregion
+
+        public int GetColor(ColorType color)
         {
             switch (color)
             {
@@ -105,17 +145,10 @@ namespace RemedyPic.Common
             }
         }
 
-        public void ColorChange_CheckVal(ref int val)
-        {
-            if (val > 200)
-                val = 200;
-            else if (val < 20)
-                val = 20;
-        }
-        #endregion
+       
 
-		#region BlackAndWhite
-		public void BlackAndWhite()
+        #region BlackAndWhite
+        public void BlackAndWhite()
 		{
 			int currentByte = 0;
 			while (currentByte < (4 * height * width))
