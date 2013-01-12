@@ -7,6 +7,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -33,6 +34,7 @@ namespace RemedyPic
 		// bitmapStream is used to save the pixel stream to bitmapImage.
 		Stream bitmapStream;
 		static readonly long cycleDuration = TimeSpan.FromSeconds(3).Ticks;
+		
 		// This is true if the user load a picture.
 		bool pictureIsLoaded = false;
 
@@ -145,8 +147,6 @@ namespace RemedyPic
 					// Set the border of the image panel.
 					border.BorderThickness = new Thickness(1, 1, 1, 1);
 					border.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-					// Set the left margin of the file name text block.
-					SetMargin();
 					// TO DO: Resize function.
 				}
 			}
@@ -158,14 +158,6 @@ namespace RemedyPic
 			}
 		}
 		#endregion
-
-		private void SetMargin()
-		{
-			// Set the left margin of the file name text block to half of the loaded image width.
-			Thickness margin = fileName.Margin;
-			margin.Left = (displayImage.ActualWidth / 2) - 20 - fileName.Text.Length;
-			fileName.Margin = margin;
-		}
 
 		#region Invert Filter
 		private void OnInvertClick(object sender, RoutedEventArgs e)
@@ -432,6 +424,7 @@ namespace RemedyPic
 			bitmapStream.Seek(0, SeekOrigin.Begin);
 			bitmapStream.Write(image.dstPixels, 0, image.dstPixels.Length);
 			bitmapImage.Invalidate();
+			ApplyReset.Visibility = Visibility.Visible;
 		}
 
 		void prepareImage()
@@ -459,6 +452,7 @@ namespace RemedyPic
 				setStream();
 				resetInterface();
 			}
+			ApplyReset.Visibility = Visibility.Collapsed;
 		}
 
 		private void OnApplyClick(object sender, RoutedEventArgs e)
@@ -470,6 +464,7 @@ namespace RemedyPic
 				image.srcPixels = (byte[])image.dstPixels.Clone();
 				resetInterface();
 			}
+			ApplyReset.Visibility = Visibility.Collapsed;
 		}
 
 		private void resetButton(ref Windows.UI.Xaml.Controls.Button but)
