@@ -28,7 +28,19 @@ namespace RemedyPic.Common
         {
             CustomFilter_GetBorders();
             CustomFilter_NewPixelsValue((_width * 4 + 4) * _top, 1 + _left, 1 + _top);
+            CustomFilter_FillBorders();
             return (byte[])_dstPixels.Clone();
+        }
+
+        public void CustomFilter_FillBorders()
+        {
+            for (int curreny_byte = 4 * _width - 4; curreny_byte < _srcPixels.Length; curreny_byte += 4 * _width)
+            {
+                _dstPixels[curreny_byte] = _srcPixels[curreny_byte - 4];
+                _dstPixels[curreny_byte+1] = _srcPixels[curreny_byte +1 - 4];
+                _dstPixels[curreny_byte+2] = _srcPixels[curreny_byte +2- 4];
+            }
+                
         }
 
         private void CustomFilter_NewPixelsValue(int current_byte, int current_width, int current_height)
