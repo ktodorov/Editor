@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -29,16 +30,17 @@ namespace RemedyPic
 		private string mruToken = null;
 
 		// bitmapImage is the image that is edited in RemedyPic.
-		private WriteableBitmap bitmapImage;
+		private WriteableBitmap bitmapImage, exampleBitmap;
 
 		// bitmapStream is used to save the pixel stream to bitmapImage.
-		Stream bitmapStream;
+		Stream bitmapStream, exampleStream;
 		static readonly long cycleDuration = TimeSpan.FromSeconds(3).Ticks;
-		
+
 		// This is true if the user load a picture.
 		bool pictureIsLoaded = false;
 
 		FilterFunctions image = new FilterFunctions();
+		WriteableBitmap bitmap = new WriteableBitmap(500, 250);
 		#endregion
 
 		public MainPage()
@@ -98,47 +100,24 @@ namespace RemedyPic
 			if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
 				 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
 			{
-				Windows.Storage.Pickers.FileOpenPicker openPicker = new Windows.Storage.Pickers.FileOpenPicker();
-				openPicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
-				openPicker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-
-				// Filter to include a sample subset of file types.
-				openPicker.FileTypeFilter.Clear();
-				openPicker.FileTypeFilter.Add(".bmp");
-				openPicker.FileTypeFilter.Add(".png");
-				openPicker.FileTypeFilter.Add(".jpeg");
-				openPicker.FileTypeFilter.Add(".jpg");
-
-				// Open the file picker.
-				Windows.Storage.StorageFile file = await openPicker.PickSingleFileAsync();
-
-				// file is null if user cancels the file picker.
-				if (file != null)
+				FileOpenPicker filePicker = new FileOpenPicker();
+				filePicker.FileTypeFilter.Add(".jpg");
+				filePicker.FileTypeFilter.Add(".png");
+				filePicker.FileTypeFilter.Add(".bmp");
+				filePicker.FileTypeFilter.Add(".jpeg");
+				var result = await filePicker.PickSingleFileAsync();
+				bitmapImage = new WriteableBitmap(1, 1);
+				//bitmapImage = new WriteableBitmap(1, 1);
+				
+				if (result != null)
+				// Result is null if user cancels the file picker.
 				{
-					// Open a stream for the selected file.
+				
 					Windows.Storage.Streams.IRandomAccessStream fileStream =
-						await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
-
-					RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
-
-					using (IRandomAccessStreamWithContentType tempStream =
-						   await streamRef.OpenReadAsync())
-					{
-						BitmapDecoder decoder = await BitmapDecoder.CreateAsync(tempStream);
-						BitmapFrame frame = await decoder.GetFrameAsync(0);
-
-						// I know the parameterless version of GetPixelDataAsync works for this image
-						PixelDataProvider pixelProvider = await frame.GetPixelDataAsync();
-						image.srcPixels = pixelProvider.DetachPixelData();
-
-						bitmapImage = new WriteableBitmap((int)frame.PixelWidth, (int)frame.PixelHeight);
-					}
-					// Apply the fileStream that the user have selected to the WriteableBitmap file.
+							await result.OpenAsync(Windows.Storage.FileAccessMode.Read);
 					bitmapImage.SetSource(fileStream);
-					// Apply pixels to bitmap.
-					displayImage.Source = bitmapImage;
-					// Sets the file name to the screen.
-					setFileProperties(file);
+					RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(result);
+
 					// If the interface was changed from previous image, it should be resetted.
 					resetInterface();
 					// Show the interface after the picture is loaded.
@@ -147,17 +126,31 @@ namespace RemedyPic
 					// Set the border of the image panel.
 					border.BorderThickness = new Thickness(1, 1, 1, 1);
 					border.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-					// TO DO: Resize function.
+					//bitmapImage = await ResizeImage(tempBitmap, (uint)(tempBitmap.PixelWidth/2), (uint)(tempBitmap.PixelHeight/2));
+					exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 2), (uint)(bitmapImage.PixelHeight / 2));
+					displayImage.Source = bitmapImage;
+					Stream stream = exampleBitmap.PixelBuffer.AsStream();
+					image.srcPixels = new byte[(uint)stream.Length];
+					await stream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
+					setElements(FiltersExamplePicture, exampleBitmap);
+					setElements(ColorsExamplePicture, exampleBitmap);
 				}
 			}
 			else
 			{
 				// If the window can't be unsnapped, show alert.
-				MessageDialog messageDialog = new MessageDialog("Can't save in snapped state. Please unsnap the app and try again", "Close");
+				MessageDialog messageDialog = new MessageDialog("Can't open in snapped state. Please unsnap the app and try again", "Close");
 				await messageDialog.ShowAsync();
 			}
 		}
 		#endregion
+
+		private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
+		{
+			imageElement.Source = source;
+			imageElement.Width = bitmapImage.PixelWidth / 4;
+			imageElement.Height = bitmapImage.PixelHeight / 4;
+		}
 
 		#region Invert Filter
 		private void OnInvertClick(object sender, RoutedEventArgs e)
@@ -171,7 +164,7 @@ namespace RemedyPic
 
 				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
 				image.dstPixels = custom_image.Filter();
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 				resetInterface();
 				changeButton(ref invertButton);
 			}
@@ -196,7 +189,7 @@ namespace RemedyPic
 				// reset all other highlighted buttons and make the B&W button selected
 				prepareImage();
 				image.BlackAndWhite();
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 				resetInterface();
 				changeButton(ref BlackAndWhiteButton);
 			}
@@ -215,7 +208,7 @@ namespace RemedyPic
 
 				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
 				image.dstPixels = custom_image.Filter();
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 				resetInterface();
 				changeButton(ref embossButton);
 			}
@@ -243,7 +236,7 @@ namespace RemedyPic
 				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
 				image.dstPixels = custom_image.Filter();
 
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 
 				resetInterface();
 				changeButton(ref SharpenButton);
@@ -275,7 +268,7 @@ namespace RemedyPic
 				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
 				image.dstPixels = custom_image.Filter();
 
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 
 				resetInterface();
 				changeButton(ref blurButton);
@@ -309,7 +302,7 @@ namespace RemedyPic
 				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
 				image.dstPixels = custom_image.Filter();
 
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 			}
 		}
 
@@ -407,7 +400,7 @@ namespace RemedyPic
 				{
 					image.Lighten(brightSlider.Value);
 				}
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 			}
 		}
 		#endregion
@@ -418,23 +411,29 @@ namespace RemedyPic
 			fileName.Text = file.DisplayName;
 		}
 
-		void setStream()
+		void setStream(Stream givenStream, WriteableBitmap givenBitmap)
 		{
 			// This sets the pixels to the bitmap
-			bitmapStream.Seek(0, SeekOrigin.Begin);
-			bitmapStream.Write(image.dstPixels, 0, image.dstPixels.Length);
-			bitmapImage.Invalidate();
-			ApplyReset.Visibility = Visibility.Visible;
+			//bitmapStream.Seek(0, SeekOrigin.Begin);
+			//bitmapStream.Write(image.dstPixels, 0, image.dstPixels.Length);
+			givenStream.Seek(0, SeekOrigin.Begin);
+			givenStream.Write(image.dstPixels, 0, image.dstPixels.Length);
+			givenBitmap.Invalidate();
+			if (filters1.IsOpen == true)
+				FilterApplyReset.Visibility = Visibility.Visible;
+			else if (sliders.IsOpen == true)
+				ColorApplyReset.Visibility = Visibility.Visible;
 		}
 
 		void prepareImage()
 		{
 			// This calculates the width and height of the bitmap image
 			// and sets the Stream and the pixels byte array
-			image.width = (int)bitmapImage.PixelWidth;
-			image.height = (int)bitmapImage.PixelHeight;
+			image.width = (int)exampleBitmap.PixelWidth;
+			image.height = (int)exampleBitmap.PixelHeight;
 			bitmapStream = bitmapImage.PixelBuffer.AsStream();
-			image.dstPixels = new byte[4 * bitmapImage.PixelWidth * bitmapImage.PixelHeight];
+			exampleStream = exampleBitmap.PixelBuffer.AsStream();
+			image.dstPixels = new byte[4 * exampleBitmap.PixelWidth * exampleBitmap.PixelHeight];
 			image.Reset();
 		}
 
@@ -449,7 +448,7 @@ namespace RemedyPic
 				BlueColorSlider.Value = 0;
 				prepareImage();
 				image.Reset();
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 				resetInterface();
 			}
 			ApplyReset.Visibility = Visibility.Collapsed;
@@ -462,6 +461,7 @@ namespace RemedyPic
 			if (pictureIsLoaded)
 			{
 				image.srcPixels = (byte[])image.dstPixels.Clone();
+				setStream(bitmapStream, bitmapImage);
 				resetInterface();
 			}
 			ApplyReset.Visibility = Visibility.Collapsed;
@@ -495,9 +495,9 @@ namespace RemedyPic
 			RedColorSlider.Value = 0;
 			GreenColorSlider.Value = 0;
 			BlueColorSlider.Value = 0;
-            RedContrastSlider.Value = 0;
-            GreenContrastSlider.Value = 0;
-            BlueContrastSlider.Value = 0;
+			RedContrastSlider.Value = 0;
+			GreenContrastSlider.Value = 0;
+			BlueContrastSlider.Value = 0;
 		}
 
 		#region Color Change RGB
@@ -507,7 +507,7 @@ namespace RemedyPic
 			{
 				prepareImage();
 				image.ColorChange(RedColorSlider.Value, FilterFunctions.ColorType.Red);
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 			}
 		}
 
@@ -517,7 +517,7 @@ namespace RemedyPic
 			{
 				prepareImage();
 				image.ColorChange(GreenColorSlider.Value, FilterFunctions.ColorType.Green);
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 			}
 		}
 
@@ -527,17 +527,10 @@ namespace RemedyPic
 			{
 				prepareImage();
 				image.ColorChange(BlueColorSlider.Value, FilterFunctions.ColorType.Blue);
-				setStream();
+				setStream(exampleStream, exampleBitmap);
 			}
 		}
 		#endregion
-
-		#region Resizing image
-		// TO DO: Resize function...
-		private void resize()
-		{
-		}
-		#endregion	
 
 		private void OnFiltersClicked(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
 		{
@@ -570,38 +563,82 @@ namespace RemedyPic
 			}
 		}
 
-        #region Contrast Change
-        private void OnRContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                image.Contrast(RedContrastSlider.Value, FilterFunctions.ColorType.Red);
-                setStream();
-            }
-        }
+		#region Contrast Change
+		private void OnRContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				image.Contrast(RedContrastSlider.Value, FilterFunctions.ColorType.Red);
+				setStream(exampleStream, exampleBitmap);
+			}
+		}
 
-        private void OnGContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                image.Contrast(GreenContrastSlider.Value, FilterFunctions.ColorType.Green);
-                setStream();
-            }
-        }
+		private void OnGContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				image.Contrast(GreenContrastSlider.Value, FilterFunctions.ColorType.Green);
+				setStream(exampleStream, exampleBitmap);
+			}
+		}
 
-        private void OnBContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage();
-                image.Contrast(BlueContrastSlider.Value, FilterFunctions.ColorType.Blue);
-                setStream();
-            }
-        }
-        #endregion
-    }
+		private void OnBContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				prepareImage();
+				image.Contrast(BlueContrastSlider.Value, FilterFunctions.ColorType.Blue);
+				setStream(exampleStream, exampleBitmap);
+			}
+		}
+		#endregion
+
+		#region Resizing an image
+		private async Task<WriteableBitmap> ResizeImage(WriteableBitmap baseWriteBitmap, uint width, uint height)
+		{
+			// Get the pixel buffer of the writable bitmap in bytes
+			Stream stream = baseWriteBitmap.PixelBuffer.AsStream();
+			byte[] pixels = new byte[(uint)stream.Length];
+			await stream.ReadAsync(pixels, 0, pixels.Length);
+			//Encoding the data of the PixelBuffer we have from the writable bitmap
+			var inMemoryRandomStream = new InMemoryRandomAccessStream();
+			var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream);
+			encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)baseWriteBitmap.PixelWidth, (uint)baseWriteBitmap.PixelHeight, 96, 96, pixels);
+			await encoder.FlushAsync();
+			// At this point we have an encoded image in inMemoryRandomStream
+			// We apply the transform and decode
+			var transform = new BitmapTransform
+			{
+				ScaledWidth = width,
+				ScaledHeight = height
+			};
+			inMemoryRandomStream.Seek(0);
+			var decoder = await BitmapDecoder.CreateAsync(inMemoryRandomStream);
+			var pixelData = await decoder.GetPixelDataAsync(
+							BitmapPixelFormat.Bgra8,
+							BitmapAlphaMode.Straight,
+							transform,
+							ExifOrientationMode.IgnoreExifOrientation,
+							ColorManagementMode.DoNotColorManage);
+			// An array containing the decoded image data
+			var sourceDecodedPixels = pixelData.DetachPixelData();
+			// Approach 1 : Encoding the image buffer again:
+			// Encoding data
+			var inMemoryRandomStream2 = new InMemoryRandomAccessStream();
+			var encoder2 = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream2);
+			encoder2.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, width, height, 96, 96, sourceDecodedPixels);
+			await encoder2.FlushAsync();
+			inMemoryRandomStream2.Seek(0);
+			// finally the resized writablebitmap
+			var bitmap = new WriteableBitmap((int)width, (int)height);
+			await bitmap.SetSourceAsync(inMemoryRandomStream2);
+			return bitmap;
+		}
+		#endregion
+
+	}
 	#endregion
 }
 #endregion
