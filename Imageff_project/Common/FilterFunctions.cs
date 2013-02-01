@@ -13,9 +13,10 @@ namespace RemedyPic.Common
 		private int _width, _height;
 		
 		
-		private byte[] _dstPixels, _srcPixels;
+		private byte[] _dstPixels, _srcPixels, _originalsrcPixels, _originaldstPixels;
 
 		#region getters and setters
+
 		public byte[] dstPixels
 		{
 			get
@@ -160,7 +161,7 @@ namespace RemedyPic.Common
         }       
 
         #region BlackAndWhite
-        public void BlackAndWhite()
+        public void BlackAndWhite(byte[] dstPixels, byte[] srcPixels)
 		{
 			int currentByte = 0;
 			while (currentByte < (4 * height * width))

@@ -28,7 +28,7 @@ namespace RemedyPic
 
 		// mruToken is used for LoadState and SaveState functions.
 		private string mruToken = null;
-
+		private string appliedFilters = null;
 		// bitmapImage is the image that is edited in RemedyPic.
 		private WriteableBitmap bitmapImage, exampleBitmap;
 
@@ -40,6 +40,7 @@ namespace RemedyPic
 		bool pictureIsLoaded = false;
 
 		FilterFunctions image = new FilterFunctions();
+		FilterFunctions originalImage = new FilterFunctions();
 		WriteableBitmap bitmap = new WriteableBitmap(500, 250);
 		#endregion
 
@@ -107,12 +108,10 @@ namespace RemedyPic
 				filePicker.FileTypeFilter.Add(".jpeg");
 				var result = await filePicker.PickSingleFileAsync();
 				bitmapImage = new WriteableBitmap(1, 1);
-				//bitmapImage = new WriteableBitmap(1, 1);
-				
+
 				if (result != null)
 				// Result is null if user cancels the file picker.
 				{
-				
 					Windows.Storage.Streams.IRandomAccessStream fileStream =
 							await result.OpenAsync(Windows.Storage.FileAccessMode.Read);
 					bitmapImage.SetSource(fileStream);
@@ -126,14 +125,18 @@ namespace RemedyPic
 					// Set the border of the image panel.
 					border.BorderThickness = new Thickness(1, 1, 1, 1);
 					border.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-					//bitmapImage = await ResizeImage(tempBitmap, (uint)(tempBitmap.PixelWidth/2), (uint)(tempBitmap.PixelHeight/2));
 					exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 2), (uint)(bitmapImage.PixelHeight / 2));
 					displayImage.Source = bitmapImage;
 					Stream stream = exampleBitmap.PixelBuffer.AsStream();
+					bitmapStream = bitmapImage.PixelBuffer.AsStream();
+					originalImage.srcPixels = new byte[(uint)bitmapStream.Length];
 					image.srcPixels = new byte[(uint)stream.Length];
 					await stream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
+					await bitmapStream.ReadAsync(originalImage.srcPixels, 0, originalImage.srcPixels.Length);
 					setElements(FiltersExamplePicture, exampleBitmap);
 					setElements(ColorsExamplePicture, exampleBitmap);
+					prepareImage(exampleStream, exampleBitmap, image);
+					setStream(exampleStream, exampleBitmap);
 				}
 			}
 			else
@@ -157,7 +160,8 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				appliedFilters = "invert";
+				prepareImage(exampleStream, exampleBitmap, image);
 				int[,] coeff = new int[5, 5];
 				int offset = 0, scale = 0;
 				Invert_SetValues(ref coeff, ref offset, ref scale);
@@ -187,8 +191,9 @@ namespace RemedyPic
 				// First we prepare the image for filtrating, then we call the filter.
 				// After that we save the new data to the current image,
 				// reset all other highlighted buttons and make the B&W button selected
-				prepareImage();
-				image.BlackAndWhite();
+				appliedFilters = "blackwhite";
+				prepareImage(exampleStream, exampleBitmap, image);
+				image.BlackAndWhite(image.dstPixels, image.srcPixels);
 				setStream(exampleStream, exampleBitmap);
 				resetInterface();
 				changeButton(ref BlackAndWhiteButton);
@@ -201,7 +206,8 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				appliedFilters = "emboss";
+				prepareImage(exampleStream, exampleBitmap, image);
 				int[,] coeff = new int[5, 5];
 				int offset = 0, scale = 0;
 				Emboss_SetValues(ref coeff, ref offset, ref scale);
@@ -228,7 +234,8 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				appliedFilters = "sharpen";
+				prepareImage(exampleStream, exampleBitmap, image);
 				int[,] coeff = new int[5, 5];
 				int offset = 0, scale = 0;
 				Sharpen_SetValues(ref coeff, ref offset, ref scale);
@@ -260,7 +267,8 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				appliedFilters = "blur";
+				prepareImage(exampleStream, exampleBitmap, image);
 				int[,] coeff = new int[5, 5];
 				int offset = 0, scale = 0;
 				Blur_SetValues(ref coeff, ref offset, ref scale);
@@ -294,7 +302,7 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				prepareImage(exampleStream, exampleBitmap, image);
 				int[,] coeff = new int[5, 5];
 				int offset = 0, scale = 0;
 				Custom_SetValues(ref coeff, ref offset, ref scale);
@@ -391,7 +399,7 @@ namespace RemedyPic
 				// is higher than 0 - we call the brightness function
 				// is lower than 0  - we call the darkness function
 				// And finally we save the new byte array to the image.
-				prepareImage();
+				prepareImage(exampleStream, exampleBitmap, image);
 				if (brightSlider.Value < 0)
 				{
 					image.Darken(brightSlider.Value);
@@ -414,10 +422,11 @@ namespace RemedyPic
 		void setStream(Stream givenStream, WriteableBitmap givenBitmap)
 		{
 			// This sets the pixels to the bitmap
-			//bitmapStream.Seek(0, SeekOrigin.Begin);
-			//bitmapStream.Write(image.dstPixels, 0, image.dstPixels.Length);
 			givenStream.Seek(0, SeekOrigin.Begin);
-			givenStream.Write(image.dstPixels, 0, image.dstPixels.Length);
+			if (givenBitmap == bitmapImage)
+				givenStream.Write(originalImage.dstPixels, 0, originalImage.dstPixels.Length);
+			else
+				givenStream.Write(image.dstPixels, 0, image.dstPixels.Length);
 			givenBitmap.Invalidate();
 			if (filters1.IsOpen == true)
 				FilterApplyReset.Visibility = Visibility.Visible;
@@ -425,15 +434,16 @@ namespace RemedyPic
 				ColorApplyReset.Visibility = Visibility.Visible;
 		}
 
-		void prepareImage()
+		void prepareImage(Stream stream, WriteableBitmap bitmap, FilterFunctions image)
 		{
 			// This calculates the width and height of the bitmap image
 			// and sets the Stream and the pixels byte array
-			image.width = (int)exampleBitmap.PixelWidth;
-			image.height = (int)exampleBitmap.PixelHeight;
-			bitmapStream = bitmapImage.PixelBuffer.AsStream();
+			image.width = (int)bitmap.PixelWidth;
+			image.height = (int)bitmap.PixelHeight;
 			exampleStream = exampleBitmap.PixelBuffer.AsStream();
-			image.dstPixels = new byte[4 * exampleBitmap.PixelWidth * exampleBitmap.PixelHeight];
+			bitmapStream = bitmapImage.PixelBuffer.AsStream();
+			originalImage.dstPixels = new byte[4 * bitmap.PixelWidth * bitmap.PixelHeight];
+			image.dstPixels = new byte[4 * bitmap.PixelWidth * bitmap.PixelHeight];
 			image.Reset();
 		}
 
@@ -446,12 +456,13 @@ namespace RemedyPic
 				RedColorSlider.Value = 0;
 				GreenColorSlider.Value = 0;
 				BlueColorSlider.Value = 0;
-				prepareImage();
+				prepareImage(exampleStream, exampleBitmap, image);
 				image.Reset();
 				setStream(exampleStream, exampleBitmap);
 				resetInterface();
 			}
 			ApplyReset.Visibility = Visibility.Collapsed;
+			appliedFilters = null;
 		}
 
 		private void OnApplyClick(object sender, RoutedEventArgs e)
@@ -505,7 +516,7 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				prepareImage(exampleStream, exampleBitmap, image);
 				image.ColorChange(RedColorSlider.Value, FilterFunctions.ColorType.Red);
 				setStream(exampleStream, exampleBitmap);
 			}
@@ -515,7 +526,7 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				prepareImage(exampleStream, exampleBitmap, image);
 				image.ColorChange(GreenColorSlider.Value, FilterFunctions.ColorType.Green);
 				setStream(exampleStream, exampleBitmap);
 			}
@@ -525,7 +536,7 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				prepareImage(exampleStream, exampleBitmap, image);
 				image.ColorChange(BlueColorSlider.Value, FilterFunctions.ColorType.Blue);
 				setStream(exampleStream, exampleBitmap);
 			}
@@ -568,7 +579,7 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				prepareImage(exampleStream, exampleBitmap, image);
 				image.Contrast(RedContrastSlider.Value, FilterFunctions.ColorType.Red);
 				setStream(exampleStream, exampleBitmap);
 			}
@@ -578,7 +589,7 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				prepareImage(exampleStream, exampleBitmap, image);
 				image.Contrast(GreenContrastSlider.Value, FilterFunctions.ColorType.Green);
 				setStream(exampleStream, exampleBitmap);
 			}
@@ -588,7 +599,7 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				prepareImage();
+				prepareImage(exampleStream, exampleBitmap, image);
 				image.Contrast(BlueContrastSlider.Value, FilterFunctions.ColorType.Blue);
 				setStream(exampleStream, exampleBitmap);
 			}
@@ -637,6 +648,92 @@ namespace RemedyPic
 			return bitmap;
 		}
 		#endregion
+
+		private void doBlackWhite(Stream stream, WriteableBitmap bitmap, FilterFunctions image)
+		{
+			prepareImage(stream, bitmap, image);
+			originalImage.BlackAndWhite(image.dstPixels, image.srcPixels);
+			setStream(stream, bitmap);
+			resetInterface();
+		}
+
+		private void doInvert(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+		{
+			prepareImage(stream, bitmap, givenImage);
+			int[,] coeff = new int[5, 5];
+			int offset = 0, scale = 0;
+			Invert_SetValues(ref coeff, ref offset, ref scale);
+			CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+			givenImage.dstPixels = custom_image.Filter();
+			setStream(stream, bitmap);
+			resetInterface();
+		}
+
+		private void doEmboss(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+		{
+			prepareImage(stream, bitmap, givenImage);
+			int[,] coeff = new int[5, 5];
+			int offset = 0, scale = 0;
+			Emboss_SetValues(ref coeff, ref offset, ref scale);
+			CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+			givenImage.dstPixels = custom_image.Filter();
+			setStream(stream, bitmap);
+			resetInterface();
+		}
+
+		private void doSharpen(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+		{
+			prepareImage(stream, bitmap, givenImage);
+			int[,] coeff = new int[5, 5];
+			int offset = 0, scale = 0;
+			Sharpen_SetValues(ref coeff, ref offset, ref scale);
+			CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+			givenImage.dstPixels = custom_image.Filter();
+			setStream(stream, bitmap);
+			resetInterface();
+		}
+
+		private void doBlur(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+		{
+			prepareImage(stream, bitmap, givenImage);
+			int[,] coeff = new int[5, 5];
+			int offset = 0, scale = 0;
+			Blur_SetValues(ref coeff, ref offset, ref scale);
+			CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+			givenImage.dstPixels = custom_image.Filter();
+			setStream(stream, bitmap);
+
+			resetInterface();
+		}
+
+		private void OnFilterApplyClick(object sender, RoutedEventArgs e)
+		{
+			switch (appliedFilters)
+			{
+				case "blackwhite":
+					doBlackWhite(bitmapStream, bitmapImage, originalImage);
+					filters1.IsOpen = false;
+					break;
+				case "invert":
+					doInvert(bitmapStream, bitmapImage, originalImage);
+					filters1.IsOpen = false;
+					break;
+				case "emboss":
+					doEmboss(bitmapStream, bitmapImage, originalImage);
+					filters1.IsOpen = false;
+					break;
+				case "blur":
+					doBlur(bitmapStream, bitmapImage, originalImage);
+					filters1.IsOpen = false;
+					break;
+				case "sharpen":
+					doSharpen(bitmapStream, bitmapImage, originalImage);
+					filters1.IsOpen = false;
+					break;
+				default:
+					break;
+			}
+		}
 
 	}
 	#endregion
