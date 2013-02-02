@@ -16,25 +16,17 @@
     <AppXManifest Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-01-31T18:59:04.467</Modified>
+      <Modified>2013-02-02T17:55:59.853</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-<<<<<<< HEAD
-      <Modified>2013-01-31T18:59:03.211</Modified>
-=======
-      <Modified>2013-02-01T12:28:10.679</Modified>
->>>>>>> 6d62322d52dcb442d4514b537940c8900f4cb908
+      <Modified>2013-02-02T18:22:12.512</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-<<<<<<< HEAD
-      <Modified>2013-01-31T18:59:03.194</Modified>
-=======
-      <Modified>2013-02-01T12:28:10.658</Modified>
->>>>>>> 6d62322d52dcb442d4514b537940c8900f4cb908
+      <Modified>2013-02-02T18:22:12.496</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Background.jpg">
       <PackagePath>Assets\Background.jpg</PackagePath>
@@ -80,15 +72,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-<<<<<<< HEAD
-      <Modified>2013-01-31T08:53:28.000</Modified>
-=======
-      <Modified>2013-02-01T10:44:49.788</Modified>
->>>>>>> 6d62322d52dcb442d4514b537940c8900f4cb908
+      <Modified>2013-02-01T14:46:29.804</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-01-31T18:59:03.431</Modified>
+      <Modified>2013-02-02T17:55:59.393</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
