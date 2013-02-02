@@ -28,7 +28,7 @@ namespace RemedyPic
 
 		// mruToken is used for LoadState and SaveState functions.
 		private string mruToken = null;
-		private string appliedFilters = null;
+		private string appliedFilters = null, appliedColors = null;
 		// bitmapImage is the image that is edited in RemedyPic.
 		private WriteableBitmap bitmapImage, exampleBitmap;
 
@@ -40,7 +40,7 @@ namespace RemedyPic
 		bool pictureIsLoaded = false;
 
 		FilterFunctions image = new FilterFunctions();
-		FilterFunctions originalImage = new FilterFunctions();
+		FilterFunctions imageOriginal = new FilterFunctions();
 		WriteableBitmap bitmap = new WriteableBitmap(500, 250);
 		#endregion
 
@@ -116,27 +116,19 @@ namespace RemedyPic
 							await result.OpenAsync(Windows.Storage.FileAccessMode.Read);
 					bitmapImage.SetSource(fileStream);
 					RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(result);
+					// TO DO: Find place for File name...
+					// setFileProperties(result);
 
 					// If the interface was changed from previous image, it should be resetted.
 					resetInterface();
 					// Show the interface after the picture is loaded.
 					contentGrid.Visibility = Visibility.Visible;
 					pictureIsLoaded = true;
+					doAllCalculations();
 					// Set the border of the image panel.
-					border.BorderThickness = new Thickness(1, 1, 1, 1);
-					border.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-					exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 2), (uint)(bitmapImage.PixelHeight / 2));
-					displayImage.Source = bitmapImage;
-					Stream stream = exampleBitmap.PixelBuffer.AsStream();
-					bitmapStream = bitmapImage.PixelBuffer.AsStream();
-					originalImage.srcPixels = new byte[(uint)bitmapStream.Length];
-					image.srcPixels = new byte[(uint)stream.Length];
-					await stream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
-					await bitmapStream.ReadAsync(originalImage.srcPixels, 0, originalImage.srcPixels.Length);
-					setElements(FiltersExamplePicture, exampleBitmap);
-					setElements(ColorsExamplePicture, exampleBitmap);
-					prepareImage(exampleStream, exampleBitmap, image);
-					setStream(exampleStream, exampleBitmap);
+					//border.BorderThickness = new Thickness(1, 1, 1, 1);
+					//border.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
+
 				}
 			}
 			else
@@ -148,13 +140,29 @@ namespace RemedyPic
 		}
 		#endregion
 
+		private async void doAllCalculations()
+		{
+			exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 2), (uint)(bitmapImage.PixelHeight / 2));
+			displayImage.Source = bitmapImage;
+			Stream stream = exampleBitmap.PixelBuffer.AsStream();
+			bitmapStream = bitmapImage.PixelBuffer.AsStream();
+			imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
+			image.srcPixels = new byte[(uint)stream.Length];
+			await stream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
+			await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
+			setElements(FiltersExamplePicture, exampleBitmap);
+			setElements(ColorsExamplePicture, exampleBitmap);
+			prepareImage(exampleStream, exampleBitmap, image);
+			setStream(exampleStream, exampleBitmap);
+		}
+
+
 		private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
 		{
 			imageElement.Source = source;
 			imageElement.Width = bitmapImage.PixelWidth / 4;
 			imageElement.Height = bitmapImage.PixelHeight / 4;
 		}
-
 		#region Invert Filter
 		private void OnInvertClick(object sender, RoutedEventArgs e)
 		{
@@ -374,7 +382,7 @@ namespace RemedyPic
 						IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
 						BitmapEncoder encoder = await BitmapEncoder.CreateAsync(fileType, writeStream);
 						encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
-														   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, image.dstPixels);
+														   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, imageOriginal.dstPixels);
 						// Flush all the data to the encoder(file)
 						await encoder.FlushAsync();
 					}
@@ -402,10 +410,12 @@ namespace RemedyPic
 				prepareImage(exampleStream, exampleBitmap, image);
 				if (brightSlider.Value < 0)
 				{
+					appliedColors = "darken";
 					image.Darken(brightSlider.Value);
 				}
 				else if (brightSlider.Value >= 0)
 				{
+					appliedColors = "lighten";
 					image.Lighten(brightSlider.Value);
 				}
 				setStream(exampleStream, exampleBitmap);
@@ -424,13 +434,13 @@ namespace RemedyPic
 			// This sets the pixels to the bitmap
 			givenStream.Seek(0, SeekOrigin.Begin);
 			if (givenBitmap == bitmapImage)
-				givenStream.Write(originalImage.dstPixels, 0, originalImage.dstPixels.Length);
+				givenStream.Write(imageOriginal.dstPixels, 0, imageOriginal.dstPixels.Length);
 			else
 				givenStream.Write(image.dstPixels, 0, image.dstPixels.Length);
 			givenBitmap.Invalidate();
-			if (filters1.IsOpen == true)
+			if (Filters.Visibility == Visibility.Visible)
 				FilterApplyReset.Visibility = Visibility.Visible;
-			else if (sliders.IsOpen == true)
+			else if (Colors.Visibility == Visibility.Visible)
 				ColorApplyReset.Visibility = Visibility.Visible;
 		}
 
@@ -442,7 +452,7 @@ namespace RemedyPic
 			image.height = (int)bitmap.PixelHeight;
 			exampleStream = exampleBitmap.PixelBuffer.AsStream();
 			bitmapStream = bitmapImage.PixelBuffer.AsStream();
-			originalImage.dstPixels = new byte[4 * bitmap.PixelWidth * bitmap.PixelHeight];
+			imageOriginal.dstPixels = new byte[4 * bitmap.PixelWidth * bitmap.PixelHeight];
 			image.dstPixels = new byte[4 * bitmap.PixelWidth * bitmap.PixelHeight];
 			image.Reset();
 		}
@@ -461,8 +471,8 @@ namespace RemedyPic
 				setStream(exampleStream, exampleBitmap);
 				resetInterface();
 			}
-			ApplyReset.Visibility = Visibility.Collapsed;
 			appliedFilters = null;
+			appliedColors = null;
 		}
 
 		private void OnApplyClick(object sender, RoutedEventArgs e)
@@ -475,7 +485,6 @@ namespace RemedyPic
 				setStream(bitmapStream, bitmapImage);
 				resetInterface();
 			}
-			ApplyReset.Visibility = Visibility.Collapsed;
 		}
 
 		private void resetButton(ref Windows.UI.Xaml.Controls.Button but)
@@ -516,8 +525,9 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
+				appliedColors = "redcolor";
 				prepareImage(exampleStream, exampleBitmap, image);
-				image.ColorChange(RedColorSlider.Value, FilterFunctions.ColorType.Red);
+                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -526,8 +536,9 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
+				appliedColors = "greencolor";
 				prepareImage(exampleStream, exampleBitmap, image);
-				image.ColorChange(GreenColorSlider.Value, FilterFunctions.ColorType.Green);
+                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -536,51 +547,24 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
+				appliedColors = "bluecolor";
 				prepareImage(exampleStream, exampleBitmap, image);
-				image.ColorChange(BlueColorSlider.Value, FilterFunctions.ColorType.Blue);
+                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
 		#endregion
 
-		private void OnFiltersClicked(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
-		{
-			// This checks which item from the ListView is selected
-			// and opens the attached popup
-			// after it closes all other open popups.
-			if (popups.SelectedItem == filtersButton)
-			{
-				if (filters1.IsOpen == false)
-				{
-					filters1.IsOpen = true;
-					sliders.IsOpen = false;
-				}
-				else
-				{
-					filters1.IsOpen = false;
-				}
-			}
-			if (popups.SelectedItem == slidersButton)
-			{
-				if (sliders.IsOpen == false)
-				{
-					sliders.IsOpen = true;
-					filters1.IsOpen = false;
-				}
-				else
-				{
-					sliders.IsOpen = false;
-				}
-			}
-		}
+
 
 		#region Contrast Change
 		private void OnRContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
+				appliedColors = "redcontrast";
 				prepareImage(exampleStream, exampleBitmap, image);
-				image.Contrast(RedContrastSlider.Value, FilterFunctions.ColorType.Red);
+                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -589,8 +573,9 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
+				appliedColors = "greencontrast";
 				prepareImage(exampleStream, exampleBitmap, image);
-				image.Contrast(GreenContrastSlider.Value, FilterFunctions.ColorType.Green);
+                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -599,8 +584,9 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
+				appliedColors = "bluecontrast";
 				prepareImage(exampleStream, exampleBitmap, image);
-				image.Contrast(BlueContrastSlider.Value, FilterFunctions.ColorType.Blue);
+                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -649,10 +635,11 @@ namespace RemedyPic
 		}
 		#endregion
 
+		#region Filters
 		private void doBlackWhite(Stream stream, WriteableBitmap bitmap, FilterFunctions image)
 		{
 			prepareImage(stream, bitmap, image);
-			originalImage.BlackAndWhite(image.dstPixels, image.srcPixels);
+			imageOriginal.BlackAndWhite(image.dstPixels, image.srcPixels);
 			setStream(stream, bitmap);
 			resetInterface();
 		}
@@ -705,35 +692,152 @@ namespace RemedyPic
 
 			resetInterface();
 		}
+		#endregion
 
+		#region Apply Buttons
 		private void OnFilterApplyClick(object sender, RoutedEventArgs e)
 		{
+			FilterApplyReset.Visibility = Visibility.Collapsed;
+			SelectFilters.IsChecked = false;
 			switch (appliedFilters)
 			{
 				case "blackwhite":
-					doBlackWhite(bitmapStream, bitmapImage, originalImage);
-					filters1.IsOpen = false;
+					doBlackWhite(bitmapStream, bitmapImage, imageOriginal);
+					Filters.Visibility = Visibility.Collapsed;
 					break;
 				case "invert":
-					doInvert(bitmapStream, bitmapImage, originalImage);
-					filters1.IsOpen = false;
+					doInvert(bitmapStream, bitmapImage, imageOriginal);
+					Filters.Visibility = Visibility.Collapsed;
 					break;
 				case "emboss":
-					doEmboss(bitmapStream, bitmapImage, originalImage);
-					filters1.IsOpen = false;
+					doEmboss(bitmapStream, bitmapImage, imageOriginal);
+					Filters.Visibility = Visibility.Collapsed;
 					break;
 				case "blur":
-					doBlur(bitmapStream, bitmapImage, originalImage);
-					filters1.IsOpen = false;
+					doBlur(bitmapStream, bitmapImage, imageOriginal);
+					Filters.Visibility = Visibility.Collapsed;
 					break;
 				case "sharpen":
-					doSharpen(bitmapStream, bitmapImage, originalImage);
-					filters1.IsOpen = false;
+					doSharpen(bitmapStream, bitmapImage, imageOriginal);
+					Filters.Visibility = Visibility.Collapsed;
 					break;
 				default:
 					break;
 			}
 		}
+
+		private void OnColorApplyClick(object sender, RoutedEventArgs e)
+		{
+			ColorApplyReset.Visibility = Visibility.Collapsed;
+			SelectColors.IsChecked = false;
+			switch (appliedColors)
+			{
+				case "darken":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+					imageOriginal.Darken(brightSlider.Value);
+					setStream(bitmapStream, bitmapImage);
+					break;
+				case "lighten":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+					imageOriginal.Lighten(brightSlider.Value);
+					setStream(bitmapStream, bitmapImage);
+					break;
+				case "redcolor":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					setStream(bitmapStream, bitmapImage);
+					break;
+				case "greencolor":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					setStream(bitmapStream, bitmapImage);
+					break;
+				case "bluecolor":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					setStream(bitmapStream, bitmapImage);
+					break;
+				case "redcontrast":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					setStream(bitmapStream, bitmapImage);
+					break;
+				case "greencontrast":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					setStream(bitmapStream, bitmapImage);
+					break;
+				case "bluecontrast":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					setStream(bitmapStream, bitmapImage);
+					break;
+				default:
+					break;
+			}
+		}
+		#endregion
+
+		#region Reset Buttons
+		private void OnFilterResetClick(object sender, RoutedEventArgs e)
+		{
+			// This resets the interface and returns the last applied image.
+			if (pictureIsLoaded)
+			{
+				prepareImage(exampleStream, exampleBitmap, image);
+				image.Reset();
+				setStream(exampleStream, exampleBitmap);
+				resetInterface();
+			}
+			FilterApplyReset.Visibility = Visibility.Collapsed;
+			appliedFilters = null;
+		}
+
+		private void OnColorResetClick(object sender, RoutedEventArgs e)
+		{
+			// This resets the interface and returns the last applied image.
+			if (pictureIsLoaded)
+			{
+				brightSlider.Value = 0;
+				RedColorSlider.Value = 0;
+				GreenColorSlider.Value = 0;
+				BlueColorSlider.Value = 0;
+				prepareImage(exampleStream, exampleBitmap, image);
+				image.Reset();
+				setStream(exampleStream, exampleBitmap);
+				resetInterface();
+			}
+			ColorApplyReset.Visibility = Visibility.Collapsed;
+			appliedColors = null;
+		}
+		#endregion
+
+		#region Checked Buttons
+		private void FiltersChecked(object sender, RoutedEventArgs e)
+		{
+			Filters.Visibility = Visibility.Visible;
+			Colors.Visibility = Visibility.Collapsed;
+			SelectColors.IsChecked = false;
+		}
+
+		private void FiltersUnchecked(object sender, RoutedEventArgs e)
+		{
+			Filters.Visibility = Visibility.Collapsed;
+		}
+
+		private void ColorsChecked(object sender, RoutedEventArgs e)
+		{
+			Colors.Visibility = Visibility.Visible;
+			Filters.Visibility = Visibility.Collapsed;
+			SelectFilters.IsChecked = false;
+		}
+
+		private void ColorsUnchecked(object sender, RoutedEventArgs e)
+		{
+			Colors.Visibility = Visibility.Collapsed;
+		}
+		#endregion
+
 
 	}
 	#endregion

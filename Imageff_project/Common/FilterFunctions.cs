@@ -10,12 +10,9 @@ namespace RemedyPic.Common
 	class FilterFunctions
 	{
 		static byte[] blackWhiteAlreadyArray;
-		private int _width, _height;
-
-
-        private byte[] _dstPixels, _srcPixels;
+		private int _width, _height;		
+		private byte[] _dstPixels, _srcPixels;
 		#region getters and setters
-
 		public byte[] dstPixels
 		{
 			get
@@ -26,8 +23,7 @@ namespace RemedyPic.Common
 			{
 				_dstPixels = value;
 			}
-		}
-		
+		}		
 		public byte[] srcPixels
 		{
 			get
@@ -38,8 +34,7 @@ namespace RemedyPic.Common
 			{
 				_srcPixels = value;
 			}
-		}
-		
+		}	
 		public int height
 		{
 			get
@@ -50,8 +45,7 @@ namespace RemedyPic.Common
 			{
 				_height = value;
 			}
-		}
-		
+		}		
 		public int width
 		{
 			get
@@ -64,7 +58,6 @@ namespace RemedyPic.Common
 			}
 		}
 		#endregion
-
 		public enum ColorType
         {
             Red,
@@ -79,50 +72,76 @@ namespace RemedyPic.Common
 		}
 
         #region Color Change
-        public void ColorChange(double value, ColorType color)
+        // Main function which changes RGB colors
+        public void ColorChange(double RedColorValue, double GreenColorValue, double BlueColorValue, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
-            int temp;
-            int currentByte = GetColor(color);
-            for (; currentByte < 4 * height * width; currentByte += 4)
+            for (int CurrentByte = 0; CurrentByte < 4 * height * width; CurrentByte += 4)
             {
-                temp = dstPixels[currentByte] + (int)value;
-                ColorChange_CheckValue(ref temp);
-                dstPixels[currentByte] = (byte)temp;
+                ColorChange_GetNewColors(CurrentByte, RedColorValue, GreenColorValue, BlueColorValue);
+                ColorChange_GetNewContrasts(CurrentByte, RedContrastValue, GreenContrastValue, BlueContrastValue);
             }
         }
 
-        public void ColorChange_CheckValue(ref int val)
+        #region Colors
+        // Gets new values for R G B color of selected pixel of image (depends of the value of R G B color sliders)
+        public void ColorChange_GetNewColors(int CurrentByte, double RedValue, double GreenValue, double BlueValue)
+        {
+            ColorChange_GetNewColor(CurrentByte, (int)BlueValue);
+            ColorChange_GetNewColor(CurrentByte + 1, (int)GreenValue);
+            ColorChange_GetNewColor(CurrentByte + 2, (int)RedValue);
+        }
+
+        // Get new value for one color of selected pixel of image
+        public void ColorChange_GetNewColor(int CurrentByte, int value)
+        {
+            int temp = _dstPixels[CurrentByte] + value;
+            ColorChange_CheckColorValue(ref temp);
+            _dstPixels[CurrentByte] = (byte)temp; 
+        }
+
+        // Sets the value of the color in the bounds [20-200]
+        public void ColorChange_CheckColorValue(ref int val)
         {
             if (val > 200)
                 val = 200;
             else if (val < 20)
                 val = 20;
         }
-        #endregion
+        #endregion 
 
-        #region Contrast Change 
-        public void Contrast(double contrast, ColorType color)
+        #region Contrasts
+        // Gets new values for R G B color of selected pixel of image (depends of the value of R G B contrast sliders)
+        public void ColorChange_GetNewContrasts(int CurrentByte, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
         {
-            int currentByte = GetColor(color);
-            _dstPixels = (byte[])_srcPixels.Clone(); 
-            contrast = Contrast_GetContrastValue(contrast);
-            Contrast_GetNewPixels(currentByte, contrast);           
+            Contrast_GetContrastValue(ref BlueContrastValue);
+            Contrast_GetContrastValue(ref GreenContrastValue);
+            Contrast_GetContrastValue(ref RedContrastValue);
+
+            ColorChange_GetNewContrast(CurrentByte, BlueContrastValue);
+            ColorChange_GetNewContrast(CurrentByte + 1, GreenContrastValue);
+            ColorChange_GetNewContrast(CurrentByte + 2, RedContrastValue);
+
         }
 
-        public void Contrast_GetNewPixels(int currentByte, double contrast)
+        // Calculate contrast value of slider to value between 0 and 4
+        public void Contrast_GetContrastValue(ref double contrast)
         {
-            double temp;
-
-            for (; currentByte < 4 * height * width; currentByte += 4)
-            {
-                temp = Contrast_GetNewColor(dstPixels[currentByte], contrast);
-                Contrast_CheckValue(ref temp);
-                dstPixels[currentByte] = (byte)temp;
-            }
+            contrast = (100.0 + contrast) / 100.0;
+            contrast *= contrast;
         }
 
-        public double Contrast_GetNewColor(double temp, double contrast)
+        // Get new value for one color of selected pixel of image
+        public void ColorChange_GetNewContrast(int currentByte, double contrast)
+        {
+            double temp = Contrast_GetNewValue(dstPixels[currentByte], contrast);
+            ColorChange_CheckContrastValue(ref temp);
+            dstPixels[currentByte] = (byte)temp;
+            
+        }
+
+        // Calculate the new value of the color
+        public double Contrast_GetNewValue(double temp, double contrast)
         {
             temp /= 255.0;
             temp -= 0.5;
@@ -131,33 +150,16 @@ namespace RemedyPic.Common
             return temp *= 255;
         }
 
-        public void Contrast_CheckValue(ref double val)
+        // Sets the value of the color in the bounds [0-255]
+        public void ColorChange_CheckContrastValue(ref double val)
         {
             if (val > 255)
                 val = 255;
             else if (val < 0)
                 val = 0;
         }
-
-        public double Contrast_GetContrastValue(double contrast)
-        {
-            contrast = (100.0 + contrast) / 100.0;
-            return contrast *= contrast;
-        }
         #endregion
-
-        public int GetColor(ColorType color)
-        {
-            switch (color)
-            {
-                case ColorType.Red:
-                    return 2;
-                case ColorType.Green:
-                    return 1;
-                default:
-                    return 0;
-            }
-        }       
+        #endregion
 
         #region BlackAndWhite
         public void BlackAndWhite(byte[] dstPixels, byte[] srcPixels)

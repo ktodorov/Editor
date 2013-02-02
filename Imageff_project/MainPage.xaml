@@ -216,90 +216,81 @@
         </VisualStateManager.VisualStateGroups>
 
         <!-- Back button and page title -->
+        <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource HeaderTextStyle}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="White" Margin="0" FontSize="21" Grid.RowSpan="2"/>
+
+        <!-- Back button and page title -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image HorizontalAlignment="Left" Height="103" Margin="40,10,0,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png"/>
-            <StackPanel x:Name="stackPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="30,113,0,0" Grid.RowSpan="2">
+            <Image HorizontalAlignment="Right" Height="103" Margin="0,0,50,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2"/>
+            <StackPanel x:Name="stackPanel1" Orientation="Horizontal" Margin="0,0,70,30" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="30,0,0,0">
                     <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
                     <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,0,0,0" Style="{StaticResource TextButtonStyle}" FontSize="19" FontWeight="Thin" Click="OnSaveButtonClick" Foreground="#FFF1E9E9"/>
                 </StackPanel>
             </StackPanel>
-            <ListView x:Name="popups" HorizontalAlignment="Right" Margin="0" Grid.Column="1" Width="140" SelectionChanged="OnFiltersClicked" VerticalAlignment="Top" Background="#337FFD58" BorderBrush="#B27FFD58" Foreground="White" BorderThickness="2,0,0,2" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <TextBlock x:Name="filtersButton" Text="FILTERS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0" Style="{StaticResource CaptionTextStyle}" FontSize="18" FontFamily="Segoe UI" Foreground="White" Padding="20,10" FontWeight="SemiLight"/>
-                <TextBlock x:Name="slidersButton" Text="COLORS" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Style="{StaticResource CaptionTextStyle}" FontSize="18" FontFamily="Segoe UI" Foreground="White" Padding="20,10" FontWeight="SemiLight"/>
-            </ListView>
-            <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource HeaderTextStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White" Margin="0,0,200,0" FontSize="21" Grid.Column="1"/>
         </Grid>
-        <Grid x:Name="contentGrid" Margin="10,121,0,37" Grid.RowSpan="2">
+        <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="50,32,0,68" MaxWidth="1100" Grid.RowSpan="2" HorizontalAlignment="Left">
+            <Border x:Name="border" Margin="0" MaxWidth="1050" HorizontalAlignment="Center">
+                <Image x:Name="displayImage" Margin="0" MaxWidth="1050" HorizontalAlignment="Center"/>
+            </Border>
+        </StackPanel>
+        <Grid x:Name="contentGrid" Margin="0,121,0,10" Grid.RowSpan="2" HorizontalAlignment="Right">
             <Grid.RowDefinitions>
                 <RowDefinition Height="69"/>
                 <RowDefinition Height="43"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="10,32,220,6" MaxWidth="1100" Grid.RowSpan="3">
-                <Border x:Name="border" Margin="0" MaxWidth="1050" HorizontalAlignment="Center">
-                    <Image x:Name="displayImage" Margin="0" MaxWidth="1050" HorizontalAlignment="Center"/>
-                </Border>
-            </StackPanel>
-            <Popup x:Name="filters1" VerticalAlignment="Top" Margin="0,1,0,0" Grid.Column="1" MaxWidth="450" Width="350" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <Border BorderThickness="2,2,0,2" Padding="0" Background="#7F000000" BorderBrush="#7F7FFD58" Width="350" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <StackPanel x:Name="FiltersPanel" VerticalAlignment="Center" Width="300" Margin="25,0">
-                        <Image x:Name="FiltersExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0,7,0,0" MaxWidth="350" MaxHeight="350"/>
-                        <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Click="OnBlackWhiteClick" Height="35" Content="BLACK&amp;WHITE" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="invertButton" Content="INVERT" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnInvertClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="SemiLight"/>
-                        <Button x:Name="embossButton" Content="EMBOSS" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnEmbossClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="SharpenButton" Content="SHARPEN" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnSharpenClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="blurButton" Content="BLUR" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnBlurClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <StackPanel x:Name="FilterApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
-                            <Button x:Name="FilterApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnFilterApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="FilterResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
-                        </StackPanel>
+            <ScrollViewer x:Name="Filters" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" VerticalAlignment="Top" BorderThickness="1,1,0,1" Visibility="Collapsed" BorderBrush="#7F248500" Background="#7F000000">
+                <StackPanel x:Name="FiltersPanel" VerticalAlignment="Top" Width="300" Margin="20,10" HorizontalAlignment="Right">
+                    <Image x:Name="FiltersExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="350" MaxHeight="350"/>
+                    <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Click="OnBlackWhiteClick" Height="35" Content="BLACK&amp;WHITE" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
+                    <Button x:Name="invertButton" Content="INVERT" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnInvertClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="SemiLight"/>
+                    <Button x:Name="embossButton" Content="EMBOSS" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnEmbossClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
+                    <Button x:Name="SharpenButton" Content="SHARPEN" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnSharpenClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
+                    <Button x:Name="blurButton" Content="BLUR" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnBlurClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
+                    <StackPanel x:Name="FilterApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
+                        <Button x:Name="FilterApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnFilterApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                        <Button x:Name="FilterResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnFilterResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
                     </StackPanel>
-                </Border>
-
-            </Popup>
-            
-            
-            <Popup x:Name="sliders" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0" Width="350" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <Border BorderThickness="2,2,0,2" Padding="0" Background="#7F000000" BorderBrush="#7F7FFD58" Width="350" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="ColorsPanel" Width="300" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="25,0">
-                        <Image x:Name="ColorsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0,7,0,0" MaxWidth="350" MaxHeight="350"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnValueChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Height="40" >
-                            <Slider.Foreground>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <LinearGradientBrush.RelativeTransform>
-                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="260"/>
-                                    </LinearGradientBrush.RelativeTransform>
-                                    <GradientStop Color="Black"/>
-                                    <GradientStop Color="White" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Slider.Foreground>
-                        </Slider>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="COLORS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:Name ="RedColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnRColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" />
-                        <Slider x:Name ="GreenColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnGColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" />
-                        <Slider x:Name ="BlueColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnBColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" />
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="SATURATION" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnRContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" />
-                        <Slider x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnGContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" />
-                        <Slider x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnBContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" />
-                        <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <Button x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
-                        </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer x:Name="Colors" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Top" BorderThickness="1,1,0,1" VerticalContentAlignment="Top" Grid.RowSpan="3" Visibility="Collapsed" BorderBrush="#7F248500" Background="#7F000000">
+                <StackPanel x:Name="ColorsPanel" Width="300" Margin="20,10" HorizontalAlignment="Right" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <Image x:Name="ColorsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="350" MaxHeight="350"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
+                    <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnValueChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Height="40" >
+                        <Slider.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="260"/>
+                                </LinearGradientBrush.RelativeTransform>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="White" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Slider.Foreground>
+                    </Slider>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="COLORS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
+                    <Slider x:Name ="RedColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnRColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" />
+                    <Slider x:Name ="GreenColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnGColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" />
+                    <Slider x:Name ="BlueColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnBColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" />
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="SATURATION" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
+                    <Slider x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnRContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" />
+                    <Slider x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnGContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" />
+                    <Slider x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnBContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" />
+                    <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,20" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                        <Button x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnColorApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                        <Button x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnColorResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
                     </StackPanel>
-                </Border>
-            </Popup>
-            <StackPanel x:Name="ApplyReset" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,25,0" Grid.Row="2" Visibility="Collapsed">
-                <Button x:Name="ApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                <Button x:Name="ResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
-            </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
+        <StackPanel x:Name="Menu" Margin="0" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+            <ToggleButton x:Name="SelectFilters" Content="FILTERS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00"/>
+            <ToggleButton x:Name="SelectColors" Content="COLORS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ColorsUnchecked" Checked="ColorsChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" d:IsLocked="True"/>
+        </StackPanel>
 
 
     </Grid>
