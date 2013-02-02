@@ -13,7 +13,7 @@ namespace RemedyPic.Common
 		private int _width, _height;
 		
 		
-		private byte[] _dstPixels, _srcPixels, _originalsrcPixels, _originaldstPixels;
+		private byte[] _dstPixels, _srcPixels;
 
 		#region getters and setters
 
