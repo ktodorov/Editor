@@ -838,6 +838,15 @@ namespace RemedyPic
 		}
 		#endregion
 
+        private void OnRotateClick(object sender, RoutedEventArgs e)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.Rotate();
+            setStream(bitmapStream, bitmapImage);
+
+            resetInterface();
+        }
+
 
 	}
 	#endregion

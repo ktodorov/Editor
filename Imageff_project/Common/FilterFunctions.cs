@@ -71,12 +71,23 @@ namespace RemedyPic.Common
 			_dstPixels = (byte[]) _srcPixels.Clone();
 		}
 
+        public void Rotate()
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+            for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; )
+            {
+                
+            }
+           
+        //    _srcPixels = (byte[])_dstPixels.Clone();
+        }
+
         #region Color Change
         // Main function which changes RGB colors
         public void ColorChange(double RedColorValue, double GreenColorValue, double BlueColorValue, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
-            for (int CurrentByte = 0; CurrentByte < 4 * height * width; CurrentByte += 4)
+            for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
             {
                 ColorChange_GetNewColors(CurrentByte, RedColorValue, GreenColorValue, BlueColorValue);
                 ColorChange_GetNewContrasts(CurrentByte, RedContrastValue, GreenContrastValue, BlueContrastValue);
