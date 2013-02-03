@@ -47,6 +47,9 @@ namespace RemedyPic
 		public MainPage()
 		{
 			this.InitializeComponent();
+			AnimateOutColors.Begin();
+			AnimateOutFilters.Begin();
+			AnimateOutPicture.Begin();
 		}
 
 		#region LoadState
@@ -112,6 +115,7 @@ namespace RemedyPic
 				if (result != null)
 				// Result is null if user cancels the file picker.
 				{
+					AnimateOutPicture.Begin();
 					Windows.Storage.Streams.IRandomAccessStream fileStream =
 							await result.OpenAsync(Windows.Storage.FileAccessMode.Read);
 					bitmapImage.SetSource(fileStream);
@@ -154,6 +158,7 @@ namespace RemedyPic
 			setElements(ColorsExamplePicture, exampleBitmap);
 			prepareImage(exampleStream, exampleBitmap, image);
 			setStream(exampleStream, exampleBitmap);
+			AnimateInPicture.Begin();
 		}
 
 
@@ -527,7 +532,7 @@ namespace RemedyPic
 			{
 				appliedColors = "redcolor";
 				prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+				image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -538,7 +543,7 @@ namespace RemedyPic
 			{
 				appliedColors = "greencolor";
 				prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+				image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -549,7 +554,7 @@ namespace RemedyPic
 			{
 				appliedColors = "bluecolor";
 				prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+				image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -564,7 +569,7 @@ namespace RemedyPic
 			{
 				appliedColors = "redcontrast";
 				prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+				image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -575,7 +580,7 @@ namespace RemedyPic
 			{
 				appliedColors = "greencontrast";
 				prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+				image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -586,7 +591,7 @@ namespace RemedyPic
 			{
 				appliedColors = "bluecontrast";
 				prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+				image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
 			}
 		}
@@ -744,32 +749,32 @@ namespace RemedyPic
 					break;
 				case "redcolor":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "greencolor":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "bluecolor":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "redcontrast":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "greencontrast":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "bluecontrast":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+					imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				default:
@@ -818,34 +823,38 @@ namespace RemedyPic
 			Filters.Visibility = Visibility.Visible;
 			Colors.Visibility = Visibility.Collapsed;
 			SelectColors.IsChecked = false;
+			AnimateInFilters.Begin();
 		}
 
 		private void FiltersUnchecked(object sender, RoutedEventArgs e)
 		{
+			AnimateOutFilters.Begin();
 			Filters.Visibility = Visibility.Collapsed;
 		}
 
 		private void ColorsChecked(object sender, RoutedEventArgs e)
-		{
+		{		
 			Colors.Visibility = Visibility.Visible;
+			AnimateInColors.Begin();
 			Filters.Visibility = Visibility.Collapsed;
 			SelectFilters.IsChecked = false;
 		}
 
 		private void ColorsUnchecked(object sender, RoutedEventArgs e)
 		{
+			AnimateOutColors.Begin();
 			Colors.Visibility = Visibility.Collapsed;
 		}
 		#endregion
 
-        private void OnRotateClick(object sender, RoutedEventArgs e)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.Rotate();
-            setStream(bitmapStream, bitmapImage);
+		private void OnRotateClick(object sender, RoutedEventArgs e)
+		{
+			prepareImage(bitmapStream, bitmapImage, imageOriginal);
+			imageOriginal.Rotate();
+			setStream(bitmapStream, bitmapImage);
 
-            resetInterface();
-        }
+			resetInterface();
+		}
 
 
 	}
