@@ -71,12 +71,56 @@ namespace RemedyPic.Common
 			_dstPixels = (byte[]) _srcPixels.Clone();
 		}
 
+        #region Rotate
+        // Main function of rotation
+        public void Rotate()
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+
+            for (int CurrentByte = 0, CurrentColumn = 0, CurrentRow = 0; CurrentByte < 4 * _height * _width; CurrentColumn++)
+            {
+                Rotate_GetNewColumnRow(ref CurrentColumn,ref CurrentRow);
+                Rotate_SetNewValues(ref CurrentByte, (_width * (_height - (CurrentColumn + 1)) + CurrentRow) * 4);                           
+            }
+
+            Rotate_swapWH();
+           _srcPixels = (byte[])_dstPixels.Clone();
+        }
+
+        // Sets the new values of RGBA
+        public void Rotate_SetNewValues(ref int CurrentByte, int index)
+        {
+            _dstPixels[CurrentByte++] = _srcPixels[index];
+            _dstPixels[CurrentByte++] = _srcPixels[index + 1];
+            _dstPixels[CurrentByte++] = _srcPixels[index + 2];
+            _dstPixels[CurrentByte++] = _srcPixels[index + 3];     
+        }
+
+        // Check if the currentcolumn is at the last cell of row
+        public void Rotate_GetNewColumnRow(ref int CurrentColumn, ref int CurrentRow)
+        {
+            if (CurrentColumn == _height)
+            {
+                CurrentRow++;
+                CurrentColumn = 0;
+            }
+        }
+
+        // Swap width and height
+        public void Rotate_swapWH()
+        {
+            int temp = _width;
+            _width = _height;
+            _height = _width;
+        }
+        #endregion
+
         #region Color Change
         // Main function which changes RGB colors
         public void ColorChange(double RedColorValue, double GreenColorValue, double BlueColorValue, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
-            for (int CurrentByte = 0; CurrentByte < 4 * height * width; CurrentByte += 4)
+            for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
             {
                 ColorChange_GetNewColors(CurrentByte, RedColorValue, GreenColorValue, BlueColorValue);
                 ColorChange_GetNewContrasts(CurrentByte, RedContrastValue, GreenContrastValue, BlueContrastValue);
