@@ -80,7 +80,7 @@ namespace RemedyPic.Common
             for (int CurrentByte = 0, CurrentColumn = 0, CurrentRow = 0; CurrentByte < 4 * _height * _width; CurrentColumn++)
             {
                 Rotate_GetNewColumnRow(ref CurrentColumn,ref CurrentRow);
-                Rotate_SetNewValues(ref CurrentByte, (_width * (_height - (CurrentColumn + 1)) + CurrentRow) * 4);                           
+                Rotate_SetNewValues(ref CurrentByte, (_width * (_height - (CurrentColumn + 1) + CurrentRow) * 4);                           
             }
 
             Rotate_swapWH();

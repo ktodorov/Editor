@@ -233,14 +233,6 @@
             </StackPanel>
         </Grid>
         <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="50,32,0,68" MaxWidth="1100" Grid.RowSpan="2" HorizontalAlignment="Left">
-            <StackPanel.Resources>
-                <Storyboard x:Name="AnimateInPicture">
-                    <FadeInThemeAnimation Storyboard.TargetName="imagePanel"/>
-                </Storyboard>
-                <Storyboard x:Name="AnimateOutPicture">
-                    <FadeOutThemeAnimation Storyboard.TargetName="imagePanel" Duration="00:00:001"/>
-                </Storyboard>
-            </StackPanel.Resources>
             <Border x:Name="border" Margin="0" MaxWidth="1050" HorizontalAlignment="Center">
                 <Image x:Name="displayImage" Margin="0" MaxWidth="1050" HorizontalAlignment="Center"/>
             </Border>
@@ -253,14 +245,6 @@
             </Grid.RowDefinitions>
             <ScrollViewer x:Name="Filters" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" VerticalAlignment="Top" BorderThickness="1,1,0,1" Visibility="Collapsed" BorderBrush="#7F248500" Background="#7F000000">
                 <StackPanel x:Name="FiltersPanel" VerticalAlignment="Top" Width="300" Margin="20,10" HorizontalAlignment="Right">
-                    <StackPanel.Resources>
-                        <Storyboard x:Name="AnimateInFilters">
-                            <FadeInThemeAnimation Storyboard.TargetName="Filters"/>
-                        </Storyboard>
-                        <Storyboard x:Name="AnimateOutFilters">
-                            <FadeOutThemeAnimation Storyboard.TargetName="Filters"/>
-                        </Storyboard>
-                    </StackPanel.Resources>
                     <Image x:Name="FiltersExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="350" MaxHeight="350"/>
                     <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Click="OnBlackWhiteClick" Height="35" Content="BLACK&amp;WHITE" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
                     <Button x:Name="invertButton" Content="INVERT" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnInvertClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="SemiLight"/>
@@ -275,14 +259,6 @@
             </ScrollViewer>
             <ScrollViewer x:Name="Colors" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Top" BorderThickness="1,1,0,1" VerticalContentAlignment="Top" Grid.RowSpan="3" Visibility="Collapsed" BorderBrush="#7F248500" Background="#7F000000">
                 <StackPanel x:Name="ColorsPanel" Width="300" Margin="20,10" HorizontalAlignment="Right" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <StackPanel.Resources>
-                        <Storyboard x:Name="AnimateInColors">
-                            <FadeInThemeAnimation Storyboard.TargetName="Colors" />
-                        </Storyboard>
-                        <Storyboard x:Name="AnimateOutColors">
-                            <FadeOutThemeAnimation Storyboard.TargetName="Colors"/>
-                        </Storyboard>
-                    </StackPanel.Resources>
                     <Image x:Name="ColorsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="350" MaxHeight="350"/>
                     <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
                     <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnValueChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Height="40" >
