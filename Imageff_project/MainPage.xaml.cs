@@ -744,32 +744,32 @@ namespace RemedyPic
 					break;
 				case "redcolor":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "greencolor":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "bluecolor":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "redcontrast":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "greencontrast":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				case "bluecontrast":
 					prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
 				default:

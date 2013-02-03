@@ -289,7 +289,7 @@
         </Grid>
         <StackPanel x:Name="Menu" Margin="0" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
             <ToggleButton x:ConnectionId='1' x:Name="SelectFilters" Content="FILTERS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100"                                                       BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00"/>
-            <ToggleButton x:ConnectionId='2' x:Name="SelectColors" Content="COLORS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100"                                                     BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" d:IsLocked="True"/>
+            <ToggleButton x:ConnectionId='2' x:Name="SelectColors" Content="COLORS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100"                                                     BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00"/>
         </StackPanel>
 
 
