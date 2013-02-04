@@ -71,6 +71,68 @@ namespace RemedyPic.Common
 			_dstPixels = (byte[]) _srcPixels.Clone();
 		}
 
+        #region Flip
+        // Main Flip function
+        public void Flip()
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();            
+
+            for (int CurrentByte = 0, CurrentColumn = 0, CurrentRow = 0; CurrentByte < 4 * _height * _width; CurrentColumn++)
+            {
+                Flip_SetNewValues(ref CurrentColumn,ref CurrentRow,ref CurrentByte);
+            }
+
+            _srcPixels = (byte[])_dstPixels.Clone();
+        }
+
+        // Set the new values for the pixel
+        public void Flip_SetNewValues(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
+        {
+            Flip_GetNewColumnRowByte(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
+
+            if (CurrentRow != _height)
+            {                
+                int index = 4 * (_width - 1 - CurrentColumn) + 4 * _width * CurrentRow;
+                Flip_SwapPixelData(ref CurrentByte, index);
+            }
+        }
+
+        // Calculate the new Row, Byte, Column of pixel
+        public void Flip_GetNewColumnRowByte(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
+        {
+            int ColumnsInLeftSide = Flip_GetColumnNumber();
+
+            if (CurrentColumn == ColumnsInLeftSide)
+            {
+                CurrentColumn = 0;
+                CurrentByte += 4 * (ColumnsInLeftSide + (_width % ColumnsInLeftSide));
+                CurrentRow++;
+            }
+        }
+
+        // Calculate the column number of left side of the image
+        public int Flip_GetColumnNumber()
+        {
+            return _width / 2;
+        }
+
+        // Swap pixel data of R G B A
+        public void Flip_SwapPixelData(ref int CurrentByte, int index)
+        {
+            Flip_SwapValues(CurrentByte++, index);
+            Flip_SwapValues(CurrentByte++, index + 1);
+            Flip_SwapValues(CurrentByte++, index + 2);
+            Flip_SwapValues(CurrentByte++, index + 3);
+        }
+
+        // Swap one of RGBA data of the pixel
+        public void Flip_SwapValues(int CurrentByte, int index)
+        {
+            _dstPixels[CurrentByte] = _srcPixels[index];
+            _dstPixels[index] = _srcPixels[CurrentByte];
+        }
+        #endregion
+
         #region Rotate
         // Main function of rotation
         public void Rotate()
