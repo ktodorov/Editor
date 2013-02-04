@@ -47,8 +47,6 @@ namespace RemedyPic
 		public MainPage()
 		{
 			this.InitializeComponent();
-			AnimateOutColors.Begin();
-			AnimateOutFilters.Begin();
 			AnimateOutPicture.Begin();
 		}
 
@@ -443,9 +441,9 @@ namespace RemedyPic
 			else
 				givenStream.Write(image.dstPixels, 0, image.dstPixels.Length);
 			givenBitmap.Invalidate();
-			if (Filters.Visibility == Visibility.Visible)
+			if (PopupFilters.IsOpen)
 				FilterApplyReset.Visibility = Visibility.Visible;
-			else if (Colors.Visibility == Visibility.Visible)
+			else if (PopupColors.IsOpen)
 				ColorApplyReset.Visibility = Visibility.Visible;
 		}
 
@@ -708,23 +706,23 @@ namespace RemedyPic
 			{
 				case "blackwhite":
 					doBlackWhite(bitmapStream, bitmapImage, imageOriginal);
-					Filters.Visibility = Visibility.Collapsed;
+					PopupFilters.IsOpen = false;
 					break;
 				case "invert":
 					doInvert(bitmapStream, bitmapImage, imageOriginal);
-					Filters.Visibility = Visibility.Collapsed;
+					PopupFilters.IsOpen = false; 
 					break;
 				case "emboss":
 					doEmboss(bitmapStream, bitmapImage, imageOriginal);
-					Filters.Visibility = Visibility.Collapsed;
+					PopupFilters.IsOpen = false;
 					break;
 				case "blur":
 					doBlur(bitmapStream, bitmapImage, imageOriginal);
-					Filters.Visibility = Visibility.Collapsed;
+					PopupFilters.IsOpen = false;
 					break;
 				case "sharpen":
 					doSharpen(bitmapStream, bitmapImage, imageOriginal);
-					Filters.Visibility = Visibility.Collapsed;
+					PopupFilters.IsOpen = false;
 					break;
 				default:
 					break;
@@ -820,30 +818,24 @@ namespace RemedyPic
 		#region Checked Buttons
 		private void FiltersChecked(object sender, RoutedEventArgs e)
 		{
-			Filters.Visibility = Visibility.Visible;
-			Colors.Visibility = Visibility.Collapsed;
 			SelectColors.IsChecked = false;
-			AnimateInFilters.Begin();
+			PopupFilters.IsOpen = true;
 		}
 
 		private void FiltersUnchecked(object sender, RoutedEventArgs e)
 		{
-			AnimateOutFilters.Begin();
-			Filters.Visibility = Visibility.Collapsed;
+			PopupFilters.IsOpen = false;
 		}
 
 		private void ColorsChecked(object sender, RoutedEventArgs e)
-		{		
-			Colors.Visibility = Visibility.Visible;
-			AnimateInColors.Begin();
-			Filters.Visibility = Visibility.Collapsed;
+		{
 			SelectFilters.IsChecked = false;
+			PopupColors.IsOpen = true;
 		}
 
 		private void ColorsUnchecked(object sender, RoutedEventArgs e)
 		{
-			AnimateOutColors.Begin();
-			Colors.Visibility = Visibility.Collapsed;
+			PopupColors.IsOpen = false;
 		}
 		#endregion
 
@@ -856,14 +848,13 @@ namespace RemedyPic
 			resetInterface();
 		}
 
-        private void OnFlipClick(object sender, RoutedEventArgs e)
-        {
+		private void OnFlipClick(object sender, RoutedEventArgs e)
+		{
 			prepareImage(bitmapStream, bitmapImage, imageOriginal);
 			imageOriginal.Flip();
 			setStream(bitmapStream, bitmapImage);
-
 			resetInterface();
-        }
+		}
 
 
 	}
