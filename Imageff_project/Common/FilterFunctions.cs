@@ -71,6 +71,8 @@ namespace RemedyPic.Common
 			_dstPixels = (byte[]) _srcPixels.Clone();
 		}
 
+        #region Flip
+
         #region H Flip
         // Main Flip function
         public void HFlip()
@@ -92,8 +94,8 @@ namespace RemedyPic.Common
 
             if (CurrentRow != _height)
             {                
-                int index = 4 * (_width - 1 - CurrentColumn) + 4 * _width * CurrentRow;
-                HFlip_SwapPixelData(ref CurrentByte, index);
+                int index = 4 * ((_width - 1 - CurrentColumn) + _width * CurrentRow);
+                Flip_SwapPixelData(ref CurrentByte, index);
             }
         }
 
@@ -115,25 +117,59 @@ namespace RemedyPic.Common
         {
             return _width / 2;
         }
+        #endregion
 
-        // Swap pixel data of R G B A
-        public void HFlip_SwapPixelData(ref int CurrentByte, int index)
+        #region V Flip
+        // Main Flip function
+        public void VFlip()
         {
-            HFlip_SwapValues(CurrentByte++, index);
-            HFlip_SwapValues(CurrentByte++, index + 1);
-            HFlip_SwapValues(CurrentByte++, index + 2);
-            HFlip_SwapValues(CurrentByte++, index + 3);
+            _dstPixels = (byte[])_srcPixels.Clone();
+
+            for (int CurrentByte = 0, CurrentColumn = 0, CurrentRow = 0; CurrentByte < 2 * _height * _width; CurrentColumn++)
+            {
+                VFlip_SetNewValues(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
+            }
+
+            _srcPixels = (byte[])_dstPixels.Clone();
         }
 
-        // Swap one of RGBA data of the pixel
-        public void HFlip_SwapValues(int CurrentByte, int index)
+        // Set the new values for the pixel
+        public void VFlip_SetNewValues(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
         {
-            _dstPixels[CurrentByte] = _srcPixels[index];
-            _dstPixels[index] = _srcPixels[CurrentByte];
+            VFlip_GetNewColumnRow(ref CurrentColumn, ref CurrentRow);
+          
+            int index = 4 * (_width * (_height - 1 - CurrentRow) +  CurrentColumn);
+            Flip_SwapPixelData(ref CurrentByte, index);
+        }
+
+        // Calculate the new Row and Column of pixel
+        public void VFlip_GetNewColumnRow(ref int CurrentColumn, ref int CurrentRow)
+        {
+            if (CurrentColumn == _width)
+            {
+                CurrentColumn = 0;
+                CurrentRow++;
+            }
         }
         #endregion
 
-        
+        // Swap pixel data of B G R A
+        public void Flip_SwapPixelData(ref int CurrentByte, int index)
+        {
+            Flip_SwapValues(CurrentByte++, index);
+            Flip_SwapValues(CurrentByte++, index + 1);
+            Flip_SwapValues(CurrentByte++, index + 2);
+            Flip_SwapValues(CurrentByte++, index + 3);
+        }
+
+        // Swap one of BGRA data of the pixel
+        public void Flip_SwapValues(int CurrentByte, int index)
+        {
+            _dstPixels[CurrentByte] = _srcPixels[index];
+            _dstPixels[index] = _srcPixels[CurrentByte];
+        } 
+
+        #endregion
 
         #region Rotate
         // Main function of rotation

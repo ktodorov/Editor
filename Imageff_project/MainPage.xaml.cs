@@ -848,13 +848,21 @@ namespace RemedyPic
 			resetInterface();
 		}
 
-		private void OnFlipClick(object sender, RoutedEventArgs e)
+		private void OnHFlipClick(object sender, RoutedEventArgs e)
 		{
 			prepareImage(bitmapStream, bitmapImage, imageOriginal);
 			imageOriginal.HFlip();
 			setStream(bitmapStream, bitmapImage);
 			resetInterface();
 		}
+
+        private void OnVFlipClick(object sender, RoutedEventArgs e)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.VFlip();
+            setStream(bitmapStream, bitmapImage);
+            resetInterface();
+        }
 
 
 	}
