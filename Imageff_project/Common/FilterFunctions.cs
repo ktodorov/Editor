@@ -84,7 +84,7 @@ namespace RemedyPic.Common
                 HFlip_SetNewValues(ref CurrentColumn,ref CurrentRow,ref CurrentByte);
             }
 
-            _srcPixels = (byte[])_dstPixels.Clone();
+            //_srcPixels = (byte[])_dstPixels.Clone();
         }
 
         // Set the new values for the pixel
@@ -130,7 +130,7 @@ namespace RemedyPic.Common
                 VFlip_SetNewValues(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
             }
 
-            _srcPixels = (byte[])_dstPixels.Clone();
+            //_srcPixels = (byte[])_dstPixels.Clone();
         }
 
         // Set the new values for the pixel

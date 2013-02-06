@@ -15,6 +15,10 @@ using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
 using Windows.Storage.Streams;
 using RemedyPic.Common;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.ApplicationModel;
+using Windows.Foundation;
+using Windows.UI.ApplicationSettings;
 
 
 #region Namespace RemedyPic
@@ -28,7 +32,7 @@ namespace RemedyPic
 
 		// mruToken is used for LoadState and SaveState functions.
 		private string mruToken = null;
-		private string appliedFilters = null, appliedColors = null;
+		private string appliedFilters = null, appliedColors = null, appliedRotations = null;
 		// bitmapImage is the image that is edited in RemedyPic.
 		private WriteableBitmap bitmapImage, exampleBitmap;
 
@@ -48,7 +52,69 @@ namespace RemedyPic
 		{
 			this.InitializeComponent();
 			AnimateOutPicture.Begin();
+			RegisterForShare();
 		}
+
+		private void RegisterForShare()
+		{
+			DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+			dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager,
+				DataRequestedEventArgs>(this.ShareImageHandler);
+			SettingsPane.GetForCurrentView().CommandsRequested += OnSettingsPaneCommandRequested;
+		}
+
+		private void OnSettingsPaneCommandRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
+		{
+			args.Request.ApplicationCommands.Add(new SettingsCommand("commandID",
+																	 "Feedback", FeedbackPopup));
+		}
+
+		private void FeedbackPopup(IUICommand command)
+		{
+			Feedback.IsOpen = true;
+		}
+
+		private async void ShareImageHandler(DataTransferManager sender,
+			DataRequestedEventArgs e)
+		{
+			if (!pictureIsLoaded)
+			{
+				e.Request.FailWithDisplayText("Load an image and try sharing again! :)");
+			}
+			else
+			{
+				DataRequest request = e.Request;
+				request.Data.Properties.Title = "RemedyPic";
+				request.Data.Properties.Description = "Share your image.";
+				request.Data.Properties.ApplicationName = "RemedyPic";
+
+				// Because we are making async calls in the DataRequested event handler,
+				//  we need to get the deferral first.
+				DataRequestDeferral deferral = request.GetDeferral();
+
+				// Make sure we always call Complete on the deferral.
+				try
+				{
+					IRandomAccessStream stream = new InMemoryRandomAccessStream();
+
+					Stream pixelStream = bitmapImage.PixelBuffer.AsStream();
+					byte[] pixels = new byte[pixelStream.Length];
+					await pixelStream.ReadAsync(pixels, 0, pixels.Length);
+
+					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
+					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, pixels);
+
+					request.Data.SetBitmap(RandomAccessStreamReference.CreateFromStream(stream));
+					await encoder.FlushAsync();
+				}
+				finally
+				{
+					deferral.Complete();
+				}
+			}
+		}
+
+
 
 		#region LoadState
 		protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
@@ -154,6 +220,7 @@ namespace RemedyPic
 			await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
 			setElements(FiltersExamplePicture, exampleBitmap);
 			setElements(ColorsExamplePicture, exampleBitmap);
+			setElements(RotationsExamplePicture, exampleBitmap);
 			prepareImage(exampleStream, exampleBitmap, image);
 			setStream(exampleStream, exampleBitmap);
 			AnimateInPicture.Begin();
@@ -445,6 +512,8 @@ namespace RemedyPic
 				FilterApplyReset.Visibility = Visibility.Visible;
 			else if (PopupColors.IsOpen)
 				ColorApplyReset.Visibility = Visibility.Visible;
+			else if (PopupRotations.IsOpen)
+				RotateApplyReset.Visibility = Visibility.Visible;
 		}
 
 		void prepareImage(Stream stream, WriteableBitmap bitmap, FilterFunctions image)
@@ -557,8 +626,6 @@ namespace RemedyPic
 			}
 		}
 		#endregion
-
-
 
 		#region Contrast Change
 		private void OnRContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
@@ -706,23 +773,18 @@ namespace RemedyPic
 			{
 				case "blackwhite":
 					doBlackWhite(bitmapStream, bitmapImage, imageOriginal);
-					PopupFilters.IsOpen = false;
 					break;
 				case "invert":
 					doInvert(bitmapStream, bitmapImage, imageOriginal);
-					PopupFilters.IsOpen = false; 
 					break;
 				case "emboss":
 					doEmboss(bitmapStream, bitmapImage, imageOriginal);
-					PopupFilters.IsOpen = false;
 					break;
 				case "blur":
 					doBlur(bitmapStream, bitmapImage, imageOriginal);
-					PopupFilters.IsOpen = false;
 					break;
 				case "sharpen":
 					doSharpen(bitmapStream, bitmapImage, imageOriginal);
-					PopupFilters.IsOpen = false;
 					break;
 				default:
 					break;
@@ -779,6 +841,29 @@ namespace RemedyPic
 					break;
 			}
 		}
+
+		private void OnRotateApplyClick(object sender, RoutedEventArgs e)
+		{
+			SelectRotations.IsChecked = false;
+			switch (appliedRotations)
+			{
+				case "rotate":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+					imageOriginal.Rotate();
+					setStream(bitmapStream, bitmapImage);
+					break;
+				case "hflip":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+					imageOriginal.HFlip();
+					setStream(bitmapStream, bitmapImage);
+					break;
+				case "vflip":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+					imageOriginal.VFlip();
+					setStream(bitmapStream, bitmapImage);
+					break;
+			}
+		}
 		#endregion
 
 		#region Reset Buttons
@@ -813,12 +898,23 @@ namespace RemedyPic
 			ColorApplyReset.Visibility = Visibility.Collapsed;
 			appliedColors = null;
 		}
+
+		private void OnRotateResetClick(object sender, RoutedEventArgs e)
+		{
+			prepareImage(exampleStream, exampleBitmap, image);
+			image.Reset();
+			setStream(exampleStream, exampleBitmap);
+			ColorApplyReset.Visibility = Visibility.Collapsed;
+			appliedRotations = null;
+			RotateApplyReset.Visibility = Visibility.Collapsed;
+		}
 		#endregion
 
 		#region Checked Buttons
 		private void FiltersChecked(object sender, RoutedEventArgs e)
 		{
 			SelectColors.IsChecked = false;
+			SelectRotations.IsChecked = false;
 			PopupFilters.IsOpen = true;
 		}
 
@@ -830,6 +926,7 @@ namespace RemedyPic
 		private void ColorsChecked(object sender, RoutedEventArgs e)
 		{
 			SelectFilters.IsChecked = false;
+			SelectRotations.IsChecked = false;
 			PopupColors.IsOpen = true;
 		}
 
@@ -837,32 +934,45 @@ namespace RemedyPic
 		{
 			PopupColors.IsOpen = false;
 		}
+
+		private void RotationsChecked(object sender, RoutedEventArgs e)
+		{
+			SelectFilters.IsChecked = false;
+			SelectColors.IsChecked = false;
+			PopupRotations.IsOpen = true;
+		}
+
+		private void RotationsUnchecked(object sender, RoutedEventArgs e)
+		{
+			PopupRotations.IsOpen = false;
+		}
 		#endregion
 
 		private void OnRotateClick(object sender, RoutedEventArgs e)
 		{
-			prepareImage(bitmapStream, bitmapImage, imageOriginal);
-			imageOriginal.Rotate();
-			setStream(bitmapStream, bitmapImage);
-
+			appliedRotations = "rotate";
+			prepareImage(exampleStream, exampleBitmap, image);
+			image.Rotate();
+			setStream(exampleStream, exampleBitmap);
 			resetInterface();
 		}
 
 		private void OnHFlipClick(object sender, RoutedEventArgs e)
 		{
-			prepareImage(bitmapStream, bitmapImage, imageOriginal);
-			imageOriginal.HFlip();
-			setStream(bitmapStream, bitmapImage);
+			appliedRotations = "hflip";
+			prepareImage(exampleStream, exampleBitmap, image);
+			image.HFlip();
+			setStream(exampleStream, exampleBitmap);
 			resetInterface();
 		}
 
-        private void OnVFlipClick(object sender, RoutedEventArgs e)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.VFlip();
-            setStream(bitmapStream, bitmapImage);
-            resetInterface();
-        }
+		private void OnVFlipClick(object sender, RoutedEventArgs e)
+		{
+			appliedRotations = "vflip";
+			prepareImage(exampleStream, exampleBitmap, image);
+			image.VFlip();
+			setStream(exampleStream, exampleBitmap);
+		}
 
 
 	}
