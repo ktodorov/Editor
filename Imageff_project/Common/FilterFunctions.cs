@@ -12,7 +12,6 @@ namespace RemedyPic.Common
 		static byte[] blackWhiteAlreadyArray;
 		private int _width, _height;		
 		private byte[] _dstPixels, _srcPixels;
-
 		#region getters and setters
 		public byte[] dstPixels
 		{
@@ -59,7 +58,6 @@ namespace RemedyPic.Common
 			}
 		}
 		#endregion
-
 		public enum ColorType
         {
             Red,
@@ -86,7 +84,7 @@ namespace RemedyPic.Common
                 HFlip_SetNewValues(ref CurrentColumn,ref CurrentRow,ref CurrentByte);
             }
 
-            //_srcPixels = (byte[])_dstPixels.Clone();
+            _srcPixels = (byte[])_dstPixels.Clone();
         }
 
         // Set the new values for the pixel
@@ -132,7 +130,7 @@ namespace RemedyPic.Common
                 VFlip_SetNewValues(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
             }
 
-            //_srcPixels = (byte[])_dstPixels.Clone();
+            _srcPixels = (byte[])_dstPixels.Clone();
         }
 
         // Set the new values for the pixel
