@@ -158,7 +158,7 @@ namespace RemedyPic.Common
             _dstPixels[CurrentByte++] = _srcPixels[index + 3];     
         }
 
-        // Check if the currentcolumn is at the last cell of row
+        // Check if the current column is at the last cell of row
         public void Rotate_GetNewColumnRow(ref int CurrentColumn, ref int CurrentRow)
         {
             if (CurrentColumn == _height)

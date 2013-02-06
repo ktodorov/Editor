@@ -844,7 +844,6 @@ namespace RemedyPic
 			prepareImage(bitmapStream, bitmapImage, imageOriginal);
 			imageOriginal.Rotate();
 			setStream(bitmapStream, bitmapImage);
-
 			resetInterface();
 		}
 
