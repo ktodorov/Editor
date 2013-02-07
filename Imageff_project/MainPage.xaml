@@ -328,42 +328,14 @@
                         <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Click="OnBlackWhiteClick" Height="35" Content="BLACK&amp;WHITE" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
                         <Button x:Name="invertButton" Content="INVERT" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnInvertClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="SemiLight"/>
                         <Button x:Name="embossButton" Content="EMBOSS" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnEmbossClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
+                        <Button x:Name="emboss2Button" Content="EMBOSS 2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnEmboss2Click" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="95,0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
                         <Button x:Name="SharpenButton" Content="SHARPEN" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnSharpenClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
                         <Button x:Name="blurButton" Content="BLUR" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnBlurClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
+                        <Button x:Name="blur2Button" Content="BLUR 2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnBlur2Click" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
+                        <Button x:Name="EdgeDetectButton" Content="Edge Detect" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnEdgeDetectClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
                         <StackPanel x:Name="FilterApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
                             <Button x:Name="FilterApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnFilterApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="FilterResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnFilterResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
-                        </StackPanel>
-                    </StackPanel>
-                </ScrollViewer>
-            </Popup>
-            <Popup x:Name="PopupRotations" Margin="0,0,340,0" Grid.RowSpan="5" HorizontalAlignment="Right" IsOpen="False">
-                <Popup.ChildTransitions>
-                    <TransitionCollection>
-                        <PaneThemeTransition/>
-                    </TransitionCollection>
-                </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Rotations" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" BorderBrush="#7F248500" Background="#F2323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
-                    <StackPanel x:Name="RotationsPanel" VerticalAlignment="Top" Width="340" Margin="0,0,0,10" HorizontalAlignment="Right">
-                        <StackPanel.Transitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition/>
-                            </TransitionCollection>
-                        </StackPanel.Transitions>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
-                            <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackRotations" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top"/>
-                                <TextBlock TextWrapping="Wrap" Text="Rotations" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
-                            </StackPanel>
-                        </Border>
-                        <Image x:Name="RotationsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
-                        <Button x:Name="RotateButton" Content="ROTATE" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
-                        <Button x:Name="HFlipButton" Content="HFLIP" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnHFlipClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
-                        <Button x:Name="VFlipButton" Content="VFLIP" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnVFlipClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
-                        <StackPanel x:Name="RotateApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
-                            <Button x:Name="RotateApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="RotateResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnRotateResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -374,6 +346,37 @@
             <ToggleButton x:Name="SelectColors" Content="COLORS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ColorsUnchecked" Checked="ColorsChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00"/>
             <ToggleButton x:Name="SelectRotations" Content="ROTATE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="RotationsUnchecked" Checked="RotationsChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00"/>
         </StackPanel>
+        <Popup x:Name="PopupRotations" Margin="0,0,1366,10" Grid.RowSpan="2" HorizontalAlignment="Right" IsOpen="False">
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PaneThemeTransition/>
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <ScrollViewer x:Name="Rotations" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" BorderBrush="#7F248500" Background="#F2323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                <StackPanel x:Name="RotationsPanel" VerticalAlignment="Top" Width="340" Margin="0,0,0,10" HorizontalAlignment="Right">
+                    <StackPanel.Transitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition/>
+                        </TransitionCollection>
+                    </StackPanel.Transitions>
+                    <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                        <StackPanel Orientation="Horizontal" Margin="0">
+                            <Button x:Name="BackRotations" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top"/>
+                            <TextBlock TextWrapping="Wrap" Text="Rotations" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                        </StackPanel>
+                    </Border>
+                    <Image x:Name="RotationsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
+                    <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
+                    <Button x:Name="RotateButton" Content="ROTATE" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
+                    <Button x:Name="HFlipButton" Content="HFLIP" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnHFlipClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
+                    <Button x:Name="VFlipButton" Content="VFLIP" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnVFlipClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
+                    <StackPanel x:Name="RotateApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
+                        <Button x:Name="RotateApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                        <Button x:Name="RotateResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnRotateResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Popup>
         <Popup x:Name="Feedback" HorizontalAlignment="Right" Grid.RowSpan="5" Width="350" IsOpen="False" IsLightDismissEnabled="True">
             <Popup.ChildTransitions>
                 <TransitionCollection>

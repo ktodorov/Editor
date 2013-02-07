@@ -59,7 +59,7 @@ namespace RemedyPic.Common
 
         private void CustomFilter_CalcPixelValue(int current_byte)
         {
-            int val = CustomFilter_GetNewVal(current_byte - (2 * 4 * _width + 2 * 4));      
+            int val = CustomFilter_GetNewVal(current_byte - (2 * 4 * _width + 2 * 4 ));      
             CustomFilter_CheckVal(ref val);
             _dstPixels[current_byte] = (byte)val;
         }

@@ -308,6 +308,39 @@ namespace RemedyPic
 		}
 		#endregion
 
+        #region Emboss 2 Filter
+        private void OnEmboss2Click(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                appliedFilters = "emboss2";
+                prepareImage(exampleStream, exampleBitmap, image);
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Emboss2_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+                setStream(exampleStream, exampleBitmap);
+                resetInterface();
+                changeButton(ref emboss2Button);
+            }
+        }
+
+        private void Emboss2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = 1;
+            coeff[2, 1] = -1;
+            coeff[1, 2] = -1;
+            coeff[1, 1] = -2;
+            coeff[2, 3] = 1;
+            coeff[3, 2] = 1;
+            coeff[4, 3] = 2;
+            offset = 0;
+            scale = 1;
+        }
+        #endregion
+
 		#region Sharpen Filter
 		private void OnSharpenClick(object sender, RoutedEventArgs e)
 		{
@@ -376,8 +409,73 @@ namespace RemedyPic
 		}
 		#endregion
 
-		#region Custom Filter
-		private void OnCustomClick(object sender, RoutedEventArgs e)
+        #region Blur2 Filter
+        private void OnBlur2Click(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                appliedFilters = "blur2";
+                prepareImage(exampleStream, exampleBitmap, image);
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                Blur2_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream(exampleStream, exampleBitmap);
+
+                resetInterface();
+                changeButton(ref blur2Button);
+            }
+        }
+
+        private void Blur2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = 1;
+            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 1;
+            coeff[1, 2] = coeff[3, 2] = 1;
+            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 1;
+            offset = 0;
+            scale = 9;
+        }
+
+        #endregion
+
+        #region EdgeDetect Filter
+        private void OnEdgeDetectClick(object sender, RoutedEventArgs e)
+        
+        {
+            if (pictureIsLoaded)
+            {
+                appliedFilters = "EdgeDetect";
+                prepareImage(exampleStream, exampleBitmap, image);
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                EdgeDetect_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream(exampleStream, exampleBitmap);
+
+                resetInterface();
+                changeButton(ref EdgeDetectButton);
+            }
+        }
+
+        private void EdgeDetect_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = -4;
+            coeff[1, 2] = coeff[2, 1] = coeff[2, 3] = coeff[3, 2] = 1;
+            offset = 0;
+            scale = 1;
+        }
+
+        #endregion
+
+        #region Custom Filter
+        private void OnCustomClick(object sender, RoutedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
@@ -581,9 +679,12 @@ namespace RemedyPic
 			// and sets the values of all sliders to 0.
 			resetButton(ref BlackAndWhiteButton);
 			resetButton(ref embossButton);
+            resetButton(ref emboss2Button);
 			resetButton(ref invertButton);
 			resetButton(ref blurButton);
 			resetButton(ref SharpenButton);
+            resetButton(ref blur2Button);
+            resetButton(ref EdgeDetectButton);
 			brightSlider.Value = 0;
 			RedColorSlider.Value = 0;
 			GreenColorSlider.Value = 0;
@@ -742,6 +843,18 @@ namespace RemedyPic
 			resetInterface();
 		}
 
+        private void doEmboss2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+            int[,] coeff = new int[5, 5];
+            int offset = 0, scale = 0;
+            Emboss2_SetValues(ref coeff, ref offset, ref scale);
+            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+            givenImage.dstPixels = custom_image.Filter();
+            setStream(stream, bitmap);
+            resetInterface();
+        }
+
 		private void doSharpen(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
 		{
 			prepareImage(stream, bitmap, givenImage);
@@ -766,6 +879,32 @@ namespace RemedyPic
 
 			resetInterface();
 		}
+
+        private void doBlur2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+            int[,] coeff = new int[5, 5];
+            int offset = 0, scale = 0;
+            Blur2_SetValues(ref coeff, ref offset, ref scale);
+            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+            givenImage.dstPixels = custom_image.Filter();
+            setStream(stream, bitmap);
+
+            resetInterface();
+        }
+
+        private void doEdgeDetect(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+            int[,] coeff = new int[5, 5];
+            int offset = 0, scale = 0;
+            EdgeDetect_SetValues(ref coeff, ref offset, ref scale);
+            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+            givenImage.dstPixels = custom_image.Filter();
+            setStream(stream, bitmap);
+
+            resetInterface();
+        }
 		#endregion
 
 		#region Apply Buttons
@@ -784,11 +923,20 @@ namespace RemedyPic
 				case "emboss":
 					doEmboss(bitmapStream, bitmapImage, imageOriginal);
 					break;
+                case "emboss2":
+                    doEmboss2(bitmapStream, bitmapImage, imageOriginal);
+                    break;
 				case "blur":
 					doBlur(bitmapStream, bitmapImage, imageOriginal);
 					break;
+                case "blur2":
+                    doBlur2(bitmapStream, bitmapImage, imageOriginal);
+                    break;
 				case "sharpen":
 					doSharpen(bitmapStream, bitmapImage, imageOriginal);
+					break;
+                case "EdgeDetect":
+					doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
 					break;
 				default:
 					break;
@@ -1014,6 +1162,12 @@ namespace RemedyPic
 			SettingsPane.Show();
 		}
 		#endregion
+
+
+
+
+
+
 
 
 	}
