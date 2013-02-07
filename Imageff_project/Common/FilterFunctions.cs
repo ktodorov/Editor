@@ -187,7 +187,7 @@ namespace RemedyPic.Common
            _srcPixels = (byte[])_dstPixels.Clone();
         }
 
-        // Sets the new values of RGBA
+        // Sets the new values of BGRA
         public void Rotate_SetNewValues(ref int CurrentByte, int index)
         {
             _dstPixels[CurrentByte++] = _srcPixels[index];
@@ -215,8 +215,8 @@ namespace RemedyPic.Common
         }
         #endregion
 
-        #region Color Change
-        // Main function which changes RGB colors
+        #region Color
+        // Main function which changes BGR colors
         public void ColorChange(double RedColorValue, double GreenColorValue, double BlueColorValue, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
@@ -228,7 +228,7 @@ namespace RemedyPic.Common
         }
 
         #region Colors
-        // Gets new values for R G B color of selected pixel of image (depends of the value of R G B color sliders)
+        // Gets new values for B G R color of selected pixel of image (depends of the value of R G B color sliders)
         public void ColorChange_GetNewColors(int CurrentByte, double RedValue, double GreenValue, double BlueValue)
         {
             ColorChange_GetNewColor(CurrentByte, (int)BlueValue);
@@ -255,7 +255,7 @@ namespace RemedyPic.Common
         #endregion 
 
         #region Contrasts
-        // Gets new values for R G B color of selected pixel of image (depends of the value of R G B contrast sliders)
+        // Gets new values for B G R color of selected pixel of image (depends of the value of R G B contrast sliders)
         public void ColorChange_GetNewContrasts(int CurrentByte, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
         {
             Contrast_GetContrastValue(ref BlueContrastValue);
@@ -303,6 +303,42 @@ namespace RemedyPic.Common
                 val = 0;
         }
         #endregion
+        #endregion
+
+        #region Gamma
+        // Main function which changes BGR colors
+        public void GammaChange(double BlueColorValue, double GreenColorValue, double RedColorValue)
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+            byte[] BlueGamma = Gamma_GetArray(BlueColorValue / 10);  // Divide by 10 because the value must be between 0.2 and 5. Get new color list for BlueGamma. 
+            byte[] GreenGamma = Gamma_GetArray(GreenColorValue / 10);// Get new color list for GreenGamma  
+            byte[] RedGamma = Gamma_GetArray(RedColorValue / 10);    // Get new color list for RedGamma            
+
+            for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
+            {
+                Gamma_SetNewBGRValues(CurrentByte, BlueGamma, GreenGamma, RedGamma); 
+            }            
+        }
+
+        public void Gamma_SetNewBGRValues(int CurrentByte, byte[] BlueGamma, byte[] GreenGamma, byte[] RedGamma)
+        {
+            _dstPixels[CurrentByte] = BlueGamma[_dstPixels[CurrentByte]];
+            _dstPixels[CurrentByte + 1] = GreenGamma[_dstPixels[CurrentByte + 1]];
+            _dstPixels[CurrentByte + 2] = RedGamma[_dstPixels[CurrentByte + 2]];
+        }
+
+        // Sets the new array of colors
+        private byte[] Gamma_GetArray(double color)
+        {
+            byte[] gammaArray = new byte[256];
+
+            for (int i = 0; i < 256; i++)
+            {
+                gammaArray[i] = (byte)Math.Min(255,(int)((255.0 * Math.Pow(i / 255.0, 1.0 / color)) + 0.5));
+            }
+
+            return gammaArray;
+        }
         #endregion
 
         #region BlackAndWhite

@@ -238,8 +238,8 @@
                     </TransitionCollection>
                 </StackPanel.Transitions>
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="30,0,0,0">
-                    <Button x:ConnectionId='25' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
-                    <Button x:ConnectionId='26' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,0,0,0" Style="{StaticResource TextButtonStyle}" FontSize="19" FontWeight="Thin"                           Foreground="#FFF1E9E9"/>
+                    <Button x:ConnectionId='28' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TextButtonStyle}" FontWeight="Light" Margin="0" Foreground="#FFF1E9E9"/>
+                    <Button x:ConnectionId='29' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,0,0,0" Style="{StaticResource TextButtonStyle}" FontSize="19" FontWeight="Thin"                           Foreground="#FFF1E9E9"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -268,7 +268,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Colors" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Top" BorderThickness="1,1,0,1" VerticalContentAlignment="Top" Grid.RowSpan="3" BorderBrush="#7F248500" Background="#7F000000" VerticalScrollBarVisibility="Hidden">
+                <ScrollViewer x:Name="Colors" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Top" BorderThickness="1,1,0,1" VerticalContentAlignment="Top" Grid.RowSpan="3" BorderBrush="#7F248500" Background="#7F000000" VerticalScrollBarVisibility="Hidden" Height="642">
                     <StackPanel x:Name="ColorsPanel"  Width="300" Margin="20,10,20,0" HorizontalAlignment="Right" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <Image x:Name="ColorsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
@@ -291,9 +291,13 @@
                         <Slider x:ConnectionId='20' x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                                   BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" />
                         <Slider x:ConnectionId='21' x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                                   BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" />
                         <Slider x:ConnectionId='22' x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                                   BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" />
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Gama" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="132.095,0,131.905,0"/>
+                        <Slider x:ConnectionId='23' x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                              BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" />
+                        <Slider x:ConnectionId='24' x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                              BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" />
+                        <Slider x:ConnectionId='25' x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                              BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" />
                         <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-                            <Button x:ConnectionId='23' x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                           Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:ConnectionId='24' x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                           Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                            <Button x:ConnectionId='26' x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                           Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:ConnectionId='27' x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                           Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

@@ -590,6 +590,9 @@ namespace RemedyPic
 			RedContrastSlider.Value = 0;
 			GreenContrastSlider.Value = 0;
 			BlueContrastSlider.Value = 0;
+            RedGammaSlider.Value = 10;
+            GreenGammaSlider.Value = 10;
+            BlueGammaSlider.Value = 10;
 		}
 
 		#region Color Change RGB
@@ -654,7 +657,7 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-				appliedColors = "bluecontrast";
+                appliedColors = "bluecontrast";
 				prepareImage(exampleStream, exampleBitmap, image);
 				image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
@@ -837,6 +840,11 @@ namespace RemedyPic
 					imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
+                case "gamma":
+                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    imageOriginal.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
+                    setStream(bitmapStream, bitmapImage);
+                    break;
 				default:
 					break;
 			}
@@ -973,6 +981,17 @@ namespace RemedyPic
 			image.VFlip();
 			setStream(exampleStream, exampleBitmap);
 		}
+
+        private void OnGamaChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                appliedRotations = "gamma";
+                prepareImage(exampleStream, exampleBitmap, image);
+                image.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
+                setStream(exampleStream, exampleBitmap);
+            }
+        }
 
 
 	}
