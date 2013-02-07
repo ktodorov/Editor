@@ -993,6 +993,19 @@ namespace RemedyPic
             }
         }
 
+		private void BackPopupClicked(object sender, RoutedEventArgs e)
+		{
+			SelectColors.IsChecked = false;
+			SelectFilters.IsChecked = false;
+			SelectRotations.IsChecked = false;
+		}
+
+		private void BackFeedbackClicked(object sender, RoutedEventArgs e)
+		{
+			Feedback.IsOpen = false;
+			SettingsPane.Show();
+		}
+
 
 	}
 	#endregion
