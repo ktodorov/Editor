@@ -52,10 +52,11 @@ namespace RemedyPic
 		{
 			this.InitializeComponent();
 			AnimateOutPicture.Begin();
-			RegisterForShare();
+			RegisterCharms();
 		}
 
-		private void RegisterForShare()
+		#region Charms
+		private void RegisterCharms()
 		{
 			DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
 			dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager,
@@ -113,8 +114,7 @@ namespace RemedyPic
 				}
 			}
 		}
-
-
+		#endregion
 
 		#region LoadState
 		protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
@@ -233,6 +233,7 @@ namespace RemedyPic
 			imageElement.Width = bitmapImage.PixelWidth / 4;
 			imageElement.Height = bitmapImage.PixelHeight / 4;
 		}
+
 		#region Invert Filter
 		private void OnInvertClick(object sender, RoutedEventArgs e)
 		{
@@ -993,6 +994,7 @@ namespace RemedyPic
             }
         }
 
+		#region Back buttons
 		private void BackPopupClicked(object sender, RoutedEventArgs e)
 		{
 			SelectColors.IsChecked = false;
@@ -1005,6 +1007,7 @@ namespace RemedyPic
 			Feedback.IsOpen = false;
 			SettingsPane.Show();
 		}
+		#endregion
 
 
 	}

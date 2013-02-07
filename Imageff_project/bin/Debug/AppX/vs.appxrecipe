@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-07T13:08:58.514</Modified>
+      <Modified>2013-02-07T15:59:30.985</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-02-07T14:07:05.299</Modified>
+      <Modified>2013-02-07T15:59:30.898</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-02-07T14:07:05.278</Modified>
+      <Modified>2013-02-07T15:59:30.876</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\Assets\Background.jpg">
       <PackagePath>Assets\Background.jpg</PackagePath>
@@ -74,11 +74,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-02-07T14:07:02.969</Modified>
+      <Modified>2013-02-07T15:53:32.445</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-02-07T13:08:58.335</Modified>
+      <Modified>2013-02-07T14:40:48.043</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

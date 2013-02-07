@@ -15,7 +15,7 @@
         <x:String x:Key="AppName">Imageff Project</x:String>
     </common:LayoutAwarePage.Resources>
 
-    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FF515050">
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FF3E3D3D">
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -242,6 +242,7 @@
                 </Storyboard>
             </StackPanel.Resources>
             <Border x:Name="border" Margin="0" MaxWidth="1050" HorizontalAlignment="Center">
+               
                 <Image x:Name="displayImage" Margin="0" MaxWidth="1050" HorizontalAlignment="Center"/>
             </Border>
         </StackPanel>
@@ -258,19 +259,20 @@
                     </TransitionCollection>
                 </Popup.ChildTransitions>
                 <ScrollViewer x:Name="Colors" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" BorderBrush="#7F248500" Background="#F2323131" VerticalScrollBarVisibility="Hidden" Height="768">
-                    <StackPanel x:Name="ColorsPanel"  Width="300" Margin="20,10,20,0" HorizontalAlignment="Right" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ColorsPanel"  Width="340" Margin="0" HorizontalAlignment="Right" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <StackPanel.Transitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition/>
                             </TransitionCollection>
                         </StackPanel.Transitions>
-                        <Border BorderBrush="#7FFFFFFF" BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="0,0,0,10">
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackColors" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="1" Padding="0,0,0,5"/>
-                                <TextBlock TextWrapping="Wrap" Text="Colors" Margin="15,0,0,0" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="36" Foreground="#DEFFFFFF"/>
+                                <Button x:Name="BackColors" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5"/>
+                                <TextBlock TextWrapping="Wrap" Text="Colors" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
                         <Image x:Name="ColorsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
                         <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnValueChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Height="40" >
                             <Slider.Foreground>
@@ -309,19 +311,20 @@
                     </TransitionCollection>
                 </Popup.ChildTransitions>
                 <ScrollViewer x:Name="Filters" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" BorderBrush="#7F248500" Background="#F2323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="767">
-                    <StackPanel x:Name="FiltersPanel" VerticalAlignment="Top" Width="300" Margin="20,10" HorizontalAlignment="Right">
+                    <StackPanel x:Name="FiltersPanel" VerticalAlignment="Top" Width="340" Margin="0,0,0,10" HorizontalAlignment="Right">
                         <StackPanel.Transitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition/>
                             </TransitionCollection>
                         </StackPanel.Transitions>
-                        <Border BorderBrush="#7FFFFFFF" BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="0,0,0,10">
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackFilters" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="1" VerticalContentAlignment="Top"/>
-                                <TextBlock TextWrapping="Wrap" Text="FIlters" Margin="15,0,0,0" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="36" Foreground="#DEFFFFFF"/>
+                                <Button x:Name="BackFilters" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top"/>
+                                <TextBlock TextWrapping="Wrap" Text="Filters" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
                         <Image x:Name="FiltersExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Click="OnBlackWhiteClick" Height="35" Content="BLACK&amp;WHITE" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
                         <Button x:Name="invertButton" Content="INVERT" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnInvertClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="SemiLight"/>
                         <Button x:Name="embossButton" Content="EMBOSS" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnEmbossClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
@@ -341,19 +344,20 @@
                     </TransitionCollection>
                 </Popup.ChildTransitions>
                 <ScrollViewer x:Name="Rotations" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" BorderBrush="#7F248500" Background="#F2323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
-                    <StackPanel x:Name="RotationsPanel" VerticalAlignment="Top" Width="300" Margin="20,10" HorizontalAlignment="Right">
+                    <StackPanel x:Name="RotationsPanel" VerticalAlignment="Top" Width="340" Margin="0,0,0,10" HorizontalAlignment="Right">
                         <StackPanel.Transitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition/>
                             </TransitionCollection>
                         </StackPanel.Transitions>
-                        <Border BorderBrush="#7FFFFFFF" BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="0,0,0,10">
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackRotations" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="1" VerticalContentAlignment="Top"/>
-                                <TextBlock TextWrapping="Wrap" Text="Rotations" Margin="15,0,0,0" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="36" Foreground="#DEFFFFFF"/>
+                                <Button x:Name="BackRotations" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top"/>
+                                <TextBlock TextWrapping="Wrap" Text="Rotations" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
                         <Image x:Name="RotationsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <Button x:Name="RotateButton" Content="ROTATE" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
                         <Button x:Name="HFlipButton" Content="HFLIP" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnHFlipClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
                         <Button x:Name="VFlipButton" Content="VFLIP" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnVFlipClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
@@ -382,10 +386,12 @@
                         <EntranceThemeTransition/>
                     </TransitionCollection>
                 </Grid.ChildrenTransitions>
-                <StackPanel HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Grid.RowSpan="5" Orientation="Horizontal">
-                    <Button x:Name="BackFeedback" Content="&#xE0D5;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackFeedbackClicked" FontFamily="Segoe UI Symbol" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="1" VerticalContentAlignment="Top"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="20,0,-123,0" TextWrapping="Wrap" Text="Feedback" VerticalAlignment="Top" Style="{StaticResource HeaderTextStyle}" Foreground="#DEFFFFFF" FontSize="48"/>
-                </StackPanel>
+                <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="0" BorderBrush="#7FFFFFFF" Padding="10,10,0,10" Background="#33000000">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                        <Button x:Name="BackFeedback" Content="&#xE0D5;" HorizontalAlignment="Left" VerticalAlignment="Top" Click="BackFeedbackClicked" FontFamily="Segoe UI Symbol" FontSize="60" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="1" Margin="0" Width="55" Height="53" FontWeight="Normal" Style="{StaticResource BackButtonStyle}" Foreground="White"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,2,0,0" TextWrapping="Wrap" Text="Feedback" Style="{StaticResource HeaderTextStyle}" Foreground="#DEFFFFFF" FontSize="48" VerticalAlignment="Top"/>
+                    </StackPanel>
+                </Border>
                 <TextBlock HorizontalAlignment="Left" Margin="15,120,0,0" TextWrapping="Wrap" Text="For contacts with the developers of RemedyPic:" VerticalAlignment="Top" Foreground="White" Style="{StaticResource ItemTextStyle}"/>
                 <TextBlock HorizontalAlignment="Left" Margin="21,154,0,0" TextWrapping="Wrap" Text="Konstantin Todorov - " VerticalAlignment="Top" Foreground="White" Style="{StaticResource ItemTextStyle}"/>
                 <TextBlock HorizontalAlignment="Left" Margin="167,155,0,0" TextWrapping="Wrap" Text="kz.todorov@gmail.com" VerticalAlignment="Top" Foreground="White" Style="{StaticResource ItemTextStyle}" FontWeight="Medium"/>
