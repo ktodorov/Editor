@@ -242,6 +242,7 @@
                 </Storyboard>
             </StackPanel.Resources>
             <Border x:Name="border" Margin="0" MaxWidth="1050" HorizontalAlignment="Center">
+               
                 <Image x:Name="displayImage" Margin="0" MaxWidth="1050" HorizontalAlignment="Center"/>
             </Border>
         </StackPanel>
@@ -387,7 +388,7 @@
                 </Grid.ChildrenTransitions>
                 <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="0" BorderBrush="#7FFFFFFF" Padding="10,10,0,10" Background="#33000000">
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
-                        <Button x:ConnectionId='1' x:Name="BackFeedback" Content="&#xE0D5;" HorizontalAlignment="Left" VerticalAlignment="Top"                             FontFamily="Segoe UI Symbol" FontSize="60" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="1" Margin="0" Width="55" Height="53" FontWeight="Normal" Foreground="White" Style="{StaticResource BackButtonStyle}"/>
+                        <Button x:ConnectionId='1' x:Name="BackFeedback" Content="&#xE0D5;" HorizontalAlignment="Left" VerticalAlignment="Top"                             FontFamily="Segoe UI Symbol" FontSize="60" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="1" Margin="0" Width="55" Height="53" FontWeight="Normal" Style="{StaticResource BackButtonStyle}" Foreground="White"/>
                         <TextBlock HorizontalAlignment="Left" Margin="0,2,0,0" TextWrapping="Wrap" Text="Feedback" Style="{StaticResource HeaderTextStyle}" Foreground="#DEFFFFFF" FontSize="48" VerticalAlignment="Top"/>
                     </StackPanel>
                 </Border>

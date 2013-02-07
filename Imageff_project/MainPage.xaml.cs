@@ -793,6 +793,8 @@ namespace RemedyPic
 				default:
 					break;
 			}
+			image.srcPixels = (byte[])image.dstPixels.Clone();
+			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
 		}
 
 		private void OnColorApplyClick(object sender, RoutedEventArgs e)
@@ -849,6 +851,8 @@ namespace RemedyPic
 				default:
 					break;
 			}
+			image.srcPixels = (byte[])image.dstPixels.Clone();
+			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
 		}
 
 		private void OnRotateApplyClick(object sender, RoutedEventArgs e)
@@ -872,6 +876,8 @@ namespace RemedyPic
 					setStream(bitmapStream, bitmapImage);
 					break;
 			}
+			image.srcPixels = (byte[])image.dstPixels.Clone();
+			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
 		}
 		#endregion
 

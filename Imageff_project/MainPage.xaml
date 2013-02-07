@@ -15,7 +15,7 @@
         <x:String x:Key="AppName">Imageff Project</x:String>
     </common:LayoutAwarePage.Resources>
 
-    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FF3E3D3D">
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FF515050">
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
