@@ -481,6 +481,37 @@ namespace RemedyPic
 
 		#endregion
 
+        #region EdgeEnhance Filter
+        private void OnEdgeEnhanceClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                appliedFilters = "EdgeEnhance";
+                prepareImage(exampleStream, exampleBitmap, image);
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                EdgeEnhance_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+                image.dstPixels = custom_image.Filter();
+
+                setStream(exampleStream, exampleBitmap);
+
+                resetInterface();
+                changeButton(ref EdgeEnhanceButton);
+            }
+        }
+
+        private void EdgeEnhance_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            coeff[2, 2] = 1;
+            coeff[1, 2] = -1;
+            offset = 0;
+            scale = 1;
+        }
+
+        #endregion
+
 		#region Custom Filter
 		private void OnCustomClick(object sender, RoutedEventArgs e)
 		{
@@ -692,6 +723,7 @@ namespace RemedyPic
 			resetButton(ref SharpenButton);
 			resetButton(ref blur2Button);
 			resetButton(ref EdgeDetectButton);
+            resetButton(ref EdgeEnhanceButton);
 			brightSlider.Value = 0;
 			RedColorSlider.Value = 0;
 			GreenColorSlider.Value = 0;
@@ -912,6 +944,19 @@ namespace RemedyPic
 
 			resetInterface();
 		}
+
+        private void doEdgeEnhance(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+            int[,] coeff = new int[5, 5];
+            int offset = 0, scale = 0;
+            EdgeEnhance_SetValues(ref coeff, ref offset, ref scale);
+            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+            givenImage.dstPixels = custom_image.Filter();
+            setStream(stream, bitmap);
+
+            resetInterface();
+        }
 		#endregion
 
 		#region Apply Buttons
@@ -945,6 +990,9 @@ namespace RemedyPic
 				case "EdgeDetect":
 					doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
 					break;
+                case "EdgeEnhance":
+                    doEdgeEnhance(bitmapStream, bitmapImage, imageOriginal);
+                    break;
 				default:
 					break;
 			}
