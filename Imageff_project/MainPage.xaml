@@ -15,7 +15,7 @@
         <x:String x:Key="AppName">Imageff Project</x:String>
     </common:LayoutAwarePage.Resources>
 
-    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FF515050">
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FF515050" PointerReleased="ImagePointerReleased">
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -213,14 +213,14 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="Logo" HorizontalAlignment="Right" Height="103" Margin="0,0,50,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2">
+            <Image x:Name="Logo" HorizontalAlignment="Right" Height="103" Margin="0,0,10,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2">
                 <Image.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
                     </TransitionCollection>
                 </Image.Transitions>
             </Image>
-            <StackPanel x:Name="stackPanel1" Orientation="Horizontal" Margin="0,0,70,30" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <StackPanel x:Name="stackPanel1" Orientation="Horizontal" Margin="0,0,20,30" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
@@ -232,7 +232,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="50,32,0,68" MaxWidth="1100" Grid.RowSpan="2" HorizontalAlignment="Left">
+        <StackPanel x:Name="imagePanel" PointerMoved="GridPointerMoved" Orientation="Horizontal" Margin="50,32,0,68" MaxWidth="1100" Grid.RowSpan="2" HorizontalAlignment="Left">
             <StackPanel.Resources>
                 <Storyboard x:Name="AnimateInPicture">
                     <FadeInThemeAnimation Storyboard.TargetName="imagePanel"/>
@@ -241,15 +241,11 @@
                     <FadeOutThemeAnimation Storyboard.TargetName="imagePanel" Duration="00:00:001"/>
                 </Storyboard>
             </StackPanel.Resources>
-            <StackPanel x:Name="ZoomStack" Visibility="Collapsed">
-                <Button x:Name="ZoomIn" Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="25" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50"/>
-                <Button x:Name="ZoomOut" Visibility="Collapsed" Content="-" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="25" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50"/>
-            </StackPanel>
-            <Border x:Name="border" Margin="0" MaxWidth="1050" HorizontalAlignment="Center" DragEnter="imageDragged" AllowDrop="True">
+            <Border x:Name="border" Margin="0" MaxWidth="1050" HorizontalAlignment="Center">
                 <Border.RenderTransform>
                     <ScaleTransform x:Name="scale"/>
                 </Border.RenderTransform>
-                <Image x:Name="displayImage" Margin="0" MaxWidth="1050" HorizontalAlignment="Center" AllowDrop="True"/>
+                <Image x:Name="displayImage" Margin="0" MaxWidth="1050" HorizontalAlignment="Center" PointerPressed="ImagePointerPressed" PointerReleased="ImagePointerReleased" MaxHeight="1050"/>
             </Border>
         </StackPanel>
         <Grid x:Name="contentGrid" Margin="0,0,0,10" Grid.RowSpan="4" HorizontalAlignment="Right">
@@ -377,11 +373,41 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
+
+            <Popup x:Name="PopupZoom" Margin="0,0,340,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+                <Popup.ChildTransitions>
+                    <TransitionCollection>
+                        <PaneThemeTransition/>
+                    </TransitionCollection>
+                </Popup.ChildTransitions>
+                <ScrollViewer x:Name="Zoom" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" BorderBrush="#7F248500" Background="#F2323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                    <StackPanel x:Name="ZoomPanel" VerticalAlignment="Top" Width="340" Margin="0,0,0,10" HorizontalAlignment="Right">
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                            <StackPanel Orientation="Horizontal" Margin="0">
+                                <Button x:Name="BackZoom" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top"/>
+                                <TextBlock TextWrapping="Wrap" Text="Zoom" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                            </StackPanel>
+                        </Border>
+                        <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button x:Name="ZoomIn" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="25" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50"/>
+                            <Button x:Name="ZoomOut" Visibility="Collapsed" Content="-" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="25" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50"/>
+                            <Button x:Name="ResetZoom" Content="Reset" HorizontalAlignment="Stretch" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <CheckBox x:Name="AvailableZoom" IsChecked="False" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left" Checked="MoveChecked" Unchecked="MoveUnchecked"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Popup>
         </Grid>
         <StackPanel x:Name="Menu" Margin="0" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
             <ToggleButton x:Name="SelectFilters" Content="FILTERS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00"/>
             <ToggleButton x:Name="SelectColors" Content="COLORS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ColorsUnchecked" Checked="ColorsChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00"/>
             <ToggleButton x:Name="SelectRotations" Content="ROTATE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="RotationsUnchecked" Checked="RotationsChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00"/>
+            <ToggleButton x:Name="SelectZoom" Content="ZOOM" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ZoomUnchecked" Checked="ZoomChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00"/>
         </StackPanel>
         <Popup x:Name="Feedback" HorizontalAlignment="Right" Grid.RowSpan="5" Width="350" IsOpen="False" IsLightDismissEnabled="True">
             <Popup.ChildTransitions>

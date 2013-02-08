@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media.Animation;
@@ -30,6 +32,8 @@ namespace RemedyPic
 
 		#region Variables
 
+		bool holding = false, zoomAvailable = false;
+		Point positionWithinImage;
 		// mruToken is used for LoadState and SaveState functions.
 		private string mruToken = null;
 		private string appliedFilters = null, appliedColors = null, appliedRotations = null;
@@ -169,6 +173,7 @@ namespace RemedyPic
 				 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
 			{
 				FileOpenPicker filePicker = new FileOpenPicker();
+				filePicker.ViewMode = PickerViewMode.Thumbnail;
 				filePicker.FileTypeFilter.Add(".jpg");
 				filePicker.FileTypeFilter.Add(".png");
 				filePicker.FileTypeFilter.Add(".bmp");
@@ -225,6 +230,8 @@ namespace RemedyPic
 			setStream(exampleStream, exampleBitmap);
 			AnimateInPicture.Begin();
 			ZoomStack.Visibility = Visibility.Visible;
+			displayImage.MaxHeight = bitmapImage.PixelHeight;
+			displayImage.MaxWidth = bitmapImage.PixelWidth;
 		}
 
 
@@ -1078,6 +1085,7 @@ namespace RemedyPic
 		{
 			SelectColors.IsChecked = false;
 			SelectRotations.IsChecked = false;
+			SelectZoom.IsChecked = false;
 			PopupFilters.IsOpen = true;
 		}
 
@@ -1090,6 +1098,7 @@ namespace RemedyPic
 		{
 			SelectFilters.IsChecked = false;
 			SelectRotations.IsChecked = false;
+			SelectZoom.IsChecked = false;
 			PopupColors.IsOpen = true;
 		}
 
@@ -1102,6 +1111,7 @@ namespace RemedyPic
 		{
 			SelectFilters.IsChecked = false;
 			SelectColors.IsChecked = false;
+			SelectZoom.IsChecked = false;
 			PopupRotations.IsOpen = true;
 		}
 
@@ -1109,6 +1119,20 @@ namespace RemedyPic
 		{
 			PopupRotations.IsOpen = false;
 		}
+
+		private void ZoomChecked(object sender, RoutedEventArgs e)
+		{
+			SelectFilters.IsChecked = false;
+			SelectColors.IsChecked = false;
+			SelectRotations.IsChecked = false;
+			PopupZoom.IsOpen = true;
+		}
+
+		private void ZoomUnchecked(object sender, RoutedEventArgs e)
+		{
+			PopupZoom.IsOpen = false;
+		}
+
 		#endregion
 
 		private void OnRotateClick(object sender, RoutedEventArgs e)
@@ -1154,6 +1178,7 @@ namespace RemedyPic
 			SelectColors.IsChecked = false;
 			SelectFilters.IsChecked = false;
 			SelectRotations.IsChecked = false;
+			SelectZoom.IsChecked = false;
 		}
 
 		private void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -1165,28 +1190,68 @@ namespace RemedyPic
 
 		private void ZoomInClicked(object sender, RoutedEventArgs e)
 		{
-			scale.ScaleX = scale.ScaleX + 0.5;
-			scale.ScaleY = scale.ScaleY + 0.5;
+			scale.ScaleX = scale.ScaleX + 0.2;
+			scale.ScaleY = scale.ScaleY + 0.2;
 			ZoomOut.Visibility = Visibility.Visible;
 		}
 
 		private void ZoomOutClicked(object sender, RoutedEventArgs e)
 		{
-			scale.ScaleX = scale.ScaleX - 0.5;
-			scale.ScaleY = scale.ScaleY - 0.5;
+			scale.ScaleX = scale.ScaleX - 0.2;
+			scale.ScaleY = scale.ScaleY - 0.2;
 			if (scale.ScaleX == 1 && scale.ScaleY == 1)
 			{
 				ZoomOut.Visibility = Visibility.Collapsed;
 			}
 		}
 
-		private void imageDragged(object sender, DragEventArgs e)
+		private void ImagePointerPressed(object sender, PointerRoutedEventArgs e)
 		{
-			scale.ScaleX = scale.ScaleX + 0.2;
-			scale.ScaleY = scale.ScaleY + 0.2;
+			if (zoomAvailable)
+			{
+				holding = true;
+				positionWithinImage = e.GetCurrentPoint(sender as Image).Position;
+			}
 		}
 
+		private void ImagePointerReleased(object sender, PointerRoutedEventArgs e)
+		{
+			holding = false;
+		}
 
+		private void GridPointerMoved(object sender, PointerRoutedEventArgs e)
+		{
+			if (holding)
+			{
+				var pos = e.GetCurrentPoint(displayImage.Parent as StackPanel).Position;
+				if (pos.X < bitmapImage.PixelWidth && pos.Y < bitmapImage.PixelHeight)
+					displayImage.Margin = new Thickness(pos.X - this.positionWithinImage.X, pos.Y - this.positionWithinImage.Y, 0, 0);
+				else
+					displayImage.Margin = new Thickness(displayImage.Margin.Left + 5, displayImage.Margin.Top + 5, 0, 0);
+			}
+		}
+
+		private void OnResetZoomClick(object sender, RoutedEventArgs e)
+		{
+			displayImage.Margin = new Thickness(0, 0, 0, 0);
+			holding = false;
+			scale.ScaleX = 1;
+			scale.ScaleY = 1;
+			ZoomOut.Visibility = Visibility.Collapsed;
+		}
+
+		private void MoveChecked(object sender, RoutedEventArgs e)
+		{
+			zoomAvailable = true;
+		}
+
+		private void MoveUnchecked(object sender, RoutedEventArgs e)
+		{
+			zoomAvailable = false;
+			holding = false;
+			scale.ScaleX = 1;
+			scale.ScaleY = 1;
+		}
 
 
 
