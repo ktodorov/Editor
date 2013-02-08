@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media.Animation;
@@ -30,6 +32,8 @@ namespace RemedyPic
 
 		#region Variables
 
+		bool holding = false, zoomAvailable = false;
+		Point positionWithinImage;
 		// mruToken is used for LoadState and SaveState functions.
 		private string mruToken = null;
 		private string appliedFilters = null, appliedColors = null, appliedRotations = null;
@@ -169,6 +173,7 @@ namespace RemedyPic
 				 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
 			{
 				FileOpenPicker filePicker = new FileOpenPicker();
+				filePicker.ViewMode = PickerViewMode.Thumbnail;
 				filePicker.FileTypeFilter.Add(".jpg");
 				filePicker.FileTypeFilter.Add(".png");
 				filePicker.FileTypeFilter.Add(".bmp");
@@ -224,6 +229,9 @@ namespace RemedyPic
 			prepareImage(exampleStream, exampleBitmap, image);
 			setStream(exampleStream, exampleBitmap);
 			AnimateInPicture.Begin();
+			ZoomStack.Visibility = Visibility.Visible;
+			displayImage.MaxHeight = bitmapImage.PixelHeight;
+			displayImage.MaxWidth = bitmapImage.PixelWidth;
 		}
 
 
@@ -308,38 +316,38 @@ namespace RemedyPic
 		}
 		#endregion
 
-        #region Emboss 2 Filter
-        private void OnEmboss2Click(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "emboss2";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Emboss2_SetValues(ref coeff, ref offset, ref scale);
+		#region Emboss 2 Filter
+		private void OnEmboss2Click(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				appliedFilters = "emboss2";
+				prepareImage(exampleStream, exampleBitmap, image);
+				int[,] coeff = new int[5, 5];
+				int offset = 0, scale = 0;
+				Emboss2_SetValues(ref coeff, ref offset, ref scale);
 
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-                setStream(exampleStream, exampleBitmap);
-                resetInterface();
-                changeButton(ref emboss2Button);
-            }
-        }
+				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+				image.dstPixels = custom_image.Filter();
+				setStream(exampleStream, exampleBitmap);
+				resetInterface();
+				changeButton(ref emboss2Button);
+			}
+		}
 
-        private void Emboss2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 1;
-            coeff[2, 1] = -1;
-            coeff[1, 2] = -1;
-            coeff[1, 1] = -2;
-            coeff[2, 3] = 1;
-            coeff[3, 2] = 1;
-            coeff[4, 3] = 2;
-            offset = 0;
-            scale = 1;
-        }
-        #endregion
+		private void Emboss2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		{
+			coeff[2, 2] = 1;
+			coeff[2, 1] = -1;
+			coeff[1, 2] = -1;
+			coeff[1, 1] = -2;
+			coeff[2, 3] = 1;
+			coeff[3, 2] = 1;
+			coeff[4, 3] = 2;
+			offset = 0;
+			scale = 1;
+		}
+		#endregion
 
 		#region Sharpen Filter
 		private void OnSharpenClick(object sender, RoutedEventArgs e)
@@ -409,73 +417,72 @@ namespace RemedyPic
 		}
 		#endregion
 
-        #region Blur2 Filter
-        private void OnBlur2Click(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "blur2";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Blur2_SetValues(ref coeff, ref offset, ref scale);
+		#region Blur2 Filter
+		private void OnBlur2Click(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				appliedFilters = "blur2";
+				prepareImage(exampleStream, exampleBitmap, image);
+				int[,] coeff = new int[5, 5];
+				int offset = 0, scale = 0;
+				Blur2_SetValues(ref coeff, ref offset, ref scale);
 
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
+				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+				image.dstPixels = custom_image.Filter();
 
-                setStream(exampleStream, exampleBitmap);
+				setStream(exampleStream, exampleBitmap);
 
-                resetInterface();
-                changeButton(ref blur2Button);
-            }
-        }
+				resetInterface();
+				changeButton(ref blur2Button);
+			}
+		}
 
-        private void Blur2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 1;
-            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 1;
-            coeff[1, 2] = coeff[3, 2] = 1;
-            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 1;
-            offset = 0;
-            scale = 9;
-        }
+		private void Blur2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		{
+			coeff[2, 2] = 1;
+			coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 1;
+			coeff[1, 2] = coeff[3, 2] = 1;
+			coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 1;
+			offset = 0;
+			scale = 9;
+		}
 
-        #endregion
+		#endregion
 
-        #region EdgeDetect Filter
-        private void OnEdgeDetectClick(object sender, RoutedEventArgs e)
-        
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "EdgeDetect";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                EdgeDetect_SetValues(ref coeff, ref offset, ref scale);
+		#region EdgeDetect Filter
+		private void OnEdgeDetectClick(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				appliedFilters = "EdgeDetect";
+				prepareImage(exampleStream, exampleBitmap, image);
+				int[,] coeff = new int[5, 5];
+				int offset = 0, scale = 0;
+				EdgeDetect_SetValues(ref coeff, ref offset, ref scale);
 
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
+				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+				image.dstPixels = custom_image.Filter();
 
-                setStream(exampleStream, exampleBitmap);
+				setStream(exampleStream, exampleBitmap);
 
-                resetInterface();
-                changeButton(ref EdgeDetectButton);
-            }
-        }
+				resetInterface();
+				changeButton(ref EdgeDetectButton);
+			}
+		}
 
-        private void EdgeDetect_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = -4;
-            coeff[1, 2] = coeff[2, 1] = coeff[2, 3] = coeff[3, 2] = 1;
-            offset = 0;
-            scale = 1;
-        }
+		private void EdgeDetect_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		{
+			coeff[2, 2] = -4;
+			coeff[1, 2] = coeff[2, 1] = coeff[2, 3] = coeff[3, 2] = 1;
+			offset = 0;
+			scale = 1;
+		}
 
-        #endregion
+		#endregion
 
-        #region Custom Filter
-        private void OnCustomClick(object sender, RoutedEventArgs e)
+		#region Custom Filter
+		private void OnCustomClick(object sender, RoutedEventArgs e)
 		{
 			if (pictureIsLoaded)
 			{
@@ -679,12 +686,12 @@ namespace RemedyPic
 			// and sets the values of all sliders to 0.
 			resetButton(ref BlackAndWhiteButton);
 			resetButton(ref embossButton);
-            resetButton(ref emboss2Button);
+			resetButton(ref emboss2Button);
 			resetButton(ref invertButton);
 			resetButton(ref blurButton);
 			resetButton(ref SharpenButton);
-            resetButton(ref blur2Button);
-            resetButton(ref EdgeDetectButton);
+			resetButton(ref blur2Button);
+			resetButton(ref EdgeDetectButton);
 			brightSlider.Value = 0;
 			RedColorSlider.Value = 0;
 			GreenColorSlider.Value = 0;
@@ -692,9 +699,9 @@ namespace RemedyPic
 			RedContrastSlider.Value = 0;
 			GreenContrastSlider.Value = 0;
 			BlueContrastSlider.Value = 0;
-            RedGammaSlider.Value = 10;
-            GreenGammaSlider.Value = 10;
-            BlueGammaSlider.Value = 10;
+			RedGammaSlider.Value = 10;
+			GreenGammaSlider.Value = 10;
+			BlueGammaSlider.Value = 10;
 		}
 
 		#region Color Change RGB
@@ -759,7 +766,7 @@ namespace RemedyPic
 		{
 			if (pictureIsLoaded)
 			{
-                appliedColors = "bluecontrast";
+				appliedColors = "bluecontrast";
 				prepareImage(exampleStream, exampleBitmap, image);
 				image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 				setStream(exampleStream, exampleBitmap);
@@ -843,17 +850,17 @@ namespace RemedyPic
 			resetInterface();
 		}
 
-        private void doEmboss2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            Emboss2_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap);
-            resetInterface();
-        }
+		private void doEmboss2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+		{
+			prepareImage(stream, bitmap, givenImage);
+			int[,] coeff = new int[5, 5];
+			int offset = 0, scale = 0;
+			Emboss2_SetValues(ref coeff, ref offset, ref scale);
+			CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+			givenImage.dstPixels = custom_image.Filter();
+			setStream(stream, bitmap);
+			resetInterface();
+		}
 
 		private void doSharpen(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
 		{
@@ -880,31 +887,31 @@ namespace RemedyPic
 			resetInterface();
 		}
 
-        private void doBlur2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            Blur2_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap);
+		private void doBlur2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+		{
+			prepareImage(stream, bitmap, givenImage);
+			int[,] coeff = new int[5, 5];
+			int offset = 0, scale = 0;
+			Blur2_SetValues(ref coeff, ref offset, ref scale);
+			CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+			givenImage.dstPixels = custom_image.Filter();
+			setStream(stream, bitmap);
 
-            resetInterface();
-        }
+			resetInterface();
+		}
 
-        private void doEdgeDetect(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            EdgeDetect_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap);
+		private void doEdgeDetect(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+		{
+			prepareImage(stream, bitmap, givenImage);
+			int[,] coeff = new int[5, 5];
+			int offset = 0, scale = 0;
+			EdgeDetect_SetValues(ref coeff, ref offset, ref scale);
+			CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+			givenImage.dstPixels = custom_image.Filter();
+			setStream(stream, bitmap);
 
-            resetInterface();
-        }
+			resetInterface();
+		}
 		#endregion
 
 		#region Apply Buttons
@@ -923,19 +930,19 @@ namespace RemedyPic
 				case "emboss":
 					doEmboss(bitmapStream, bitmapImage, imageOriginal);
 					break;
-                case "emboss2":
-                    doEmboss2(bitmapStream, bitmapImage, imageOriginal);
-                    break;
+				case "emboss2":
+					doEmboss2(bitmapStream, bitmapImage, imageOriginal);
+					break;
 				case "blur":
 					doBlur(bitmapStream, bitmapImage, imageOriginal);
 					break;
-                case "blur2":
-                    doBlur2(bitmapStream, bitmapImage, imageOriginal);
-                    break;
+				case "blur2":
+					doBlur2(bitmapStream, bitmapImage, imageOriginal);
+					break;
 				case "sharpen":
 					doSharpen(bitmapStream, bitmapImage, imageOriginal);
 					break;
-                case "EdgeDetect":
+				case "EdgeDetect":
 					doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
 					break;
 				default:
@@ -991,11 +998,11 @@ namespace RemedyPic
 					imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
 					setStream(bitmapStream, bitmapImage);
 					break;
-                case "gamma":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
-                    setStream(bitmapStream, bitmapImage);
-                    break;
+				case "gamma":
+					prepareImage(bitmapStream, bitmapImage, imageOriginal);
+					imageOriginal.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
+					setStream(bitmapStream, bitmapImage);
+					break;
 				default:
 					break;
 			}
@@ -1078,6 +1085,7 @@ namespace RemedyPic
 		{
 			SelectColors.IsChecked = false;
 			SelectRotations.IsChecked = false;
+			SelectZoom.IsChecked = false;
 			PopupFilters.IsOpen = true;
 		}
 
@@ -1090,6 +1098,7 @@ namespace RemedyPic
 		{
 			SelectFilters.IsChecked = false;
 			SelectRotations.IsChecked = false;
+			SelectZoom.IsChecked = false;
 			PopupColors.IsOpen = true;
 		}
 
@@ -1102,6 +1111,7 @@ namespace RemedyPic
 		{
 			SelectFilters.IsChecked = false;
 			SelectColors.IsChecked = false;
+			SelectZoom.IsChecked = false;
 			PopupRotations.IsOpen = true;
 		}
 
@@ -1109,6 +1119,20 @@ namespace RemedyPic
 		{
 			PopupRotations.IsOpen = false;
 		}
+
+		private void ZoomChecked(object sender, RoutedEventArgs e)
+		{
+			SelectFilters.IsChecked = false;
+			SelectColors.IsChecked = false;
+			SelectRotations.IsChecked = false;
+			PopupZoom.IsOpen = true;
+		}
+
+		private void ZoomUnchecked(object sender, RoutedEventArgs e)
+		{
+			PopupZoom.IsOpen = false;
+		}
+
 		#endregion
 
 		private void OnRotateClick(object sender, RoutedEventArgs e)
@@ -1137,16 +1161,16 @@ namespace RemedyPic
 			setStream(exampleStream, exampleBitmap);
 		}
 
-        private void OnGamaChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedRotations = "gamma";
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
-                setStream(exampleStream, exampleBitmap);
-            }
-        }
+		private void OnGamaChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				appliedRotations = "gamma";
+				prepareImage(exampleStream, exampleBitmap, image);
+				image.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
+				setStream(exampleStream, exampleBitmap);
+			}
+		}
 
 		#region Back buttons
 		private void BackPopupClicked(object sender, RoutedEventArgs e)
@@ -1154,6 +1178,7 @@ namespace RemedyPic
 			SelectColors.IsChecked = false;
 			SelectFilters.IsChecked = false;
 			SelectRotations.IsChecked = false;
+			SelectZoom.IsChecked = false;
 		}
 
 		private void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -1163,7 +1188,70 @@ namespace RemedyPic
 		}
 		#endregion
 
+		private void ZoomInClicked(object sender, RoutedEventArgs e)
+		{
+			scale.ScaleX = scale.ScaleX + 0.2;
+			scale.ScaleY = scale.ScaleY + 0.2;
+			ZoomOut.Visibility = Visibility.Visible;
+		}
 
+		private void ZoomOutClicked(object sender, RoutedEventArgs e)
+		{
+			scale.ScaleX = scale.ScaleX - 0.2;
+			scale.ScaleY = scale.ScaleY - 0.2;
+			if (scale.ScaleX == 1 && scale.ScaleY == 1)
+			{
+				ZoomOut.Visibility = Visibility.Collapsed;
+			}
+		}
+
+		private void ImagePointerPressed(object sender, PointerRoutedEventArgs e)
+		{
+			if (zoomAvailable)
+			{
+				holding = true;
+				positionWithinImage = e.GetCurrentPoint(sender as Image).Position;
+			}
+		}
+
+		private void ImagePointerReleased(object sender, PointerRoutedEventArgs e)
+		{
+			holding = false;
+		}
+
+		private void GridPointerMoved(object sender, PointerRoutedEventArgs e)
+		{
+			if (holding)
+			{
+				var pos = e.GetCurrentPoint(displayImage.Parent as StackPanel).Position;
+				if (pos.X < bitmapImage.PixelWidth && pos.Y < bitmapImage.PixelHeight)
+					displayImage.Margin = new Thickness(pos.X - this.positionWithinImage.X, pos.Y - this.positionWithinImage.Y, 0, 0);
+				else
+					displayImage.Margin = new Thickness(displayImage.Margin.Left + 5, displayImage.Margin.Top + 5, 0, 0);
+			}
+		}
+
+		private void OnResetZoomClick(object sender, RoutedEventArgs e)
+		{
+			displayImage.Margin = new Thickness(0, 0, 0, 0);
+			holding = false;
+			scale.ScaleX = 1;
+			scale.ScaleY = 1;
+			ZoomOut.Visibility = Visibility.Collapsed;
+		}
+
+		private void MoveChecked(object sender, RoutedEventArgs e)
+		{
+			zoomAvailable = true;
+		}
+
+		private void MoveUnchecked(object sender, RoutedEventArgs e)
+		{
+			zoomAvailable = false;
+			holding = false;
+			scale.ScaleX = 1;
+			scale.ScaleY = 1;
+		}
 
 
 
