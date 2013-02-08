@@ -232,7 +232,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <StackPanel x:Name="imagePanel" PointerMoved="GridPointerMoved" Orientation="Horizontal" Margin="50,32,0,68" MaxWidth="1100" Grid.RowSpan="2" HorizontalAlignment="Left">
+        <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="50,32,0,68" MaxWidth="1100" Grid.RowSpan="2" HorizontalAlignment="Left">
             <StackPanel.Resources>
                 <Storyboard x:Name="AnimateInPicture">
                     <FadeInThemeAnimation Storyboard.TargetName="imagePanel"/>
@@ -245,7 +245,7 @@
                 <Border.RenderTransform>
                     <ScaleTransform x:Name="scale"/>
                 </Border.RenderTransform>
-                <Image x:Name="displayImage" Margin="0" MaxWidth="1050" HorizontalAlignment="Center" PointerPressed="ImagePointerPressed" PointerReleased="ImagePointerReleased" MaxHeight="1050"/>
+                <Image x:Name="displayImage" ManipulationMode="None" Margin="0" MaxWidth="1050" HorizontalAlignment="Center" PointerReleased="ImagePointerReleased" MaxHeight="1050"/>
             </Border>
         </StackPanel>
         <Grid x:Name="contentGrid" Margin="0,0,0,10" Grid.RowSpan="4" HorizontalAlignment="Right">
@@ -435,7 +435,6 @@
                 <TextBlock HorizontalAlignment="Left" Margin="129,185,0,0" TextWrapping="Wrap" Text="antonvdudov@gmail.com" VerticalAlignment="Top" Foreground="White" Style="{StaticResource ItemTextStyle}" FontWeight="Medium"/>
             </Grid>
         </Popup>
-
-
+        <!--<Rectangle x:Name="ManipulateMe" Fill="LightBlue" Height="200" Width="200"  ManipulationMode="All"/>-->
     </Grid>
 </common:LayoutAwarePage>

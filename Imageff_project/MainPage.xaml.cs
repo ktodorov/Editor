@@ -21,7 +21,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.ApplicationSettings;
-
+using Windows.UI.Xaml.Navigation;
 
 #region Namespace RemedyPic
 namespace RemedyPic
@@ -32,8 +32,6 @@ namespace RemedyPic
 
 		#region Variables
 
-		bool holding = false, zoomAvailable = false;
-		Point positionWithinImage;
 		// mruToken is used for LoadState and SaveState functions.
 		private string mruToken = null;
 		private string appliedFilters = null, appliedColors = null, appliedRotations = null;
@@ -50,6 +48,13 @@ namespace RemedyPic
 		FilterFunctions image = new FilterFunctions();
 		FilterFunctions imageOriginal = new FilterFunctions();
 		WriteableBitmap bitmap = new WriteableBitmap(500, 250);
+
+		// Those are variables used with the manipulations of the Image
+		private TransformGroup _transformGroup;
+		private MatrixTransform _previousTransform;
+		private CompositeTransform _compositeTransform;
+		private bool forceManipulationsToEnd;
+
 		#endregion
 
 		public MainPage()
@@ -57,6 +62,13 @@ namespace RemedyPic
 			this.InitializeComponent();
 			AnimateOutPicture.Begin();
 			RegisterCharms();
+			forceManipulationsToEnd = false;
+			displayImage.ManipulationStarting += new ManipulationStartingEventHandler(ManipulateMe_ManipulationStarting);
+			displayImage.ManipulationStarted += new ManipulationStartedEventHandler(ManipulateMe_ManipulationStarted);
+			displayImage.ManipulationDelta += new ManipulationDeltaEventHandler(ManipulateMe_ManipulationDelta);
+			displayImage.ManipulationCompleted += new ManipulationCompletedEventHandler(ManipulateMe_ManipulationCompleted);
+			displayImage.ManipulationInertiaStarting += new ManipulationInertiaStartingEventHandler(ManipulateMe_ManipulationInertiaStarting);
+			InitManipulationTransforms();
 		}
 
 		#region Charms
@@ -481,36 +493,36 @@ namespace RemedyPic
 
 		#endregion
 
-        #region EdgeEnhance Filter
-        private void OnEdgeEnhanceClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "EdgeEnhance";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                EdgeEnhance_SetValues(ref coeff, ref offset, ref scale);
+		#region EdgeEnhance Filter
+		private void OnEdgeEnhanceClick(object sender, RoutedEventArgs e)
+		{
+			if (pictureIsLoaded)
+			{
+				appliedFilters = "EdgeEnhance";
+				prepareImage(exampleStream, exampleBitmap, image);
+				int[,] coeff = new int[5, 5];
+				int offset = 0, scale = 0;
+				EdgeEnhance_SetValues(ref coeff, ref offset, ref scale);
 
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
+				CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
+				image.dstPixels = custom_image.Filter();
 
-                setStream(exampleStream, exampleBitmap);
+				setStream(exampleStream, exampleBitmap);
 
-                resetInterface();
-                changeButton(ref EdgeEnhanceButton);
-            }
-        }
+				resetInterface();
+				changeButton(ref EdgeEnhanceButton);
+			}
+		}
 
-        private void EdgeEnhance_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 1;
-            coeff[1, 2] = -1;
-            offset = 0;
-            scale = 1;
-        }
+		private void EdgeEnhance_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		{
+			coeff[2, 2] = 1;
+			coeff[1, 2] = -1;
+			offset = 0;
+			scale = 1;
+		}
 
-        #endregion
+		#endregion
 
 		#region Custom Filter
 		private void OnCustomClick(object sender, RoutedEventArgs e)
@@ -723,7 +735,7 @@ namespace RemedyPic
 			resetButton(ref SharpenButton);
 			resetButton(ref blur2Button);
 			resetButton(ref EdgeDetectButton);
-            resetButton(ref EdgeEnhanceButton);
+			resetButton(ref EdgeEnhanceButton);
 			brightSlider.Value = 0;
 			RedColorSlider.Value = 0;
 			GreenColorSlider.Value = 0;
@@ -945,18 +957,18 @@ namespace RemedyPic
 			resetInterface();
 		}
 
-        private void doEdgeEnhance(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            EdgeEnhance_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap);
+		private void doEdgeEnhance(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+		{
+			prepareImage(stream, bitmap, givenImage);
+			int[,] coeff = new int[5, 5];
+			int offset = 0, scale = 0;
+			EdgeEnhance_SetValues(ref coeff, ref offset, ref scale);
+			CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
+			givenImage.dstPixels = custom_image.Filter();
+			setStream(stream, bitmap);
 
-            resetInterface();
-        }
+			resetInterface();
+		}
 		#endregion
 
 		#region Apply Buttons
@@ -990,9 +1002,9 @@ namespace RemedyPic
 				case "EdgeDetect":
 					doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
 					break;
-                case "EdgeEnhance":
-                    doEdgeEnhance(bitmapStream, bitmapImage, imageOriginal);
-                    break;
+				case "EdgeEnhance":
+					doEdgeEnhance(bitmapStream, bitmapImage, imageOriginal);
+					break;
 				default:
 					break;
 			}
@@ -1236,6 +1248,7 @@ namespace RemedyPic
 		}
 		#endregion
 
+		#region Zoom
 		private void ZoomInClicked(object sender, RoutedEventArgs e)
 		{
 			scale.ScaleX = scale.ScaleX + 0.2;
@@ -1253,56 +1266,90 @@ namespace RemedyPic
 			}
 		}
 
-		private void ImagePointerPressed(object sender, PointerRoutedEventArgs e)
-		{
-			if (zoomAvailable)
-			{
-				holding = true;
-				positionWithinImage = e.GetCurrentPoint(sender as Image).Position;
-			}
-		}
-
-		private void ImagePointerReleased(object sender, PointerRoutedEventArgs e)
-		{
-			holding = false;
-		}
-
-		private void GridPointerMoved(object sender, PointerRoutedEventArgs e)
-		{
-			if (holding)
-			{
-				var pos = e.GetCurrentPoint(displayImage.Parent as StackPanel).Position;
-				if (pos.X < bitmapImage.PixelWidth && pos.Y < bitmapImage.PixelHeight)
-					displayImage.Margin = new Thickness(pos.X - this.positionWithinImage.X, pos.Y - this.positionWithinImage.Y, 0, 0);
-				else
-					displayImage.Margin = new Thickness(displayImage.Margin.Left + 5, displayImage.Margin.Top + 5, 0, 0);
-			}
-		}
-
 		private void OnResetZoomClick(object sender, RoutedEventArgs e)
 		{
 			displayImage.Margin = new Thickness(0, 0, 0, 0);
-			holding = false;
+			ZoomOut.Visibility = Visibility.Collapsed;
+			displayImage.RenderTransform = null;
+			InitManipulationTransforms();
 			scale.ScaleX = 1;
 			scale.ScaleY = 1;
-			ZoomOut.Visibility = Visibility.Collapsed;
 		}
 
 		private void MoveChecked(object sender, RoutedEventArgs e)
 		{
-			zoomAvailable = true;
+			displayImage.ManipulationMode = ManipulationModes.All;
 		}
 
 		private void MoveUnchecked(object sender, RoutedEventArgs e)
 		{
-			zoomAvailable = false;
-			holding = false;
-			scale.ScaleX = 1;
-			scale.ScaleY = 1;
+			displayImage.ManipulationMode = ManipulationModes.None;
+		}
+		#endregion
+
+		#region Manipulation Events
+
+		private void ImagePointerReleased(object sender, PointerRoutedEventArgs e)
+		{
+			forceManipulationsToEnd = true;
+		}
+
+		private void InitManipulationTransforms()
+		{
+			_transformGroup = new TransformGroup();
+			_compositeTransform = new CompositeTransform();
+			_previousTransform = new MatrixTransform() { Matrix = Matrix.Identity };
+
+			_transformGroup.Children.Add(_previousTransform);
+			_transformGroup.Children.Add(_compositeTransform);
+
+			displayImage.RenderTransform = _transformGroup;
+		}
+
+		void ManipulateMe_ManipulationStarting(object sender, ManipulationStartingRoutedEventArgs e)
+		{
+			forceManipulationsToEnd = false;
+			e.Handled = true;
+		}
+
+		void ManipulateMe_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+		{
+			e.Handled = true;
+		}
+
+		void ManipulateMe_ManipulationInertiaStarting(object sender, ManipulationInertiaStartingRoutedEventArgs e)
+		{
+			e.Handled = true;
 		}
 
 
+		void ManipulateMe_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+		{
+			if (forceManipulationsToEnd)
+			{
+				e.Complete();
+				return;
+			}
 
+			_previousTransform.Matrix = _transformGroup.Value;
+
+			Point center = _previousTransform.TransformPoint(new Point(e.Position.X, e.Position.Y));
+			_compositeTransform.CenterX = center.X;
+			_compositeTransform.CenterY = center.Y;
+
+			_compositeTransform.Rotation = e.Delta.Rotation;
+			_compositeTransform.ScaleX = _compositeTransform.ScaleY = e.Delta.Scale;
+			_compositeTransform.TranslateX = e.Delta.Translation.X;
+			_compositeTransform.TranslateY = e.Delta.Translation.Y;
+
+			e.Handled = true;
+		}
+
+		void ManipulateMe_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+		{
+			e.Handled = true;
+		}
+		#endregion
 
 
 
