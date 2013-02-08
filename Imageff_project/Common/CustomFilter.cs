@@ -59,7 +59,7 @@ namespace RemedyPic.Common
 
         private void CustomFilter_CalcPixelValue(int current_byte)
         {
-            int val = CustomFilter_GetNewVal(current_byte - (2 * 4 * _width + 2 * 4 ));      
+            int val = CustomFilter_GetNewVal(current_byte - (2 * 4 * _width + 2 * 4));      
             CustomFilter_CheckVal(ref val);
             _dstPixels[current_byte] = (byte)val;
         }
@@ -71,7 +71,7 @@ namespace RemedyPic.Common
             for (int i = 2 - _left; i < 3 + _right; i++)
                 for (int j = 2 - _top; j < 3 + _bottom; j++)
                     if (_coeff[i,j] != 0)
-                        val += _srcPixels[current_byte + i * 4 + j * _width * 4] * _coeff[i, j];
+                        val += _srcPixels[Math.Abs(current_byte + i * 4 + j * _width * 4 )] * _coeff[i, j];// Abs, because it can be negative...
 
             val /= _scale;
             val += _offset;
