@@ -325,6 +325,77 @@
                                 <TextBlock TextWrapping="Wrap" Text="Filters" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
+                        <StackPanel Margin="20,0">
+                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:Name="blackWhiteCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blackWhiteChecked" BorderThickness="1" BorderBrush="#7F218300">
+                                    <StackPanel Margin="0">
+                                        <Image x:Name="blackWhiteFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150" Margin="0"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Black and White" Foreground="White" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <ToggleButton x:Name="invertCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="invertChecked" BorderThickness="1" BorderBrush="#7F218300">
+                                    <StackPanel VerticalAlignment="Top">
+                                        <Image x:Name="invertFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
+                                        <TextBlock TextWrapping="Wrap" Foreground="White" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Invert"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:Name="embossCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="embossChecked" BorderThickness="1" BorderBrush="#7F218300">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="embossFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Emboss" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <ToggleButton x:Name="emboss2Check" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="emboss2Checked" BorderThickness="1" BorderBrush="#7F218300">
+                                    <StackPanel VerticalAlignment="Top">
+                                        <Image x:Name="emboss2Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Emboss" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:Name="blurCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blurChecked" BorderThickness="1" BorderBrush="#7F218300">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="blurFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Blur" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <ToggleButton x:Name="blur2Check" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blur2Checked" BorderThickness="1" BorderBrush="#7F218300">
+                                    <StackPanel VerticalAlignment="Top">
+                                        <Image x:Name="blur2Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Blur2" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:Name="edgeDetectCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="edgeDetectChecked" BorderThickness="1" BorderBrush="#7F218300">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="edgeDetectFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Edge Detect" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <ToggleButton x:Name="edgeEnhanceCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="edgeEnhanceChecked" BorderThickness="1" BorderBrush="#7F218300">
+                                    <StackPanel VerticalAlignment="Top">
+                                        <Image x:Name="edgeEnhanceFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Edge Enhance" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:Name="sharpenCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="sharpenChecked" BorderThickness="1" BorderBrush="#7F218300">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="sharpenFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Sharpen" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="FilterApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
+                            <Button x:Name="FilterApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnFilterApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:Name="FilterResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnFilterResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                        </StackPanel>
+                        <!--
                         <Image x:Name="FiltersExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Click="OnBlackWhiteClick" Height="35" Content="BLACK&amp;WHITE" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
@@ -336,10 +407,7 @@
                         <Button x:Name="blur2Button" Content="BLUR 2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnBlur2Click" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
                         <Button x:Name="EdgeDetectButton" Content="Edge Detect" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnEdgeDetectClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
                         <Button x:Name="EdgeEnhanceButton" Content="Edge Enhance" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnEdgeEnhanceClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <StackPanel x:Name="FilterApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
-                            <Button x:Name="FilterApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnFilterApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="FilterResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnFilterResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
-                        </StackPanel>
+                    -->
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
@@ -435,6 +503,5 @@
                 <TextBlock HorizontalAlignment="Left" Margin="129,185,0,0" TextWrapping="Wrap" Text="antonvdudov@gmail.com" VerticalAlignment="Top" Foreground="White" Style="{StaticResource ItemTextStyle}" FontWeight="Medium"/>
             </Grid>
         </Popup>
-        <!--<Rectangle x:Name="ManipulateMe" Fill="LightBlue" Height="200" Width="200"  ManipulationMode="All"/>-->
     </Grid>
 </common:LayoutAwarePage>
