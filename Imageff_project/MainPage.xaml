@@ -47,7 +47,7 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
-                                                        <SolidColorBrush Color="#50208000"/>
+                                                        <SolidColorBrush Color="#50203000"/>
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
@@ -78,7 +78,7 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
-                                                        <SolidColorBrush Color="#FF33DD00"/>
+                                                        <SolidColorBrush Color="#BB33AA00"/>
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
@@ -92,7 +92,7 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
-                                                        <SolidColorBrush Color="#FF107000"/>
+                                                        <SolidColorBrush Color="#AA103000"/>
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
@@ -109,7 +109,7 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
-                                                        <SolidColorBrush Color="#70000000"/>
+                                                        <SolidColorBrush Color="#20000000"/>
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
@@ -179,6 +179,501 @@
                             </Border>
                             <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1" d:IsLocked="True"/>
                             <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1" d:IsLocked="True"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ToggleButtonStyle2" TargetType="ToggleButton">
+            <Setter Property="Background" Value="{StaticResource ToggleButtonBackgroundThemeBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource ToggleButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ToggleButtonBorderThemeBrush}"/>
+            <Setter Property="BorderThickness" Value="{StaticResource ToggleButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="12,4,12,5"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="SemiLight"/>
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonPointerOverBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#30FFFFFF"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#20FFFFFF"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#BBFFFFFF"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonCheckedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedPointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#50107000"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#50AAAAAA"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonCheckedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedPressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#30FFFFFF"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonCheckedPressedBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonCheckedPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedDisabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonCheckedDisabledBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonCheckedDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Indeterminate"/>
+                                    <VisualState x:Name="IndeterminatePointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonPointerOverBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="IndeterminatePressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonPressedBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="IndeterminateDisabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ToggleButtonDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+                                <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                            <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BackButtonStyle1" TargetType="Button">
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="Width" Value="48"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Margin" Value="36,0,36,36"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="56"/>
+            <Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Back"/>
+            <Setter Property="AutomationProperties.ItemType" Value="Navigation Button"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#20FFFFFF"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#FFFFFFFF"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#FFFFFFFF"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimation
+        										Storyboard.TargetName="ArrowGlyph"
+        										Storyboard.TargetProperty="Opacity"
+        										To="1"
+        										Duration="0"/>
+                                            <DoubleAnimation
+        										Storyboard.TargetName="NormalGlyph"
+        										Storyboard.TargetProperty="Opacity"
+        										To="1"
+        										Duration="0"/>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ArrowGlyph" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#FF248500"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation
+        										Storyboard.TargetName="FocusVisualWhite"
+        										Storyboard.TargetProperty="Opacity"
+        										To="1"
+        										Duration="0"/>
+                                            <DoubleAnimation
+        										Storyboard.TargetName="FocusVisualBlack"
+        										Storyboard.TargetProperty="Opacity"
+        										To="1"
+        										Duration="0"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="PointerFocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid Margin="-1,-16,0,0">
+                                <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="{StaticResource BackButtonBackgroundThemeBrush}"/>
+                                <TextBlock x:Name="NormalGlyph" Text="{StaticResource BackButtonGlyph}" Foreground="White"/>
+                                <TextBlock x:Name="ArrowGlyph" Text="&#xE0A6;" Foreground="{StaticResource BackButtonPressedForegroundThemeBrush}" Opacity="0"/>
+                            </Grid>
+                            <Rectangle
+        						x:Name="FocusVisualWhite"
+        						IsHitTestVisible="False"
+        						Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}"
+        						StrokeEndLineCap="Square"
+        						StrokeDashArray="1,1"
+        						Opacity="0"
+        						StrokeDashOffset="1.5"/>
+                            <Rectangle
+        						x:Name="FocusVisualBlack"
+        						IsHitTestVisible="False"
+        						Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}"
+        						StrokeEndLineCap="Square"
+        						StrokeDashArray="1,1"
+        						Opacity="0"
+        						StrokeDashOffset="0.5"/>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BackButtonPopupStyle1" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}"/>
+            <Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="12,4,12,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#0000"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#40248500"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#0000"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#FF248500"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+                                <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                            <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SliderStyle1" TargetType="Slider">
+            <Setter Property="Background" Value="{StaticResource SliderTrackBackgroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="#0000"/>
+            <Setter Property="BorderThickness" Value="{StaticResource SliderBorderThemeThickness}"/>
+            <Setter Property="Foreground" Value="{StaticResource SliderTrackDecreaseBackgroundThemeBrush}"/>
+            <Setter Property="ManipulationMode" Value="None"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.Resources>
+                                <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Setter Property="BorderBrush" Value="{StaticResource SliderThumbBorderThemeBrush}"/>
+                                    <Setter Property="Background" Value="{StaticResource SliderThumbBackgroundThemeBrush}"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Grid.Resources>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="HorizontalThumb">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#FFFF"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="HorizontalThumb">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#F000"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhiteHorizontal"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlackHorizontal"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhiteVertical"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlackVertical"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid x:Name="HorizontalTemplate" Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="17"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="32"/>
+                                </Grid.RowDefinitions>
+                                <Rectangle x:Name="HorizontalTrackRect" Grid.ColumnSpan="3" Fill="{TemplateBinding Background}" Grid.Row="1"/>
+                                <Rectangle x:Name="HorizontalDecreaseRect" Fill="{TemplateBinding Foreground}" Grid.Row="1"/>
+                                <TickBar x:Name="TopTickBar" Grid.ColumnSpan="3" Fill="{StaticResource SliderTickmarkOutsideBackgroundThemeBrush}" Height="{StaticResource SliderOutsideTickBarThemeHeight}" Margin="0,0,0,2" Visibility="Collapsed" VerticalAlignment="Bottom"/>
+                                <TickBar x:Name="HorizontalInlineTickBar" Grid.ColumnSpan="3" Fill="{StaticResource SliderTickMarkInlineBackgroundThemeBrush}" Height="{StaticResource SliderTrackThemeHeight}" Grid.Row="1" Visibility="Collapsed"/>
+                                <TickBar x:Name="BottomTickBar" Grid.ColumnSpan="3" Fill="{StaticResource SliderTickmarkOutsideBackgroundThemeBrush}" Height="{StaticResource SliderOutsideTickBarThemeHeight}" Margin="0,2,0,0" Grid.Row="2" Visibility="Collapsed" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="HorizontalBorder" Grid.ColumnSpan="3" Grid.Row="1" StrokeThickness="{TemplateBinding BorderThickness}">
+                                    <Rectangle.Stroke>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <LinearGradientBrush.RelativeTransform>
+                                                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                                                </LinearGradientBrush.RelativeTransform>
+                                                <GradientStop Color="#7000"/>
+                                                <GradientStop Color="#7FFF" Offset="1"/>
+                                            </LinearGradientBrush>
+                                    </Rectangle.Stroke>
+                                </Rectangle>
+                                <Thumb x:Name="HorizontalThumb" Background="{StaticResource SliderThumbBackgroundThemeBrush}" Grid.Column="1" DataContext="{TemplateBinding Value}" Height="{StaticResource SliderTrackThemeHeight}" Grid.Row="1" Style="{StaticResource SliderThumbStyle}" Width="{StaticResource SliderTrackThemeHeight}"/>
+                                <Rectangle x:Name="FocusVisualWhiteHorizontal" Grid.ColumnSpan="3" IsHitTestVisible="False" Opacity="0" Grid.RowSpan="3" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                                <Rectangle x:Name="FocusVisualBlackHorizontal" Grid.ColumnSpan="3" IsHitTestVisible="False" Opacity="0" Grid.RowSpan="3" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                            </Grid>
+                            <Grid x:Name="VerticalTemplate" Background="Transparent" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="17"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="17"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Rectangle x:Name="VerticalTrackRect" Grid.Column="1" Fill="{TemplateBinding Background}" Grid.RowSpan="3"/>
+                                <Rectangle x:Name="VerticalDecreaseRect" Grid.Column="1" Fill="{TemplateBinding Foreground}" Grid.Row="2"/>
+                                <TickBar x:Name="LeftTickBar" Fill="{StaticResource SliderTickmarkOutsideBackgroundThemeBrush}" HorizontalAlignment="Right" Margin="0,0,2,0" Grid.RowSpan="3" Visibility="Collapsed" Width="{StaticResource SliderOutsideTickBarThemeHeight}"/>
+                                <TickBar x:Name="VerticalInlineTickBar" Grid.Column="1" Fill="{StaticResource SliderTickMarkInlineBackgroundThemeBrush}" Grid.RowSpan="3" Visibility="Collapsed" Width="{StaticResource SliderTrackThemeHeight}"/>
+                                <TickBar x:Name="RightTickBar" Grid.Column="2" Fill="{StaticResource SliderTickmarkOutsideBackgroundThemeBrush}" HorizontalAlignment="Left" Margin="2,0,0,0" Grid.RowSpan="3" Visibility="Collapsed" Width="{StaticResource SliderOutsideTickBarThemeHeight}"/>
+                                <Rectangle x:Name="VerticalBorder" Grid.Column="1" Grid.RowSpan="3" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}"/>
+                                <Thumb x:Name="VerticalThumb" Background="{StaticResource SliderThumbBackgroundThemeBrush}" Grid.Column="1" DataContext="{TemplateBinding Value}" Height="{StaticResource SliderTrackThemeHeight}" Grid.Row="1" Style="{StaticResource SliderThumbStyle}" Width="{StaticResource SliderTrackThemeHeight}"/>
+                                <Rectangle x:Name="FocusVisualWhiteVertical" Grid.ColumnSpan="3" IsHitTestVisible="False" Opacity="0" Grid.RowSpan="3" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                                <Rectangle x:Name="FocusVisualBlackVertical" Grid.ColumnSpan="3" IsHitTestVisible="False" Opacity="0" Grid.RowSpan="3" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                            </Grid>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -382,8 +877,6 @@
 
         <!-- Back button and page title -->
         <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource HeaderTextStyle}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="White" Margin="0" FontSize="21" Grid.RowSpan="2"/>
-
-        <!-- Back button and page title -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -408,6 +901,8 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+
+        <!-- Back button and page title -->
         <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="50,32,0,68" MaxWidth="1100" Grid.RowSpan="2" HorizontalAlignment="Left">
             <StackPanel.Resources>
                 <Storyboard x:Name="AnimateInPicture">
@@ -445,36 +940,66 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackColors" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5"/>
+                                <Button x:Name="BackColors" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Colors" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
                         <Image x:Name="ColorsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnValueChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Height="40" >
-                            <Slider.Foreground>
+                        <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnValueChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
+                            <Slider.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <LinearGradientBrush.RelativeTransform>
-                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="260"/>
+                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
                                     </LinearGradientBrush.RelativeTransform>
                                     <GradientStop Color="Black"/>
                                     <GradientStop Color="White" Offset="1"/>
                                 </LinearGradientBrush>
-                            </Slider.Foreground>
+                            </Slider.Background>
                         </Slider>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="COLORS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:Name ="RedColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnRColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" />
-                        <Slider x:Name ="GreenColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnGColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" />
-                        <Slider x:Name ="BlueColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnBColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" />
+                        <Slider x:Name ="RedColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnRColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
+                            <Slider.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                                    </LinearGradientBrush.RelativeTransform>
+                                    <GradientStop Color="#FF00D1FF"/>
+                                    <GradientStop Color="Red" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Slider.Background>
+                        </Slider>
+                        <Slider x:Name ="GreenColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnGColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Foreground="{x:Null}" Height="40" Style="{StaticResource SliderStyle1}">
+                            <Slider.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                                    </LinearGradientBrush.RelativeTransform>
+                                    <GradientStop Color="#FFFF00E8"/>
+                                    <GradientStop Color="#FF17A600" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Slider.Background>
+                        </Slider>
+                        <Slider x:Name ="BlueColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80" ValueChanged="OnBColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Foreground="{x:Null}" Height="40" Style="{StaticResource SliderStyle1}">
+                            <Slider.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                                    </LinearGradientBrush.RelativeTransform>
+                                    <GradientStop Color="#FFF3FF00"/>
+                                    <GradientStop Color="#FF0C00FF" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Slider.Background>
+                        </Slider>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="SATURATION" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnRContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" />
-                        <Slider x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnGContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" />
-                        <Slider x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnBContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" />
+                        <Slider x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnRContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
+                        <Slider x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnGContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
+                        <Slider x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnBContrastChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" Style="{StaticResource SliderStyle1}" />
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Gama" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="132.095,0,131.905,0"/>
-                        <Slider x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnGamaChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" />
-                        <Slider x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnGamaChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" />
-                        <Slider x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnGamaChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" />
+                        <Slider x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnGamaChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
+                        <Slider x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnGamaChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
+                        <Slider x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnGamaChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
                         <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
                             <Button x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnColorApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnColorResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
@@ -497,20 +1022,19 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackFilters" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top"/>
+                                <Button x:Name="BackFilters" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Filters" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
                         <StackPanel Margin="20,0">
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:Name="blackWhiteCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blackWhiteChecked" Unchecked="filterUnchecked" BorderThickness="0,0,0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:Name="blackWhiteCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blackWhiteChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                         <StackPanel Margin="0">
                                         <Image x:Name="blackWhiteFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150" Margin="0"/>
-                                        <TextBlock TextWrapping="Wrap" Text="Black and White" Foreground="White" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Black and White" Foreground="White" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </ToggleButton>
-                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:Name="invertCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="invertChecked" Unchecked="filterUnchecked" BorderThickness="0,0,0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:Name="invertCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="invertChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top">
                                         <Image x:Name="invertFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
                                         <TextBlock TextWrapping="Wrap" Foreground="White" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Invert"/>
@@ -518,55 +1042,56 @@
                                 </ToggleButton>
                             </StackPanel>
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:Name="embossCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="embossChecked" Unchecked="filterUnchecked" BorderThickness="0,0,0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:Name="embossCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="embossChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="embossFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
-                                        <TextBlock TextWrapping="Wrap" Text="Emboss" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Emboss" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                                 <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:Name="emboss2Check" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="emboss2Checked" Unchecked="filterUnchecked" BorderThickness="0,0,0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:Name="emboss2Check" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="emboss2Checked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top">
                                         <Image x:Name="emboss2Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
-                                        <TextBlock TextWrapping="Wrap" Text="Emboss" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Emboss2" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                             </StackPanel>
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:Name="blurCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blurChecked" Unchecked="filterUnchecked" BorderThickness="0,0,0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:Name="blurCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blurChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="blurFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
-                                        <TextBlock TextWrapping="Wrap" Text="Blur" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Blur" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                                 <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:Name="blur2Check" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blur2Checked" Unchecked="filterUnchecked" BorderThickness="0,0,0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:Name="blur2Check" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blur2Checked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top">
                                         <Image x:Name="blur2Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
-                                        <TextBlock TextWrapping="Wrap" Text="Blur2" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
-                                    </StackPanel>
-                                </ToggleButton>
-                            </StackPanel>
-                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:Name="edgeDetectCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="edgeDetectChecked" Unchecked="filterUnchecked" BorderThickness="0,0,0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
-                                    <StackPanel VerticalAlignment="Top" Margin="0">
-                                        <Image x:Name="edgeDetectFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
-                                        <TextBlock TextWrapping="Wrap" Text="Edge Detect" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Blur2" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                                 <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:Name="edgeEnhanceCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="edgeEnhanceChecked" Unchecked="filterUnchecked" BorderThickness="0,0,0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:Name="edgeDetectCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="edgeDetectChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="edgeDetectFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Edge Detect" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
+                                <ToggleButton x:Name="edgeEnhanceCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="edgeEnhanceChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top">
                                         <Image x:Name="edgeEnhanceFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
-                                        <TextBlock TextWrapping="Wrap" Text="Edge Enhance" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Edge Enhance" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                             </StackPanel>
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:Name="sharpenCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="sharpenChecked" Unchecked="filterUnchecked" BorderThickness="0,0,0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:Name="sharpenCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="sharpenChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="sharpenFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
-                                        <TextBlock TextWrapping="Wrap" Text="Sharpen" Style="{StaticResource ItemTextStyle}" Margin="0,0,-5,0" HorizontalAlignment="Center" Foreground="White"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Sharpen" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                             </StackPanel>
@@ -575,19 +1100,6 @@
                             <Button x:Name="FilterApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnFilterApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="FilterResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnFilterResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
                         </StackPanel>
-                        <!--
-                        <Image x:Name="FiltersExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
-                        <Button x:Name="BlackAndWhiteButton" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Click="OnBlackWhiteClick" Height="35" Content="BLACK&amp;WHITE" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="invertButton" Content="INVERT" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnInvertClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="SemiLight"/>
-                        <Button x:Name="embossButton" Content="EMBOSS" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnEmbossClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="emboss2Button" Content="EMBOSS 2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnEmboss2Click" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="95,0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="SharpenButton" Content="SHARPEN" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnSharpenClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="blurButton" Content="BLUR" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnBlurClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="blur2Button" Content="BLUR 2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnBlur2Click" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="EdgeDetectButton" Content="Edge Detect" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnEdgeDetectClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                        <Button x:Name="EdgeEnhanceButton" Content="Edge Enhance" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnEdgeEnhanceClick" Foreground="White" Height="35" BorderThickness="1" BorderBrush="White" Background="#4C939393" Margin="0" Width="150" Padding="0,0,3,0" FontSize="15" FontWeight="Semilight"/>
-                    -->
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
@@ -606,7 +1118,7 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackRotations" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top"/>
+                                <Button x:Name="BackRotations" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Rotations" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
@@ -638,7 +1150,7 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackZoom" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top"/>
+                                <Button x:Name="BackZoom" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Zoom" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
@@ -653,10 +1165,10 @@
             </Popup>
         </Grid>
         <StackPanel x:Name="Menu" Margin="0" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
-            <ToggleButton x:Name="SelectFilters" Content="FILTERS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" Margin="0,0,0,-3" BorderThickness="2,2,2,0"/>
-            <ToggleButton x:Name="SelectColors" Content="COLORS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ColorsUnchecked" Checked="ColorsChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" Margin="0,0,0,-3" BorderThickness="2,2,2,0"/>
-            <ToggleButton x:Name="SelectRotations" Content="ROTATE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="RotationsUnchecked" Checked="RotationsChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" Margin="0,0,0,-3" BorderThickness="2,2,2,0"/>
-            <ToggleButton x:Name="SelectZoom" Content="ZOOM" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ZoomUnchecked" Checked="ZoomChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" Margin="0,0,0,-3" BorderThickness="2,2,2,0"/>
+            <ToggleButton x:Name="SelectFilters" Content="FILTERS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" Margin="0,0,0,-3" BorderThickness="2,2,2,0" Style="{StaticResource ToggleButtonStyle2}"/>
+            <ToggleButton x:Name="SelectColors" Content="COLORS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ColorsUnchecked" Checked="ColorsChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" Margin="0,0,0,-3" BorderThickness="2,2,2,0" Style="{StaticResource ToggleButtonStyle2}"/>
+            <ToggleButton x:Name="SelectRotations" Content="ROTATE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="RotationsUnchecked" Checked="RotationsChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" Margin="0,0,0,-3" BorderThickness="2,2,2,0" Style="{StaticResource ToggleButtonStyle2}"/>
+            <ToggleButton x:Name="SelectZoom" Content="ZOOM" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ZoomUnchecked" Checked="ZoomChecked" BorderBrush="#7F3C9600" Foreground="White" FontFamily="Segoe UI" FontSize="15" FontWeight="Semilight" Background="#4C286E00" Margin="0,0,0,-3" BorderThickness="2,2,2,0" Style="{StaticResource ToggleButtonStyle2}"/>
         </StackPanel>
         <Popup x:Name="Feedback" HorizontalAlignment="Right" Grid.RowSpan="5" Width="350" IsOpen="False" IsLightDismissEnabled="True">
             <Popup.ChildTransitions>
@@ -672,7 +1184,7 @@
                 </Grid.ChildrenTransitions>
                 <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="0" BorderBrush="#7FFFFFFF" Padding="10,10,0,10" Background="#33000000">
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
-                        <Button x:Name="BackFeedback" Content="&#xE0D5;" HorizontalAlignment="Left" VerticalAlignment="Top" Click="BackFeedbackClicked" FontFamily="Segoe UI Symbol" FontSize="60" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="1" Margin="0" Width="55" Height="53" FontWeight="Normal" Style="{StaticResource BackButtonStyle}" Foreground="White"/>
+                        <Button x:Name="BackFeedback" Content="&#xE0D5;" HorizontalAlignment="Left" VerticalAlignment="Top" Click="BackFeedbackClicked" FontFamily="Segoe UI Symbol" FontSize="60" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="1" Margin="0" Width="55" Height="53" FontWeight="Normal" Style="{StaticResource BackButtonStyle1}" Foreground="White"/>
                         <TextBlock HorizontalAlignment="Left" Margin="0,2,0,0" TextWrapping="Wrap" Text="Feedback" Style="{StaticResource HeaderTextStyle}" Foreground="#DEFFFFFF" FontSize="48" VerticalAlignment="Top"/>
                     </StackPanel>
                 </Border>
