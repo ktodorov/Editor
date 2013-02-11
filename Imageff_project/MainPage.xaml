@@ -1034,6 +1034,7 @@
                                         <TextBlock TextWrapping="Wrap" Text="Black and White" Foreground="White" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </ToggleButton>
+                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
                                 <ToggleButton x:Name="invertCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="invertChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top">
                                         <Image x:Name="invertFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="150"/>
