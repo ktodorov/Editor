@@ -1302,6 +1302,5 @@
                 <TextBlock HorizontalAlignment="Left" Margin="129,185,0,0" TextWrapping="Wrap" Text="antonvdudov@gmail.com" VerticalAlignment="Top" Foreground="White" Style="{StaticResource ItemTextStyle}" FontWeight="Medium"/>
             </Grid>
         </Popup>
-        <TextBlock x:Name="debugText" TextWrapping="Wrap" Text="TextBlock" Margin="10,0,-10,-140" Grid.RowSpan="2" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </common:LayoutAwarePage>
