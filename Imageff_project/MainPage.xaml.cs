@@ -22,6 +22,7 @@ using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml.Navigation;
+using Windows.System.UserProfile;
 
 #region Namespace RemedyPic
 namespace RemedyPic
@@ -33,6 +34,7 @@ namespace RemedyPic
 		#region Variables
 		// mruToken is used for LoadState and SaveState functions.
 		private string mruToken = null;
+		StorageFile file;
 		private string appliedFilters = null, appliedColors = null, appliedRotations = null;
 		// bitmapImage is the image that is edited in RemedyPic.
 		private WriteableBitmap bitmapImage, exampleBitmap;
@@ -559,15 +561,26 @@ namespace RemedyPic
 		#region Save
 		private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
 		{
-
 			// File picker APIs don't work if the app is in a snapped state.
 			// If the app is snapped, try to unsnap it first. Only show the picker if it unsnaps.
 			if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
 				 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
 			{
+				SaveFile(true);
+			}
+			else
+			{
+				MessageDialog messageDialog = new MessageDialog("Can't save in snapped state. Please unsnap the app and try again", "Close");
+				await messageDialog.ShowAsync();
+			}
+		}
 
-				// Only execute if there is a picture that is loaded
-				if (pictureIsLoaded)
+		private async Task SaveFile(bool picker)
+		{
+			// Only execute if there is a picture that is loaded
+			if (pictureIsLoaded)
+			{
+				if (picker == true)
 				{
 					FileSavePicker savePicker = new FileSavePicker();
 
@@ -582,65 +595,13 @@ namespace RemedyPic
 					savePicker.SuggestedFileName = fileName.Text;
 
 					// Default file name if the user does not type one in or select a file to replace
-					StorageFile file = await savePicker.PickSaveFileAsync();
-					System.Guid fileType = BitmapEncoder.JpegEncoderId;
-
-					// File is null if the user press Cancel without choosing file
-					if (file != null)
-					{
-						// Check the file type that the user had selected and set the BitmapEncoder to that type
-						switch (file.FileType)
-						{
-							case ".jpeg":
-							case ".jpg":
-								fileType = BitmapEncoder.JpegEncoderId;
-								break;
-							case ".png":
-								fileType = BitmapEncoder.PngEncoderId;
-								break;
-							case ".bmp":
-								fileType = BitmapEncoder.BmpEncoderId;
-								break;
-							default:
-								break;
-						}
-
-						IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
-						BitmapEncoder encoder = await BitmapEncoder.CreateAsync(fileType, writeStream);
-						encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
-														   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, imageOriginal.dstPixels);
-						// Flush all the data to the encoder(file)
-						await encoder.FlushAsync();
-					}
+					file = await savePicker.PickSaveFileAsync();
 				}
-			}
-			else
-			{
-				MessageDialog messageDialog = new MessageDialog("Can't save in snapped state. Please unsnap the app and try again", "Close");
-				await messageDialog.ShowAsync();
-			}
-		}
-		#endregion
-
-		private async void SaveFile()
-		{
-			// Only execute if there is a picture that is loaded
-			if (pictureIsLoaded)
-			{
-				FileSavePicker savePicker = new FileSavePicker();
-
-				// Set My Documents folder as suggested location if no past selected folder is available
-				savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
-				// Dropdown of file types the user can save the file as
-				savePicker.FileTypeChoices.Add("JPEG", new List<string>() { ".jpg" });
-				savePicker.FileTypeChoices.Add("PNG", new List<string>() { ".png" });
-				savePicker.FileTypeChoices.Add("Bitmap", new List<string>() { ".bmp" });
-
-				savePicker.SuggestedFileName = fileName.Text;
-
-				// Default file name if the user does not type one in or select a file to replace
-				StorageFile file = await savePicker.PickSaveFileAsync();
+				else
+				{
+					file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpg", CreationCollisionOption.ReplaceExisting);
+					debugText.Text = "filecreated";
+				}
 				System.Guid fileType = BitmapEncoder.JpegEncoderId;
 
 				// File is null if the user press Cancel without choosing file
@@ -669,10 +630,11 @@ namespace RemedyPic
 													   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, imageOriginal.dstPixels);
 					// Flush all the data to the encoder(file)
 					await encoder.FlushAsync();
-				}
 
+				}
 			}
 		}
+		#endregion
 
 		#region Brightness Scroll
 		private void OnValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
@@ -1648,7 +1610,7 @@ namespace RemedyPic
 			if (without != "sharpen")
 				sharpenCheck.IsChecked = false;
             if (without != "sharpen1")
-                sharpenCheck.IsChecked = false;
+                sharpenCheck1.IsChecked = false;
 			if (without != "emboss2")
 				emboss2Check.IsChecked = false;
 			if (without != "emboss")
@@ -1670,6 +1632,20 @@ namespace RemedyPic
 			SelectFilters.IsChecked = false;
 			SelectRotations.IsChecked = false;
 			SelectZoom.IsChecked = false;
+		}
+
+		private async void SetLockPic_Clicked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				await SaveFile(true);
+				await LockScreen.SetImageFileAsync(file);
+				debugText.Text = "Picture set!";
+			}
+			catch (Exception ex)
+			{
+				debugText.Text = ex.Message;
+			}
 		}
 
 	}
