@@ -937,7 +937,7 @@
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
-                    <Image x:ConnectionId='47' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"/>
+                    <Image x:ConnectionId='47' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
                 </Border>
             </StackPanel>
         </Border>
@@ -1302,6 +1302,7 @@
                 <TextBlock HorizontalAlignment="Left" Margin="129,185,0,0" TextWrapping="Wrap" Text="antonvdudov@gmail.com" VerticalAlignment="Top" Foreground="White" Style="{StaticResource ItemTextStyle}" FontWeight="Medium"/>
             </Grid>
         </Popup>
+        <TextBlock x:Name="debugText" TextWrapping="Wrap" Text="TextBlock" Margin="10,0,-10,-140" Grid.RowSpan="2" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </common:LayoutAwarePage>
 

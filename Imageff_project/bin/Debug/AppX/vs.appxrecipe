@@ -22,11 +22,11 @@
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-02-13T22:09:12.569</Modified>
+      <Modified>2013-02-13T23:51:59.822</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-02-13T22:09:12.543</Modified>
+      <Modified>2013-02-13T23:51:59.797</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\Assets\Background.jpg">
       <PackagePath>Assets\Background.jpg</PackagePath>
@@ -74,7 +74,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-02-13T22:09:06.952</Modified>
+      <Modified>2013-02-13T23:32:27.927</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>

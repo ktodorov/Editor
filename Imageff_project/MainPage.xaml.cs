@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Input;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -1640,6 +1641,24 @@ namespace RemedyPic
 			await LockScreen.SetImageFileAsync(file);
 			MessageDialog messageDialog = new MessageDialog("Picture set! :)", "Close");
 			await messageDialog.ShowAsync();
+		}
+
+		private void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
+		{
+			var delta = e.GetCurrentPoint(displayImage).Properties.MouseWheelDelta;
+			if (delta > 0)
+			{
+				scale.ScaleX = scale.ScaleX + 0.2;
+				scale.ScaleY = scale.ScaleY + 0.2;
+			}
+			else
+			{			
+				if (scale.ScaleX > 1 && scale.ScaleY > 1)
+				{
+					scale.ScaleX = scale.ScaleX - 0.2;
+					scale.ScaleY = scale.ScaleY - 0.2;
+				}
+			}
 		}
 
 	}
