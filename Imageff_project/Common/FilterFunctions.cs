@@ -71,6 +71,36 @@ namespace RemedyPic.Common
 			_dstPixels = (byte[]) _srcPixels.Clone();
 		}
 
+        #region Sharpen1
+
+        // Main function of sharpen filter
+        public void Sharpen1()
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+
+            for (int CurrentByte = 3, AlphaCoeff = 0, CurrentColumn = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4, CurrentColumn++)
+            {
+                if (CurrentColumn > _width)
+                    CurrentColumn = 1;
+
+                if (CurrentColumn % 15 == 0)
+                {
+                    AlphaCoeff = _dstPixels[CurrentByte] + 150;
+                    Sharpen1_CheckAlphaCoeff(ref AlphaCoeff);
+                }
+                _dstPixels[CurrentByte] = (byte) AlphaCoeff;
+            }           
+        }
+
+        public void Sharpen1_CheckAlphaCoeff(ref int AlphaCoeff)
+        {
+            if (AlphaCoeff > 255)
+                AlphaCoeff = 255;
+        }
+
+        #endregion
+
+
         #region Flip
 
         #region H Flip
