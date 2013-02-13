@@ -1264,11 +1264,11 @@
             </Popup>
         </Grid>
         <StackPanel x:Name="Menu" Margin="0,0,0,4" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
-            <!--<Button Content="Set Lock Pic" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}" Click="SetLockPic_Clicked" Background="{x:Null}" BorderBrush="{x:Null}"/>-->
             <ToggleButton x:Name="SelectFilters" Content="Filters" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" BorderBrush="#B23C9600" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,4" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0"/>
             <ToggleButton x:Name="SelectColors" Content="Colors" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ColorsUnchecked" Checked="ColorsChecked" BorderBrush="#B23C9600" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,4" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0"/>
             <ToggleButton x:Name="SelectRotations" Content="Rotate" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="RotationsUnchecked" Checked="RotationsChecked" BorderBrush="#B23C9600" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,4" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0"/>
             <ToggleButton x:Name="SelectZoom" Content="Zoom" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ZoomUnchecked" Checked="ZoomChecked" BorderBrush="#B23C9600" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,4" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0"/>
+            <Button Content="Set Lock Pic" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource BackButtonPopupStyle1}" Click="SetLockPic_Clicked" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
         </StackPanel>
         <Popup x:Name="Feedback" HorizontalAlignment="Right" Grid.RowSpan="3" Width="350" IsOpen="False" IsLightDismissEnabled="True" Grid.ColumnSpan="2">
             <Popup.ChildTransitions>
@@ -1295,6 +1295,5 @@
                 <TextBlock HorizontalAlignment="Left" Margin="129,185,0,0" TextWrapping="Wrap" Text="antonvdudov@gmail.com" VerticalAlignment="Top" Foreground="White" Style="{StaticResource ItemTextStyle}" FontWeight="Medium"/>
             </Grid>
         </Popup>
-        <TextBlock x:Name="debugText" HorizontalAlignment="Left" Margin="74,334,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.Column="1" Visibility="Collapsed"/>
     </Grid>
 </common:LayoutAwarePage>

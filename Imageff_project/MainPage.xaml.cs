@@ -591,7 +591,6 @@ namespace RemedyPic
 				else
 				{
 					file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpg", CreationCollisionOption.ReplaceExisting);
-					debugText.Text = "filecreated";
 				}
 				System.Guid fileType = BitmapEncoder.JpegEncoderId;
 
@@ -615,13 +614,14 @@ namespace RemedyPic
 							break;
 					}
 
-					IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
-					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(fileType, writeStream);
-					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
-													   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, imageOriginal.dstPixels);
-					// Flush all the data to the encoder(file)
-					await encoder.FlushAsync();
-
+					using (IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+					{
+						BitmapEncoder encoder = await BitmapEncoder.CreateAsync(fileType, writeStream);
+						encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
+														   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, imageOriginal.dstPixels);
+						// Flush all the data to the encoder(file)
+						await encoder.FlushAsync();
+					}
 				}
 			}
 		}
@@ -1596,16 +1596,8 @@ namespace RemedyPic
 
 		private async void SetLockPic_Clicked(object sender, RoutedEventArgs e)
 		{
-			try
-			{
-				await SaveFile(true);
-				await LockScreen.SetImageFileAsync(file);
-				debugText.Text = "Picture set!";
-			}
-			catch (Exception ex)
-			{
-				debugText.Text = ex.Message;
-			}
+			await SaveFile(false);
+			await LockScreen.SetImageFileAsync(file);
 		}
 
 	}
