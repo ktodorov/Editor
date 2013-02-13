@@ -160,6 +160,7 @@ namespace RemedyPic.Common
             Flip_SwapValues(CurrentByte++, index + 1);
             Flip_SwapValues(CurrentByte++, index + 2);
             Flip_SwapValues(CurrentByte++, index + 3);
+            dstPixels[CurrentByte++] = 50;
         }
 
         // Swap one of BGRA data of the pixel
