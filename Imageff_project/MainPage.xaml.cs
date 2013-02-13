@@ -31,7 +31,6 @@ namespace RemedyPic
 	{
 
 		#region Variables
-
 		// mruToken is used for LoadState and SaveState functions.
 		private string mruToken = null;
 		private string appliedFilters = null, appliedColors = null, appliedRotations = null;
@@ -245,7 +244,6 @@ namespace RemedyPic
 			displayImage.MaxWidth = bitmapImage.PixelWidth;
 			setFilterBitmaps();
 		}
-
 
 		private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
 		{
@@ -624,6 +622,58 @@ namespace RemedyPic
 		}
 		#endregion
 
+		private async void SaveFile()
+		{
+			// Only execute if there is a picture that is loaded
+			if (pictureIsLoaded)
+			{
+				FileSavePicker savePicker = new FileSavePicker();
+
+				// Set My Documents folder as suggested location if no past selected folder is available
+				savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+
+				// Dropdown of file types the user can save the file as
+				savePicker.FileTypeChoices.Add("JPEG", new List<string>() { ".jpg" });
+				savePicker.FileTypeChoices.Add("PNG", new List<string>() { ".png" });
+				savePicker.FileTypeChoices.Add("Bitmap", new List<string>() { ".bmp" });
+
+				savePicker.SuggestedFileName = fileName.Text;
+
+				// Default file name if the user does not type one in or select a file to replace
+				StorageFile file = await savePicker.PickSaveFileAsync();
+				System.Guid fileType = BitmapEncoder.JpegEncoderId;
+
+				// File is null if the user press Cancel without choosing file
+				if (file != null)
+				{
+					// Check the file type that the user had selected and set the BitmapEncoder to that type
+					switch (file.FileType)
+					{
+						case ".jpeg":
+						case ".jpg":
+							fileType = BitmapEncoder.JpegEncoderId;
+							break;
+						case ".png":
+							fileType = BitmapEncoder.PngEncoderId;
+							break;
+						case ".bmp":
+							fileType = BitmapEncoder.BmpEncoderId;
+							break;
+						default:
+							break;
+					}
+
+					IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
+					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(fileType, writeStream);
+					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
+													   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, imageOriginal.dstPixels);
+					// Flush all the data to the encoder(file)
+					await encoder.FlushAsync();
+				}
+
+			}
+		}
+
 		#region Brightness Scroll
 		private void OnValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
@@ -986,30 +1036,39 @@ namespace RemedyPic
 			{
 				case "blackwhite":
 					doBlackWhite(bitmapStream, bitmapImage, imageOriginal);
+					doBlackWhite(exampleStream, exampleBitmap, image);
 					break;
 				case "invert":
 					doInvert(bitmapStream, bitmapImage, imageOriginal);
+					doInvert(exampleStream, exampleBitmap, image);
 					break;
 				case "emboss":
 					doEmboss(bitmapStream, bitmapImage, imageOriginal);
+					doEmboss(exampleStream, exampleBitmap, image);
 					break;
 				case "emboss2":
 					doEmboss2(bitmapStream, bitmapImage, imageOriginal);
+					doEmboss2(exampleStream, exampleBitmap, image);
 					break;
 				case "blur":
 					doBlur(bitmapStream, bitmapImage, imageOriginal);
+					doBlur(exampleStream, exampleBitmap, image);
 					break;
 				case "blur2":
 					doBlur2(bitmapStream, bitmapImage, imageOriginal);
+					doBlur2(exampleStream, exampleBitmap, image);
 					break;
 				case "sharpen":
 					doSharpen(bitmapStream, bitmapImage, imageOriginal);
+					doSharpen(exampleStream, exampleBitmap, image);
 					break;
 				case "EdgeDetect":
 					doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
+					doEdgeDetect(exampleStream, exampleBitmap, image);
 					break;
 				case "EdgeEnhance":
 					doEdgeEnhance(bitmapStream, bitmapImage, imageOriginal);
+					doEdgeEnhance(exampleStream, exampleBitmap, image);
 					break;
 				default:
 					break;
@@ -1017,6 +1076,8 @@ namespace RemedyPic
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
 			setFilterBitmaps();
+			appliedFilters = null;
+			deselectFilters();
 		}
 
 		private void OnColorApplyClick(object sender, RoutedEventArgs e)
@@ -1076,6 +1137,7 @@ namespace RemedyPic
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
 			setFilterBitmaps();
+			appliedColors = null;
 		}
 
 		private void OnRotateApplyClick(object sender, RoutedEventArgs e)
@@ -1102,6 +1164,7 @@ namespace RemedyPic
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
 			setFilterBitmaps();
+			appliedRotations = null;
 		}
 		#endregion
 
@@ -1118,6 +1181,7 @@ namespace RemedyPic
 			}
 			FilterApplyReset.Visibility = Visibility.Collapsed;
 			appliedFilters = null;
+			deselectFilters();
 		}
 
 		private void OnColorResetClick(object sender, RoutedEventArgs e)
@@ -1540,6 +1604,11 @@ namespace RemedyPic
 			FilterApplyReset.Visibility = Visibility.Visible;
 		}
 
+		private void filterUnchecked(object sender, RoutedEventArgs e)
+		{
+			deselectFilters();
+		}
+
 		private void deselectFilters()
 		{
 			String without = appliedFilters;
@@ -1564,6 +1633,13 @@ namespace RemedyPic
 		}
 		#endregion
 
+		private void GridDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+		{
+			SelectColors.IsChecked = false;
+			SelectFilters.IsChecked = false;
+			SelectRotations.IsChecked = false;
+			SelectZoom.IsChecked = false;
+		}
 
 	}
 	#endregion
