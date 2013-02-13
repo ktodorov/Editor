@@ -415,27 +415,27 @@ namespace RemedyPic
 			}
 		}
 
-/*		private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+		/*		private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+				{
+					coeff[2, 2] = 3;
+					coeff[0, 0] = coeff[1, 0] = coeff[2, 0] = coeff[3, 0] = coeff[4, 0] = 1;
+					coeff[0, 1] = coeff[0, 2] = coeff[0, 3] = coeff[4, 1] = coeff[4, 2] = coeff[4, 3] = 1;
+					coeff[0, 4] = coeff[1, 4] = coeff[2, 4] = coeff[3, 4] = coeff[4, 4] = 1;
+					coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 2;
+					coeff[1, 2] = coeff[3, 2] = 2;
+					coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 2;
+					offset = 0;
+					scale = 35;
+				}*/
+		private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
 		{
-			coeff[2, 2] = 3;
-			coeff[0, 0] = coeff[1, 0] = coeff[2, 0] = coeff[3, 0] = coeff[4, 0] = 1;
-			coeff[0, 1] = coeff[0, 2] = coeff[0, 3] = coeff[4, 1] = coeff[4, 2] = coeff[4, 3] = 1;
-			coeff[0, 4] = coeff[1, 4] = coeff[2, 4] = coeff[3, 4] = coeff[4, 4] = 1;
-			coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 2;
-			coeff[1, 2] = coeff[3, 2] = 2;
-			coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 2;
+			coeff[2, 2] = 1;
+			coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 3;
+			coeff[1, 2] = coeff[3, 2] = 3;
+			coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 3;
 			offset = 0;
-			scale = 35;
-		}*/
-        private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 1;
-            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 3;
-            coeff[1, 2] = coeff[3, 2] = 3;
-            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 3;
-            offset = 0;
-            scale = 25;
-        }
+			scale = 25;
+		}
 		#endregion
 
 		#region Blur2 Filter
@@ -566,7 +566,7 @@ namespace RemedyPic
 			if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
 				 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
 			{
-				SaveFile(true);
+				await SaveFile(true);
 			}
 			else
 			{
@@ -600,7 +600,6 @@ namespace RemedyPic
 				else
 				{
 					file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpg", CreationCollisionOption.ReplaceExisting);
-					debugText.Text = "filecreated";
 				}
 				System.Guid fileType = BitmapEncoder.JpegEncoderId;
 
@@ -624,13 +623,14 @@ namespace RemedyPic
 							break;
 					}
 
-					IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite);
-					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(fileType, writeStream);
-					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
-													   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, imageOriginal.dstPixels);
-					// Flush all the data to the encoder(file)
-					await encoder.FlushAsync();
-
+					using (IRandomAccessStream writeStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+					{
+						BitmapEncoder encoder = await BitmapEncoder.CreateAsync(fileType, writeStream);
+						encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
+														   (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, imageOriginal.dstPixels);
+						// Flush all the data to the encoder(file)
+						await encoder.FlushAsync();
+					}
 				}
 			}
 		}
@@ -936,14 +936,14 @@ namespace RemedyPic
 			resetInterface();
 		}
 
-        private void doSharpen1(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            
-            givenImage.Sharpen1();
-            setStream(stream, bitmap, givenImage);
-            resetInterface();
-        }
+		private void doSharpen1(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+		{
+			prepareImage(stream, bitmap, givenImage);
+
+			givenImage.Sharpen1();
+			setStream(stream, bitmap, givenImage);
+			resetInterface();
+		}
 
 		private void doBlur(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
 		{
@@ -1032,11 +1032,11 @@ namespace RemedyPic
 				case "sharpen":
 					doSharpen(bitmapStream, bitmapImage, imageOriginal);
 					doSharpen(exampleStream, exampleBitmap, image);
-                    break;
-                case "sharpen1":
-                    doSharpen1(bitmapStream, bitmapImage, imageOriginal);
-                    doSharpen1(exampleStream, exampleBitmap, image);
-                    break;
+					break;
+				case "sharpen1":
+					doSharpen1(bitmapStream, bitmapImage, imageOriginal);
+					doSharpen1(exampleStream, exampleBitmap, image);
+					break;
 				case "EdgeDetect":
 					doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
 					doEdgeDetect(exampleStream, exampleBitmap, image);
@@ -1411,7 +1411,7 @@ namespace RemedyPic
 			blurStream = null,
 			blur2Stream = null,
 			sharpenStream = null,
-            sharpenStream1 = null,
+			sharpenStream1 = null,
 			edgeDetectStream = null,
 			edgeEnhanceStream = null;
 
@@ -1425,7 +1425,7 @@ namespace RemedyPic
 			blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
 			blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
 			sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-            sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
+			sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
 			edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
 			edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3));
 
@@ -1436,7 +1436,7 @@ namespace RemedyPic
 			blurFilter.Source = blurBitmap;
 			blur2Filter.Source = blur2Bitmap;
 			sharpenFilter.Source = sharpenBitmap;
-            sharpenFilter1.Source = sharpenBitmap1;
+			sharpenFilter1.Source = sharpenBitmap1;
 			edgeDetectFilter.Source = edgeDetectBitmap;
 			edgeEnhanceFilter.Source = edgeEnhanceBitmap;
 
@@ -1447,7 +1447,7 @@ namespace RemedyPic
 			blurStream = blurBitmap.PixelBuffer.AsStream();
 			blur2Stream = blur2Bitmap.PixelBuffer.AsStream();
 			sharpenStream = sharpenBitmap.PixelBuffer.AsStream();
-            sharpenStream1 = sharpenBitmap1.PixelBuffer.AsStream();
+			sharpenStream1 = sharpenBitmap1.PixelBuffer.AsStream();
 			edgeDetectStream = edgeDetectBitmap.PixelBuffer.AsStream();
 			edgeEnhanceStream = edgeEnhanceBitmap.PixelBuffer.AsStream();
 
@@ -1458,7 +1458,7 @@ namespace RemedyPic
 			initializeBitmap(blurStream, blurBitmap, filterimage);
 			initializeBitmap(blur2Stream, blur2Bitmap, filterimage);
 			initializeBitmap(sharpenStream, sharpenBitmap, filterimage);
-            initializeBitmap(sharpenStream1, sharpenBitmap1, filterimage);
+			initializeBitmap(sharpenStream1, sharpenBitmap1, filterimage);
 			initializeBitmap(edgeDetectStream, edgeDetectBitmap, filterimage);
 			initializeBitmap(edgeEnhanceStream, edgeEnhanceBitmap, filterimage);
 
@@ -1472,7 +1472,7 @@ namespace RemedyPic
 			doFilter(blurStream, blurBitmap, filterimage, "blur");
 			doFilter(blur2Stream, blur2Bitmap, filterimage, "blur2");
 			doFilter(sharpenStream, sharpenBitmap, filterimage, "sharpen");
-            doFilter(sharpenStream1, sharpenBitmap1, filterimage, "sharpen1");
+			doFilter(sharpenStream1, sharpenBitmap1, filterimage, "sharpen1");
 			doFilter(edgeDetectStream, edgeDetectBitmap, filterimage, "EdgeDetect");
 			doFilter(edgeEnhanceStream, edgeEnhanceBitmap, filterimage, "EdgeEnhance");
 		}
@@ -1509,9 +1509,9 @@ namespace RemedyPic
 				case "sharpen":
 					doSharpen(givenStream, givenBitmap, givenImage);
 					break;
-                case "sharpen1":
-                    doSharpen1(givenStream, givenBitmap, givenImage);
-                    break;
+				case "sharpen1":
+					doSharpen1(givenStream, givenBitmap, givenImage);
+					break;
 				case "EdgeDetect":
 					doEdgeDetect(givenStream, givenBitmap, givenImage);
 					break;
@@ -1546,12 +1546,12 @@ namespace RemedyPic
 			FilterApplyReset.Visibility = Visibility.Visible;
 		}
 
-        private void sharpenChecked1(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "sharpen1";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
+		private void sharpenChecked1(object sender, RoutedEventArgs e)
+		{
+			appliedFilters = "sharpen1";
+			deselectFilters();
+			FilterApplyReset.Visibility = Visibility.Visible;
+		}
 
 		private void embossChecked(object sender, RoutedEventArgs e)
 		{
@@ -1609,8 +1609,8 @@ namespace RemedyPic
 				invertCheck.IsChecked = false;
 			if (without != "sharpen")
 				sharpenCheck.IsChecked = false;
-            if (without != "sharpen1")
-                sharpenCheck1.IsChecked = false;
+			if (without != "sharpen1")
+				sharpenCheck1.IsChecked = false;
 			if (without != "emboss2")
 				emboss2Check.IsChecked = false;
 			if (without != "emboss")
@@ -1636,16 +1636,10 @@ namespace RemedyPic
 
 		private async void SetLockPic_Clicked(object sender, RoutedEventArgs e)
 		{
-			try
-			{
-				await SaveFile(true);
-				await LockScreen.SetImageFileAsync(file);
-				debugText.Text = "Picture set!";
-			}
-			catch (Exception ex)
-			{
-				debugText.Text = ex.Message;
-			}
+			await SaveFile(false);
+			await LockScreen.SetImageFileAsync(file);
+			MessageDialog messageDialog = new MessageDialog("Picture set! :)", "Close");
+			await messageDialog.ShowAsync();
 		}
 
 	}
