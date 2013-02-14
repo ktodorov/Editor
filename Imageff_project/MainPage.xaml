@@ -1012,7 +1012,7 @@
 
         <!-- Back button and page title -->
         <TextBlock TextWrapping="Wrap" Text="{Binding Name}" x:Name ="fileName" Style="{StaticResource HeaderTextStyle}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="White" Margin="683,0,455,0" FontSize="21"/>
-        <Border BorderThickness="0,0,2,2" Margin="0" Grid.RowSpan="2" Background="#14000000">
+        <Border BorderThickness="2" Margin="0" Grid.RowSpan="2" Background="#14000000">
             <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0,0,-3,7" MaxWidth="1100" HorizontalAlignment="Left" Width="1138">
                 <StackPanel.Resources>
                     <Storyboard x:Name="AnimateInPicture">
@@ -1387,8 +1387,8 @@
                             </StackPanel>
                         </Border>
                         <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Click="SetLockPic_Clicked" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
-                            <Button x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Click="SetAccountPic_Clicked" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+                            <Button x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetLockPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
+                            <Button x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetAccountPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

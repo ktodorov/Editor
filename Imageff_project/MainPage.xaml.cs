@@ -191,17 +191,17 @@ namespace RemedyPic
 				filePicker.FileTypeFilter.Add(".png");
 				filePicker.FileTypeFilter.Add(".bmp");
 				filePicker.FileTypeFilter.Add(".jpeg");
-				var result = await filePicker.PickSingleFileAsync();
+				file = await filePicker.PickSingleFileAsync();
 				bitmapImage = new WriteableBitmap(1, 1);
 
-				if (result != null)
-				// Result is null if user cancels the file picker.
+				if (file != null)
+				// File is null if user cancels the file picker.
 				{
 					AnimateOutPicture.Begin();
 					Windows.Storage.Streams.IRandomAccessStream fileStream =
-							await result.OpenAsync(Windows.Storage.FileAccessMode.Read);
+							await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
 					bitmapImage.SetSource(fileStream);
-					RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(result);
+					RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
 					// TO DO: Find place for File name...
 					// setFileProperties(result);
 
@@ -600,6 +600,10 @@ namespace RemedyPic
 				}
 				else
 				{
+					if (imageOriginal.dstPixels == null)
+					{
+						return;
+					}
 					file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpg", CreationCollisionOption.ReplaceExisting);
 				}
 				System.Guid fileType = BitmapEncoder.JpegEncoderId;
@@ -1655,14 +1659,6 @@ namespace RemedyPic
 			SelectZoom.IsChecked = false;
 		}
 
-		private async void SetLockPic_Clicked(object sender, RoutedEventArgs e)
-		{
-			await SaveFile(false);
-			await LockScreen.SetImageFileAsync(file);
-			MessageDialog messageDialog = new MessageDialog("Picture set! :)", "Close");
-			await messageDialog.ShowAsync();
-		}
-
 		private void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
 		{
 			var delta = e.GetCurrentPoint(displayImage).Properties.MouseWheelDelta;
@@ -1681,12 +1677,32 @@ namespace RemedyPic
 			}
 		}
 
-
-		private void SetAccountPic_Clicked(object sender, RoutedEventArgs e)
+		#region Image Options
+		private async void SetLockPic_Clicked(object sender, RoutedEventArgs e)
 		{
-
+			await SaveFile(false);
+			await LockScreen.SetImageFileAsync(file);
+			MessageDialog messageDialog = new MessageDialog("Picture set! :)", "Close");
+			await messageDialog.ShowAsync();
 		}
 
+		private async void SetAccountPic_Clicked(object sender, RoutedEventArgs e)
+		{
+			await SaveFile(false);
+			SetAccountPictureResult result = await UserInformation.SetAccountPicturesAsync(null, file, null);
+
+			if (result == SetAccountPictureResult.Success)
+			{
+				MessageDialog messageDialog = new MessageDialog("Picture set! :)", "Close");
+				await messageDialog.ShowAsync();
+			}
+			else
+			{
+				MessageDialog messageDialog = new MessageDialog("Something failed :(", "Close");
+				await messageDialog.ShowAsync();
+			}
+		}
+		#endregion
 	}
 	#endregion
 }
