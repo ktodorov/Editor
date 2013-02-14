@@ -212,8 +212,6 @@ namespace RemedyPic
 							await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
 					bitmapImage.SetSource(fileStream);
 					RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
-					// TO DO: Find place for File name...
-					// setFileProperties(result);
 
 					// If the interface was changed from previous image, it should be resetted.
 					resetInterface();
@@ -246,7 +244,6 @@ namespace RemedyPic
 			image.srcPixels = new byte[(uint)exampleStream.Length];
 			await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
 			await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
-			//setElements(FiltersExamplePicture, exampleBitmap);
 			setElements(ColorsExamplePicture, exampleBitmap);
 			setElements(RotationsExamplePicture, exampleBitmap);
 			prepareImage(exampleStream, exampleBitmap, image);
@@ -256,6 +253,9 @@ namespace RemedyPic
 			displayImage.MaxHeight = bitmapImage.PixelHeight;
 			displayImage.MaxWidth = bitmapImage.PixelWidth;
 			setFilterBitmaps();
+			displayImage.MaxWidth = imagePanel.ActualWidth;
+			displayImage.MaxHeight = imagePanel.ActualHeight;
+			setFileProperties(file);
 		}
 
 		private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
@@ -681,7 +681,7 @@ namespace RemedyPic
 		void setFileProperties(Windows.Storage.StorageFile file)
 		{
 			// This sets the file name to the text box
-			fileName.Text = file.DisplayName;
+			fileName.Text = file.Name;
 		}
 
 		void setStream(Stream givenStream, WriteableBitmap givenBitmap, FilterFunctions givenImage)
@@ -1217,6 +1217,7 @@ namespace RemedyPic
 		private void FiltersUnchecked(object sender, RoutedEventArgs e)
 		{
 			PopupFilters.IsOpen = false;
+			
 		}
 
 		private void ColorsChecked(object sender, RoutedEventArgs e)
@@ -1335,15 +1336,15 @@ namespace RemedyPic
 		#region Zoom
 		private void ZoomInClicked(object sender, RoutedEventArgs e)
 		{
-			scale.ScaleX = scale.ScaleX + 0.2;
-			scale.ScaleY = scale.ScaleY + 0.2;
+			scale.ScaleX = scale.ScaleX + 0.1;
+			scale.ScaleY = scale.ScaleY + 0.1;
 			ZoomOut.Visibility = Visibility.Visible;
 		}
 
 		private void ZoomOutClicked(object sender, RoutedEventArgs e)
 		{
-			scale.ScaleX = scale.ScaleX - 0.2;
-			scale.ScaleY = scale.ScaleY - 0.2;
+			scale.ScaleX = scale.ScaleX - 0.1;
+			scale.ScaleY = scale.ScaleY - 0.1;
 			if (scale.ScaleX == 1 && scale.ScaleY == 1)
 			{
 				ZoomOut.Visibility = Visibility.Collapsed;
@@ -1453,16 +1454,16 @@ namespace RemedyPic
 			FilterFunctions filterimage = new FilterFunctions();
 
 			WriteableBitmap
-			blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-			embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-			emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-			invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-			blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-			blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-			sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-			sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-			edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-			edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+			blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4));
 
 			blackWhiteFilter.Source = blackWhiteBitmap;
 			embossFilter.Source = embossBitmap;
@@ -1667,6 +1668,7 @@ namespace RemedyPic
 			SelectFilters.IsChecked = false;
 			SelectRotations.IsChecked = false;
 			SelectZoom.IsChecked = false;
+			SelectOptions.IsChecked = false;
 		}
 
 		private void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
@@ -1674,15 +1676,15 @@ namespace RemedyPic
 			var delta = e.GetCurrentPoint(displayImage).Properties.MouseWheelDelta;
 			if (delta > 0)
 			{
-				scale.ScaleX = scale.ScaleX + 0.2;
-				scale.ScaleY = scale.ScaleY + 0.2;
+				scale.ScaleX = scale.ScaleX + 0.1;
+				scale.ScaleY = scale.ScaleY + 0.1;
 			}
 			else
 			{
 				if (scale.ScaleX > 1 && scale.ScaleY > 1)
 				{
-					scale.ScaleX = scale.ScaleX - 0.2;
-					scale.ScaleY = scale.ScaleY - 0.2;
+					scale.ScaleX = scale.ScaleX - 0.1;
+					scale.ScaleY = scale.ScaleY - 0.1;
 				}
 			}
 		}
