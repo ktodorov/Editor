@@ -1195,6 +1195,7 @@ namespace RemedyPic
 			SelectColors.IsChecked = false;
 			SelectRotations.IsChecked = false;
 			SelectZoom.IsChecked = false;
+			SelectOptions.IsChecked = false;
 			PopupFilters.IsOpen = true;
 
 		}
@@ -1209,6 +1210,7 @@ namespace RemedyPic
 			SelectFilters.IsChecked = false;
 			SelectRotations.IsChecked = false;
 			SelectZoom.IsChecked = false;
+			SelectOptions.IsChecked = false;
 			PopupColors.IsOpen = true;
 		}
 
@@ -1222,6 +1224,7 @@ namespace RemedyPic
 			SelectFilters.IsChecked = false;
 			SelectColors.IsChecked = false;
 			SelectZoom.IsChecked = false;
+			SelectOptions.IsChecked = false;
 			PopupRotations.IsOpen = true;
 		}
 
@@ -1235,6 +1238,7 @@ namespace RemedyPic
 			SelectFilters.IsChecked = false;
 			SelectColors.IsChecked = false;
 			SelectRotations.IsChecked = false;
+			SelectOptions.IsChecked = false;
 			PopupZoom.IsOpen = true;
 		}
 
@@ -1242,6 +1246,21 @@ namespace RemedyPic
 		{
 			PopupZoom.IsOpen = false;
 		}
+
+		private void OptionsChecked(object sender, RoutedEventArgs e)
+		{
+			SelectFilters.IsChecked = false;
+			SelectColors.IsChecked = false;
+			SelectRotations.IsChecked = false;
+			SelectZoom.IsChecked = false;
+			PopupImageOptions.IsOpen = true;
+		}
+
+		private void OptionsUnchecked(object sender, RoutedEventArgs e)
+		{
+			PopupImageOptions.IsOpen = false;
+		}
+
 
 		#endregion
 
@@ -1289,6 +1308,7 @@ namespace RemedyPic
 			SelectFilters.IsChecked = false;
 			SelectRotations.IsChecked = false;
 			SelectZoom.IsChecked = false;
+			SelectOptions.IsChecked = false;
 		}
 
 		private void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -1659,6 +1679,12 @@ namespace RemedyPic
 					scale.ScaleY = scale.ScaleY - 0.2;
 				}
 			}
+		}
+
+
+		private void SetAccountPic_Clicked(object sender, RoutedEventArgs e)
+		{
+
 		}
 
 	}
