@@ -8,10 +8,13 @@ using Windows.UI.Input;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -22,7 +25,6 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.ApplicationSettings;
-using Windows.UI.Xaml.Navigation;
 using Windows.System.UserProfile;
 
 #region Namespace RemedyPic
@@ -113,17 +115,25 @@ namespace RemedyPic
 				// Make sure we always call Complete on the deferral.
 				try
 				{
-					IRandomAccessStream stream = new InMemoryRandomAccessStream();
+					using (IRandomAccessStream stream = new InMemoryRandomAccessStream())
+					{
+						Stream pixelStream = bitmapImage.PixelBuffer.AsStream();
+						byte[] pixels = new byte[pixelStream.Length];
+						await pixelStream.ReadAsync(pixels, 0, pixels.Length);
 
-					Stream pixelStream = bitmapImage.PixelBuffer.AsStream();
-					byte[] pixels = new byte[pixelStream.Length];
-					await pixelStream.ReadAsync(pixels, 0, pixels.Length);
+						BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
+						encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, pixels);
 
-					BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
-					encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, 96.0, 96.0, pixels);
+						List<IStorageItem> imageItems = new List<IStorageItem>();
+						await SaveFile(false);
+						imageItems.Add(file);
+						request.Data.SetStorageItems(imageItems);
+						RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromFile(file);
+						request.Data.Properties.Thumbnail = imageStreamRef;
+						request.Data.SetBitmap(imageStreamRef);
 
-					request.Data.SetBitmap(RandomAccessStreamReference.CreateFromStream(stream));
-					await encoder.FlushAsync();
+						await encoder.FlushAsync();
+					}
 				}
 				finally
 				{
@@ -228,7 +238,7 @@ namespace RemedyPic
 
 		private async void doAllCalculations()
 		{
-			exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 2), (uint)(bitmapImage.PixelHeight / 2));
+			exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3	));
 			displayImage.Source = bitmapImage;
 			exampleStream = exampleBitmap.PixelBuffer.AsStream();
 			bitmapStream = bitmapImage.PixelBuffer.AsStream();
@@ -1443,16 +1453,16 @@ namespace RemedyPic
 			FilterFunctions filterimage = new FilterFunctions();
 
 			WriteableBitmap
-			blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-			embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-			emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-			invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-			blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-			blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-			sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-			sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-			edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3)),
-			edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3));
+			blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
+			edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4));
 
 			blackWhiteFilter.Source = blackWhiteBitmap;
 			embossFilter.Source = embossBitmap;
@@ -1668,7 +1678,7 @@ namespace RemedyPic
 				scale.ScaleY = scale.ScaleY + 0.2;
 			}
 			else
-			{			
+			{
 				if (scale.ScaleX > 1 && scale.ScaleY > 1)
 				{
 					scale.ScaleX = scale.ScaleX - 0.2;
@@ -1682,8 +1692,9 @@ namespace RemedyPic
 		{
 			await SaveFile(false);
 			await LockScreen.SetImageFileAsync(file);
-			MessageDialog messageDialog = new MessageDialog("Picture set! :)", "Close");
+			MessageDialog messageDialog = new MessageDialog("Picture set! :)", "All done");
 			await messageDialog.ShowAsync();
+			await deleteUsedFile();
 		}
 
 		private async void SetAccountPic_Clicked(object sender, RoutedEventArgs e)
@@ -1693,8 +1704,9 @@ namespace RemedyPic
 
 			if (result == SetAccountPictureResult.Success)
 			{
-				MessageDialog messageDialog = new MessageDialog("Picture set! :)", "Close");
+				MessageDialog messageDialog = new MessageDialog("Picture set! :)", "All done");
 				await messageDialog.ShowAsync();
+				await deleteUsedFile();
 			}
 			else
 			{
@@ -1702,7 +1714,17 @@ namespace RemedyPic
 				await messageDialog.ShowAsync();
 			}
 		}
+
 		#endregion
+
+		private async Task deleteUsedFile()
+		{
+			if (imageOriginal.dstPixels != null)
+			{
+				file = await ApplicationData.Current.LocalFolder.GetFileAsync("temp.jpg");
+				await file.DeleteAsync();
+			}
+		}
 	}
 	#endregion
 }
