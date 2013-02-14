@@ -77,27 +77,27 @@ namespace RemedyPic.Common
         public void Sharpen1()
         {
             _dstPixels = (byte[])_srcPixels.Clone();
+            Random random = new Random();
 
-            for (int CurrentByte = 3, AlphaCoeff = 0, CurrentColumn = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4, CurrentColumn++)
+            for (int CurrentByte = 3, AlphaCoeff = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
-                if (CurrentColumn > _width)
-                    CurrentColumn = 1;
-
-                if (CurrentColumn % 15 == 0)
+                if (CurrentColumn == _width)
                 {
-                    AlphaCoeff = _dstPixels[CurrentByte] + 150;
-                    Sharpen1_CheckAlphaCoeff(ref AlphaCoeff);
+                    CurrentColumn = 0;
+                    CurrentByte += 4 * _width * 9;
                 }
-                _dstPixels[CurrentByte] = (byte) AlphaCoeff;
-            }           
-        }
 
-        public void Sharpen1_CheckAlphaCoeff(ref int AlphaCoeff)
-        {
-            if (AlphaCoeff > 255)
-                AlphaCoeff = 255;
-        }
+                if (CurrentColumn % 10 == 0)
+                {
+                    AlphaCoeff = random.Next(0, 256);
+                }
 
+                for (int k = 0, index = CurrentByte; k < 10 && index < _dstPixels.Length; k++, index += 4 * _width)
+                {
+                    _dstPixels[index] = (byte) AlphaCoeff;
+                }
+            }
+        }
         #endregion
 
 
