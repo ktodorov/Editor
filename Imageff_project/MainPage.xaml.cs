@@ -238,7 +238,7 @@ namespace RemedyPic
 
 		private async void doAllCalculations()
 		{
-			exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 3), (uint)(bitmapImage.PixelHeight / 3	));
+			exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4));
 			displayImage.Source = bitmapImage;
 			exampleStream = exampleBitmap.PixelBuffer.AsStream();
 			bitmapStream = bitmapImage.PixelBuffer.AsStream();
@@ -1453,16 +1453,16 @@ namespace RemedyPic
 			FilterFunctions filterimage = new FilterFunctions();
 
 			WriteableBitmap
-			blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
-			embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
-			emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
-			invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
-			blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
-			blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
-			sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
-			sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
-			edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4)),
-			edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4));
+			blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+			embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+			emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+			invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+			blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+			blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+			sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+			sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+			edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+			edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
 
 			blackWhiteFilter.Source = blackWhiteBitmap;
 			embossFilter.Source = embossBitmap;
