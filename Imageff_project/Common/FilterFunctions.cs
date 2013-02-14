@@ -94,7 +94,7 @@ namespace RemedyPic.Common
 
                 for (int k = 0, index = CurrentByte; k < 10 && index < _dstPixels.Length; k++, index += 4 * _width)
                 {
-                    _dstPixels[index] = (byte) AlphaCoeff;
+                    _dstPixels[index] = (byte)AlphaCoeff;
                 }
             }
         }
