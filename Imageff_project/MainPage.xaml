@@ -962,7 +962,7 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
-        <Border BorderThickness="2" Margin="0" Grid.RowSpan="2" Background="#14000000" Grid.Row="1">
+        <Border BorderThickness="2" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
             <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0" MaxWidth="1100">
                 <StackPanel.Resources>
                     <Storyboard x:Name="AnimateInPicture">
@@ -976,11 +976,11 @@
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
-                    <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged"/>
                 </Border>
             </StackPanel>
         </Border>
-        <Border BorderThickness="2,0,0,0" Margin="0" Grid.RowSpan="4" Background="#FF515050" Grid.Column="1">
+        <Border BorderThickness="2,0,0,0" Margin="0" Grid.RowSpan="4" Grid.Column="1" Background="#FF515050">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1214,7 +1214,6 @@
                                         <TextBlock TextWrapping="Wrap" Text="Blur2" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
-                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
                             </StackPanel>
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <ToggleButton x:Name="sharpenCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="sharpenChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
@@ -1238,6 +1237,13 @@
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="colorizeFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Colorize" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
+                                <ToggleButton x:Name="retroCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="retroChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="retroFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Retro" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                             </StackPanel>
@@ -1374,6 +1380,7 @@
                         <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Button x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetLockPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
                             <Button x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetAccountPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
+                            <Button x:Name="ReturnOriginalButton" Content="Return the original image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="ReturnOriginal_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
