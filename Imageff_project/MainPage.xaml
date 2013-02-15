@@ -972,7 +972,7 @@
                         <FadeOutThemeAnimation Storyboard.TargetName="imagePanel" Duration="00:00:001"/>
                     </Storyboard>
                 </StackPanel.Resources>
-                <Border x:Name="border" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border x:Name="border" Margin="0">
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
@@ -980,7 +980,7 @@
                 </Border>
             </StackPanel>
         </Border>
-        <Border BorderThickness="2,0,0,0" Margin="1136,0,0,0" Grid.RowSpan="4" Background="#FF515050" Grid.ColumnSpan="2">
+        <Border BorderThickness="2,0,0,0" Margin="0" Grid.RowSpan="4" Background="#FF515050" Grid.Column="1">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1014,12 +1014,12 @@
             </Border.BorderBrush>
             <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="White" Margin="0" FontSize="17" FontFamily="Segoe UI" HorizontalAlignment="Center"/>
         </Border>
-        <Grid HorizontalAlignment="Right" Grid.RowSpan="4" Grid.Column="1" Width="228">
+        <Grid Grid.RowSpan="4" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="Logo" HorizontalAlignment="Right" Height="103" Margin="0,0,10,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2">
+            <Image x:Name="Logo" HorizontalAlignment="Center" Height="103" Margin="0,0,10,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2">
                 <Image.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>

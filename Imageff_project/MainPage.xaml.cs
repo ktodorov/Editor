@@ -71,7 +71,7 @@ namespace RemedyPic
 			displayImage.ManipulationDelta += new ManipulationDeltaEventHandler(ManipulateMe_ManipulationDelta);
 			displayImage.ManipulationCompleted += new ManipulationCompletedEventHandler(ManipulateMe_ManipulationCompleted);
 			displayImage.ManipulationInertiaStarting += new ManipulationInertiaStartingEventHandler(ManipulateMe_ManipulationInertiaStarting);
-			InitManipulationTransforms();
+            InitManipulationTransforms();
 		}
 
 		#region Charms
@@ -255,7 +255,12 @@ namespace RemedyPic
 			setFilterBitmaps();
 			displayImage.MaxWidth = imagePanel.ActualWidth;
 			displayImage.MaxHeight = imagePanel.ActualHeight;
-			setFileProperties(file);
+            setFileProperties(file);
+            Filters.Height = PopupFilters.ActualHeight;
+            Colors.Height = PopupColors.ActualHeight;
+            Rotations.Height = PopupRotations.ActualHeight;
+            Zoom.Height = PopupZoom.ActualHeight;
+            ImageOptions.Height = PopupImageOptions.ActualHeight;
 		}
 
 		private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
