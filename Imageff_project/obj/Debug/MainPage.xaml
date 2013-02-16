@@ -36,7 +36,7 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
-                                                        <SolidColorBrush Color="#AFFFFFFF"/>
+                                                        <SolidColorBrush Color="#AF80FF80"/>
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
@@ -962,7 +962,7 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
-        <Border BorderThickness="2" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
+        <Border BorderThickness="0" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
             <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0" MaxWidth="1100">
                 <StackPanel.Resources>
                     <Storyboard x:Name="AnimateInPicture">
@@ -976,7 +976,7 @@
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
-                    <Image x:ConnectionId='53' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
+                    <Image x:ConnectionId='57' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
                 </Border>
             </StackPanel>
         </Border>
@@ -1037,8 +1037,8 @@
                     </LinearGradientBrush>
                 </Border.BorderBrush>
                 <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button x:ConnectionId='51' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
-                    <Button x:ConnectionId='52' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin"                           Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
+                    <Button x:ConnectionId='55' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
+                    <Button x:ConnectionId='56' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin"                           Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
                 </StackPanel>
             </Border>
         </Grid>
@@ -1066,7 +1066,7 @@
                             <GradientStop Color="#FF215500" Offset="1"/>
                         </LinearGradientBrush>
                     </ScrollViewer.BorderBrush>
-                    <StackPanel x:Name="ColorsPanel"  Width="340" Margin="0" HorizontalAlignment="Right" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ColorsPanel"  Width="340" Margin="0" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
                         <StackPanel.Transitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition/>
@@ -1074,14 +1074,14 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:ConnectionId='50' x:Name="BackColors" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <Button x:ConnectionId='54' x:Name="BackColors" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Colors" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
                         <Image x:Name="ColorsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:ConnectionId='38' x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
+                        <Slider x:ConnectionId='42' x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
                             <Slider.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <LinearGradientBrush.RelativeTransform>
@@ -1093,7 +1093,7 @@
                             </Slider.Background>
                         </Slider>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="COLORS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:ConnectionId='39' x:Name ="RedColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80"                                BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
+                        <Slider x:ConnectionId='43' x:Name ="RedColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80"                                BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
                             <Slider.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <LinearGradientBrush.RelativeTransform>
@@ -1104,7 +1104,7 @@
                                 </LinearGradientBrush>
                             </Slider.Background>
                         </Slider>
-                        <Slider x:ConnectionId='40' x:Name ="GreenColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80"                                BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Foreground="{x:Null}" Height="40" Style="{StaticResource SliderStyle1}">
+                        <Slider x:ConnectionId='44' x:Name ="GreenColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80"                                BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Foreground="{x:Null}" Height="40" Style="{StaticResource SliderStyle1}">
                             <Slider.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <LinearGradientBrush.RelativeTransform>
@@ -1115,7 +1115,7 @@
                                 </LinearGradientBrush>
                             </Slider.Background>
                         </Slider>
-                        <Slider x:ConnectionId='41' x:Name ="BlueColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80"                                BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Foreground="{x:Null}" Height="40" Style="{StaticResource SliderStyle1}">
+                        <Slider x:ConnectionId='45' x:Name ="BlueColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-80" Maximum="80"                                BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Foreground="{x:Null}" Height="40" Style="{StaticResource SliderStyle1}">
                             <Slider.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <LinearGradientBrush.RelativeTransform>
@@ -1127,16 +1127,16 @@
                             </Slider.Background>
                         </Slider>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="SATURATION" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:ConnectionId='42' x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                                   BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
-                        <Slider x:ConnectionId='43' x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                                   BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
-                        <Slider x:ConnectionId='44' x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                                   BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" Style="{StaticResource SliderStyle1}" />
+                        <Slider x:ConnectionId='46' x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                                   BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
+                        <Slider x:ConnectionId='47' x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                                   BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
+                        <Slider x:ConnectionId='48' x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                                   BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" Style="{StaticResource SliderStyle1}" />
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Gama" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="132.095,0,131.905,0"/>
-                        <Slider x:ConnectionId='45' x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                              BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
-                        <Slider x:ConnectionId='46' x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                              BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
-                        <Slider x:ConnectionId='47' x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                              BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
+                        <Slider x:ConnectionId='49' x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                              BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
+                        <Slider x:ConnectionId='50' x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                              BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
+                        <Slider x:ConnectionId='51' x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                              BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
                         <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-                            <Button x:ConnectionId='48' x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                           Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:ConnectionId='49' x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                           Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                            <Button x:ConnectionId='52' x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                           Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:ConnectionId='53' x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                           Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1165,20 +1165,20 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:ConnectionId='37' x:Name="BackFilters" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <Button x:ConnectionId='41' x:Name="BackFilters" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Filters" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
                         <StackPanel Margin="20,0">
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:ConnectionId='35' x:Name="blackWhiteCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                         BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='39' x:Name="blackWhiteCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                         BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel Margin="0">
                                         <Image x:Name="blackWhiteFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170" Margin="0"/>
                                         <TextBlock TextWrapping="Wrap" Text="Black and White" Foreground="White" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </ToggleButton>
                                 <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:ConnectionId='36' x:Name="invertCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                     BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='40' x:Name="invertCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                     BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top">
                                         <Image x:Name="invertFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Foreground="White" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Invert"/>
@@ -1186,14 +1186,14 @@
                                 </ToggleButton>
                             </StackPanel>
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:ConnectionId='33' x:Name="embossCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                     BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='37' x:Name="embossCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                     BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="embossFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Emboss" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                                 <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:ConnectionId='34' x:Name="emboss2Check" HorizontalAlignment="Left" VerticalAlignment="Top"                                                      BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='38' x:Name="emboss2Check" HorizontalAlignment="Left" VerticalAlignment="Top"                                                      BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top">
                                         <Image x:Name="emboss2Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Emboss2" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
@@ -1201,14 +1201,14 @@
                                 </ToggleButton>
                             </StackPanel>
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:ConnectionId='31' x:Name="blurCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                   BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='35' x:Name="blurCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                   BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="blurFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Blur" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                                 <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:ConnectionId='32' x:Name="blur2Check" HorizontalAlignment="Left" VerticalAlignment="Top"                                                    BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='36' x:Name="blur2Check" HorizontalAlignment="Left" VerticalAlignment="Top"                                                    BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top">
                                         <Image x:Name="blur2Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Blur2" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
@@ -1216,14 +1216,14 @@
                                 </ToggleButton>
                             </StackPanel>
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:ConnectionId='29' x:Name="sharpenCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                      BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='33' x:Name="sharpenCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                      BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="sharpenFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Sharpen" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                                 <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:ConnectionId='30' x:Name="sharpenCheck1" HorizontalAlignment="Left" VerticalAlignment="Top"                                                       BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='34' x:Name="sharpenCheck1" HorizontalAlignment="Left" VerticalAlignment="Top"                                                       BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" >
                                         <Image x:Name="sharpenFilter1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Sharpen1" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
@@ -1233,21 +1233,51 @@
 
                             
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <ToggleButton x:ConnectionId='27' x:Name="colorizeCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                       BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='31' x:Name="colorizeCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                       BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="colorizeFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Colorize" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                                 <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:ConnectionId='28' x:Name="retroCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                    BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:ConnectionId='32' x:Name="retroCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                    BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="retroFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Retro" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                             </StackPanel>
-                            
+                            <StackPanel Margin="-0.5,0,-0.5,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:ConnectionId='29' x:Name="darkenCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                     BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="darkenFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Darken" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
+                                <ToggleButton x:ConnectionId='30' x:Name="brightenCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                       BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="brightenFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Brighten" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+                            <StackPanel Margin="-0.5,0,-0.5,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:ConnectionId='27' x:Name="shadowCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                     BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="shadowFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Shadow" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
+                                <ToggleButton x:ConnectionId='28' x:Name="crystalCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                      BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="crystalFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Crystal" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <ToggleButton x:ConnectionId='25' x:Name="edgeDetectCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                         BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">

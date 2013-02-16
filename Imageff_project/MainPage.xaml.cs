@@ -241,7 +241,7 @@ namespace RemedyPic
         {
             uneditedBitmap = bitmapImage;  
   
-            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 4), (uint)(bitmapImage.PixelHeight / 4));
+            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6));
             exampleStream = exampleBitmap.PixelBuffer.AsStream();
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
             uneditedStream = uneditedBitmap.PixelBuffer.AsStream();
@@ -267,11 +267,11 @@ namespace RemedyPic
             displayImage.MaxWidth = imagePanel.ActualWidth;
             displayImage.MaxHeight = imagePanel.ActualHeight;
             setFileProperties(file);
-            Filters.Height = PopupFilters.ActualHeight;
-            Colors.Height = PopupColors.ActualHeight;
-            Rotations.Height = PopupRotations.ActualHeight;
-            Zoom.Height = PopupZoom.ActualHeight;
-            ImageOptions.Height = PopupImageOptions.ActualHeight;
+            Filters.Height = PopupFilters.ActualHeight + 5;
+            Colors.Height = PopupColors.ActualHeight + 5;
+            Rotations.Height = PopupRotations.ActualHeight + 5;
+            Zoom.Height = PopupZoom.ActualHeight + 5;
+            ImageOptions.Height = PopupImageOptions.ActualHeight + 5;
             displayImage.Source = bitmapImage;
             AvailableZoom.IsChecked = true;   
         }
@@ -1027,6 +1027,38 @@ namespace RemedyPic
             resetInterface();
         }
 
+        private void doDarken(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+            givenImage.ColorChange(0, 0, 0, 50, 50, 0);
+            setStream(stream, bitmap, givenImage);
+            resetInterface();
+        }
+
+        private void doBrighten(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+            givenImage.ColorChange(70, 70, 70, 0, 0, 0);
+            setStream(stream, bitmap, givenImage);
+            resetInterface();
+        }
+
+        private void doShadow(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+            givenImage.ColorChange(-80, -80, -80, 0, 0, 0);
+            setStream(stream, bitmap, givenImage);
+            resetInterface();
+        }
+
+        private void doCrystal(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+            givenImage.ColorChange(0, 0, 0, 50, 35, 35);
+            setStream(stream, bitmap, givenImage);
+            resetInterface();
+        }
+
         #endregion
 
         #region Apply Buttons
@@ -1083,6 +1115,22 @@ namespace RemedyPic
                 case "retro":
                     doRetro(bitmapStream, bitmapImage, imageOriginal);
                     doRetro(exampleStream, exampleBitmap, image);
+                    break;
+                case "darken":
+                    doDarken(bitmapStream, bitmapImage, imageOriginal);
+                    doDarken(exampleStream, exampleBitmap, image);
+                    break;
+                case "brighten":
+                    doBrighten(bitmapStream, bitmapImage, imageOriginal);
+                    doBrighten(exampleStream, exampleBitmap, image);
+                    break;
+                case "shadow":
+                    doShadow(bitmapStream, bitmapImage, imageOriginal);
+                    doShadow(exampleStream, exampleBitmap, image);
+                    break;
+                case "crystal":
+                    doCrystal(bitmapStream, bitmapImage, imageOriginal);
+                    doCrystal(exampleStream, exampleBitmap, image);
                     break;
                 default:
                     break;
@@ -1474,8 +1522,12 @@ namespace RemedyPic
             sharpenStream1 = null,
             colorizeStream = null,
             retroStream = null,
+            darkenStream = null,
             edgeDetectStream = null,
-            edgeEnhanceStream = null;
+            edgeEnhanceStream = null,
+            brightenStream = null,
+            shadowStream = null,
+            crystalStream = null;
 
             FilterFunctions filterimage = new FilterFunctions();
 
@@ -1491,7 +1543,11 @@ namespace RemedyPic
             sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
             edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
             edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6));
+            retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
+            darkenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
+            brightenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
+            shadowBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
+            crystalBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6));
 
             blackWhiteFilter.Source = blackWhiteBitmap;
             embossFilter.Source = embossBitmap;
@@ -1505,6 +1561,10 @@ namespace RemedyPic
             edgeDetectFilter.Source = edgeDetectBitmap;
             edgeEnhanceFilter.Source = edgeEnhanceBitmap;
             retroFilter.Source = retroBitmap;
+            darkenFilter.Source = darkenBitmap;
+            brightenFilter.Source = brightenBitmap;
+            shadowFilter.Source = shadowBitmap;
+            crystalFilter.Source = crystalBitmap;
 
             blackWhiteStream = blackWhiteBitmap.PixelBuffer.AsStream();
             embossStream = embossBitmap.PixelBuffer.AsStream();
@@ -1518,6 +1578,10 @@ namespace RemedyPic
             edgeDetectStream = edgeDetectBitmap.PixelBuffer.AsStream();
             edgeEnhanceStream = edgeEnhanceBitmap.PixelBuffer.AsStream();
             retroStream = retroBitmap.PixelBuffer.AsStream();
+            darkenStream = darkenBitmap.PixelBuffer.AsStream();
+            brightenStream = brightenBitmap.PixelBuffer.AsStream();
+            shadowStream = shadowBitmap.PixelBuffer.AsStream();
+            crystalStream = crystalBitmap.PixelBuffer.AsStream();
 
             initializeBitmap(blackWhiteStream, blackWhiteBitmap, filterimage);
             initializeBitmap(embossStream, embossBitmap, filterimage);
@@ -1531,6 +1595,10 @@ namespace RemedyPic
             initializeBitmap(edgeDetectStream, edgeDetectBitmap, filterimage);
             initializeBitmap(edgeEnhanceStream, edgeEnhanceBitmap, filterimage);
             initializeBitmap(retroStream, retroBitmap, filterimage);
+            initializeBitmap(darkenStream, darkenBitmap, filterimage);
+            initializeBitmap(brightenStream, brightenBitmap, filterimage);
+            initializeBitmap(shadowStream, shadowBitmap, filterimage);
+            initializeBitmap(crystalStream, crystalBitmap, filterimage);
 
             prepareImage(blackWhiteStream, blackWhiteBitmap, filterimage);
             setStream(blackWhiteStream, blackWhiteBitmap, filterimage);
@@ -1547,6 +1615,10 @@ namespace RemedyPic
             doFilter(edgeDetectStream, edgeDetectBitmap, filterimage, "EdgeDetect");
             doFilter(edgeEnhanceStream, edgeEnhanceBitmap, filterimage, "EdgeEnhance");
             doFilter(retroStream, retroBitmap, filterimage, "retro");
+            doFilter(darkenStream, darkenBitmap, filterimage, "darken");
+            doFilter(brightenStream, brightenBitmap, filterimage, "brighten");
+            doFilter(shadowStream, shadowBitmap, filterimage, "shadow");
+            doFilter(crystalStream, crystalBitmap, filterimage, "crystal");
         }
 
         private async void initializeBitmap(Stream givenStream, WriteableBitmap givenBitmap, FilterFunctions givenImage)
@@ -1596,6 +1668,18 @@ namespace RemedyPic
                 case "retro":
                     doRetro(givenStream, givenBitmap, givenImage);
                     break;
+                case "darken":
+                    doDarken(givenStream, givenBitmap, givenImage);
+                    break;
+                case "brighten":
+                    doBrighten(givenStream, givenBitmap, givenImage);
+                    break;
+                case "shadow":
+                    doShadow(givenStream, givenBitmap, givenImage);
+                    break;
+                case "crystal":
+                    doCrystal(givenStream, givenBitmap, givenImage);
+                    break;
                 default:
                     break;
             }
@@ -1634,6 +1718,13 @@ namespace RemedyPic
         private void retroChecked(object sender, RoutedEventArgs e)
         {
             appliedFilters = "retro";
+            deselectFilters();
+            FilterApplyReset.Visibility = Visibility.Visible;
+        }
+
+        private void darkenChecked(object sender, RoutedEventArgs e)
+        {
+            appliedFilters = "darken";
             deselectFilters();
             FilterApplyReset.Visibility = Visibility.Visible;
         }
@@ -1687,8 +1778,30 @@ namespace RemedyPic
             FilterApplyReset.Visibility = Visibility.Visible;
         }
 
+        private void brightenChecked(object sender, RoutedEventArgs e)
+        {
+            appliedFilters = "brighten";
+            deselectFilters();
+            FilterApplyReset.Visibility = Visibility.Visible;
+        }
+
+        private void shadowChecked(object sender, RoutedEventArgs e)
+        {
+            appliedFilters = "shadow";
+            deselectFilters();
+            FilterApplyReset.Visibility = Visibility.Visible;
+        }
+
+        private void crystalChecked(object sender, RoutedEventArgs e)
+        {
+            appliedFilters = "crystal";
+            deselectFilters();
+            FilterApplyReset.Visibility = Visibility.Visible;
+        }
+
         private void filterUnchecked(object sender, RoutedEventArgs e)
         {
+            appliedFilters = null;
             deselectFilters();
         }
 
@@ -1719,6 +1832,16 @@ namespace RemedyPic
                 colorizeCheck.IsChecked = false;
             if (without != "retro")
                 retroCheck.IsChecked = false;
+            if (without != "darken")
+                darkenCheck.IsChecked = false;
+            if (without != "brighten")
+                brightenCheck.IsChecked = false;
+            if (without != "shadow")
+                shadowCheck.IsChecked = false;
+            if (without != "crystal")
+                crystalCheck.IsChecked = false;
+            if (appliedFilters == null)
+                FilterApplyReset.Visibility = Visibility.Collapsed;
         }
         #endregion
 
@@ -1799,6 +1922,8 @@ namespace RemedyPic
             setFilterBitmaps();
             resetInterface();
         }
+
+
     }
     #endregion
 }

@@ -36,7 +36,7 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
-                                                        <SolidColorBrush Color="#AFFFFFFF"/>
+                                                        <SolidColorBrush Color="#AF80FF80"/>
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
@@ -962,7 +962,7 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
-        <Border BorderThickness="2" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
+        <Border BorderThickness="0" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
             <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0" MaxWidth="1100">
                 <StackPanel.Resources>
                     <Storyboard x:Name="AnimateInPicture">
@@ -1066,7 +1066,7 @@
                             <GradientStop Color="#FF215500" Offset="1"/>
                         </LinearGradientBrush>
                     </ScrollViewer.BorderBrush>
-                    <StackPanel x:Name="ColorsPanel"  Width="340" Margin="0" HorizontalAlignment="Right" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ColorsPanel"  Width="340" Margin="0" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
                         <StackPanel.Transitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition/>
@@ -1247,7 +1247,37 @@
                                     </StackPanel>
                                 </ToggleButton>
                             </StackPanel>
-                            
+                            <StackPanel Margin="-0.5,0,-0.5,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:Name="darkenCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="darkenChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="darkenFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Darken" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
+                                <ToggleButton x:Name="brightenCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="brightenChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="brightenFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Brighten" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+                            <StackPanel Margin="-0.5,0,-0.5,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <ToggleButton x:Name="shadowCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="shadowChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="shadowFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Shadow" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
+                                <ToggleButton x:Name="crystalCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="crystalChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" Margin="0">
+                                        <Image x:Name="crystalFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Crystal" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <ToggleButton x:Name="edgeDetectCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="edgeDetectChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
