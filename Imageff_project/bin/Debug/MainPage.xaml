@@ -1019,7 +1019,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="Logo" Margin="10,20,10,0" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2" VerticalAlignment="Top">
+            <Image x:Name="Logo" Margin="20,20,20,0" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2" VerticalAlignment="Top">
                 <Image.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
@@ -1042,8 +1042,6 @@
                 </StackPanel>
             </Border>
         </Grid>
-
-        <!-- Back button and page title -->
         <Grid x:Name="contentGrid" Margin="0,0,-39,3" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
             <Grid.RowDefinitions>
                 <RowDefinition Height="69"/>
@@ -1231,7 +1229,7 @@
                                 </ToggleButton>
                             </StackPanel>
 
-                            
+
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <ToggleButton x:ConnectionId='31' x:Name="colorizeCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                       BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" Margin="0">
@@ -1374,7 +1372,7 @@
                             <Button x:ConnectionId='13' x:Name="ZoomOut" Visibility="Collapsed" Content="-" HorizontalAlignment="Stretch" VerticalAlignment="Top"                        FontSize="25" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50"/>
                             <Button x:ConnectionId='14' x:Name="ResetZoom" Content="Reset" HorizontalAlignment="Stretch" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                          Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <CheckBox x:ConnectionId='15' x:Name="AvailableZoom" IsChecked="False" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left"                                                />
-                            
+
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1416,6 +1414,8 @@
                 </ScrollViewer>
             </Popup>
         </Grid>
+
+        <!-- Back button and page title -->
         <StackPanel x:Name="Menu" Margin="319,0,319,4" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Height="50" Width="500">
             <ToggleButton x:ConnectionId='3' x:Name="SelectFilters" Content="Filters" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100"                                                       Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="3,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                 <ToggleButton.BorderBrush>
