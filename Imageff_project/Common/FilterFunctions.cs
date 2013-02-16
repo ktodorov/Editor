@@ -71,6 +71,26 @@ namespace RemedyPic.Common
 			_dstPixels = (byte[]) _srcPixels.Clone();
 		}
 
+        #region Colorize
+
+        // Main function
+        public void Colorize()
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+
+            for (int CurrentByte = 0, average = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
+            {
+                if (_dstPixels[CurrentByte] * _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] * _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2] * _dstPixels[CurrentByte + 2])
+                {
+                    average = (_dstPixels[CurrentByte] +  _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
+                    _dstPixels[CurrentByte] = (byte) average;
+                    _dstPixels[CurrentByte + 1] = (byte) average;
+                    _dstPixels[CurrentByte + 2] = (byte) average;
+                }
+            }
+        }
+        #endregion
+
         #region Sharpen1
 
         // Main function of sharpen filter
