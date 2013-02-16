@@ -67,3 +67,7 @@ C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\resources.
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfiles
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\LanguageQualifiers.txt
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\ProjectArchitectures.txt
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\priconfig.xml.intermediate
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\layout.resfiles.intermediate
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\resources.resfiles.intermediate
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfiles.intermediate

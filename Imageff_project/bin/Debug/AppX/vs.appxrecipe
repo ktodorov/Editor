@@ -5,7 +5,7 @@
     <WindowsUser>Konstantin</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>90860E9543525D1311C7CEB56A76C68CEE8090DD9AFA2CC4103FAC1EB1C9DF0B</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>9AEC4D127B8946A3A65B57056E12E3894AC039CD12015FBBDCE0B368F90C393D</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_pexwghfzd4yhp!App</RegisteredUserModeAppID>
     <RegisteredPackageID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116</RegisteredPackageID>
@@ -16,47 +16,41 @@
     <AppXManifest Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-15T20:05:52.838</Modified>
+      <Modified>2013-02-16T09:55:15.629</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-02-16T00:54:14.155</Modified>
+      <Modified>2013-02-16T10:03:28.313</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-02-16T00:54:14.129</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Background.jpg">
-      <PackagePath>Assets\Background.jpg</PackagePath>
-      <Modified>2013-02-15T19:51:28.577</Modified>
+      <Modified>2013-02-16T10:03:28.284</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
-      <Modified>2013-02-15T19:51:28.578</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Logo2.scale-100.png">
-      <PackagePath>Assets\Logo2.scale-100.png</PackagePath>
-      <Modified>2013-02-15T19:51:28.578</Modified>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-02-16T09:45:43.598</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\RemedyPicLogo.png">
       <PackagePath>Assets\RemedyPicLogo.png</PackagePath>
-      <Modified>2013-02-15T19:51:28.660</Modified>
+      <Modified>2013-02-16T10:02:11.344</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\SmallLogo.png">
       <PackagePath>Assets\SmallLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-15T19:51:28.661</Modified>
+      <Modified>2013-02-16T09:48:47.759</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\SplashScreen.png">
       <PackagePath>Assets\SplashScreen.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-15T19:51:28.661</Modified>
+      <Modified>2013-02-16T09:54:05.444</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\WideLogo.scale-100.png">
-      <PackagePath>Assets\WideLogo.scale-100.png</PackagePath>
-      <Modified>2013-02-15T19:51:28.756</Modified>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\WideLogo.png">
+      <PackagePath>Assets\WideLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-02-16T09:18:54.066</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Common\ReadMe.txt">
       <PackagePath>Common\ReadMe.txt</PackagePath>
@@ -72,11 +66,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-02-16T00:28:40.111</Modified>
+      <Modified>2013-02-16T10:03:24.255</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-02-15T20:05:52.373</Modified>
+      <Modified>2013-02-16T09:55:15.557</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

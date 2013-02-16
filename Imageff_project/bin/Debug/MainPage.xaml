@@ -1019,7 +1019,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="Logo" HorizontalAlignment="Center" Height="103" Margin="0,0,10,0" VerticalAlignment="Top" Width="270" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2">
+            <Image x:Name="Logo" Margin="10,20,10,0" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2" VerticalAlignment="Top">
                 <Image.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
