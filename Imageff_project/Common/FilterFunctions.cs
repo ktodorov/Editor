@@ -78,17 +78,38 @@ namespace RemedyPic.Common
         {
             _dstPixels = (byte[])_srcPixels.Clone();
 
-            for (int CurrentByte = 0, average = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
+            for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                if (_dstPixels[CurrentByte] * _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] * _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2] * _dstPixels[CurrentByte + 2])
+                if (Colorize_CheckForGreen(CurrentByte))
                 {
-                    average = (_dstPixels[CurrentByte] +  _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
-                    _dstPixels[CurrentByte] = (byte) average;
-                    _dstPixels[CurrentByte + 1] = (byte) average;
-                    _dstPixels[CurrentByte + 2] = (byte) average;
+                    Colorize_SetGrayPixel(CurrentByte);
                 }
             }
         }
+
+        public void Colorize_SetGrayPixel(int CurrentByte)
+        {
+            int average = (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
+            _dstPixels[CurrentByte] = (byte)average;
+            _dstPixels[CurrentByte + 1] = (byte)average;
+            _dstPixels[CurrentByte + 2] = (byte)average;        
+        }
+
+        public bool Colorize_CheckForBlue(int index)
+        {
+            return _dstPixels[index] * _dstPixels[index] < _dstPixels[index + 1] * _dstPixels[index + 1] + _dstPixels[index + 2] * _dstPixels[index + 2];
+        }
+
+        public bool Colorize_CheckForGreen(int index)
+        {
+            return _dstPixels[index + 1] * _dstPixels[index + 1] < _dstPixels[index] * _dstPixels[index] + _dstPixels[index + 2] * _dstPixels[index + 2];
+        }
+
+        public bool Colorize_CheckForRed(int index)
+        {
+            return _dstPixels[index + 2] * _dstPixels[index + 2] < _dstPixels[index] * _dstPixels[index] + _dstPixels[index + 1] * _dstPixels[index + 1];
+        }
+
         #endregion
 
         #region Sharpen1
