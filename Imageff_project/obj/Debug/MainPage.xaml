@@ -1019,14 +1019,14 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="Logo" Margin="20,20,20,0" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2" VerticalAlignment="Top">
+            <Image x:Name="Logo" Margin="20,10,20,0" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2" VerticalAlignment="Top">
                 <Image.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
                     </TransitionCollection>
                 </Image.Transitions>
             </Image>
-            <Border BorderThickness="0,0,0,2" Margin="0,85,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <Border BorderThickness="0,0,0,2" Margin="0,120,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
                 <Border.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <LinearGradientBrush.RelativeTransform>
@@ -1076,6 +1076,13 @@
                                 <TextBlock TextWrapping="Wrap" Text="Colors" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
+                        <Image x:Name="Logo_Copy" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
                         <Image x:Name="ColorsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
@@ -1167,6 +1174,13 @@
                                 <TextBlock TextWrapping="Wrap" Text="Filters" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
+                        <Image x:Name="Logo_Copy1" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
                         <StackPanel Margin="20,0">
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <ToggleButton x:ConnectionId='39' x:Name="blackWhiteCheck" HorizontalAlignment="Left" VerticalAlignment="Top"                                                         BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
@@ -1327,6 +1341,13 @@
                                 <TextBlock TextWrapping="Wrap" Text="Rotations" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
+                        <Image x:Name="Logo_Copy2" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Top" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
                         <Image x:Name="RotationsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <Button x:ConnectionId='17' x:Name="RotateButton" Content="ROTATE" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                       Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
@@ -1367,6 +1388,13 @@
                                 <TextBlock TextWrapping="Wrap" Text="Zoom" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
+                        <Image x:Name="Logo_Copy3" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
                         <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Button x:ConnectionId='12' x:Name="ZoomIn" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Top"                       FontSize="25" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50"/>
                             <Button x:ConnectionId='13' x:Name="ZoomOut" Visibility="Collapsed" Content="-" HorizontalAlignment="Stretch" VerticalAlignment="Top"                        FontSize="25" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50"/>
@@ -1405,6 +1433,13 @@
                                 <TextBlock TextWrapping="Wrap" Text="Image options" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="5,0,0,10"/>
                             </StackPanel>
                         </Border>
+                        <Image x:Name="Logo_Copy4" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
                         <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Button x:ConnectionId='8' x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}"                            Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
                             <Button x:ConnectionId='9' x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}"                               Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
