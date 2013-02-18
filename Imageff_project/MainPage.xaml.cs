@@ -1281,7 +1281,8 @@ namespace RemedyPic
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
             SelectZoom.IsChecked = false;
-            SelectOptions.IsChecked = false;
+			SelectOptions.IsChecked = false;
+			SelectColorize.IsChecked = false;
             PopupFilters.IsOpen = true;
 
         }
@@ -1297,7 +1298,8 @@ namespace RemedyPic
             SelectFilters.IsChecked = false;
             SelectRotations.IsChecked = false;
             SelectZoom.IsChecked = false;
-            SelectOptions.IsChecked = false;
+			SelectOptions.IsChecked = false;
+			SelectColorize.IsChecked = false;
             PopupColors.IsOpen = true;
         }
 
@@ -1311,7 +1313,8 @@ namespace RemedyPic
             SelectFilters.IsChecked = false;
             SelectColors.IsChecked = false;
             SelectZoom.IsChecked = false;
-            SelectOptions.IsChecked = false;
+			SelectOptions.IsChecked = false;
+			SelectColorize.IsChecked = false;
             PopupRotations.IsOpen = true;
         }
 
@@ -1325,7 +1328,8 @@ namespace RemedyPic
             SelectFilters.IsChecked = false;
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
+			SelectOptions.IsChecked = false;
+			SelectColorize.IsChecked = false;
             PopupZoom.IsOpen = true;
         }
 
@@ -1340,6 +1344,7 @@ namespace RemedyPic
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
             SelectZoom.IsChecked = false;
+			SelectColorize.IsChecked = false;
             PopupImageOptions.IsOpen = true;
         }
 
@@ -1347,6 +1352,21 @@ namespace RemedyPic
         {
             PopupImageOptions.IsOpen = false;
         }
+
+		private void ColorizeChecked(object sender, RoutedEventArgs e)
+		{
+			SelectFilters.IsChecked = false;
+			SelectColors.IsChecked = false;
+			SelectRotations.IsChecked = false;
+			SelectZoom.IsChecked = false;
+			SelectOptions.IsChecked = false;
+			PopupColorize.IsOpen = true;
+		}
+
+		private void ColorizeUnchecked(object sender, RoutedEventArgs e)
+		{
+			PopupColorize.IsOpen = false;
+		}
 
 
         #endregion
