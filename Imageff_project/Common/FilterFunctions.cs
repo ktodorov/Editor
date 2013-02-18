@@ -7,107 +7,115 @@ using Windows.UI;
 
 namespace RemedyPic.Common
 {
-	class FilterFunctions
-	{
-		static byte[] blackWhiteAlreadyArray;
-		private int _width, _height;		
-		private byte[] _dstPixels, _srcPixels;
-		#region getters and setters
-		public byte[] dstPixels
-		{
-			get
-			{
-				return _dstPixels;
-			}
-			set
-			{
-				_dstPixels = value;
-			}
-		}		
-		public byte[] srcPixels
-		{
-			get
-			{
-				return _srcPixels;
-			}
-			set
-			{
-				_srcPixels = value;
-			}
-		}	
-		public int height
-		{
-			get
-			{
-				return _height;
-			}
-			set
-			{
-				_height = value;
-			}
-		}		
-		public int width
-		{
-			get
-			{
-				return _width;
-			}
-			set
-			{
-				_width = value;
-			}
-		}
-		#endregion
-		public enum ColorType
+    class FilterFunctions
+    {
+        static byte[] blackWhiteAlreadyArray;
+        private int _width, _height;
+        private byte[] _dstPixels, _srcPixels;
+        #region getters and setters
+        public byte[] dstPixels
+        {
+            get
+            {
+                return _dstPixels;
+            }
+            set
+            {
+                _dstPixels = value;
+            }
+        }
+        public byte[] srcPixels
+        {
+            get
+            {
+                return _srcPixels;
+            }
+            set
+            {
+                _srcPixels = value;
+            }
+        }
+        public int height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                _height = value;
+            }
+        }
+        public int width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                _width = value;
+            }
+        }
+        #endregion
+        public enum ColorType
         {
             Red,
             Green,
             Blue,
             Purple
-        };  
+        };
 
-		public void Reset()
-		{
-			_dstPixels = (byte[]) _srcPixels.Clone();
-		}
+        public void Reset()
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+        }
 
         #region Colorize
 
         // Main function
-        public void Colorize()
+        public void Colorize(string colorToLeave)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
 
-            for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
+            for (int CurrentByte = 0, average = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                if (Colorize_CheckForGreen(CurrentByte))
+                if (colorToLeave == "blue")
                 {
-                    Colorize_SetGrayPixel(CurrentByte);
+                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2]
+                        && _dstPixels[CurrentByte] < (_dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2])
+                        && (_dstPixels[CurrentByte] - _dstPixels[CurrentByte + 2]) > 150 && (_dstPixels[CurrentByte] - _dstPixels[CurrentByte + 1]) > 150)
+                    {
+                        makePixelGrayscale(CurrentByte, average);
+                    }
+                }
+                else if (colorToLeave == "red")
+                {
+                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
+                        && _dstPixels[CurrentByte + 2] < (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1])
+                        && (_dstPixels[CurrentByte + 2] - _dstPixels[CurrentByte + 1]) > 150 && (_dstPixels[CurrentByte + 2] - _dstPixels[CurrentByte]) > 150)
+                    {
+                        makePixelGrayscale(CurrentByte, average);
+                    }
+                }
+                else if (colorToLeave == "green")
+                {
+                    if (_dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
+                        && _dstPixels[CurrentByte + 1] < (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 2])
+                        && (_dstPixels[CurrentByte + 1] - _dstPixels[CurrentByte]) > 150 && (_dstPixels[CurrentByte + 1] - _dstPixels[CurrentByte + 2]) > 150)
+                    {
+                        makePixelGrayscale(CurrentByte, average);
+                    }
                 }
             }
         }
 
-        public void Colorize_SetGrayPixel(int CurrentByte)
+        private void makePixelGrayscale(int CurrentByte, int average)
         {
-            int average = (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
+            average = (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
             _dstPixels[CurrentByte] = (byte)average;
             _dstPixels[CurrentByte + 1] = (byte)average;
-            _dstPixels[CurrentByte + 2] = (byte)average;        
-        }
-
-        public bool Colorize_CheckForBlue(int index)
-        {
-            return _dstPixels[index] * _dstPixels[index] < _dstPixels[index + 1] * _dstPixels[index + 1] + _dstPixels[index + 2] * _dstPixels[index + 2];
-        }
-
-        public bool Colorize_CheckForGreen(int index)
-        {
-            return _dstPixels[index + 1] * _dstPixels[index + 1] < _dstPixels[index] * _dstPixels[index] + _dstPixels[index + 2] * _dstPixels[index + 2];
-        }
-
-        public bool Colorize_CheckForRed(int index)
-        {
-            return _dstPixels[index + 2] * _dstPixels[index + 2] < _dstPixels[index] * _dstPixels[index] + _dstPixels[index + 1] * _dstPixels[index + 1];
+            _dstPixels[CurrentByte + 2] = (byte)average;
         }
 
         #endregion
@@ -135,7 +143,7 @@ namespace RemedyPic.Common
 
                 for (int k = 0, index = CurrentByte; k < 10 && index < _dstPixels.Length; k++, index += 4 * _width)
                 {
-                    _dstPixels[index] = (byte) AlphaCoeff;
+                    _dstPixels[index] = (byte)AlphaCoeff;
                 }
             }
         }
@@ -147,11 +155,11 @@ namespace RemedyPic.Common
         // Main Flip function
         public void HFlip()
         {
-            _dstPixels = (byte[])_srcPixels.Clone();            
+            _dstPixels = (byte[])_srcPixels.Clone();
 
             for (int CurrentByte = 0, CurrentColumn = 0, CurrentRow = 0; CurrentByte < 4 * _height * _width; CurrentColumn++)
             {
-                HFlip_SetNewValues(ref CurrentColumn,ref CurrentRow,ref CurrentByte);
+                HFlip_SetNewValues(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
             }
 
             //_srcPixels = (byte[])_dstPixels.Clone();
@@ -163,7 +171,7 @@ namespace RemedyPic.Common
             HFlip_GetNewColumnRowByte(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
 
             if (CurrentRow != _height)
-            {                
+            {
                 int index = 4 * ((_width - 1 - CurrentColumn) + _width * CurrentRow);
                 Flip_SwapPixelData(ref CurrentByte, index);
             }
@@ -207,8 +215,8 @@ namespace RemedyPic.Common
         public void VFlip_SetNewValues(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
         {
             VFlip_GetNewColumnRow(ref CurrentColumn, ref CurrentRow);
-          
-            int index = 4 * (_width * (_height - 1 - CurrentRow) +  CurrentColumn);
+
+            int index = 4 * (_width * (_height - 1 - CurrentRow) + CurrentColumn);
             Flip_SwapPixelData(ref CurrentByte, index);
         }
 
@@ -238,7 +246,7 @@ namespace RemedyPic.Common
         {
             _dstPixels[CurrentByte] = _srcPixels[index];
             _dstPixels[index] = _srcPixels[CurrentByte];
-        } 
+        }
 
         #endregion
 
@@ -250,12 +258,12 @@ namespace RemedyPic.Common
 
             for (int CurrentByte = 0, CurrentColumn = 0, CurrentRow = 0; CurrentByte < 4 * _height * _width; CurrentColumn++)
             {
-                Rotate_GetNewColumnRow(ref CurrentColumn,ref CurrentRow);
-                Rotate_SetNewValues(ref CurrentByte, (_width * (_height - (CurrentColumn + 1)) + CurrentRow) * 4);                           
+                Rotate_GetNewColumnRow(ref CurrentColumn, ref CurrentRow);
+                Rotate_SetNewValues(ref CurrentByte, (_width * (_height - (CurrentColumn + 1)) + CurrentRow) * 4);
             }
 
             Rotate_swapWH();
-           _srcPixels = (byte[])_dstPixels.Clone();
+            _srcPixels = (byte[])_dstPixels.Clone();
         }
 
         // Sets the new values of BGRA
@@ -264,7 +272,7 @@ namespace RemedyPic.Common
             _dstPixels[CurrentByte++] = _srcPixels[index];
             _dstPixels[CurrentByte++] = _srcPixels[index + 1];
             _dstPixels[CurrentByte++] = _srcPixels[index + 2];
-            _dstPixels[CurrentByte++] = _srcPixels[index + 3];     
+            _dstPixels[CurrentByte++] = _srcPixels[index + 3];
         }
 
         // Check if the currentcolumn is at the last cell of row
@@ -312,7 +320,7 @@ namespace RemedyPic.Common
         {
             int temp = _dstPixels[CurrentByte] + value;
             ColorChange_CheckColorValue(ref temp);
-            _dstPixels[CurrentByte] = (byte)temp; 
+            _dstPixels[CurrentByte] = (byte)temp;
         }
 
         // Sets the value of the color in the bounds [20-200]
@@ -323,7 +331,7 @@ namespace RemedyPic.Common
             else if (val < 20)
                 val = 20;
         }
-        #endregion 
+        #endregion
 
         #region Contrasts
         // Gets new values for B G R color of selected pixel of image (depends of the value of R G B contrast sliders)
@@ -352,7 +360,7 @@ namespace RemedyPic.Common
             double temp = Contrast_GetNewValue(dstPixels[currentByte], contrast);
             ColorChange_CheckContrastValue(ref temp);
             dstPixels[currentByte] = (byte)temp;
-            
+
         }
 
         // Calculate the new value of the color
@@ -387,8 +395,8 @@ namespace RemedyPic.Common
 
             for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
             {
-                Gamma_SetNewBGRValues(CurrentByte, BlueGamma, GreenGamma, RedGamma); 
-            }            
+                Gamma_SetNewBGRValues(CurrentByte, BlueGamma, GreenGamma, RedGamma);
+            }
         }
 
         public void Gamma_SetNewBGRValues(int CurrentByte, byte[] BlueGamma, byte[] GreenGamma, byte[] RedGamma)
@@ -405,7 +413,7 @@ namespace RemedyPic.Common
 
             for (int i = 0; i < 256; i++)
             {
-                gammaArray[i] = (byte)Math.Min(255,(int)((255.0 * Math.Pow(i / 255.0, 1.0 / color)) + 0.5));
+                gammaArray[i] = (byte)Math.Min(255, (int)((255.0 * Math.Pow(i / 255.0, 1.0 / color)) + 0.5));
             }
 
             return gammaArray;
@@ -414,65 +422,65 @@ namespace RemedyPic.Common
 
         #region BlackAndWhite
         public void BlackAndWhite(byte[] dstPixels, byte[] srcPixels)
-		{
-			int currentByte = 0;
-			while (currentByte < (4 * height * width))
-			{
-				blackWhiteAlreadyArray = srcPixels;
-				int baw = (srcPixels[currentByte] + srcPixels[currentByte + 1] + srcPixels[currentByte + 2]) / 3;
-				Color tempColor = Color.FromArgb(srcPixels[currentByte + 3], (byte)baw, (byte)baw, (byte)baw);
-				dstPixels[currentByte++] = tempColor.B;
-				dstPixels[currentByte++] = tempColor.G;
-				dstPixels[currentByte++] = tempColor.R;
-				dstPixels[currentByte++] = tempColor.A;
+        {
+            int currentByte = 0;
+            while (currentByte < (4 * height * width))
+            {
+                blackWhiteAlreadyArray = srcPixels;
+                int baw = (srcPixels[currentByte] + srcPixels[currentByte + 1] + srcPixels[currentByte + 2]) / 3;
+                Color tempColor = Color.FromArgb(srcPixels[currentByte + 3], (byte)baw, (byte)baw, (byte)baw);
+                dstPixels[currentByte++] = tempColor.B;
+                dstPixels[currentByte++] = tempColor.G;
+                dstPixels[currentByte++] = tempColor.R;
+                dstPixels[currentByte++] = tempColor.A;
 
-			}
+            }
 
-		}
-		#endregion
+        }
+        #endregion
 
-		#region Darken
-		public void Darken(double value)
-		{
-			double darkness = -value;
-			darkness = (1 / darkness);
-			if (darkness != 1)
-				darkness += .1;
-			int currentByte = 0;
-			while (currentByte < (4 * height * width))
-			{
-				dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * darkness);
-				dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * darkness);
-				dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * darkness);
-				dstPixels[currentByte] = srcPixels[currentByte++];
-			}
-		}
-		#endregion
+        #region Darken
+        public void Darken(double value)
+        {
+            double darkness = -value;
+            darkness = (1 / darkness);
+            if (darkness != 1)
+                darkness += .1;
+            int currentByte = 0;
+            while (currentByte < (4 * height * width))
+            {
+                dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * darkness);
+                dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * darkness);
+                dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * darkness);
+                dstPixels[currentByte] = srcPixels[currentByte++];
+            }
+        }
+        #endregion
 
-		#region Lighten function
-		public void Lighten(double value)
-		{
-			// This function lighten the Writeablebitmap picture
-			// by taking the array and multiplying every pixel with the (value of the slider * 0,05) + 1
-			double brightness = (value * 0.05) + 1;
-			int currentByte = 0;
-			while (currentByte < (4 * height * width))
-			{
-				if ((srcPixels[currentByte] * brightness) > 255)
-					dstPixels[currentByte++] = 255;
-				else
-					dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * brightness);
-				if ((srcPixels[currentByte] * brightness) > 255)
-					dstPixels[currentByte++] = 255;
-				else
-					dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * brightness);
-				if ((srcPixels[currentByte] * brightness) > 255)
-					dstPixels[currentByte++] = 255;
-				else
-					dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * brightness);
-				dstPixels[currentByte] = srcPixels[currentByte++];
-			}
-		}
-		#endregion
-	}
+        #region Lighten function
+        public void Lighten(double value)
+        {
+            // This function lighten the Writeablebitmap picture
+            // by taking the array and multiplying every pixel with the (value of the slider * 0,05) + 1
+            double brightness = (value * 0.05) + 1;
+            int currentByte = 0;
+            while (currentByte < (4 * height * width))
+            {
+                if ((srcPixels[currentByte] * brightness) > 255)
+                    dstPixels[currentByte++] = 255;
+                else
+                    dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * brightness);
+                if ((srcPixels[currentByte] * brightness) > 255)
+                    dstPixels[currentByte++] = 255;
+                else
+                    dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * brightness);
+                if ((srcPixels[currentByte] * brightness) > 255)
+                    dstPixels[currentByte++] = 255;
+                else
+                    dstPixels[currentByte] = (byte)(srcPixels[currentByte++] * brightness);
+                dstPixels[currentByte] = srcPixels[currentByte++];
+            }
+        }
+        #endregion
+    }
 }

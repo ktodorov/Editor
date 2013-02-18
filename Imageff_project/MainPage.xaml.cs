@@ -38,7 +38,8 @@ namespace RemedyPic
         // mruToken is used for LoadState and SaveState functions.
         private string mruToken = null;
         StorageFile file;
-        private string appliedFilters = null, appliedColors = null, appliedRotations = null;
+        private string appliedFilters = null, appliedColors = null,
+                           appliedRotations = null, appliedColorize = null;
         // bitmapImage is the image that is edited in RemedyPic.
         private WriteableBitmap bitmapImage, exampleBitmap;
 
@@ -239,8 +240,8 @@ namespace RemedyPic
 
         private async void doAllCalculations()
         {
-            uneditedBitmap = bitmapImage;  
-  
+            uneditedBitmap = bitmapImage;
+
             exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6));
             exampleStream = exampleBitmap.PixelBuffer.AsStream();
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
@@ -267,14 +268,22 @@ namespace RemedyPic
             displayImage.MaxWidth = imagePanel.ActualWidth;
             displayImage.MaxHeight = imagePanel.ActualHeight;
             setFileProperties(file);
+            setPopupsHeight();
+            displayImage.Source = bitmapImage;
+            AvailableZoom.IsChecked = true;
+        }
+
+        private void setPopupsHeight()
+        {
             Filters.Height = PopupFilters.ActualHeight + 5;
             Colors.Height = PopupColors.ActualHeight + 5;
             Rotations.Height = PopupRotations.ActualHeight + 5;
             Zoom.Height = PopupZoom.ActualHeight + 5;
             ImageOptions.Height = PopupImageOptions.ActualHeight + 5;
-            displayImage.Source = bitmapImage;
-            AvailableZoom.IsChecked = true;   
+            Colorize.Height = PopupColorize.ActualHeight + 5;
+            Frames.Height = PopupFrames.ActualHeight + 5;
         }
+
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
         {
@@ -962,7 +971,7 @@ namespace RemedyPic
         private void doColorize(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
-            givenImage.Colorize();
+            givenImage.Colorize(appliedColorize);
             setStream(stream, bitmap, givenImage);
             resetInterface();
         }
@@ -1228,6 +1237,17 @@ namespace RemedyPic
             setFilterBitmaps();
             appliedRotations = null;
         }
+
+        private void OnColorizeApplyClick(object sender, RoutedEventArgs e)
+        {
+            image.srcPixels = (byte[])image.dstPixels.Clone();
+            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            setFilterBitmaps();
+            appliedColorize = null;
+            deselectColorizeListItems();
+            SelectColorize.IsChecked = false;
+        }
+
         #endregion
 
         #region Reset Buttons
@@ -1273,6 +1293,14 @@ namespace RemedyPic
             appliedRotations = null;
             RotateApplyReset.Visibility = Visibility.Collapsed;
         }
+
+
+        private void OnColorizeResetClick(object sender, RoutedEventArgs e)
+        {
+            appliedColorize = null;
+            RestoreOriginalBitmap();
+            deselectColorizeListItems();
+        }
         #endregion
 
         #region Checked Buttons
@@ -1282,6 +1310,8 @@ namespace RemedyPic
             SelectRotations.IsChecked = false;
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
             PopupFilters.IsOpen = true;
 
         }
@@ -1298,6 +1328,8 @@ namespace RemedyPic
             SelectRotations.IsChecked = false;
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
             PopupColors.IsOpen = true;
         }
 
@@ -1312,6 +1344,8 @@ namespace RemedyPic
             SelectColors.IsChecked = false;
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
             PopupRotations.IsOpen = true;
         }
 
@@ -1326,6 +1360,8 @@ namespace RemedyPic
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
             SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
             PopupZoom.IsOpen = true;
         }
 
@@ -1340,12 +1376,47 @@ namespace RemedyPic
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
             SelectZoom.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
             PopupImageOptions.IsOpen = true;
         }
 
         private void OptionsUnchecked(object sender, RoutedEventArgs e)
         {
             PopupImageOptions.IsOpen = false;
+        }
+
+        private void ColorizeChecked(object sender, RoutedEventArgs e)
+        {
+            SelectFilters.IsChecked = false;
+            SelectColors.IsChecked = false;
+            SelectRotations.IsChecked = false;
+            SelectZoom.IsChecked = false;
+            SelectOptions.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            PopupColorize.IsOpen = true;
+        }
+
+        private void ColorizeUnchecked(object sender, RoutedEventArgs e)
+        {
+            PopupColorize.IsOpen = false;
+        }
+
+
+        private void FramesChecked(object sender, RoutedEventArgs e)
+        {
+            SelectFilters.IsChecked = false;
+            SelectColors.IsChecked = false;
+            SelectRotations.IsChecked = false;
+            SelectZoom.IsChecked = false;
+            SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            PopupFrames.IsOpen = true;
+        }
+
+        private void FramesUnchecked(object sender, RoutedEventArgs e)
+        {
+            PopupFrames.IsOpen = false;
         }
 
 
@@ -1396,6 +1467,7 @@ namespace RemedyPic
             SelectRotations.IsChecked = false;
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
         }
 
         private void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -1415,9 +1487,12 @@ namespace RemedyPic
 
         private void ZoomOutClicked(object sender, RoutedEventArgs e)
         {
-            scale.ScaleX = scale.ScaleX - 0.1;
-            scale.ScaleY = scale.ScaleY - 0.1;
-            if (scale.ScaleX == 1 && scale.ScaleY == 1)
+            if (scale.ScaleX > 1 && scale.ScaleY > 1)
+            {
+                scale.ScaleX = scale.ScaleX - 0.1;
+                scale.ScaleY = scale.ScaleY - 0.1;
+            }
+            else
             {
                 ZoomOut.Visibility = Visibility.Collapsed;
             }
@@ -1520,7 +1595,6 @@ namespace RemedyPic
             blur2Stream = null,
             sharpenStream = null,
             sharpenStream1 = null,
-            colorizeStream = null,
             retroStream = null,
             darkenStream = null,
             edgeDetectStream = null,
@@ -1539,7 +1613,6 @@ namespace RemedyPic
             blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
             blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
             sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            colorizeBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
             sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
             edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
             edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
@@ -1557,7 +1630,6 @@ namespace RemedyPic
             blur2Filter.Source = blur2Bitmap;
             sharpenFilter.Source = sharpenBitmap;
             sharpenFilter1.Source = sharpenBitmap1;
-            colorizeFilter.Source = colorizeBitmap;
             edgeDetectFilter.Source = edgeDetectBitmap;
             edgeEnhanceFilter.Source = edgeEnhanceBitmap;
             retroFilter.Source = retroBitmap;
@@ -1574,7 +1646,6 @@ namespace RemedyPic
             blur2Stream = blur2Bitmap.PixelBuffer.AsStream();
             sharpenStream = sharpenBitmap.PixelBuffer.AsStream();
             sharpenStream1 = sharpenBitmap1.PixelBuffer.AsStream();
-            colorizeStream = colorizeBitmap.PixelBuffer.AsStream();
             edgeDetectStream = edgeDetectBitmap.PixelBuffer.AsStream();
             edgeEnhanceStream = edgeEnhanceBitmap.PixelBuffer.AsStream();
             retroStream = retroBitmap.PixelBuffer.AsStream();
@@ -1591,7 +1662,6 @@ namespace RemedyPic
             initializeBitmap(blur2Stream, blur2Bitmap, filterimage);
             initializeBitmap(sharpenStream, sharpenBitmap, filterimage);
             initializeBitmap(sharpenStream1, sharpenBitmap1, filterimage);
-            initializeBitmap(colorizeStream, colorizeBitmap, filterimage);
             initializeBitmap(edgeDetectStream, edgeDetectBitmap, filterimage);
             initializeBitmap(edgeEnhanceStream, edgeEnhanceBitmap, filterimage);
             initializeBitmap(retroStream, retroBitmap, filterimage);
@@ -1611,7 +1681,6 @@ namespace RemedyPic
             doFilter(blur2Stream, blur2Bitmap, filterimage, "blur2");
             doFilter(sharpenStream, sharpenBitmap, filterimage, "sharpen");
             doFilter(sharpenStream1, sharpenBitmap1, filterimage, "sharpen1");
-            doFilter(colorizeStream, colorizeBitmap, filterimage, "colorize");
             doFilter(edgeDetectStream, edgeDetectBitmap, filterimage, "EdgeDetect");
             doFilter(edgeEnhanceStream, edgeEnhanceBitmap, filterimage, "EdgeEnhance");
             doFilter(retroStream, retroBitmap, filterimage, "retro");
@@ -1828,8 +1897,6 @@ namespace RemedyPic
                 blur2Check.IsChecked = false;
             if (without != "blur")
                 blurCheck.IsChecked = false;
-            if (without != "colorize")
-                colorizeCheck.IsChecked = false;
             if (without != "retro")
                 retroCheck.IsChecked = false;
             if (without != "darken")
@@ -1852,6 +1919,8 @@ namespace RemedyPic
             SelectRotations.IsChecked = false;
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
         }
 
         private void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
@@ -1861,6 +1930,8 @@ namespace RemedyPic
             {
                 scale.ScaleX = scale.ScaleX + 0.1;
                 scale.ScaleY = scale.ScaleY + 0.1;
+                if (ZoomOut.Visibility != Visibility.Visible)
+                    ZoomOut.Visibility = Visibility.Visible;
             }
             else
             {
@@ -1868,6 +1939,10 @@ namespace RemedyPic
                 {
                     scale.ScaleX = scale.ScaleX - 0.1;
                     scale.ScaleY = scale.ScaleY - 0.1;
+                }
+                if (ZoomOut.Visibility == Visibility.Visible && scale.ScaleX <= 1)
+                {
+                    ZoomOut.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -1913,6 +1988,11 @@ namespace RemedyPic
 
         private void ReturnOriginal_Clicked(object sender, RoutedEventArgs e)
         {
+            RestoreOriginalBitmap();
+        }
+
+        private void RestoreOriginalBitmap()
+        {
             imageOriginal.srcPixels = (byte[])uneditedImage.srcPixels.Clone();
             imageOriginal.dstPixels = (byte[])uneditedImage.dstPixels.Clone();
             bitmapStream = uneditedStream;
@@ -1922,6 +2002,36 @@ namespace RemedyPic
             setFilterBitmaps();
             resetInterface();
         }
+
+        #region Colorize
+        private void blueSquareTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedColorize = "blue";
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            doColorize(exampleStream, exampleBitmap, image);
+        }
+
+        private void redSquareTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedColorize = "red";
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            doColorize(exampleStream, exampleBitmap, image);
+        }
+
+        private void greenSquareTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedColorize = "green";
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            doColorize(exampleStream, exampleBitmap, image);
+        }
+
+        private void deselectColorizeListItems()
+        {
+            blueColorize.IsSelected = false;
+            redColorize.IsSelected = false;
+            greenColorize.IsSelected = false;
+        }
+        #endregion
 
 
     }
