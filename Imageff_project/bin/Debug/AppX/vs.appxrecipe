@@ -5,7 +5,7 @@
     <WindowsUser>Tony</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>90860E9543525D1311C7CEB56A76C68CEE8090DD9AFA2CC4103FAC1EB1C9DF0B</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>9AEC4D127B8946A3A65B57056E12E3894AC039CD12015FBBDCE0B368F90C393D</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_pexwghfzd4yhp!App</RegisteredUserModeAppID>
     <RegisteredPackageID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116</RegisteredPackageID>
@@ -16,47 +16,41 @@
     <AppXManifest Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-15T16:33:13.858</Modified>
+      <Modified>2013-02-16T12:01:24.089</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-02-15T20:14:43.123</Modified>
+      <Modified>2013-02-16T12:01:23.740</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-02-15T20:14:43.104</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Background.jpg">
-      <PackagePath>Assets\Background.jpg</PackagePath>
-      <Modified>2013-02-14T12:55:22.000</Modified>
+      <Modified>2013-02-16T12:01:23.710</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
-      <Modified>2013-02-14T12:55:22.000</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Logo2.scale-100.png">
-      <PackagePath>Assets\Logo2.scale-100.png</PackagePath>
-      <Modified>2013-02-14T12:55:22.000</Modified>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-02-16T12:00:46.672</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\RemedyPicLogo.png">
       <PackagePath>Assets\RemedyPicLogo.png</PackagePath>
-      <Modified>2013-02-14T12:55:22.000</Modified>
+      <Modified>2013-02-16T12:00:46.673</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\SmallLogo.png">
       <PackagePath>Assets\SmallLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-14T12:55:22.000</Modified>
+      <Modified>2013-02-16T12:00:46.674</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\SplashScreen.png">
       <PackagePath>Assets\SplashScreen.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-14T12:55:22.000</Modified>
+      <Modified>2013-02-16T12:00:46.674</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\WideLogo.scale-100.png">
-      <PackagePath>Assets\WideLogo.scale-100.png</PackagePath>
-      <Modified>2013-02-14T12:55:22.000</Modified>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\WideLogo.png">
+      <PackagePath>Assets\WideLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-02-16T12:00:46.701</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Common\ReadMe.txt">
       <PackagePath>Common\ReadMe.txt</PackagePath>
@@ -72,11 +66,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-02-15T16:32:20.180</Modified>
+      <Modified>2013-02-16T12:00:46.705</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-02-15T16:33:13.717</Modified>
+      <Modified>2013-02-16T12:01:23.821</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,8 @@
-Assets\Background.jpg
 Assets\Logo.png
-Assets\Logo2.scale-100.png
 Assets\RemedyPicLogo.png
 Assets\SmallLogo.png
 Assets\SplashScreen.png
-Assets\WideLogo.scale-100.png
+Assets\WideLogo.png
 App.xaml
 Common\StandardStyles.xaml
 MainPage.xaml
