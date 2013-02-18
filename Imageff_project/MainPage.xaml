@@ -1807,7 +1807,7 @@
                             <GradientStop Color="#FF215500" Offset="1"/>
                         </LinearGradientBrush>
                     </ScrollViewer.BorderBrush>
-                    <StackPanel x:Name="FramesPanel" VerticalAlignment="Top" Width="340" Margin="0,0,0,10">
+                    <StackPanel x:Name="FramesPanel" VerticalAlignment="Top" Width="340" Height="509">
                         <StackPanel.Transitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition/>
@@ -1827,14 +1827,17 @@
                             </Image.Transitions>
                         </Image>
                         <StackPanel>
-                            <Slider Width="200" Style="{StaticResource SliderStyle1}" Foreground="Red" Maximum="255"/>
-                            <Slider Width="200" Style="{StaticResource SliderStyle1}" Foreground="#FF00B611" Maximum="255"/>
-                            <Slider Width="200" Style="{StaticResource SliderStyle1}" Foreground="#FF0046FF" Maximum="255"/>
-                            <Slider Width="200" Style="{StaticResource SliderStyle1}" Foreground="White" Maximum="500" Minimum="5"/>
+                            <Slider x:Name="FrameRColor" Width="200" Style="{StaticResource SliderStyle1}" Foreground="Red" Maximum="255"/>
+                            <Slider x:Name="FrameGColor" Width="200" Style="{StaticResource SliderStyle1}" Foreground="#FF00B611" Maximum="255"/>
+                            <Slider x:Name="FrameBColor" Width="200" Style="{StaticResource SliderStyle1}" Foreground="#FF0046FF" Maximum="255"/>
+                            <Slider x:Name="FrameWidth" Width="200" Style="{StaticResource SliderStyle1}" Foreground="White" Maximum="500" Minimum="5"/>
                         </StackPanel>
                         <StackPanel x:Name="FramesApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
-                            <Button x:Name="FramesApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnColorizeApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="FramesResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnColorizeResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                            <Button x:Name="FourSidesButton" Content="All" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnFourSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:Name="LeftSideButton" Content="Left" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnLeftSideClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:Name="TopSideButton" Content="Top" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnTopSideClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:Name="RightSideButton" Content="Right" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRightSideClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:Name="BottomSideButton" Content="Bottom" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnBottomSideClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
 
                     </StackPanel>

@@ -284,7 +284,6 @@ namespace RemedyPic
             Frames.Height = PopupFrames.ActualHeight + 5;
         }
 
-
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
         {
             imageElement.Source = source;
@@ -1420,6 +1419,62 @@ namespace RemedyPic
         }
 
 
+        #endregion
+
+        #region Frames
+
+        private void OnFourSidesClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.Frames_LeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_TopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_RightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_BottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnLeftSideClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.Frames_LeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnTopSideClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.Frames_TopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnRightSideClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.Frames_RightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnBottomSideClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.Frames_BottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
         #endregion
 
         private void OnRotateClick(object sender, RoutedEventArgs e)
