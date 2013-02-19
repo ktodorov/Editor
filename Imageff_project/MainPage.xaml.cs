@@ -1428,10 +1428,11 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.Frames_LeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
-                imageOriginal.Frames_TopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
-                imageOriginal.Frames_RightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
-                imageOriginal.Frames_BottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.dstPixels = (byte[]) imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_StandartLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandartTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandartRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandartBottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1441,7 +1442,8 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.Frames_LeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_StandartLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1451,7 +1453,8 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.Frames_TopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_StandartTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1461,7 +1464,8 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.Frames_RightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_StandartRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1471,7 +1475,46 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.Frames_BottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_StandartBottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnDarknessFourSidesClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_DarknessLeftSide();
+                imageOriginal.Frames_DarknessTopSide();
+                imageOriginal.Frames_DarknessRightSide();
+                imageOriginal.Frames_DarknessBottomSide();
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnDarknessLeftRightSidesClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_DarknessLeftSide();
+                imageOriginal.Frames_DarknessRightSide();
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnDarknessTopBottomSidesClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_DarknessTopSide();
+                imageOriginal.Frames_DarknessBottomSide();
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
