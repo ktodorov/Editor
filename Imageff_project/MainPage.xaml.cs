@@ -242,7 +242,7 @@ namespace RemedyPic
         {
             uneditedBitmap = bitmapImage;
 
-            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6));
+            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
             exampleStream = exampleBitmap.PixelBuffer.AsStream();
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
             uneditedStream = uneditedBitmap.PixelBuffer.AsStream();
@@ -282,6 +282,7 @@ namespace RemedyPic
             ImageOptions.Height = PopupImageOptions.ActualHeight + 5;
             Colorize.Height = PopupColorize.ActualHeight + 5;
             Frames.Height = PopupFrames.ActualHeight + 5;
+            Histogram.Height = PopupHistogram.ActualHeight + 5;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
@@ -1311,6 +1312,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupFilters.IsOpen = true;
 
         }
@@ -1329,6 +1331,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupColors.IsOpen = true;
         }
 
@@ -1345,6 +1348,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupRotations.IsOpen = true;
         }
 
@@ -1361,6 +1365,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupZoom.IsOpen = true;
         }
 
@@ -1377,6 +1382,7 @@ namespace RemedyPic
             SelectZoom.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupImageOptions.IsOpen = true;
         }
 
@@ -1393,6 +1399,7 @@ namespace RemedyPic
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupColorize.IsOpen = true;
         }
 
@@ -1410,6 +1417,7 @@ namespace RemedyPic
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupFrames.IsOpen = true;
         }
 
@@ -1418,6 +1426,22 @@ namespace RemedyPic
             PopupFrames.IsOpen = false;
         }
 
+        private void HistogramChecked(object sender, RoutedEventArgs e)
+        {
+            SelectFilters.IsChecked = false;
+            SelectColors.IsChecked = false;
+            SelectRotations.IsChecked = false;
+            SelectZoom.IsChecked = false;
+            SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            PopupHistogram.IsOpen = true;
+        }
+
+        private void HistogramUnchecked(object sender, RoutedEventArgs e)
+        {
+            PopupHistogram.IsOpen = false;
+        }
 
         #endregion
 
@@ -1428,7 +1452,7 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[]) imageOriginal.srcPixels.Clone();
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_StandartLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 imageOriginal.Frames_StandartTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 imageOriginal.Frames_StandartRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
@@ -1566,6 +1590,8 @@ namespace RemedyPic
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
         }
 
         private void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -1704,21 +1730,21 @@ namespace RemedyPic
             FilterFunctions filterimage = new FilterFunctions();
 
             WriteableBitmap
-            blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            darkenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            brightenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            shadowBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            crystalBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6));
+            blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            darkenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            brightenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            shadowBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            crystalBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
 
             blackWhiteFilter.Source = blackWhiteBitmap;
             embossFilter.Source = embossBitmap;
@@ -2130,6 +2156,15 @@ namespace RemedyPic
             greenColorize.IsSelected = false;
         }
         #endregion
+
+        private void HistogramClicked(object sender, RoutedEventArgs e)
+        {
+            SelectHistogram.IsChecked = false;
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.MakeHistogramEqualization();
+            setStream(bitmapStream, bitmapImage, imageOriginal);
+            setFilterBitmaps();
+        }
 
 
     }

@@ -1815,7 +1815,7 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackColorize1" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <Button x:Name="BackFrames" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Colorize" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
@@ -1844,6 +1844,46 @@
                             <Button x:Name="DarknessLeftRightSideButton" Content="Left and Right" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessLeftRightSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="DarknessTopBottomSideButton" Content="Top and Bottom" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessTopBottomSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>                        
                         </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Popup>
+            <Popup x:Name="PopupHistogram" Margin="0,0,380,-1" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+                <Popup.ChildTransitions>
+                    <TransitionCollection>
+                        <PaneThemeTransition/>
+                    </TransitionCollection>
+                </Popup.ChildTransitions>
+                <ScrollViewer x:Name="Histogram" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                    <ScrollViewer.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF21FF00"/>
+                            <GradientStop Color="#FF215500" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ScrollViewer.BorderBrush>
+                    <StackPanel x:Name="HistogramPanel" VerticalAlignment="Top" Width="340" Height="539">
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                            <StackPanel Orientation="Horizontal" Margin="0">
+                                <Button x:Name="BackHistogram" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <TextBlock TextWrapping="Wrap" Text="Histogram" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                            </StackPanel>
+                        </Border>
+                        <Image x:Name="Logo_Copy7" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
+                        <Button Content="Equalize" HorizontalAlignment="Center" VerticalAlignment="Stretch" Click="HistogramClicked"/>
 
                     </StackPanel>
                 </ScrollViewer>
@@ -1908,6 +1948,17 @@
                 </ToggleButton.BorderBrush>
             </ToggleButton>
             <ToggleButton x:Name="SelectFrames" Content="Frames" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="FramesUnchecked" Checked="FramesChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
+                <ToggleButton.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#B23CEF00"/>
+                        <GradientStop Color="#B23CFF00" Offset="1"/>
+                    </LinearGradientBrush>
+                </ToggleButton.BorderBrush>
+            </ToggleButton>
+            <ToggleButton x:Name="SelectHistogram" Content="Histogram" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="120" Unchecked="HistogramUnchecked" Checked="HistogramChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                 <ToggleButton.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <LinearGradientBrush.RelativeTransform>
