@@ -22,11 +22,19 @@
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
+<<<<<<< HEAD
       <Modified>2013-02-18T21:41:10.212</Modified>
+=======
+      <Modified>2013-02-19T18:06:43.252</Modified>
+>>>>>>> 9070c0968ef5bf95de9abf349278fbf012e14685
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
+<<<<<<< HEAD
       <Modified>2013-02-18T21:41:10.184</Modified>
+=======
+      <Modified>2013-02-19T18:06:43.234</Modified>
+>>>>>>> 9070c0968ef5bf95de9abf349278fbf012e14685
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
@@ -66,7 +74,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
+<<<<<<< HEAD
       <Modified>2013-02-18T21:40:29.635</Modified>
+=======
+      <Modified>2013-02-19T17:49:07.919</Modified>
+>>>>>>> 9070c0968ef5bf95de9abf349278fbf012e14685
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
