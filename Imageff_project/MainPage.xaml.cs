@@ -2163,6 +2163,11 @@ namespace RemedyPic
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             imageOriginal.MakeHistogramEqualization();
             setStream(bitmapStream, bitmapImage, imageOriginal);
+            prepareImage(exampleStream, exampleBitmap, image);
+            image.MakeHistogramEqualization();
+            setStream(exampleStream, exampleBitmap, image);
+            image.srcPixels = (byte[])image.dstPixels.Clone();
+            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps();
         }
 
