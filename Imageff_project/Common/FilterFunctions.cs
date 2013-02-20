@@ -325,25 +325,31 @@ namespace RemedyPic.Common
         {
             _dstPixels = (byte[])_srcPixels.Clone();
             Random random = new Random();
+            int SquareWidth = Sharpen1_GetSquareWidth();
 
             for (int CurrentByte = 3, AlphaCoeff = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
                 if (CurrentColumn == _width)
                 {
                     CurrentColumn = 0;
-                    CurrentByte += 4 * _width * 9;
+                    CurrentByte += 4 * _width * (SquareWidth - 1);
                 }
 
-                if (CurrentColumn % 10 == 0)
+                if (CurrentColumn % SquareWidth == 0)
                 {
                     AlphaCoeff = random.Next(0, 256);
                 }
 
-                for (int k = 0, index = CurrentByte; k < 10 && index < _dstPixels.Length; k++, index += 4 * _width)
+                for (int k = 0, index = CurrentByte; k < SquareWidth && index < _dstPixels.Length; k++, index += 4 * _width)
                 {
                     _dstPixels[index] = (byte)AlphaCoeff;
                 }
             }
+        }
+
+        public int Sharpen1_GetSquareWidth()
+        {
+            return (((_width + _height) / 2) * 10) / 100;
         }
         #endregion
 
