@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Xaml.Controls;
 
 namespace RemedyPic.Common
 {
@@ -134,8 +135,8 @@ namespace RemedyPic.Common
         public void Frames_StandardRightSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
         {
             int CurrentColumn = Frames_StandardRightSideGetFirstColumn(FrameWidth);
- 
-            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
+
+            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length;)
             {
                 Frames_StandardRightSideNewPixel(ref CurrentByte, ref CurrentColumn, BlueColorValue, GreenColorValue, RedColorValue, FrameWidth);
             }
@@ -144,15 +145,17 @@ namespace RemedyPic.Common
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
         public void Frames_StandardRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
         {
-            if (CurrentColumn > _width)
+            if (CurrentColumn == _width)
             {
                 CurrentColumn = Frames_StandardRightSideGetFirstColumn(FrameWidth);
-                CurrentByte += 4 * (_width - (int)FrameWidth - 1); //go to the next row of pixels, minus 1 because we always increment current byte by 4(1 pixel)
+                CurrentByte += 4 * (_width - (int)FrameWidth);
             }
             else
             {
                 Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
-            }
+                CurrentColumn++;
+                CurrentByte += 4;
+            }            
         }
 
         //Calculate the first index of right border
@@ -180,7 +183,7 @@ namespace RemedyPic.Common
                 Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
             }
         }
-        
+
         //Calculate the first index of bottom border
         public int Frames_StandardBottomSideGetFirstIndex(double FrameWidth)
         {
@@ -211,7 +214,7 @@ namespace RemedyPic.Common
         {
             int FrameWidth = Frames_DarknessGetLeftRightFrameWidth();
 
-            for (int CurrentByte = 0, CurrentColumn = 1; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
+            for (int CurrentByte = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length;)
             {
                 Frames_DarknessLeftSideNewPixel(ref CurrentByte, ref CurrentColumn, FrameWidth);
             }
@@ -220,14 +223,16 @@ namespace RemedyPic.Common
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
         public void Frames_DarknessLeftSideNewPixel(ref int CurrentByte, ref int CurrentColumn, int FrameWidth)
         {
-            if (CurrentColumn <= FrameWidth)
+            if (CurrentColumn == FrameWidth)
             {
-                Fremes_DarknessSetPixelData(CurrentByte);
+                CurrentColumn = 0;
+                CurrentByte += 4 * (_width - FrameWidth);               
             }
             else
             {
-                CurrentColumn = 0;
-                CurrentByte += 4 * (_width - FrameWidth - 1); //go to the next row of pixels, minus 1 because we always increment current byte by 4(1 pixel)
+                Fremes_DarknessSetPixelData(CurrentByte);
+                CurrentColumn++;
+                CurrentByte += 4;
             }
         }
         #endregion
@@ -250,9 +255,9 @@ namespace RemedyPic.Common
         public void Frames_DarknessRightSide()
         {
             int FrameWidth = Frames_DarknessGetLeftRightFrameWidth();
-            int CurrentColumn = Frames_DarknessRightSideGetFirstColumn(FrameWidth);            
+            int CurrentColumn = _width - FrameWidth;
 
-            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
+            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length;)
             {
                 Frames_DarknessRightSideNewPixel(ref CurrentByte, ref CurrentColumn, FrameWidth);
             }
@@ -261,21 +266,18 @@ namespace RemedyPic.Common
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
         public void Frames_DarknessRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, int FrameWidth)
         {
-            if (CurrentColumn <= _width)
+            if (CurrentColumn == _width)
             {
-                Fremes_DarknessSetPixelData(CurrentByte);
+                CurrentColumn = _width - FrameWidth;
+                CurrentByte += 4 * (_width - FrameWidth);
+                
             }
             else
-            {                
-                CurrentColumn = Frames_DarknessRightSideGetFirstColumn(FrameWidth);
-                CurrentByte += 4 * (_width - FrameWidth - 1); //go to the next row of pixels, minus 1 because we always increment current byte by 4(1 pixel)
+            {
+                Fremes_DarknessSetPixelData(CurrentByte);
+                CurrentColumn++;
+                CurrentByte += 4;
             }
-        }
-
-        //Calculate the first index of right border
-        public int Frames_DarknessRightSideGetFirstColumn(int FrameWidth)
-        {
-            return _width - FrameWidth;
         }
         #endregion
 
@@ -310,7 +312,7 @@ namespace RemedyPic.Common
         {
             _dstPixels[index] = (byte)(_srcPixels[index] * 0.3);
             _dstPixels[index + 1] = (byte)(_srcPixels[index + 1] * 0.3);
-            _dstPixels[index + 2] = (byte)(_srcPixels[index + 2] * 0.3);            
+            _dstPixels[index + 2] = (byte)(_srcPixels[index + 2] * 0.3);
         }
         #endregion
 
@@ -727,5 +729,38 @@ namespace RemedyPic.Common
             }
         }
         #endregion
+
+        #region Histogram
+        public void MakeHistogramEqualization()
+        {
+            int[] frequency = new int[256];
+
+            for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
+            {
+                int i = _dstPixels[CurrentByte];
+                frequency[i] += 1;
+            }
+            int[] cumulative = new int[256];
+            cumulative[0] = frequency[0];
+            for (int i = 1; i < 256; i++)
+            {
+                cumulative[i] = cumulative[i - 1] + frequency[i];
+            }
+
+            float[] cdf = new float[256];
+            for (int i = 0; i < 256; i++)
+            {
+                cdf[i] = (float)cumulative[i] / (_width * _height);
+                cdf[i] = cdf[i] * 255;
+            }
+            for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
+            {
+                int temp = (int)_dstPixels[CurrentByte];
+                _dstPixels[CurrentByte] = _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 2] = (byte)(cdf[temp]);
+            }
+
+        }
+        #endregion
+
     }
 }

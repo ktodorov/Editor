@@ -240,9 +240,11 @@ namespace RemedyPic
 
         private async void doAllCalculations()
         {
+			// We make all the required calculations in order for
+			// the app elements to appear and work normal.
             uneditedBitmap = bitmapImage;
 
-            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6));
+            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
             exampleStream = exampleBitmap.PixelBuffer.AsStream();
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
             uneditedStream = uneditedBitmap.PixelBuffer.AsStream();
@@ -275,6 +277,7 @@ namespace RemedyPic
 
         private void setPopupsHeight()
         {
+			// We set the popup height to match the current machine resolution
             Filters.Height = PopupFilters.ActualHeight + 5;
             Colors.Height = PopupColors.ActualHeight + 5;
             Rotations.Height = PopupRotations.ActualHeight + 5;
@@ -282,10 +285,16 @@ namespace RemedyPic
             ImageOptions.Height = PopupImageOptions.ActualHeight + 5;
             Colorize.Height = PopupColorize.ActualHeight + 5;
             Frames.Height = PopupFrames.ActualHeight + 5;
+            Histogram.Height = PopupHistogram.ActualHeight + 5;
+
+			// We set the imagePanel maximum height so the image not to go out of the screen
+			imagePanel.MaxWidth = imageBorder.ActualWidth - 10;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
         {
+			// We set the XAML Image object a bitmap as source 
+			// and then set the width and height to be proportional to the actual bitmap
             imageElement.Source = source;
             imageElement.Width = bitmapImage.PixelWidth / 4;
             imageElement.Height = bitmapImage.PixelHeight / 4;
@@ -713,6 +722,7 @@ namespace RemedyPic
         void setStream(Stream givenStream, WriteableBitmap givenBitmap, FilterFunctions givenImage)
         {
             // This sets the pixels to the bitmap
+			// and hides the visible Apply buttons.
             givenStream.Seek(0, SeekOrigin.Begin);
             givenStream.Write(givenImage.dstPixels, 0, givenImage.dstPixels.Length);
             givenBitmap.Invalidate();
@@ -1311,6 +1321,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupFilters.IsOpen = true;
 
         }
@@ -1329,6 +1340,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupColors.IsOpen = true;
         }
 
@@ -1345,6 +1357,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupRotations.IsOpen = true;
         }
 
@@ -1361,6 +1374,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupZoom.IsOpen = true;
         }
 
@@ -1377,6 +1391,7 @@ namespace RemedyPic
             SelectZoom.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupImageOptions.IsOpen = true;
         }
 
@@ -1393,6 +1408,7 @@ namespace RemedyPic
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupColorize.IsOpen = true;
         }
 
@@ -1410,6 +1426,7 @@ namespace RemedyPic
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
+            SelectHistogram.IsChecked = false;
             PopupFrames.IsOpen = true;
         }
 
@@ -1418,6 +1435,22 @@ namespace RemedyPic
             PopupFrames.IsOpen = false;
         }
 
+        private void HistogramChecked(object sender, RoutedEventArgs e)
+        {
+            SelectFilters.IsChecked = false;
+            SelectColors.IsChecked = false;
+            SelectRotations.IsChecked = false;
+            SelectZoom.IsChecked = false;
+            SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            PopupHistogram.IsOpen = true;
+        }
+
+        private void HistogramUnchecked(object sender, RoutedEventArgs e)
+        {
+            PopupHistogram.IsOpen = false;
+        }
 
         #endregion
 
@@ -1566,6 +1599,8 @@ namespace RemedyPic
             SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
         }
 
         private void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -1704,21 +1739,21 @@ namespace RemedyPic
             FilterFunctions filterimage = new FilterFunctions();
 
             WriteableBitmap
-            blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            darkenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            brightenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            shadowBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6)),
-            crystalBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 6), (uint)(bitmapImage.PixelHeight / 6));
+            blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            darkenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            brightenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            shadowBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            crystalBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
 
             blackWhiteFilter.Source = blackWhiteBitmap;
             embossFilter.Source = embossBitmap;
@@ -2130,6 +2165,20 @@ namespace RemedyPic
             greenColorize.IsSelected = false;
         }
         #endregion
+
+        private void HistogramClicked(object sender, RoutedEventArgs e)
+        {
+            SelectHistogram.IsChecked = false;
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.MakeHistogramEqualization();
+            setStream(bitmapStream, bitmapImage, imageOriginal);
+            prepareImage(exampleStream, exampleBitmap, image);
+            image.MakeHistogramEqualization();
+            setStream(exampleStream, exampleBitmap, image);
+            image.srcPixels = (byte[])image.dstPixels.Clone();
+            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            setFilterBitmaps();
+        }
 
 
     }

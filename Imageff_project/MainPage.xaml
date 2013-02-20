@@ -1125,8 +1125,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="26"/>
             <RowDefinition Height="114"/>
-            <RowDefinition Height="287*"/>
-            <RowDefinition Height="27*"/>
+            <RowDefinition Height="582*"/>
+            <RowDefinition Height="49*"/>
         </Grid.RowDefinitions>
 
 
@@ -1256,8 +1256,17 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
-        <Border BorderThickness="0" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
-            <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0" MaxWidth="1100">
+        <Border x:Name="imageBorder" BorderThickness="2,0,0,0" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0">
                 <StackPanel.Resources>
                     <Storyboard x:Name="AnimateInPicture">
                         <FadeInThemeAnimation Storyboard.TargetName="imagePanel"/>
@@ -1266,11 +1275,11 @@
                         <FadeOutThemeAnimation Storyboard.TargetName="imagePanel" Duration="00:00:001"/>
                     </Storyboard>
                 </StackPanel.Resources>
-                <Border x:Name="border" Margin="0">
+                <Border x:Name="border" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
-                    <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged"/>
+                    <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
         </Border>
@@ -1285,7 +1294,7 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <Border BorderThickness="0,2,0,0" Margin="0" Background="#FF515050" Grid.Row="3">
+        <Border BorderThickness="0,2,0,0" Margin="0,0,-2,0" Background="#FF515050" Grid.Row="3">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1308,7 +1317,7 @@
             </Border.BorderBrush>
             <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="White" Margin="0" FontSize="17" FontFamily="Segoe UI" HorizontalAlignment="Center"/>
         </Border>
-        <Grid Grid.RowSpan="4" Grid.Column="1">
+        <Grid Grid.RowSpan="4" Grid.Column="1" Margin="0.143,0,-0.571,0.429">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -1336,7 +1345,7 @@
                 </StackPanel>
             </Border>
         </Grid>
-        <Grid x:Name="contentGrid" Margin="0,0,-39,3" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
+        <Grid x:Name="contentGrid" Margin="0,0,-38.571,3.429" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
             <Grid.RowDefinitions>
                 <RowDefinition Height="69"/>
                 <RowDefinition Height="43"/>
@@ -1815,7 +1824,7 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackColorize1" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <Button x:Name="BackFrames" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Colorize" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
@@ -1848,10 +1857,50 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
+            <Popup x:Name="PopupHistogram" Margin="0,0,380,-1" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+                <Popup.ChildTransitions>
+                    <TransitionCollection>
+                        <PaneThemeTransition/>
+                    </TransitionCollection>
+                </Popup.ChildTransitions>
+                <ScrollViewer x:Name="Histogram" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                    <ScrollViewer.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF21FF00"/>
+                            <GradientStop Color="#FF215500" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ScrollViewer.BorderBrush>
+                    <StackPanel x:Name="HistogramPanel" VerticalAlignment="Top" Width="340" Height="539">
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                            <StackPanel Orientation="Horizontal" Margin="0">
+                                <Button x:Name="BackHistogram" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <TextBlock TextWrapping="Wrap" Text="Histogram" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                            </StackPanel>
+                        </Border>
+                        <Image x:Name="Logo_Copy7" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
+                        <Button Content="Equalize" HorizontalAlignment="Center" VerticalAlignment="Stretch" Click="HistogramClicked"/>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Popup>
         </Grid>
 
         <!-- Back button and page title -->
-        <StackPanel x:Name="Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3">
+        <StackPanel x:Name="Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Height="49" Margin="161,0.857,161.857,-0.571" Width="820">
             <ToggleButton x:Name="SelectFilters" Content="Filters" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="3,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                 <ToggleButton.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1918,6 +1967,17 @@
                     </LinearGradientBrush>
                 </ToggleButton.BorderBrush>
             </ToggleButton>
+            <ToggleButton x:Name="SelectHistogram" Content="Histogram" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="120" Unchecked="HistogramUnchecked" Checked="HistogramChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
+                <ToggleButton.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#B23CEF00"/>
+                        <GradientStop Color="#B23CFF00" Offset="1"/>
+                    </LinearGradientBrush>
+                </ToggleButton.BorderBrush>
+            </ToggleButton>
             <ToggleButton x:Name="SelectOptions" Content="Options" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="OptionsUnchecked" Checked="OptionsChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,3,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                 <ToggleButton.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1930,7 +1990,7 @@
                 </ToggleButton.BorderBrush>
             </ToggleButton>
         </StackPanel>
-        <Popup x:Name="Feedback" HorizontalAlignment="Right" Grid.RowSpan="4" Width="350" IsOpen="False" IsLightDismissEnabled="True" Grid.ColumnSpan="2">
+        <Popup x:Name="Feedback" HorizontalAlignment="Right" Grid.RowSpan="4" Width="350" IsOpen="False" IsLightDismissEnabled="True" Grid.ColumnSpan="2" Margin="0,0,0.429,0.429">
             <Popup.ChildTransitions>
                 <TransitionCollection>
                     <PaneThemeTransition/>
