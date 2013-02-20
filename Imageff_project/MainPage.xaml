@@ -1256,7 +1256,7 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
-        <Border BorderThickness="2,0,0,0" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
+        <Border x:Name="imageBorder" BorderThickness="2,0,0,0" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1279,7 +1279,7 @@
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
-                    <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="10,0" PointerWheelChanged="OnImagePointerWheelChanged" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
         </Border>

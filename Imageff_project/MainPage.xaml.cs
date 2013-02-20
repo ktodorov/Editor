@@ -240,6 +240,8 @@ namespace RemedyPic
 
         private async void doAllCalculations()
         {
+			// We make all the required calculations in order for
+			// the app elements to appear and work normal.
             uneditedBitmap = bitmapImage;
 
             exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
@@ -275,6 +277,7 @@ namespace RemedyPic
 
         private void setPopupsHeight()
         {
+			// We set the popup height to match the current machine resolution
             Filters.Height = PopupFilters.ActualHeight + 5;
             Colors.Height = PopupColors.ActualHeight + 5;
             Rotations.Height = PopupRotations.ActualHeight + 5;
@@ -283,10 +286,15 @@ namespace RemedyPic
             Colorize.Height = PopupColorize.ActualHeight + 5;
             Frames.Height = PopupFrames.ActualHeight + 5;
             Histogram.Height = PopupHistogram.ActualHeight + 5;
+
+			// We set the imagePanel maximum height so the image not to go out of the screen
+			imagePanel.MaxWidth = imageBorder.ActualWidth - 10;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
         {
+			// We set the XAML Image object a bitmap as source 
+			// and then set the width and height to be proportional to the actual bitmap
             imageElement.Source = source;
             imageElement.Width = bitmapImage.PixelWidth / 4;
             imageElement.Height = bitmapImage.PixelHeight / 4;
@@ -714,6 +722,7 @@ namespace RemedyPic
         void setStream(Stream givenStream, WriteableBitmap givenBitmap, FilterFunctions givenImage)
         {
             // This sets the pixels to the bitmap
+			// and hides the visible Apply buttons.
             givenStream.Seek(0, SeekOrigin.Begin);
             givenStream.Write(givenImage.dstPixels, 0, givenImage.dstPixels.Length);
             givenBitmap.Invalidate();
