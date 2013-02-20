@@ -1840,9 +1840,9 @@
                             <Button x:Name="BottomSideButton" Content="Bottom" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnBottomSideClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
                         <StackPanel x:Name="FramesApplyReset1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
-                            <Button x:Name="DarknessFourSidesButton" Content="All" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessFourSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:Name="DarknessFourSidesButton" Content="All" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessFourSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>                            
+                            <Button x:Name="DarknessTopBottomSideButton" Content="Top and Bottom" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessTopBottomSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="DarknessLeftRightSideButton" Content="Left and Right" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessLeftRightSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="DarknessTopBottomSideButton" Content="Top and Bottom" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessTopBottomSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>                        
                         </StackPanel>
 
                     </StackPanel>

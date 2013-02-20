@@ -1429,10 +1429,10 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[]) imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandartLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
-                imageOriginal.Frames_StandartTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
-                imageOriginal.Frames_StandartRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
-                imageOriginal.Frames_StandartBottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardBottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1443,7 +1443,7 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandartLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1454,7 +1454,7 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandartTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1465,7 +1465,7 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandartRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1476,7 +1476,7 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandartBottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardBottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }

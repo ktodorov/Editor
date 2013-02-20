@@ -73,130 +73,130 @@ namespace RemedyPic.Common
 
         #region Frames
 
-        #region Standart Frames
+        #region Standard Frames
 
-        #region Standart Left Side
+        #region Standard Left Side
         // Frame for left side
-        public void Frames_StandartLeftSide(double BlueColorValue, double GreenColorValue, double RedColorValue,double WidthValue)
+        public void Frames_StandardLeftSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
         {
-            Frames_StandartLeftCheckWidthValue(ref WidthValue);
+            Frames_StandardLeftCheckFrameWidth(ref FrameWidth);
 
             for (int CurrentByte = 0, CurrentColumn = 1; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
-                Frames_StandartLeftSideNewPixel(ref CurrentByte, ref CurrentColumn, BlueColorValue, GreenColorValue, RedColorValue, WidthValue);
+                Frames_StandardLeftSideNewPixel(ref CurrentByte, ref CurrentColumn, BlueColorValue, GreenColorValue, RedColorValue, FrameWidth);
             }
         }
 
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
-        public void Frames_StandartLeftSideNewPixel(ref int CurrentByte, ref int CurrentColumn, double BlueColorValue, double GreenColorValue, double RedColorValue, double WidthValue)
-        { 
-            if (CurrentColumn <= WidthValue)
+        public void Frames_StandardLeftSideNewPixel(ref int CurrentByte, ref int CurrentColumn, double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
+        {
+            if (CurrentColumn <= FrameWidth)
             {
-                Fremes_StandartSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
             }
             else
             {
                 CurrentColumn = 0;
-                CurrentByte += 4 * (_width - (int)WidthValue - 1); //go to the next row of pixels, minus 1 because we always increment current byte by 4(1 pixel)
+                CurrentByte += 4 * (_width - (int)FrameWidth - 1); //go to the next row of pixels, minus 1 because we always increment current byte by 4(1 pixel)
             }
         }
 
         // Check if the Width of frame is more than the width of the image
-        public void Frames_StandartLeftCheckWidthValue(ref double WidthValue)
+        public void Frames_StandardLeftCheckFrameWidth(ref double FrameWidth)
         {
-            if (WidthValue > _width)
-                WidthValue = _width;
+            if (FrameWidth > _width)
+                FrameWidth = _width;
         }
         #endregion
 
-        #region Standart Top Side
+        #region Standard Top Side
         // Frame for top side
-        public void Frames_StandartTopSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double WidthValue)
+        public void Frames_StandardTopSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
         {
-            Frames_StandartTopCheckWidthValue(ref WidthValue);
+            Frames_StandardTopCheckFrameWidth(ref FrameWidth);
 
-            for (int CurrentByte = 0; CurrentByte < 4 * _width * WidthValue; CurrentByte += 4)
+            for (int CurrentByte = 0; CurrentByte < 4 * _width * FrameWidth; CurrentByte += 4)
             {
-                Fremes_StandartSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
             }
         }
 
         // Check if the Width of frame is more than the width of the image
-        public void Frames_StandartTopCheckWidthValue(ref double WidthValue)
+        public void Frames_StandardTopCheckFrameWidth(ref double FrameWidth)
         {
-            if (WidthValue > _height)
-                WidthValue = _height;
+            if (FrameWidth > _height)
+                FrameWidth = _height;
         }
         #endregion
 
-        #region Standart Right Side
+        #region Standard Right Side
         // Frame for Right side
-        public void Frames_StandartRightSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double WidthValue)
+        public void Frames_StandardRightSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
         {
-            int CurrentColumn = Frames_StandartRightSideGetFirstColumn(WidthValue);
+            int CurrentColumn = Frames_StandardRightSideGetFirstColumn(FrameWidth);
  
             for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
-                Frames_StandartRightSideNewPixel(ref CurrentByte, ref CurrentColumn, BlueColorValue, GreenColorValue, RedColorValue, WidthValue);
+                Frames_StandardRightSideNewPixel(ref CurrentByte, ref CurrentColumn, BlueColorValue, GreenColorValue, RedColorValue, FrameWidth);
             }
         }
 
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
-        public void Frames_StandartRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, double BlueColorValue, double GreenColorValue, double RedColorValue, double WidthValue)
+        public void Frames_StandardRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
         {
             if (CurrentColumn > _width)
             {
-                CurrentColumn = Frames_StandartRightSideGetFirstColumn(WidthValue);
-                CurrentByte += 4 * (_width - (int)WidthValue - 1); //go to the next row of pixels, minus 1 because we always increment current byte by 4(1 pixel)
+                CurrentColumn = Frames_StandardRightSideGetFirstColumn(FrameWidth);
+                CurrentByte += 4 * (_width - (int)FrameWidth - 1); //go to the next row of pixels, minus 1 because we always increment current byte by 4(1 pixel)
             }
             else
             {
-                Fremes_StandartSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
             }
         }
 
         //Calculate the first index of right border
-        public int Frames_StandartRightSideGetFirstColumn(double WidthValue)
+        public int Frames_StandardRightSideGetFirstColumn(double FrameWidth)
         {
-            if (WidthValue > _height)
+            if (FrameWidth > _height)
             {
                 return 0;
             }
             else
             {
-                return _width - (int)WidthValue;
+                return _width - (int)FrameWidth;
             }
         }
         #endregion
 
-        #region Standart Bottom Side
+        #region Standard Bottom Side
         // Frame for Bottom side
-        public void Frames_StandartBottomSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double WidthValue)
+        public void Frames_StandardBottomSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
         {
-            int CurrentByte = Frames_StandartBottomSideGetFirstIndex(WidthValue);
+            int CurrentByte = Frames_StandardBottomSideGetFirstIndex(FrameWidth);
 
             for (; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                Fremes_StandartSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
             }
         }
         
         //Calculate the first index of bottom border
-        public int Frames_StandartBottomSideGetFirstIndex(double WidthValue)
+        public int Frames_StandardBottomSideGetFirstIndex(double FrameWidth)
         {
-            if (WidthValue > _height)
+            if (FrameWidth > _height)
             {
                 return 0;
             }
             else
             {
-                return 4 * _width * (_height - (int)WidthValue);
+                return 4 * _width * (_height - (int)FrameWidth);
             }
         }
         #endregion
 
         // Set B G R value of the pixel
-        public void Fremes_StandartSetPixelData(int index, double BlueColorValue, double GreenColorValue, double RedColorValue)
+        public void Fremes_StandardSetPixelData(int index, double BlueColorValue, double GreenColorValue, double RedColorValue)
         {   
             _dstPixels[index] = (byte)BlueColorValue;
             _dstPixels[index + 1] = (byte)GreenColorValue;
