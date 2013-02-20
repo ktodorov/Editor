@@ -1125,8 +1125,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="26"/>
             <RowDefinition Height="114"/>
-            <RowDefinition Height="287*"/>
-            <RowDefinition Height="27*"/>
+            <RowDefinition Height="582*"/>
+            <RowDefinition Height="49*"/>
         </Grid.RowDefinitions>
 
 
@@ -1256,8 +1256,17 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
-        <Border BorderThickness="0" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
-            <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0" MaxWidth="1100">
+        <Border BorderThickness="2,0,0,0" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0">
                 <StackPanel.Resources>
                     <Storyboard x:Name="AnimateInPicture">
                         <FadeInThemeAnimation Storyboard.TargetName="imagePanel"/>
@@ -1266,11 +1275,11 @@
                         <FadeOutThemeAnimation Storyboard.TargetName="imagePanel" Duration="00:00:001"/>
                     </Storyboard>
                 </StackPanel.Resources>
-                <Border x:Name="border" Margin="0">
+                <Border x:Name="border" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
-                    <Image x:ConnectionId='76' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
+                    <Image x:ConnectionId='76' x:Name="displayImage" ManipulationMode="None"                                        Margin="10,0"                                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
         </Border>
@@ -1285,7 +1294,7 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <Border BorderThickness="0,2,0,0" Margin="0" Background="#FF515050" Grid.Row="3">
+        <Border BorderThickness="0,2,0,0" Margin="0,0,-2,0" Background="#FF515050" Grid.Row="3">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1308,7 +1317,7 @@
             </Border.BorderBrush>
             <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="White" Margin="0" FontSize="17" FontFamily="Segoe UI" HorizontalAlignment="Center"/>
         </Border>
-        <Grid Grid.RowSpan="4" Grid.Column="1">
+        <Grid Grid.RowSpan="4" Grid.Column="1" Margin="0.143,0,-0.571,0.429">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -1336,7 +1345,7 @@
                 </StackPanel>
             </Border>
         </Grid>
-        <Grid x:Name="contentGrid" Margin="0,0,-39,3" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
+        <Grid x:Name="contentGrid" Margin="0,0,-38.571,3.429" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
             <Grid.RowDefinitions>
                 <RowDefinition Height="69"/>
                 <RowDefinition Height="43"/>
@@ -1891,7 +1900,7 @@
         </Grid>
 
         <!-- Back button and page title -->
-        <StackPanel x:Name="Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3">
+        <StackPanel x:Name="Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Height="49" Margin="161,0.857,161.857,-0.571" Width="820">
             <ToggleButton x:ConnectionId='3' x:Name="SelectFilters" Content="Filters" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100"                                                       Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="3,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                 <ToggleButton.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1981,7 +1990,7 @@
                 </ToggleButton.BorderBrush>
             </ToggleButton>
         </StackPanel>
-        <Popup x:Name="Feedback" HorizontalAlignment="Right" Grid.RowSpan="4" Width="350" IsOpen="False" IsLightDismissEnabled="True" Grid.ColumnSpan="2">
+        <Popup x:Name="Feedback" HorizontalAlignment="Right" Grid.RowSpan="4" Width="350" IsOpen="False" IsLightDismissEnabled="True" Grid.ColumnSpan="2" Margin="0,0,0.429,0.429">
             <Popup.ChildTransitions>
                 <TransitionCollection>
                     <PaneThemeTransition/>
