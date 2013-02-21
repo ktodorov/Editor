@@ -1816,7 +1816,7 @@
                             <GradientStop Color="#FF215500" Offset="1"/>
                         </LinearGradientBrush>
                     </ScrollViewer.BorderBrush>
-                    <StackPanel x:Name="FramesPanel" VerticalAlignment="Top" Width="340" Height="539">
+                    <StackPanel x:Name="FramesPanel" VerticalAlignment="Top" Width="340" Height="739">
                         <StackPanel.Transitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition/>
@@ -1853,7 +1853,10 @@
                             <Button x:Name="DarknessTopBottomSideButton" Content="Top and Bottom" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessTopBottomSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="DarknessLeftRightSideButton" Content="Left and Right" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessLeftRightSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
-
+                        <StackPanel x:Name="Darknesssssss" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
+                            <Button x:Name="DarknessAngleButton" Content="Darkness Angle" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessAngleClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            
+                        </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </Popup>

@@ -93,7 +93,7 @@ namespace RemedyPic.Common
         {
             if (CurrentColumn <= FrameWidth)
             {
-                Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelValues(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
             }
             else
             {
@@ -118,7 +118,7 @@ namespace RemedyPic.Common
 
             for (int CurrentByte = 0; CurrentByte < 4 * _width * FrameWidth; CurrentByte += 4)
             {
-                Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelValues(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
             }
         }
 
@@ -152,7 +152,7 @@ namespace RemedyPic.Common
             }
             else
             {
-                Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelValues(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
                 CurrentColumn++;
                 CurrentByte += 4;
             }            
@@ -180,7 +180,7 @@ namespace RemedyPic.Common
 
             for (; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                Fremes_StandardSetPixelData(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelValues(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
             }
         }
 
@@ -199,7 +199,7 @@ namespace RemedyPic.Common
         #endregion
 
         // Set B G R value of the pixel
-        public void Fremes_StandardSetPixelData(int index, double BlueColorValue, double GreenColorValue, double RedColorValue)
+        public void Fremes_StandardSetPixelValues(int index, double BlueColorValue, double GreenColorValue, double RedColorValue)
         {   
             _dstPixels[index] = (byte)BlueColorValue;
             _dstPixels[index + 1] = (byte)GreenColorValue;
@@ -316,6 +316,78 @@ namespace RemedyPic.Common
         }
         #endregion
 
+        #region Darkness Angle
+        // Main function
+        public void Frames_SmoothDarkness()
+        {
+            int FrameWidth = Frames_SmoothDarknessGetFrameWidth();
+            
+            Frames_SmoothDarknessLEFTRIGHT(FrameWidth);
+            Frames_SmoothDarknessTOPBOTTOM(FrameWidth);                       
+        }
+
+        // Smooth Darkness for Left and Right side of the image
+        public void Frames_SmoothDarknessLEFTRIGHT(int FrameWidth)
+        {
+            double darkness = 0.1;            
+
+            for (int CurrentByte = 0, CurrentColumn = 1; darkness <= 1.0; CurrentByte += 4, CurrentColumn++)
+            {
+                Frames_SmoothDarknessLEFTRIGHTSetCurrentColumn(CurrentByte, darkness); // Left side
+                Frames_SmoothDarknessLEFTRIGHTSetCurrentColumn(4 * (_width - CurrentColumn), darkness); // Right side
+                darkness += (1.0 / FrameWidth);
+            }
+        }
+
+        // Set all pixels of current column (darkness)
+        public void Frames_SmoothDarknessLEFTRIGHTSetCurrentColumn(int StartIndex, double darkness)
+        {
+            for (int index = StartIndex; index < _dstPixels.Length; index += 4 * _width)
+            {
+                Frames_SmoothDarknessSetPixelValues(index, darkness);
+            }
+        }
+
+        // Smooth Darkness for Top and Bottom side of the image
+        public void Frames_SmoothDarknessTOPBOTTOM(int FrameWidth)
+        {
+            double darkness = 0.1;
+
+            for (int CurrentByte = 0, CurrentRow = 1; darkness <= 1.0; CurrentByte += 4 * _width, CurrentRow++)
+            {
+                Frames_SmoothDarknessLEFTRIGHTSetCurrentRow(CurrentByte, darkness); // Top side
+                Frames_SmoothDarknessLEFTRIGHTSetCurrentRow(4 * _width * (_height - CurrentRow), darkness); // Bottom side
+                darkness += (1.0 / FrameWidth);
+            }
+        }
+
+        // Set all pixels of current row (darkness)
+        public void Frames_SmoothDarknessLEFTRIGHTSetCurrentRow(int StartIndex, double darkness)
+        {
+            for (int index = StartIndex; index < 4 * _width  + StartIndex; index += 4)
+            {
+                Frames_SmoothDarknessSetPixelValues(index, darkness);
+            }
+        }
+
+        // Calculate the width of left and right frame
+        public int Frames_SmoothDarknessGetFrameWidth()
+        {
+            return ((_width + _height) / 2 * 20) / 100;
+        }
+
+        // Set B G R value of the pixel
+        public void Frames_SmoothDarknessSetPixelValues(int CurrentByte, double darkness)
+        {
+            if (_dstPixels[CurrentByte] > _srcPixels[CurrentByte] * darkness) // Check if the pixel is brighter
+            {
+                _dstPixels[CurrentByte] = (byte)(_srcPixels[CurrentByte] * darkness);
+                _dstPixels[CurrentByte + 1] = (byte)(_srcPixels[CurrentByte + 1] * darkness);
+                _dstPixels[CurrentByte + 2] = (byte)(_srcPixels[CurrentByte + 2] * darkness);
+            }
+        }
+        #endregion
+
         #endregion
 
         #region Sharpen1
@@ -349,7 +421,9 @@ namespace RemedyPic.Common
 
         public int Sharpen1_GetSquareWidth()
         {
-            return (((_width + _height) / 2) * 10) / 100;
+            int val = (((_width + _height) / 2) * 1) / 100;
+            
+            return Math.Max(1, val);
         }
         #endregion
 
@@ -593,9 +667,10 @@ namespace RemedyPic.Common
         public void GammaChange(double BlueColorValue, double GreenColorValue, double RedColorValue)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
-            byte[] BlueGamma = Gamma_GetArray(BlueColorValue / 10);  // Divide by 10 because the value must be between 0.2 and 5. Get new color list for BlueGamma. 
-            byte[] GreenGamma = Gamma_GetArray(GreenColorValue / 10);// Get new color list for GreenGamma  
-            byte[] RedGamma = Gamma_GetArray(RedColorValue / 10);    // Get new color list for RedGamma            
+            RedColorValue /= 10;// Divide by 10 because the value must be between 0.2 and 5. 
+            byte[] BlueGamma = Gamma_GetArray(BlueColorValue);  // Get new color list for BlueGamma. 
+            byte[] GreenGamma = Gamma_GetArray(GreenColorValue);// Get new color list for GreenGamma  
+            byte[] RedGamma = Gamma_GetArray(RedColorValue);    // Get new color list for RedGamma            
 
             for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
             {
@@ -767,6 +842,5 @@ namespace RemedyPic.Common
 
         }
         #endregion
-
     }
 }

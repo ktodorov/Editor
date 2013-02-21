@@ -1551,6 +1551,17 @@ namespace RemedyPic
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
+
+        private void OnDarknessAngleClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_SmoothDarkness();
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
         #endregion
 
         private void OnRotateClick(object sender, RoutedEventArgs e)
@@ -2179,6 +2190,8 @@ namespace RemedyPic
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps();
         }
+
+
 
 
     }
