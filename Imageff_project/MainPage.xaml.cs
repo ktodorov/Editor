@@ -1552,13 +1552,23 @@ namespace RemedyPic
             }
         }
 
-        private void OnDarknessAngleClick(object sender, RoutedEventArgs e)
+        private void OnSmoothDarknessClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_SmoothDarkness();
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+        private void OnDarknessAngleClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_DarknessAngle();
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }

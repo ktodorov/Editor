@@ -316,7 +316,7 @@ namespace RemedyPic.Common
         }
         #endregion
 
-        #region Darkness Angle
+        #region Smooth Darnkess
         // Main function
         public void Frames_SmoothDarkness()
         {
@@ -331,11 +331,11 @@ namespace RemedyPic.Common
         {
             double darkness = 0.1;            
 
-            for (int CurrentByte = 0, CurrentColumn = 1; darkness <= 1.0; CurrentByte += 4, CurrentColumn++)
+            for (int CurrentByte = 0, CurrentColumn = 1; darkness < 1.0; CurrentByte += 4, CurrentColumn++)
             {
                 Frames_SmoothDarknessLEFTRIGHTSetCurrentColumn(CurrentByte, darkness); // Left side
                 Frames_SmoothDarknessLEFTRIGHTSetCurrentColumn(4 * (_width - CurrentColumn), darkness); // Right side
-                darkness += (1.0 / FrameWidth);
+                darkness += 1.0 / FrameWidth;
             }
         }
 
@@ -353,11 +353,11 @@ namespace RemedyPic.Common
         {
             double darkness = 0.1;
 
-            for (int CurrentByte = 0, CurrentRow = 1; darkness <= 1.0; CurrentByte += 4 * _width, CurrentRow++)
+            for (int CurrentByte = 0, CurrentRow = 1; darkness < 1.0; CurrentByte += 4 * _width, CurrentRow++)
             {
                 Frames_SmoothDarknessLEFTRIGHTSetCurrentRow(CurrentByte, darkness); // Top side
                 Frames_SmoothDarknessLEFTRIGHTSetCurrentRow(4 * _width * (_height - CurrentRow), darkness); // Bottom side
-                darkness += (1.0 / FrameWidth);
+                darkness += 1.0 / FrameWidth;
             }
         }
 
@@ -385,6 +385,44 @@ namespace RemedyPic.Common
                 _dstPixels[CurrentByte + 1] = (byte)(_srcPixels[CurrentByte + 1] * darkness);
                 _dstPixels[CurrentByte + 2] = (byte)(_srcPixels[CurrentByte + 2] * darkness);
             }
+        }
+        #endregion
+
+        #region Darkness Angle
+        // Main function
+        public void Frames_DarknessAngle()
+        {
+            double darkness = 0.1;
+            double degrees = 90.0;
+            double angle;
+            double X, Y = 0;
+            double FrameWidth = Frames_DarknessAngleGetFrameWidth();
+
+            for (; degrees < 180.0; )
+            {
+                angle = Math.PI * degrees / 180.0;
+                X = FrameWidth - Math.Cos(angle) * FrameWidth;
+                Y = FrameWidth - Math.Sin(angle) * FrameWidth;
+                Frames_DarknessAngleUpLeftAngle(4 * _width * (int)Y - 4 * (int)X, darkness);
+                degrees += 90.0 / FrameWidth;
+                _dstPixels[4 * _width * (int)Y - 4 * (int)X] = (byte)(144);
+                _dstPixels[4 * _width * (int)Y - 4 * (int)X  + 1] = (byte)(144);
+                _dstPixels[4 * _width * (int)Y - 4 * (int)X  + 2] = (byte)(144);
+            }   
+        }
+
+        public void Frames_DarknessAngleUpLeftAngle(int CurrentByte, double darkness)
+        {             
+         //   _dstPixels[CurrentByte] = (byte)(_srcPixels[CurrentByte] * darkness);
+         //   _dstPixels[CurrentByte + 1] = (byte)(_srcPixels[CurrentByte + 1] * darkness);
+         //   _dstPixels[CurrentByte + 2] = (byte)(_srcPixels[CurrentByte + 2] * darkness);
+            
+        }
+
+        // Calculate the width of the frame
+        public double Frames_DarknessAngleGetFrameWidth()
+        {
+            return ((_width + _height) / 2 * 20) / 100;
         }
         #endregion
 

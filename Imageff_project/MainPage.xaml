@@ -1854,8 +1854,9 @@
                             <Button x:Name="DarknessLeftRightSideButton" Content="Left and Right" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessLeftRightSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
                         <StackPanel x:Name="Darknesssssss" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
+                            <Button x:Name="SmoothDarknessButton" Content="SmoothDarkness" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnSmoothDarknessClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="DarknessAngleButton" Content="Darkness Angle" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessAngleClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            
+
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
