@@ -7,10 +7,10 @@
 
     For more information on package manifest files, see http://go.microsoft.com/fwlink/?LinkID=241727
   -->
-  <Identity Name="4afe9811-e321-46f3-a4cd-8e5cd3fe8116" Publisher="CN=Phoenix" Version="1.0.0.0" ProcessorArchitecture="neutral" />
+  <Identity Publisher="CN=Phoenix" Version="1.0.0.0" Name="DF4D1F28-642E-40AC-AB55-7182B8AD0385" ProcessorArchitecture="neutral" />
   <Properties>
     <DisplayName>RemedyPic</DisplayName>
-    <PublisherDisplayName>Phoenix</PublisherDisplayName>
+    <PublisherDisplayName>Konstantin Todorov</PublisherDisplayName>
     <Logo>Assets\StoreLogo2.png</Logo>
   </Properties>
   <Prerequisites>
@@ -35,8 +35,8 @@
     <build:Item Name="TargetFrameworkMoniker" Value=".NETCore,Version=v4.5" />
     <build:Item Name="VisualStudio" Version="11.0" />
     <build:Item Name="OperatingSystem" Version="6.2.9200.16384 (win8_rtm.120725-1247)" />
-    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="11.0.51106.1" />
-    <build:Item Name="Microsoft.Windows.UI.Xaml.Build.Tasks.dll" Version="11.0.51106.1" />
+    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="11.0.50727.1" />
+    <build:Item Name="Microsoft.Windows.UI.Xaml.Build.Tasks.dll" Version="11.0.50727.1" />
     <build:Item Name="MakePri.exe" Version="6.2.9200.16384 (win8_rtm.120725-1247)" />
   </build:Metadata>
 </Package>

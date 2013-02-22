@@ -5,10 +5,10 @@
     <WindowsUser>Tony</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>FBD7A3D58B0F18DF7A9339A78E7302AAA9A230C3AEEE1309D475CE954513EB7A</RegisteredManifestChecksum>
-    <RegisteredPackageMoniker>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
-    <RegisteredUserModeAppID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_pexwghfzd4yhp!App</RegisteredUserModeAppID>
-    <RegisteredPackageID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116</RegisteredPackageID>
+    <RegisteredManifestChecksum>42835573FD839074BB73FD728E4A0F7CB00BBE2F1F0EFB8767D532F5BA9EC043</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>DF4D1F28-642E-40AC-AB55-7182B8AD0385_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>DF4D1F28-642E-40AC-AB55-7182B8AD0385_pexwghfzd4yhp!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>DF4D1F28-642E-40AC-AB55-7182B8AD0385</RegisteredPackageID>
     <RegisteredPackagePublisher>CN=Phoenix</RegisteredPackagePublisher>
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-20T11:32:10.328</Modified>
+      <Modified>2013-02-22T19:32:04.723</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-02-22T17:23:25.184</Modified>
+      <Modified>2013-02-22T19:32:03.686</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-02-22T17:23:25.166</Modified>
+      <Modified>2013-02-22T19:32:03.667</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
@@ -58,7 +58,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\App.xaml">
       <PackagePath>App.xaml</PackagePath>
-      <Modified>2013-02-18T09:06:12.000</Modified>
+      <Modified>2013-02-22T19:31:44.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\Common\StandardStyles.xaml">
       <PackagePath>Common\StandardStyles.xaml</PackagePath>
@@ -66,11 +66,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-02-21T18:20:47.224</Modified>
+      <Modified>2013-02-22T19:31:44.639</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-02-18T19:10:38.753</Modified>
+      <Modified>2013-02-22T19:32:03.856</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
