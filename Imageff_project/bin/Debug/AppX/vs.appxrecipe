@@ -5,10 +5,10 @@
     <WindowsUser>Konstantin</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>9AEC4D127B8946A3A65B57056E12E3894AC039CD12015FBBDCE0B368F90C393D</RegisteredManifestChecksum>
-    <RegisteredPackageMoniker>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
-    <RegisteredUserModeAppID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116_pexwghfzd4yhp!App</RegisteredUserModeAppID>
-    <RegisteredPackageID>4afe9811-e321-46f3-a4cd-8e5cd3fe8116</RegisteredPackageID>
+    <RegisteredManifestChecksum>42835573FD839074BB73FD728E4A0F7CB00BBE2F1F0EFB8767D532F5BA9EC043</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>DF4D1F28-642E-40AC-AB55-7182B8AD0385_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>DF4D1F28-642E-40AC-AB55-7182B8AD0385_pexwghfzd4yhp!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>DF4D1F28-642E-40AC-AB55-7182B8AD0385</RegisteredPackageID>
     <RegisteredPackagePublisher>CN=Phoenix</RegisteredPackagePublisher>
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-22T15:06:48.365</Modified>
+      <Modified>2013-02-22T19:16:39.967</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-02-22T18:58:24.321</Modified>
+      <Modified>2013-02-22T19:12:07.029</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-02-22T18:58:24.291</Modified>
+      <Modified>2013-02-22T19:12:07.002</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
@@ -70,7 +70,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-02-20T14:03:24.546</Modified>
+      <Modified>2013-02-22T19:16:39.871</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

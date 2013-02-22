@@ -7,10 +7,10 @@
 
     For more information on package manifest files, see http://go.microsoft.com/fwlink/?LinkID=241727
   -->
-  <Identity Name="4afe9811-e321-46f3-a4cd-8e5cd3fe8116" Publisher="CN=Phoenix" Version="1.0.0.0" ProcessorArchitecture="neutral" />
+  <Identity Publisher="CN=Phoenix" Version="1.0.0.0" Name="DF4D1F28-642E-40AC-AB55-7182B8AD0385" ProcessorArchitecture="neutral" />
   <Properties>
     <DisplayName>RemedyPic</DisplayName>
-    <PublisherDisplayName>Phoenix</PublisherDisplayName>
+    <PublisherDisplayName>Konstantin Todorov</PublisherDisplayName>
     <Logo>Assets\StoreLogo2.png</Logo>
   </Properties>
   <Prerequisites>

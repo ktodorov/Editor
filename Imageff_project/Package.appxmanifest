@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="4afe9811-e321-46f3-a4cd-8e5cd3fe8116" Publisher="CN=Phoenix" Version="1.0.0.0" />
+  <Identity Publisher="CN=Phoenix" Version="1.0.0.0" Name="DF4D1F28-642E-40AC-AB55-7182B8AD0385" />
   <Properties>
     <DisplayName>RemedyPic</DisplayName>
-    <PublisherDisplayName>Phoenix</PublisherDisplayName>
+    <PublisherDisplayName>Konstantin Todorov</PublisherDisplayName>
     <Logo>Assets\StoreLogo2.png</Logo>
   </Properties>
   <Prerequisites>
