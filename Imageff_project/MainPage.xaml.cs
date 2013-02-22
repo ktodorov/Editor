@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.ViewManagement;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -35,6 +36,7 @@ namespace RemedyPic
     {
 
         #region Variables
+
         // mruToken is used for LoadState and SaveState functions.
         private string mruToken = null;
         StorageFile file;
@@ -62,6 +64,30 @@ namespace RemedyPic
         private CompositeTransform _compositeTransform;
         private bool forceManipulationsToEnd;
 
+        SelectedRegion selectedRegion;
+
+        // The size of the corners.
+        double cornerSize;
+        uint sourceImagePixelWidth;
+        uint sourceImagePixelHeight;
+        double CornerSize
+        {
+            get
+            {
+                if (cornerSize <= 0)
+                {
+                    cornerSize = (double)Application.Current.Resources["Size"];
+                }
+
+                return cornerSize;
+            }
+        }
+
+        // The previous points of all the pointers.
+        Dictionary<uint, Point?> pointerPositionHistory = new Dictionary<uint, Point?>();
+
+
+
         #endregion
 
         public MainPage()
@@ -76,7 +102,14 @@ namespace RemedyPic
             displayImage.ManipulationCompleted += new ManipulationCompletedEventHandler(ManipulateMe_ManipulationCompleted);
             displayImage.ManipulationInertiaStarting += new ManipulationInertiaStartingEventHandler(ManipulateMe_ManipulationInertiaStarting);
             InitManipulationTransforms();
+            selectRegion.ManipulationMode = ManipulationModes.Scale |
+                ManipulationModes.TranslateX | ManipulationModes.TranslateY;
+
+            selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
+            this.DataContext = selectedRegion;
         }
+
+
 
         #region Charms
         private void RegisterCharms()
@@ -214,19 +247,22 @@ namespace RemedyPic
                     AnimateOutPicture.Begin();
                     Windows.Storage.Streams.IRandomAccessStream fileStream =
                             await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
+
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(fileStream);
+
+                    sourceImagePixelHeight = decoder.PixelHeight;
+                    sourceImagePixelWidth = decoder.PixelWidth;
+
                     bitmapImage.SetSource(fileStream);
                     RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
 
                     // If the interface was changed from previous image, it should be resetted.
                     resetInterface();
+                    ResetZoomPos();
                     // Show the interface after the picture is loaded.
-                    contentGrid.Visibility = Visibility.Visible;
+                    //contentGrid.Visibility = Visibility.Visible;
                     pictureIsLoaded = true;
                     doAllCalculations();
-                    // Set the border of the image panel.
-                    //border.BorderThickness = new Thickness(1, 1, 1, 1);
-                    //border.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-
                 }
             }
             else
@@ -240,8 +276,8 @@ namespace RemedyPic
 
         private async void doAllCalculations()
         {
-			// We make all the required calculations in order for
-			// the app elements to appear and work normal.
+            // We make all the required calculations in order for
+            // the app elements to appear and work normal.
             uneditedBitmap = bitmapImage;
 
             exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
@@ -264,8 +300,6 @@ namespace RemedyPic
 
             AnimateInPicture.Begin();
             ZoomStack.Visibility = Visibility.Visible;
-            displayImage.MaxHeight = bitmapImage.PixelHeight;
-            displayImage.MaxWidth = bitmapImage.PixelWidth;
             setFilterBitmaps();
             displayImage.MaxWidth = imagePanel.ActualWidth;
             displayImage.MaxHeight = imagePanel.ActualHeight;
@@ -277,7 +311,7 @@ namespace RemedyPic
 
         private void setPopupsHeight()
         {
-			// We set the popup height to match the current machine resolution
+            // We set the popup height to match the current machine resolution
             Filters.Height = PopupFilters.ActualHeight + 5;
             Colors.Height = PopupColors.ActualHeight + 5;
             Rotations.Height = PopupRotations.ActualHeight + 5;
@@ -287,14 +321,14 @@ namespace RemedyPic
             Frames.Height = PopupFrames.ActualHeight + 5;
             Histogram.Height = PopupHistogram.ActualHeight + 5;
 
-			// We set the imagePanel maximum height so the image not to go out of the screen
-			imagePanel.MaxWidth = imageBorder.ActualWidth - 10;
+            // We set the imagePanel maximum height so the image not to go out of the screen
+            imagePanel.MaxWidth = imageBorder.ActualWidth - 10;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
         {
-			// We set the XAML Image object a bitmap as source 
-			// and then set the width and height to be proportional to the actual bitmap
+            // We set the XAML Image object a bitmap as source 
+            // and then set the width and height to be proportional to the actual bitmap
             imageElement.Source = source;
             imageElement.Width = bitmapImage.PixelWidth / 4;
             imageElement.Height = bitmapImage.PixelHeight / 4;
@@ -722,7 +756,7 @@ namespace RemedyPic
         void setStream(Stream givenStream, WriteableBitmap givenBitmap, FilterFunctions givenImage)
         {
             // This sets the pixels to the bitmap
-			// and hides the visible Apply buttons.
+            // and hides the visible Apply buttons.
             givenStream.Seek(0, SeekOrigin.Begin);
             givenStream.Write(givenImage.dstPixels, 0, givenImage.dstPixels.Length);
             givenBitmap.Invalidate();
@@ -796,6 +830,9 @@ namespace RemedyPic
             RedGammaSlider.Value = 10;
             GreenGammaSlider.Value = 10;
             BlueGammaSlider.Value = 10;
+            deselectColorizeListItems();
+            deselectFilters();
+            //deselectMenu();
         }
 
         #region Color Change RGB
@@ -1317,7 +1354,6 @@ namespace RemedyPic
         {
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
-            SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
@@ -1336,7 +1372,6 @@ namespace RemedyPic
         {
             SelectFilters.IsChecked = false;
             SelectRotations.IsChecked = false;
-            SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
@@ -1353,7 +1388,6 @@ namespace RemedyPic
         {
             SelectFilters.IsChecked = false;
             SelectColors.IsChecked = false;
-            SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
@@ -1366,29 +1400,11 @@ namespace RemedyPic
             PopupRotations.IsOpen = false;
         }
 
-        private void ZoomChecked(object sender, RoutedEventArgs e)
-        {
-            SelectFilters.IsChecked = false;
-            SelectColors.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            PopupZoom.IsOpen = true;
-        }
-
-        private void ZoomUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupZoom.IsOpen = false;
-        }
-
         private void OptionsChecked(object sender, RoutedEventArgs e)
         {
             SelectFilters.IsChecked = false;
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
-            SelectZoom.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
@@ -1405,7 +1421,6 @@ namespace RemedyPic
             SelectFilters.IsChecked = false;
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
-            SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
@@ -1423,7 +1438,6 @@ namespace RemedyPic
             SelectFilters.IsChecked = false;
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
-            SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectHistogram.IsChecked = false;
@@ -1440,7 +1454,6 @@ namespace RemedyPic
             SelectFilters.IsChecked = false;
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
-            SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
@@ -1461,7 +1474,7 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[]) imageOriginal.srcPixels.Clone();
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_StandardLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 imageOriginal.Frames_StandardTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
                 imageOriginal.Frames_StandardRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
@@ -1607,7 +1620,6 @@ namespace RemedyPic
             SelectColors.IsChecked = false;
             SelectFilters.IsChecked = false;
             SelectRotations.IsChecked = false;
-            SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
@@ -1644,6 +1656,11 @@ namespace RemedyPic
 
         private void OnResetZoomClick(object sender, RoutedEventArgs e)
         {
+            ResetZoomPos();
+        }
+
+        private void ResetZoomPos()
+        {
             displayImage.Margin = new Thickness(0, 0, 0, 0);
             ZoomOut.Visibility = Visibility.Collapsed;
             displayImage.RenderTransform = null;
@@ -1651,7 +1668,6 @@ namespace RemedyPic
             scale.ScaleX = 1;
             scale.ScaleY = 1;
         }
-
         private void MoveChecked(object sender, RoutedEventArgs e)
         {
             displayImage.ManipulationMode = ManipulationModes.All;
@@ -2061,7 +2077,6 @@ namespace RemedyPic
             SelectColors.IsChecked = false;
             SelectFilters.IsChecked = false;
             SelectRotations.IsChecked = false;
-            SelectZoom.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
@@ -2119,17 +2134,6 @@ namespace RemedyPic
             }
         }
 
-        #endregion
-
-        private async Task deleteUsedFile()
-        {
-            if (imageOriginal.dstPixels != null)
-            {
-                file = await ApplicationData.Current.LocalFolder.GetFileAsync("temp.jpg");
-                await file.DeleteAsync();
-            }
-        }
-
         private void ReturnOriginal_Clicked(object sender, RoutedEventArgs e)
         {
             RestoreOriginalBitmap();
@@ -2145,6 +2149,17 @@ namespace RemedyPic
             setStream(bitmapStream, bitmapImage, imageOriginal);
             setFilterBitmaps();
             resetInterface();
+        }
+
+        #endregion
+
+        private async Task deleteUsedFile()
+        {
+            if (imageOriginal.dstPixels != null)
+            {
+                file = await ApplicationData.Current.LocalFolder.GetFileAsync("temp.jpg");
+                await file.DeleteAsync();
+            }
         }
 
         #region Colorize
@@ -2191,7 +2206,264 @@ namespace RemedyPic
             setFilterBitmaps();
         }
 
+        #region Crop region
+        #region Select Region methods
 
+        /// <summary>
+        /// If a pointer presses in the corner, it means that the user starts to move the corner.
+        /// 1. Capture the pointer, so that the UIElement can get the Pointer events (PointerMoved,
+        ///    PointerReleased...) even the pointer is outside of the UIElement.
+        /// 2. Record the start position of the move.
+        /// </summary>
+        private void Corner_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            (sender as UIElement).CapturePointer(e.Pointer);
+
+            Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
+
+            // Record the start point of the pointer.
+            pointerPositionHistory[pt.PointerId] = pt.Position;
+
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// If a pointer which is captured by the corner moves，the select region will be updated.
+        /// </summary>
+        void Corner_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
+            uint ptrId = pt.PointerId;
+
+            if (pointerPositionHistory.ContainsKey(ptrId) && pointerPositionHistory[ptrId].HasValue)
+            {
+                Point currentPosition = pt.Position;
+                Point previousPosition = pointerPositionHistory[ptrId].Value;
+
+                double xUpdate = currentPosition.X - previousPosition.X;
+                double yUpdate = currentPosition.Y - previousPosition.Y;
+
+                this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string, xUpdate, yUpdate);
+
+                pointerPositionHistory[ptrId] = currentPosition;
+            }
+
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// The pressed pointer is released, which means that the move is ended.
+        /// 1. Release the Pointer.
+        /// 2. Clear the position history of the Pointer.
+        /// </summary>
+        private void Corner_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            uint ptrId = e.GetCurrentPoint(this).PointerId;
+            if (this.pointerPositionHistory.ContainsKey(ptrId))
+            {
+                this.pointerPositionHistory.Remove(ptrId);
+            }
+
+            (sender as UIElement).ReleasePointerCapture(e.Pointer);
+
+            CropApply.Visibility = Visibility.Visible;
+            //UpdatePreviewImage();
+            e.Handled = true;
+
+
+        }
+
+        void selectRegion_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            this.selectedRegion.UpdateSelectedRect(e.Delta.Scale, e.Delta.Translation.X, e.Delta.Translation.Y);
+            e.Handled = true;
+        }
+
+        void selectRegion_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            //UpdatePreviewImage();
+            CropApply.Visibility = Visibility.Visible;
+        }
+
+        #endregion
+
+        private void CropChecked(object sender, RoutedEventArgs e)
+        {
+            CropPanel.Visibility = Visibility.Visible;
+            imageCanvas.Visibility = Visibility.Visible;
+            displayGrid.Margin = new Thickness(15);
+            ResetZoomPos();
+        }
+
+        private void CropUnchecked(object sender, RoutedEventArgs e)
+        {
+            CropPanel.Visibility = Visibility.Collapsed;
+            imageCanvas.Visibility = Visibility.Collapsed;
+            this.selectedRegion.ResetCorner(0, 0, bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+            this.selectedRegion.OuterRect = Rect.Empty;
+            displayGrid.Margin = new Thickness(0);
+        }
+
+        async void UpdatePreviewImage()
+        {
+            await SaveFile(false);
+
+            double sourceImageWidthScale = imageCanvas.Width / this.sourceImagePixelWidth;
+            double sourceImageHeightScale = imageCanvas.Height / this.sourceImagePixelHeight;
+
+            Size previewImageSize = new Size(
+                this.selectedRegion.SelectedRect.Width / sourceImageWidthScale,
+                this.selectedRegion.SelectedRect.Height / sourceImageHeightScale);
+
+            double previewImageScale = 1;
+
+            if (previewImageSize.Width <= imageCanvas.Width &&
+                previewImageSize.Height <= imageCanvas.Height)
+            {
+                displayImage.Stretch = Windows.UI.Xaml.Media.Stretch.None;
+            }
+            else
+            {
+                displayImage.Stretch = Windows.UI.Xaml.Media.Stretch.Uniform;
+
+                previewImageScale = Math.Min(imageCanvas.Width / previewImageSize.Width,
+                    imageCanvas.Height / previewImageSize.Height);
+            }
+
+            bitmapImage = await CropBitmap.GetCroppedBitmapAsync(
+                   file,
+                   new Point(this.selectedRegion.SelectedRect.X / sourceImageWidthScale, this.selectedRegion.SelectedRect.Y / sourceImageHeightScale),
+                   previewImageSize,
+                   previewImageScale);
+
+            bitmapStream = bitmapImage.PixelBuffer.AsStream();
+            imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
+            await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
+
+            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+            prepareImage(exampleStream, exampleBitmap, image);
+            setStream(exampleStream, exampleBitmap, image);
+            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(RotationsExamplePicture, exampleBitmap);
+            
+            setFilterBitmaps();
+            
+            displayImage.Source = bitmapImage;
+            SelectCrop.IsChecked = false;
+
+            sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
+            sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            selectedRegion.PropertyChanged += selectedRegion_PropertyChanged;
+
+            // Handle the pointer events of the corners. 
+            AddCornerEvents(topLeftCorner);
+            AddCornerEvents(topRightCorner);
+            AddCornerEvents(bottomLeftCorner);
+            AddCornerEvents(bottomRightCorner);
+
+            // Handle the manipulation events of the selectRegion
+            selectRegion.ManipulationDelta += selectRegion_ManipulationDelta;
+            selectRegion.ManipulationCompleted += selectRegion_ManipulationCompleted;
+
+            this.displayImage.SizeChanged += sourceImage_SizeChanged;
+
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            selectedRegion.PropertyChanged -= selectedRegion_PropertyChanged;
+
+            // Handle the pointer events of the corners. 
+            RemoveCornerEvents(topLeftCorner);
+            RemoveCornerEvents(topRightCorner);
+            RemoveCornerEvents(bottomLeftCorner);
+            RemoveCornerEvents(bottomRightCorner);
+
+            // Handle the manipulation events of the selectRegion
+            selectRegion.ManipulationDelta -= selectRegion_ManipulationDelta;
+            selectRegion.ManipulationCompleted -= selectRegion_ManipulationCompleted;
+
+            this.displayImage.SizeChanged -= sourceImage_SizeChanged;
+
+        }
+
+        private void AddCornerEvents(Control corner)
+        {
+            corner.PointerPressed += Corner_PointerPressed;
+            corner.PointerMoved += Corner_PointerMoved;
+            corner.PointerReleased += Corner_PointerReleased;
+        }
+
+        private void RemoveCornerEvents(Control corner)
+        {
+            corner.PointerPressed -= Corner_PointerPressed;
+            corner.PointerMoved -= Corner_PointerMoved;
+            corner.PointerReleased -= Corner_PointerReleased;
+        }
+
+        void sourceImage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+            if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)
+            {
+                this.imageCanvas.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                this.selectedRegion.OuterRect = Rect.Empty;
+                this.selectedRegion.ResetCorner(0, 0, 0, 0);
+            }
+            else
+            {
+                this.imageCanvas.Height = e.NewSize.Height;
+                this.imageCanvas.Width = e.NewSize.Width;
+                this.selectedRegion.OuterRect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height);
+
+                if (e.PreviousSize.IsEmpty || double.IsNaN(e.PreviousSize.Height) || e.PreviousSize.Height <= 0)
+                {
+                    this.selectedRegion.ResetCorner(0, 0, e.NewSize.Width, e.NewSize.Height);
+                }
+                else
+                {
+                    double scale = e.NewSize.Height / e.PreviousSize.Height;
+                    this.selectedRegion.ResizeSelectedRect(scale);
+                }
+
+            }
+        }
+
+        void selectedRegion_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            double widthScale = imageCanvas.Width / sourceImagePixelWidth;
+            double heightScale = imageCanvas.Height / sourceImagePixelHeight;
+
+            this.selectInfoInBitmapText.Text = string.Format("Resolution: {0}x{1}",
+                Math.Floor(this.selectedRegion.SelectedRect.Width / widthScale),
+                Math.Floor(this.selectedRegion.SelectedRect.Height / heightScale));
+        }
+
+        private void saveImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            UpdatePreviewImage();
+        }
+        #endregion
+
+        private void deselectMenu()
+        {
+            SelectColors.IsChecked = false;
+            SelectRotations.IsChecked = false;
+            SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
+            SelectFilters.IsChecked = false;
+            SelectCrop.IsChecked = false;
+        }
 
 
     }

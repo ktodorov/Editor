@@ -1179,7 +1179,7 @@
                                 </DiscreteObjectKeyFrame.Value>
                             </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="border">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="displayBorder">
                             <DiscreteObjectKeyFrame KeyTime="0">
                                 <DiscreteObjectKeyFrame.Value>
                                     <Thickness>0</Thickness>
@@ -1241,7 +1241,7 @@
                                 </DiscreteObjectKeyFrame.Value>
                             </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="border">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="displayBorder">
                             <DiscreteObjectKeyFrame KeyTime="0">
                                 <DiscreteObjectKeyFrame.Value>
                                     <Thickness>0</Thickness>
@@ -1256,7 +1256,7 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
-        <Border x:Name="imageBorder" BorderThickness="2,0,0,0" Margin="0" Grid.RowSpan="2" Background="#26B0B0B0" Grid.Row="1">
+        <Border x:Name="imageBorder" BorderThickness="0" Margin="0" Grid.RowSpan="2" Background="#26FFFFFF" Grid.Row="1">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1275,11 +1275,42 @@
                         <FadeOutThemeAnimation Storyboard.TargetName="imagePanel" Duration="00:00:001"/>
                     </Storyboard>
                 </StackPanel.Resources>
-                <Border x:Name="border" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border x:Name="displayBorder" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
-                    <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid x:Name="displayGrid" Grid.Row="1" Margin="0">
+                        <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Canvas x:Name="imageCanvas" Visibility="Collapsed" >
+                            <Path x:Name="nonselectRegion" Fill="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Opacity="1" Stroke="White">
+                                <Path.Data>
+                                    <GeometryGroup>
+                                        <RectangleGeometry Rect="{Binding OuterRect,Mode=OneWay}">
+                                        </RectangleGeometry>
+                                        <RectangleGeometry Rect="{Binding SelectedRect,Mode=OneWay}">
+                                        </RectangleGeometry>
+                                    </GeometryGroup>
+                                </Path.Data>
+                            </Path>
+                            <Path x:Name="selectRegion" Fill="{StaticResource ApplicationPageBackgroundThemeBrush}" Opacity="0">
+                                <Path.Data>
+                                    <RectangleGeometry Rect="{Binding SelectedRect, Mode=OneWay}"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="topLeftCorner" Tag="TopLeftCorner" 
+                                                Canvas.Left="{Binding Path=TopLeftCornerCanvasLeft,Mode=OneWay}" 
+                                                Canvas.Top="{Binding Path=TopLeftCornerCanvasTop,Mode=OneWay}"/>
+                            <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="topRightCorner" Tag="TopRightCorner"
+                                                Canvas.Left="{Binding Path=BottomRightCornerCanvasLeft,Mode=OneWay}" 
+                                                Canvas.Top="{Binding Path=TopLeftCornerCanvasTop,Mode=OneWay}" />
+                            <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="bottomLeftCorner" Tag="BottomLeftCorner" 
+                                                Canvas.Left="{Binding Path=TopLeftCornerCanvasLeft,Mode=OneWay}" 
+                                                Canvas.Top="{Binding Path=BottomRightCornerCanvasTop,Mode=OneWay}" />
+                            <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="bottomRightCorner" Tag="BottomRightCorner" 
+                                                Canvas.Left="{Binding Path=BottomRightCornerCanvasLeft,Mode=OneWay}"
+                                                Canvas.Top="{Binding Path=BottomRightCornerCanvasTop,Mode=OneWay}"/>
+                        </Canvas>
+                    </Grid>
                 </Border>
             </StackPanel>
         </Border>
@@ -1305,6 +1336,17 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
+        <Border BorderThickness="0,0,2,0" Margin="0" Background="#FF515050" Grid.Row="1" HorizontalAlignment="Left" Grid.RowSpan="2">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+        </Border>
         <Border BorderThickness="0,0,0,2" Margin="0" Background="#FF515050">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1322,28 +1364,45 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="Logo" Margin="20,10,20,0" Source="Assets/RemedyPicLogo.png" Grid.ColumnSpan="2" VerticalAlignment="Top">
-                <Image.Transitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition/>
-                    </TransitionCollection>
-                </Image.Transitions>
-            </Image>
-            <Border BorderThickness="0,0,0,2" Margin="0,120,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
-                <Border.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF21FF00"/>
-                        <GradientStop Color="#FF218900" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-                <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
-                    <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
+            <StackPanel Grid.ColumnSpan="2" Margin="0" Orientation="Vertical">
+                <Image x:Name="Logo" Margin="20,10,20,0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Image.Transitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition/>
+                        </TransitionCollection>
+                    </Image.Transitions>
+                </Image>
+                <Border BorderThickness="0,0,0,2" VerticalAlignment="Top">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF21FF00"/>
+                            <GradientStop Color="#FF218900" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
+                        <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
+                    </StackPanel>
+                </Border>
+                <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
+                    <StackPanel Orientation="Horizontal" Width="100" HorizontalAlignment="Center">
+                        <Button x:Name="ZoomIn" Content="&#xE1A3;" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="14" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White"/>
+                        <Button x:Name="ZoomOut" Visibility="Collapsed" Content="&#xE1A4;" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="14" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <Button x:Name="ResetZoom" Content="Reset" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="White" Height="40" BorderThickness="1" BorderBrush="White" Background="#33FFFFFF" Margin="0" Width="100"/>
+                    <CheckBox x:Name="AvailableZoom" IsChecked="False" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left" Checked="MoveChecked" Unchecked="MoveUnchecked" HorizontalAlignment="Center"/>
+
                 </StackPanel>
-            </Border>
+                <StackPanel x:Name="CropPanel" Margin="0" Orientation="Vertical" Visibility="Collapsed">
+                    <Button x:Name="CropApply" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="saveImageButton_Click" Foreground="White" Height="40" BorderThickness="1" BorderBrush="White" Background="#19FFFFFF" Visibility="Collapsed"/>
+                    <Border Background="#7F000000" Margin="5">
+                        <TextBlock x:Name="selectInfoInBitmapText" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="White" />
+                    </Border>
+                </StackPanel>
+            </StackPanel>
         </Grid>
         <Grid x:Name="contentGrid" Margin="0,0,-38.571,3.429" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
             <Grid.RowDefinitions>
@@ -1691,15 +1750,6 @@
                                 </TransitionCollection>
                             </Image.Transitions>
                         </Image>
-                        <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal" Width="150">
-                                <Button x:Name="ZoomIn" Content="&#xE1A3;" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="25" BorderThickness="1" BorderBrush="#33FFFFFF" Width="70" FontFamily="Segoe UI Symbol" Height="70" Foreground="White"/>
-                                <Button x:Name="ZoomOut" Visibility="Collapsed" Content="&#xE1A4;" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="25" BorderThickness="1" BorderBrush="#33FFFFFF" Width="70" FontFamily="Segoe UI Symbol" Height="70" Foreground="White" Margin="5,0,0,0"/>
-                            </StackPanel>
-                            <Button x:Name="ResetZoom" Content="Reset" HorizontalAlignment="Stretch" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <CheckBox x:Name="AvailableZoom" IsChecked="False" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left" Checked="MoveChecked" Unchecked="MoveUnchecked"/>
-
-                        </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
@@ -1903,7 +1953,7 @@
         </Grid>
 
         <!-- Back button and page title -->
-        <StackPanel x:Name="Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Height="49" Margin="161,0.857,161.857,-0.571" Width="820">
+        <StackPanel x:Name="Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Margin="0">
             <ToggleButton x:Name="SelectFilters" Content="Filters" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="3,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                 <ToggleButton.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1937,17 +1987,6 @@
                     </LinearGradientBrush>
                 </ToggleButton.BorderBrush>
             </ToggleButton>
-            <ToggleButton x:Name="SelectZoom" Content="Zoom" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ZoomUnchecked" Checked="ZoomChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
-                <ToggleButton.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#B23CCF00"/>
-                        <GradientStop Color="#B23CDF00" Offset="1"/>
-                    </LinearGradientBrush>
-                </ToggleButton.BorderBrush>
-            </ToggleButton>
             <ToggleButton x:Name="SelectColorize" Content="Colorize" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ColorizeUnchecked" Checked="ColorizeChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                 <ToggleButton.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1971,6 +2010,17 @@
                 </ToggleButton.BorderBrush>
             </ToggleButton>
             <ToggleButton x:Name="SelectHistogram" Content="Histogram" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="120" Unchecked="HistogramUnchecked" Checked="HistogramChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
+                <ToggleButton.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#B23CEF00"/>
+                        <GradientStop Color="#B23CFF00" Offset="1"/>
+                    </LinearGradientBrush>
+                </ToggleButton.BorderBrush>
+            </ToggleButton>
+            <ToggleButton x:Name="SelectCrop" Content="Crop" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="CropUnchecked" Checked="CropChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,-1,0,0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                 <ToggleButton.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <LinearGradientBrush.RelativeTransform>
