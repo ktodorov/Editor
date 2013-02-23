@@ -392,18 +392,18 @@ namespace RemedyPic.Common
         // Main function
         public void Frames_StandartAngle(double Color)
         {
-            Frames_DarknessAngleSetUpLeftAngle(Color); 
-            Frames_DarknessAngleSetUpRightAngle(Color);
-            Frames_DarknessAngleSetDownLeftAngle(Color);
-            Frames_DarknessAngleSetDownRightAngle(Color);
+            int FrameWidth = Frames_GetFrameWidth(5);
+            Frames_DarknessAngleSetUpLeftAngle(Color, 4 * FrameWidth + 4 * _width * (FrameWidth * 2), FrameWidth);
+            Frames_DarknessAngleSetUpRightAngle(Color, 4 * (_width - 3 * FrameWidth) + 4 * _width * (FrameWidth * 2 - 1), FrameWidth);
+            Frames_DarknessAngleSetDownLeftAngle(Color, 4 * _width * (_height - (FrameWidth * 2)) + 4 * FrameWidth, FrameWidth);
+            Frames_DarknessAngleSetDownRightAngle(Color, 4 * (_width - 3 * FrameWidth) + 4 * _width * (_height - (FrameWidth * 2 - 1)), FrameWidth);
         }
 
         // Set the pixels of Up Left angle of the image
-        public void Frames_DarknessAngleSetUpLeftAngle(double Color)
+        public void Frames_DarknessAngleSetUpLeftAngle(double Color, int Center, int FrameWidth)
         {
-            int FrameWidth = Frames_GetFrameWidth(5), StartIndex, EndIndex;
+            int StartIndex, EndIndex;
             double X, Y, angle = 0;
-            int Center = 4 * FrameWidth + 4 * _width * (FrameWidth * 2);
 
             for (double degrees = 90.0; degrees < 180.0; degrees += 45.0 / (double)FrameWidth)
             {
@@ -417,11 +417,10 @@ namespace RemedyPic.Common
         }
 
         // Set the pixels of Up Right angle of the image
-        public void Frames_DarknessAngleSetUpRightAngle(double Color)
+        public void Frames_DarknessAngleSetUpRightAngle(double Color, int Center, int FrameWidth)
         {
-            int FrameWidth = Frames_GetFrameWidth(5), StartIndex, EndIndex;
+            int StartIndex, EndIndex;
             double X, Y, angle = 0;
-            int Center = 4 * (_width - 3 * FrameWidth) + 4 * _width * (FrameWidth * 2 - 1);
 
             for (double degrees = 0.0; degrees < 90.0; degrees += 45.0 / (double)FrameWidth)
             {
@@ -435,11 +434,10 @@ namespace RemedyPic.Common
         }
 
         // Set the pixels of Down Left angle of the image
-        public void Frames_DarknessAngleSetDownLeftAngle(double Color)
+        public void Frames_DarknessAngleSetDownLeftAngle(double Color, int Center, int FrameWidth)
         {
-            int FrameWidth = Frames_GetFrameWidth(5), StartIndex, EndIndex;
+            int StartIndex, EndIndex;
             double X, Y, angle = 0;
-            int Center = 4 * _width * (_height - (FrameWidth * 2)) + 4 * FrameWidth;
 
             for (double degrees = 180.0; degrees < 270.0; degrees += 45.0 / (double)FrameWidth)
             {
@@ -453,11 +451,10 @@ namespace RemedyPic.Common
         }
 
         // Set the pixels of Down Right angle of the image
-        public void Frames_DarknessAngleSetDownRightAngle(double Color)
+        public void Frames_DarknessAngleSetDownRightAngle(double Color, int Center, int FrameWidth)
         {
-            int FrameWidth = Frames_GetFrameWidth(5), StartIndex, EndIndex;
+            int StartIndex, EndIndex;
             double X, Y, angle = 0;
-            int Center = 4 * (_width - 3 * FrameWidth) + 4 * _width * (_height - (FrameWidth * 2 - 1));
 
             for (double degrees = 270.0; degrees < 360.0; degrees += 45.0 / (double)FrameWidth)
             {
@@ -473,7 +470,7 @@ namespace RemedyPic.Common
         // Set the pixel values of all pixels between start and end index
         public void Frames_DarknessAngleSetRow(int StartIndex, int EndIndex, double Color)
         {
-            for (int index = StartIndex; index < EndIndex; index += 4)
+            for (int index = StartIndex; index < EndIndex && index < _dstPixels.Length; index += 4)
             {
                 _dstPixels[index] = (byte)Color;
                 _dstPixels[index + 1] = (byte)Color;
@@ -488,6 +485,18 @@ namespace RemedyPic.Common
         }
         #endregion
 
+        #region Angle
+        // Main function
+        public void Frames_Angle(double Color)
+        {
+            int FrameWidth = Frames_GetFrameWidth(20);
+            Frames_DarknessAngleSetUpLeftAngle(Color, 4 * _width * FrameWidth, FrameWidth);
+            Frames_DarknessAngleSetUpRightAngle(Color, 4 * _width * FrameWidth + 4 * (_width - FrameWidth * 2), FrameWidth);
+            Frames_DarknessAngleSetDownLeftAngle(Color, 4 * _width * (_height - FrameWidth) , FrameWidth);
+            Frames_DarknessAngleSetDownRightAngle(Color, 4 * _width * (_height - FrameWidth) + 4 * (_width - FrameWidth * 2), FrameWidth);
+        }
+
+        #endregion
         #endregion
 
         #region Sharpen1

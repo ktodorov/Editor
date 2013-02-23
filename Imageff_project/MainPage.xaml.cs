@@ -1610,7 +1610,7 @@ namespace RemedyPic
                 imageOriginal.Frames_StandardTopSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
                 imageOriginal.Frames_StandardRightSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
                 imageOriginal.Frames_StandardBottomSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandartAngle(255); // 255 for Black color
+                imageOriginal.Frames_StandartAngle(255); // 255 for White color
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1639,6 +1639,28 @@ namespace RemedyPic
                 imageOriginal.Frames_StandardTopSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
                 imageOriginal.Frames_StandardRightSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
                 imageOriginal.Frames_StandardBottomSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnAngleBlackClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_Angle(0); // 0 for Black color
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnAngleWhiteClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_Angle(255); // 255 for White color
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
