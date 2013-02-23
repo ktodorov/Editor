@@ -1793,9 +1793,9 @@
                             <Button x:Name="ReturnOriginalButton" Content="Return the original image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="ReturnOriginal_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
                             <ToggleButton x:Name="Resize" Content="Change your image resolution" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ToggleButtonStyle1}" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Checked="Resize_Checked" Unchecked="Resize_Unchecked"/>
                             <StackPanel x:Name="ResizePanel" Margin="10,0" Visibility="Collapsed">
-                                <Slider x:Name="ResizeSlider" Width="200" Value="4" ValueChanged="ResizeSlider_Changed" Style="{StaticResource SliderStyle1}" Minimum="1" Maximum="4" VerticalAlignment="Center" Foreground="#7F6AF740" LargeChange="1"/>
-                                <TextBlock x:Name="NewResolution" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource ItemTextStyle}" VerticalAlignment="Top" Foreground="White"/>
-                                <Button x:Name="ApplyResize" Content="Resize" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}" BorderThickness="0,0,0,2" Click="ApplyResize_Clicked" BorderBrush="White" Foreground="White"/>
+                                <Slider x:Name="ResizeSlider" IsThumbToolTipEnabled="False" Width="200" Value="6" ValueChanged="ResizeSlider_Changed" Style="{StaticResource SliderStyle1}" Minimum="1" Maximum="6" VerticalAlignment="Center" Foreground="#7F6AF740" LargeChange="1"/>
+                                <TextBlock x:Name="NewResolution" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource ItemTextStyle}" VerticalAlignment="Top" Foreground="White" Margin="0,-25,0,0"/>
+                                <Button x:Name="ApplyResize" Content="Resize" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}" BorderThickness="0,0,0,2" Click="ApplyResize_Clicked" BorderBrush="White" Foreground="White" Visibility="Collapsed"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

@@ -308,7 +308,7 @@ namespace RemedyPic
             displayImage.Source = bitmapImage;
             AvailableZoom.IsChecked = true;
 
-            NewResolution.Text = string.Format("New Resolution: {0}x{1} (current)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+            NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
         }
 
         private void setPopupsHeight()
@@ -2485,20 +2485,27 @@ namespace RemedyPic
         {
             if (pictureIsLoaded)
             {
+                ApplyResize.Visibility = Visibility.Visible;
                 int value = (int)ResizeSlider.Value;
                 switch (value)
                 {
                     case 1:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", bitmapImage.PixelWidth / 4, bitmapImage.PixelHeight / 4);
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 6, sourceImagePixelHeight / 6);
                         break;
                     case 2:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", bitmapImage.PixelWidth / 3, bitmapImage.PixelHeight / 3);
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 5, sourceImagePixelHeight / 5);
                         break;
                     case 3:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", bitmapImage.PixelWidth / 2, bitmapImage.PixelHeight / 2);
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 4, sourceImagePixelHeight / 4);
                         break;
                     case 4:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 3, sourceImagePixelHeight / 3);
+                        break;
+                    case 5:
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 2, sourceImagePixelHeight / 2);
+                        break;
+                    case 6:
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", sourceImagePixelWidth, sourceImagePixelHeight);
                         break;
                     default:
                         break;
@@ -2519,22 +2526,32 @@ namespace RemedyPic
         private async void ApplyResize_Clicked(object sender, RoutedEventArgs e)
         {
             int resizeValue = (int)ResizeSlider.Value;
+            ApplyResize.Visibility = Visibility.Collapsed;
             switch (resizeValue)
             {
                 case 1:
-                    resizeValue = 4;
+                    resizeValue = 6;
                     break;
                 case 2:
-                    resizeValue = 3;
+                    resizeValue = 5;
                     break;
                 case 3:
+                    resizeValue = 4;
+                    break;
+                case 4:
+                    resizeValue = 3;
+                    break;
+                case 5:
                     resizeValue = 2;
                     break;
+                case 6:
+                    RestoreOriginalBitmap();
+                    return;
                 default:
                     break;
             }
 
-            bitmapImage = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / resizeValue), (uint)(bitmapImage.PixelHeight / resizeValue));
+            bitmapImage = await ResizeImage(bitmapImage, (uint)(sourceImagePixelWidth / resizeValue), (uint)(sourceImagePixelHeight / resizeValue));
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
             imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
             image.srcPixels = new byte[(uint)exampleStream.Length];
@@ -2542,7 +2559,7 @@ namespace RemedyPic
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
             displayImage.Source = bitmapImage;
-            doAllCalculations();
+            setFilterBitmaps();
         }
 
 
