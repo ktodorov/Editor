@@ -1614,6 +1614,34 @@ namespace RemedyPic
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
+
+        private void OnStandartBlackClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_StandardLeftSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
+                imageOriginal.Frames_StandardTopSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
+                imageOriginal.Frames_StandardRightSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
+                imageOriginal.Frames_StandardBottomSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnStandartWhiteClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_StandardLeftSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
+                imageOriginal.Frames_StandardTopSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
+                imageOriginal.Frames_StandardRightSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
+                imageOriginal.Frames_StandardBottomSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
         #endregion
 
         private void OnRotateClick(object sender, RoutedEventArgs e)
