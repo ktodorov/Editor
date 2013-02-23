@@ -379,12 +379,18 @@ namespace RemedyPic.Common
         // Set B G R value of the pixel
         public void Frames_SmoothDarknessSetPixelValues(int CurrentByte, double darkness)
         {
-            if (_dstPixels[CurrentByte] > srcPixels[CurrentByte] * darkness || _dstPixels[CurrentByte] == _srcPixels[CurrentByte]) // Check if the pixel is brighter
+            if (Frames_CheckForBrighterPixel(CurrentByte, darkness)) 
             {
                 _dstPixels[CurrentByte] = (byte)(_srcPixels[CurrentByte] * darkness);
                 _dstPixels[CurrentByte + 1] = (byte)(_srcPixels[CurrentByte + 1] * darkness);
                 _dstPixels[CurrentByte + 2] = (byte)(_srcPixels[CurrentByte + 2] * darkness);
             }
+        }
+
+        // Check if the pixel is brighter
+        public bool Frames_CheckForBrighterPixel(int CurrentByte, double darkness)
+        {
+            return _dstPixels[CurrentByte] > srcPixels[CurrentByte] * darkness || _dstPixels[CurrentByte + 1] > srcPixels[CurrentByte + 1] * darkness || _dstPixels[CurrentByte + 2] > srcPixels[CurrentByte + 2] * darkness;
         }
         #endregion
 

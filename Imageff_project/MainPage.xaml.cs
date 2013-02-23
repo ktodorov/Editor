@@ -1665,6 +1665,27 @@ namespace RemedyPic
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
+
+        
+        private void OnFramesApplyClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnFramesOriginalClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
         #endregion
 
         private void OnRotateClick(object sender, RoutedEventArgs e)

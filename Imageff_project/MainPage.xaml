@@ -1903,23 +1903,29 @@
                             <Button x:Name="RightSideButton" Content="Right" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRightSideClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="BottomSideButton" Content="Bottom" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnBottomSideClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
-                        <StackPanel x:Name="FramesApplyReset1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
+                        <StackPanel x:Name="FramesApplyReset1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
                             <Button x:Name="DarknessFourSidesButton" Content="All" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessFourSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>                            
                             <Button x:Name="DarknessTopBottomSideButton" Content="Top and Bottom" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessTopBottomSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="DarknessLeftRightSideButton" Content="Left and Right" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessLeftRightSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
-                        <StackPanel x:Name="Darknesssssss" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
+                        <StackPanel x:Name="Darknesssssss" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
                             <Button x:Name="SmoothDarknessButton" Content="SmoothDarkness" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnSmoothDarknessClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>                          
                         </StackPanel>
-                        <StackPanel x:Name="StandartFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
+                        <StackPanel x:Name="StandartFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
                             <Button x:Name="StandartBlack" Content="St black" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnStandartBlackClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="StandartWhite" Content="St white" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnStandartWhiteClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                        </StackPanel>
+                        <StackPanel x:Name="StandartSmoothAngleFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
                             <Button x:Name="StandartSmoothAngleBlack" Content="St angle black" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnStandartAngleBlackClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="StandartSmoothAngleWhite" Content="St angle white" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnStandartAngleWhiteClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
-                        <StackPanel x:Name="SmoothAngleFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
+                        <StackPanel x:Name="SmoothAngleFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
                             <Button x:Name="AngleBlack" Content="Angle black" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnAngleBlackClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="AngleWhite" Content="Angle white" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnAngleWhiteClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                        </StackPanel>
+                        <StackPanel x:Name="ApplyOriginal" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,40,0,0">
+                            <Button x:Name="Apply" Content="Apply" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnFramesApplyClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:Name="Original" Content="Original" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnFramesOriginalClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
