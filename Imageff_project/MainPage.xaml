@@ -1285,10 +1285,8 @@
                             <Path x:Name="nonselectRegion" Fill="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Opacity="1" Stroke="White">
                                 <Path.Data>
                                     <GeometryGroup>
-                                        <RectangleGeometry Rect="{Binding OuterRect,Mode=OneWay}">
-                                        </RectangleGeometry>
-                                        <RectangleGeometry Rect="{Binding SelectedRect,Mode=OneWay}">
-                                        </RectangleGeometry>
+                                        <RectangleGeometry Rect="{Binding OuterRect, Mode=OneWay}"/>
+                                        <RectangleGeometry Rect="{Binding SelectedRect, Mode=OneWay}"/>
                                     </GeometryGroup>
                                 </Path.Data>
                             </Path>
@@ -1298,18 +1296,19 @@
                                 </Path.Data>
                             </Path>
                             <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="topLeftCorner" Tag="TopLeftCorner" 
-                                                Canvas.Left="{Binding Path=TopLeftCornerCanvasLeft,Mode=OneWay}" 
-                                                Canvas.Top="{Binding Path=TopLeftCornerCanvasTop,Mode=OneWay}"/>
+                                                Canvas.Left="{Binding TopLeftCornerCanvasLeft, Mode=OneWay}" 
+                                                Canvas.Top="{Binding TopLeftCornerCanvasTop, Mode=OneWay}"/>
                             <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="topRightCorner" Tag="TopRightCorner"
-                                                Canvas.Left="{Binding Path=BottomRightCornerCanvasLeft,Mode=OneWay}" 
-                                                Canvas.Top="{Binding Path=TopLeftCornerCanvasTop,Mode=OneWay}" />
+                                                Canvas.Left="{Binding BottomRightCornerCanvasLeft, Mode=OneWay}" 
+                                                Canvas.Top="{Binding TopLeftCornerCanvasTop, Mode=OneWay}" />
                             <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="bottomLeftCorner" Tag="BottomLeftCorner" 
-                                                Canvas.Left="{Binding Path=TopLeftCornerCanvasLeft,Mode=OneWay}" 
-                                                Canvas.Top="{Binding Path=BottomRightCornerCanvasTop,Mode=OneWay}" />
+                                                Canvas.Left="{Binding TopLeftCornerCanvasLeft, Mode=OneWay}" 
+                                                Canvas.Top="{Binding BottomRightCornerCanvasTop, Mode=OneWay}" />
                             <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="bottomRightCorner" Tag="BottomRightCorner" 
-                                                Canvas.Left="{Binding Path=BottomRightCornerCanvasLeft,Mode=OneWay}"
-                                                Canvas.Top="{Binding Path=BottomRightCornerCanvasTop,Mode=OneWay}"/>
+                                                Canvas.Left="{Binding BottomRightCornerCanvasLeft, Mode=OneWay}"
+                                                Canvas.Top="{Binding BottomRightCornerCanvasTop, Mode=OneWay}"/>
                         </Canvas>
+                        <ProgressRing x:Name="ImageLoadingRing" HorizontalAlignment="Center" IsActive="False" VerticalAlignment="Center" Width="60" Height="60" Margin="0" Foreground="White"/>
                     </Grid>
                 </Border>
             </StackPanel>
@@ -1792,6 +1791,12 @@
                             <Button x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetLockPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
                             <Button x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetAccountPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
                             <Button x:Name="ReturnOriginalButton" Content="Return the original image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="ReturnOriginal_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
+                            <ToggleButton x:Name="Resize" Content="Change your image resolution" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ToggleButtonStyle1}" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Checked="Resize_Checked" Unchecked="Resize_Unchecked"/>
+                            <StackPanel x:Name="ResizePanel" Margin="10,0" Visibility="Collapsed">
+                                <Slider x:Name="ResizeSlider" IsThumbToolTipEnabled="False" Width="200" Value="6" ValueChanged="ResizeSlider_Changed" Style="{StaticResource SliderStyle1}" Minimum="1" Maximum="6" VerticalAlignment="Center" Foreground="#7F6AF740" LargeChange="1"/>
+                                <TextBlock x:Name="NewResolution" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource ItemTextStyle}" VerticalAlignment="Top" Foreground="White" Margin="0,-25,0,0"/>
+                                <Button x:Name="ApplyResize" Content="Resize" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}" BorderThickness="0,0,0,2" Click="ApplyResize_Clicked" BorderBrush="White" Foreground="White" Visibility="Collapsed"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
