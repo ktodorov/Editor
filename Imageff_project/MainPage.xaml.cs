@@ -322,6 +322,7 @@ namespace RemedyPic
             Colorize.Height = PopupColorize.ActualHeight + 5;
             Frames.Height = PopupFrames.ActualHeight + 5;
             Histogram.Height = PopupHistogram.ActualHeight + 5;
+            FeedbackGrid.Height = Feedback.ActualHeight + 5;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
             imagePanel.MaxWidth = imageBorder.ActualWidth - 10;
