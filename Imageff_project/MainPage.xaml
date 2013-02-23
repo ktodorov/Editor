@@ -1856,7 +1856,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Frames" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                <ScrollViewer x:Name="Frames" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="868">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1866,7 +1866,7 @@
                             <GradientStop Color="#FF215500" Offset="1"/>
                         </LinearGradientBrush>
                     </ScrollViewer.BorderBrush>
-                    <StackPanel x:Name="FramesPanel" VerticalAlignment="Top" Width="340" Height="739">
+                    <StackPanel x:Name="FramesPanel" VerticalAlignment="Top" Width="340" Height="858">
                         <StackPanel.Transitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition/>
@@ -1904,9 +1904,11 @@
                             <Button x:Name="DarknessLeftRightSideButton" Content="Left and Right" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessLeftRightSidesClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
                         <StackPanel x:Name="Darknesssssss" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
-                            <Button x:Name="SmoothDarknessButton" Content="SmoothDarkness" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnSmoothDarknessClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="DarknessAngleButton" Content="Darkness Angle" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnDarknessAngleClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-
+                            <Button x:Name="SmoothDarknessButton" Content="SmoothDarkness" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnSmoothDarknessClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>                          
+                        </StackPanel>
+                        <StackPanel x:Name="SmoothAngleFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
+                            <Button x:Name="StandartSmoothAngleBlack" Content="St angle black" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnStandartAngleBlackClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:Name="StandartSmoothAngleWhite" Content="St angle white" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnStandartAngleWhiteClick" Foreground="Black" Height="34" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

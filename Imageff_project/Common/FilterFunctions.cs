@@ -379,7 +379,7 @@ namespace RemedyPic.Common
         // Set B G R value of the pixel
         public void Frames_SmoothDarknessSetPixelValues(int CurrentByte, double darkness)
         {
-            if (_dstPixels[CurrentByte] > _srcPixels[CurrentByte] * darkness) // Check if the pixel is brighter
+            if (_dstPixels[CurrentByte] > srcPixels[CurrentByte] * darkness || _dstPixels[CurrentByte] == _srcPixels[CurrentByte]) // Check if the pixel is brighter
             {
                 _dstPixels[CurrentByte] = (byte)(_srcPixels[CurrentByte] * darkness);
                 _dstPixels[CurrentByte + 1] = (byte)(_srcPixels[CurrentByte + 1] * darkness);
@@ -390,39 +390,101 @@ namespace RemedyPic.Common
 
         #region Darkness Angle
         // Main function
-        public void Frames_DarknessAngle()
+        public void Frames_StandartAngle(double Color)
         {
-            double darkness = 0.1;
-            double degrees = 90.0;
-            double angle;
-            double X, Y = 0;
-            double FrameWidth = Frames_DarknessAngleGetFrameWidth();
-
-            for (; degrees < 180.0; )
-            {
-                angle = Math.PI * degrees / 180.0;
-                X = FrameWidth - Math.Cos(angle) * FrameWidth;
-                Y = FrameWidth - Math.Sin(angle) * FrameWidth;
-                Frames_DarknessAngleUpLeftAngle(4 * _width * (int)Y - 4 * (int)X, darkness);
-                degrees += 90.0 / FrameWidth;
-                _dstPixels[4 * _width * (int)Y - 4 * (int)X] = (byte)(144);
-                _dstPixels[4 * _width * (int)Y - 4 * (int)X  + 1] = (byte)(144);
-                _dstPixels[4 * _width * (int)Y - 4 * (int)X  + 2] = (byte)(144);
-            }   
+            Frames_DarknessAngleSetUpLeftAngle(Color); 
+            Frames_DarknessAngleSetUpRightAngle(Color);
+            Frames_DarknessAngleSetDownLeftAngle(Color);
+            Frames_DarknessAngleSetDownRightAngle(Color);
         }
 
-        public void Frames_DarknessAngleUpLeftAngle(int CurrentByte, double darkness)
-        {             
-         //   _dstPixels[CurrentByte] = (byte)(_srcPixels[CurrentByte] * darkness);
-         //   _dstPixels[CurrentByte + 1] = (byte)(_srcPixels[CurrentByte + 1] * darkness);
-         //   _dstPixels[CurrentByte + 2] = (byte)(_srcPixels[CurrentByte + 2] * darkness);
-            
+        // Set the pixels of Up Left angle of the image
+        public void Frames_DarknessAngleSetUpLeftAngle(double Color)
+        {
+            int FrameWidth = Frames_GetFrameWidth(5), StartIndex, EndIndex;
+            double X, Y, angle = 0;
+            int Center = 4 * FrameWidth + 4 * _width * (FrameWidth * 2);
+
+            for (double degrees = 90.0; degrees < 180.0; degrees += 45.0 / (double)FrameWidth)
+            {
+                angle = Math.PI * degrees / 180.0;
+                X = Math.Round((double)FrameWidth * Math.Cos(angle));
+                Y = Math.Round((double)FrameWidth * Math.Sin(angle));
+                StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) - 4 * (FrameWidth + (int)X);
+                EndIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
+                Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
+            }
+        }
+
+        // Set the pixels of Up Right angle of the image
+        public void Frames_DarknessAngleSetUpRightAngle(double Color)
+        {
+            int FrameWidth = Frames_GetFrameWidth(5), StartIndex, EndIndex;
+            double X, Y, angle = 0;
+            int Center = 4 * (_width - 3 * FrameWidth) + 4 * _width * (FrameWidth * 2 - 1);
+
+            for (double degrees = 0.0; degrees < 90.0; degrees += 45.0 / (double)FrameWidth)
+            {
+                angle = Math.PI * degrees / 180.0;
+                X = Math.Round((double)FrameWidth * Math.Cos(angle));
+                Y = Math.Round((double)FrameWidth * Math.Sin(angle));
+                StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
+                EndIndex =   Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) + 4 * (FrameWidth - (int)X);
+                Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
+            }
+        }
+
+        // Set the pixels of Down Left angle of the image
+        public void Frames_DarknessAngleSetDownLeftAngle(double Color)
+        {
+            int FrameWidth = Frames_GetFrameWidth(5), StartIndex, EndIndex;
+            double X, Y, angle = 0;
+            int Center = 4 * _width * (_height - (FrameWidth * 2)) + 4 * FrameWidth;
+
+            for (double degrees = 180.0; degrees < 270.0; degrees += 45.0 / (double)FrameWidth)
+            {
+                angle = Math.PI * degrees / 180.0;
+                X = Math.Round((double)FrameWidth * Math.Cos(angle));
+                Y = Math.Round((double)FrameWidth * Math.Sin(angle));
+                StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) - 4 * (FrameWidth + (int)X);
+                EndIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
+                Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
+            }
+        }
+
+        // Set the pixels of Down Right angle of the image
+        public void Frames_DarknessAngleSetDownRightAngle(double Color)
+        {
+            int FrameWidth = Frames_GetFrameWidth(5), StartIndex, EndIndex;
+            double X, Y, angle = 0;
+            int Center = 4 * (_width - 3 * FrameWidth) + 4 * _width * (_height - (FrameWidth * 2 - 1));
+
+            for (double degrees = 270.0; degrees < 360.0; degrees += 45.0 / (double)FrameWidth)
+            {
+                angle = Math.PI * degrees / 180.0;
+                X = Math.Round((double)FrameWidth * Math.Cos(angle));
+                Y = Math.Round((double)FrameWidth * Math.Sin(angle));
+                StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
+                EndIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) + 4 * (FrameWidth - (int)X);
+                Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
+            }
+        }
+
+        // Set the pixel values of all pixels between start and end index
+        public void Frames_DarknessAngleSetRow(int StartIndex, int EndIndex, double Color)
+        {
+            for (int index = StartIndex; index < EndIndex; index += 4)
+            {
+                _dstPixels[index] = (byte)Color;
+                _dstPixels[index + 1] = (byte)Color;
+                _dstPixels[index + 2] = (byte)Color;
+            }     
         }
 
         // Calculate the width of the frame
-        public double Frames_DarknessAngleGetFrameWidth()
+        public int Frames_GetFrameWidth(int percent)
         {
-            return ((_width + _height) / 2 * 20) / 100;
+            return ((_width + _height) / 2 * percent) / 100;
         }
         #endregion
 
