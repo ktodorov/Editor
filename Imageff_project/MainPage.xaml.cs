@@ -307,6 +307,8 @@ namespace RemedyPic
             setPopupsHeight();
             displayImage.Source = bitmapImage;
             AvailableZoom.IsChecked = true;
+
+            NewResolution.Text = string.Format("New Resolution: {0}x{1} (current)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
         }
 
         private void setPopupsHeight()
@@ -1119,6 +1121,7 @@ namespace RemedyPic
         #region Apply Buttons
         private void OnFilterApplyClick(object sender, RoutedEventArgs e)
         {
+            ImageLoadingRing.IsActive = true;
             FilterApplyReset.Visibility = Visibility.Collapsed;
             SelectFilters.IsChecked = false;
             switch (appliedFilters)
@@ -1195,10 +1198,12 @@ namespace RemedyPic
             setFilterBitmaps();
             appliedFilters = null;
             deselectFilters();
+            ImageLoadingRing.IsActive = false;
         }
 
         private void OnColorApplyClick(object sender, RoutedEventArgs e)
         {
+            ImageLoadingRing.IsActive = true;
             ColorApplyReset.Visibility = Visibility.Collapsed;
             SelectColors.IsChecked = false;
             switch (appliedColors)
@@ -1255,10 +1260,12 @@ namespace RemedyPic
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps();
             appliedColors = null;
+            ImageLoadingRing.IsActive = false;
         }
 
         private void OnRotateApplyClick(object sender, RoutedEventArgs e)
         {
+            ImageLoadingRing.IsActive = true;
             SelectRotations.IsChecked = false;
             switch (appliedRotations)
             {
@@ -1282,16 +1289,19 @@ namespace RemedyPic
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps();
             appliedRotations = null;
+            ImageLoadingRing.IsActive = false;
         }
 
         private void OnColorizeApplyClick(object sender, RoutedEventArgs e)
         {
+            ImageLoadingRing.IsActive = true;
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps();
             appliedColorize = null;
             deselectColorizeListItems();
             SelectColorize.IsChecked = false;
+            ImageLoadingRing.IsActive = false;
         }
 
         #endregion
@@ -2147,8 +2157,11 @@ namespace RemedyPic
             bitmapImage = uneditedBitmap;
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
+            displayImage.Source = bitmapImage;
             setFilterBitmaps();
             resetInterface();
+            this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
+            this.selectedRegion.OuterRect = Rect.Empty;
         }
 
         #endregion
@@ -2299,13 +2312,14 @@ namespace RemedyPic
         {
             CropPanel.Visibility = Visibility.Collapsed;
             imageCanvas.Visibility = Visibility.Collapsed;
-            this.selectedRegion.ResetCorner(0, 0, bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+            this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
             this.selectedRegion.OuterRect = Rect.Empty;
             displayGrid.Margin = new Thickness(0);
         }
 
         async void UpdatePreviewImage()
         {
+            ImageLoadingRing.IsActive = true;
             await SaveFile(false);
 
             double sourceImageWidthScale = imageCanvas.Width / this.sourceImagePixelWidth;
@@ -2345,14 +2359,16 @@ namespace RemedyPic
             setStream(exampleStream, exampleBitmap, image);
             setElements(ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
-            
+
             setFilterBitmaps();
-            
-            displayImage.Source = bitmapImage;
+
             SelectCrop.IsChecked = false;
 
             sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
             sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
+
+            ImageLoadingRing.IsActive = false;
+            displayImage.Source = bitmapImage;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -2463,6 +2479,70 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectFilters.IsChecked = false;
             SelectCrop.IsChecked = false;
+        }
+
+        private void ResizeSlider_Changed(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                int value = (int)ResizeSlider.Value;
+                switch (value)
+                {
+                    case 1:
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", bitmapImage.PixelWidth / 4, bitmapImage.PixelHeight / 4);
+                        break;
+                    case 2:
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", bitmapImage.PixelWidth / 3, bitmapImage.PixelHeight / 3);
+                        break;
+                    case 3:
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", bitmapImage.PixelWidth / 2, bitmapImage.PixelHeight / 2);
+                        break;
+                    case 4:
+                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void Resize_Checked(object sender, RoutedEventArgs e)
+        {
+            ResizePanel.Visibility = Visibility.Visible;
+        }
+
+        private void Resize_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ResizePanel.Visibility = Visibility.Collapsed;
+        }
+
+        private async void ApplyResize_Clicked(object sender, RoutedEventArgs e)
+        {
+            int resizeValue = (int)ResizeSlider.Value;
+            switch (resizeValue)
+            {
+                case 1:
+                    resizeValue = 4;
+                    break;
+                case 2:
+                    resizeValue = 3;
+                    break;
+                case 3:
+                    resizeValue = 2;
+                    break;
+                default:
+                    break;
+            }
+
+            bitmapImage = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / resizeValue), (uint)(bitmapImage.PixelHeight / resizeValue));
+            bitmapStream = bitmapImage.PixelBuffer.AsStream();
+            imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
+            image.srcPixels = new byte[(uint)exampleStream.Length];
+            await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
+            displayImage.Source = bitmapImage;
+            doAllCalculations();
         }
 
 
