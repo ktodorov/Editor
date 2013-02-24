@@ -41,7 +41,7 @@ namespace RemedyPic
         private string mruToken = null;
         StorageFile file;
         private string appliedFilters = null, appliedColors = null,
-                           appliedRotations = null, appliedFrameColor = null;
+                           appliedRotations = null, appliedFrameColor = null, appliedFrame = null;
         // bitmapImage is the image that is edited in RemedyPic.
         private WriteableBitmap bitmapImage, exampleBitmap;
 
@@ -1579,6 +1579,23 @@ namespace RemedyPic
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_Angle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value); 
                 setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnApplyFramesClick(object sender, RoutedEventArgs e)
+        {
+            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();            
+        }
+
+        private void OnResetFramesClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                FrameWidthPercent.Value = 1;
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.Reset();
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+                resetInterface();
             }
         }
 
