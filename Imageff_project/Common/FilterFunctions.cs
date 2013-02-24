@@ -578,8 +578,6 @@ namespace RemedyPic.Common
             {
                 HFlip_SetNewValues(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
             }
-
-            //_srcPixels = (byte[])_dstPixels.Clone();
         }
 
         // Set the new values for the pixel
@@ -655,7 +653,6 @@ namespace RemedyPic.Common
             Flip_SwapValues(CurrentByte++, index + 1);
             Flip_SwapValues(CurrentByte++, index + 2);
             Flip_SwapValues(CurrentByte++, index + 3);
-            dstPixels[CurrentByte++] = 50;
         }
 
         // Swap one of BGRA data of the pixel

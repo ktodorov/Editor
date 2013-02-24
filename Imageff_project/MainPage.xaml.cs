@@ -1469,8 +1469,7 @@ namespace RemedyPic
         #endregion
 
         #region Frames
-
-        private void OnFourSidesClick(object sender, RoutedEventArgs e)
+        private void OnStandardClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
             {
@@ -1484,51 +1483,31 @@ namespace RemedyPic
             }
         }
 
-        private void OnLeftSideClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-        }
-
-        private void OnTopSideClick(object sender, RoutedEventArgs e)
+        private void OnStandardUpDownClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-        }
-
-        private void OnRightSideClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-        }
-
-        private void OnBottomSideClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
 
-        private void OnDarknessFourSidesClick(object sender, RoutedEventArgs e)
+        private void OnStandardLeftRightClick(object sender, RoutedEventArgs e)
+        {
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }
+
+        private void OnDarknessClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
             {
@@ -1542,7 +1521,7 @@ namespace RemedyPic
             }
         }
 
-        private void OnDarknessLeftRightSidesClick(object sender, RoutedEventArgs e)
+        private void OnDarknessLeftRightClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
             {
@@ -1554,7 +1533,7 @@ namespace RemedyPic
             }
         }
 
-        private void OnDarknessTopBottomSidesClick(object sender, RoutedEventArgs e)
+        private void OnDarknessUpDownSidesClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
             {
@@ -1592,20 +1571,6 @@ namespace RemedyPic
             }
         }
 
-        private void OnStandardClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-        }
-
         private void OnAngleClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -1622,11 +1587,80 @@ namespace RemedyPic
             appliedFrameColor = "black";
         }
 
+        private void GrayFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "gray";
+        }
+
         private void WhiteFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "white";
         }
 
+        private void BlueFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "blue";
+        }
+
+        private void LimeFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "lime";
+        }
+
+        private void YellowFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "yellow";
+        }
+
+        private void CyanFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "cyan";
+        }
+
+        private void MagentaFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "magenta";
+        }
+
+        private void SilverFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "silver";
+        }
+
+        private void MaroonFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "maroon";
+        }
+
+        private void OliveFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "olive";
+        }
+
+        private void GreenFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "green";
+        }
+
+        private void PurpleFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "purple";
+        }
+
+        private void TealFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "teal";
+        }
+
+        private void NavyFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "navy";
+        }
+
+        private void RedFrameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            appliedFrameColor = "red";
+        }
         public byte[] Frame_GetFrameColor()
         {
             byte[] Color = { 0, 0, 0 };
@@ -1640,11 +1674,109 @@ namespace RemedyPic
                         Color[2] = 0;
                         break; 
                     }
+                case "gray":
+                    {
+                        Color[0] = 128;
+                        Color[1] = 128;
+                        Color[2] = 128;
+                        break;
+                    }
                 case "white":
                     {
                         Color[0] = 255;
                         Color[1] = 255;
                         Color[2] = 255;
+                        break;
+                    }
+                case "lime":
+                    {
+                        Color[0] = 0;
+                        Color[1] = 255;
+                        Color[2] = 0;
+                        break;
+                    }
+                case "yellow":
+                    {
+                        Color[0] = 0;
+                        Color[1] = 255;
+                        Color[2] = 255;
+                        break;
+                    }
+                case "blue":
+                    {
+                        Color[0] = 255;
+                        Color[1] = 0;
+                        Color[2] = 0;
+                        break;
+                    }
+                case "red":
+                    {
+                        Color[0] = 0;
+                        Color[1] = 0;
+                        Color[2] = 255;
+                        break;
+                    }
+                case "cyan":
+                    {
+                        Color[0] = 255;
+                        Color[1] = 255;
+                        Color[2] = 0;
+                        break;
+                    }
+                case "magenta":
+                    {
+                        Color[0] = 255;
+                        Color[1] = 0;
+                        Color[2] = 255;
+                        break;
+                    }
+                case "silver":
+                    {
+                        Color[0] = 192;
+                        Color[1] = 192;
+                        Color[2] = 192;
+                        break;
+                    }
+                case "maroon":
+                    {
+                        Color[0] = 0;
+                        Color[1] = 0;
+                        Color[2] = 128;
+                        break;
+                    }
+                case "olive":
+                    {
+                        Color[0] = 0;
+                        Color[1] = 128;
+                        Color[2] = 128;
+                        break;
+                    }
+                case "green":
+                    {
+                        Color[0] = 0;
+                        Color[1] = 128;
+                        Color[2] = 0;
+                        break;
+                    }
+                case "purple":
+                    {
+                        Color[0] = 128;
+                        Color[1] = 0;
+                        Color[2] = 128;
+                        break;
+                    }
+                case "teal":
+                    {
+                        Color[0] = 128;
+                        Color[1] = 128;
+                        Color[2] = 0;
+                        break;
+                    }
+                case "navy":
+                    {
+                        Color[0] = 128;
+                        Color[1] = 0;
+                        Color[2] = 0;
                         break;
                     }
             }
