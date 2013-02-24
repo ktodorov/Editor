@@ -1779,18 +1779,19 @@
                                 </TransitionCollection>
                             </Image.Transitions>
                         </Image>
-
-
-                        <Grid x:Name="FrameColorsGrid" Margin="0" RenderTransformOrigin="1,0" Width="320" >
-                            <ListView x:Name="FramesListView" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <ListViewItem x:Name="Black" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">
-                                    <Rectangle x:Name="BlackRect" Fill="Black" Stroke="Black" Height="70" Width="70" Tapped="BlackFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </ListViewItem>
-                                <ListViewItem x:Name="White" HorizontalAlignment="Left" VerticalAlignment="Center" >
-                                    <Rectangle x:Name="WhiteRect" Fill="White" Stroke="Black" Height="70" Width="70" Grid.Column="2" Tapped="WhiteFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </ListViewItem>
-                            </ListView>
-                        </Grid>
+                        <ListView x:Name="FramesListView" Margin="0,0,100,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapGrid Orientation="Horizontal" MaximumRowsOrColumns="6"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListViewItem Grid.Column="0" >
+                                <Rectangle x:Name="BlackRect" Fill="Black" Stroke="Black" Height="55" Width="55" Tapped="BlackFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </ListViewItem>
+                            <ListViewItem Grid.Column="1">
+                                <Rectangle x:Name="WhiteRect" Fill="White" Stroke="Black" Height="55" Width="55" Grid.Column="2" Tapped="WhiteFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </ListViewItem>
+                        </ListView>
 
 
                         <StackPanel>
