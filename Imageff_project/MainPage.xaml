@@ -1133,7 +1133,7 @@
                     <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
-            <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0">
+            <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel.Resources>
                     <Storyboard x:Name="AnimateInPicture">
                         <FadeInThemeAnimation Storyboard.TargetName="imagePanel"/>
@@ -1146,7 +1146,7 @@
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
-                    <Grid x:Name="displayGrid" Grid.Row="1" Margin="0">
+                    <Grid x:Name="displayGrid" Grid.Row="1" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Canvas x:Name="imageCanvas" Visibility="Collapsed" >
                             <Path x:Name="nonselectRegion" Fill="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Opacity="1" Stroke="White">
@@ -1213,7 +1213,7 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <Border BorderThickness="0,0,0,2" Margin="0" Background="#FF515050">
+        <Border BorderThickness="0,0,0,2" Margin="0,0,-2,0" Background="#FF515050">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>

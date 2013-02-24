@@ -330,7 +330,8 @@ namespace RemedyPic
             FeedbackGrid.Height = Feedback.ActualHeight + 5;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
-            imagePanel.MaxWidth = imageBorder.ActualWidth - 10;
+            displayImage.MaxWidth = imageBorder.ActualWidth * 0.80;
+            displayImage.MaxHeight = imageBorder.ActualHeight * 0.80;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
@@ -1652,12 +1653,13 @@ namespace RemedyPic
         }
         #endregion
 
-        private void OnRotateClick(object sender, RoutedEventArgs e)
+        private async void OnRotateClick(object sender, RoutedEventArgs e)
         {
             appliedRotations = "rotate";
             prepareImage(exampleStream, exampleBitmap, image);
             image.Rotate();
             setStream(exampleStream, exampleBitmap, image);
+            exampleBitmap = await ResizeImage(exampleBitmap, (uint)(exampleBitmap.PixelHeight), (uint)(exampleBitmap.PixelWidth));
             resetInterface();
         }
 
@@ -1718,7 +1720,7 @@ namespace RemedyPic
 
         private void ZoomOutClicked(object sender, RoutedEventArgs e)
         {
-            if (scale.ScaleX > 1 && scale.ScaleY > 1)
+            if (scale.ScaleX > 0.7 && scale.ScaleY > 0.7)
             {
                 scale.ScaleX = scale.ScaleX - 0.1;
                 scale.ScaleY = scale.ScaleY - 0.1;
@@ -2166,7 +2168,7 @@ namespace RemedyPic
             }
             else
             {
-                if (scale.ScaleX > 1 && scale.ScaleY > 1)
+                if (scale.ScaleX > 0.7 && scale.ScaleY > 0.7)
                 {
                     scale.ScaleX = scale.ScaleX - 0.1;
                     scale.ScaleY = scale.ScaleY - 0.1;
