@@ -136,7 +136,7 @@ namespace RemedyPic.Common
         {
             int CurrentColumn = Frames_StandardRightSideGetFirstColumn(FrameWidth);
 
-            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length;)
+            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length; )
             {
                 Frames_StandardRightSideNewPixel(ref CurrentByte, ref CurrentColumn, BlueColorValue, GreenColorValue, RedColorValue, FrameWidth);
             }
@@ -155,7 +155,7 @@ namespace RemedyPic.Common
                 Fremes_StandardSetPixelValues(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
                 CurrentColumn++;
                 CurrentByte += 4;
-            }            
+            }
         }
 
         //Calculate the first index of right border
@@ -200,7 +200,7 @@ namespace RemedyPic.Common
 
         // Set B G R value of the pixel
         public void Fremes_StandardSetPixelValues(int index, double BlueColorValue, double GreenColorValue, double RedColorValue)
-        {   
+        {
             _dstPixels[index] = (byte)BlueColorValue;
             _dstPixels[index + 1] = (byte)GreenColorValue;
             _dstPixels[index + 2] = (byte)RedColorValue;
@@ -214,7 +214,7 @@ namespace RemedyPic.Common
         {
             int FrameWidth = Frames_DarknessGetLeftRightFrameWidth();
 
-            for (int CurrentByte = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length;)
+            for (int CurrentByte = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length; )
             {
                 Frames_DarknessLeftSideNewPixel(ref CurrentByte, ref CurrentColumn, FrameWidth);
             }
@@ -226,7 +226,7 @@ namespace RemedyPic.Common
             if (CurrentColumn == FrameWidth)
             {
                 CurrentColumn = 0;
-                CurrentByte += 4 * (_width - FrameWidth);               
+                CurrentByte += 4 * (_width - FrameWidth);
             }
             else
             {
@@ -257,7 +257,7 @@ namespace RemedyPic.Common
             int FrameWidth = Frames_DarknessGetLeftRightFrameWidth();
             int CurrentColumn = _width - FrameWidth;
 
-            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length;)
+            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length; )
             {
                 Frames_DarknessRightSideNewPixel(ref CurrentByte, ref CurrentColumn, FrameWidth);
             }
@@ -270,7 +270,7 @@ namespace RemedyPic.Common
             {
                 CurrentColumn = _width - FrameWidth;
                 CurrentByte += 4 * (_width - FrameWidth);
-                
+
             }
             else
             {
@@ -321,15 +321,15 @@ namespace RemedyPic.Common
         public void Frames_SmoothDarkness()
         {
             int FrameWidth = Frames_SmoothDarknessGetFrameWidth();
-            
+
             Frames_SmoothDarknessLEFTRIGHT(FrameWidth);
-            Frames_SmoothDarknessTOPBOTTOM(FrameWidth);                       
+            Frames_SmoothDarknessTOPBOTTOM(FrameWidth);
         }
 
         // Smooth Darkness for Left and Right side of the image
         public void Frames_SmoothDarknessLEFTRIGHT(int FrameWidth)
         {
-            double darkness = 0.1;            
+            double darkness = 0.1;
 
             for (int CurrentByte = 0, CurrentColumn = 1; darkness < 1.0; CurrentByte += 4, CurrentColumn++)
             {
@@ -364,7 +364,7 @@ namespace RemedyPic.Common
         // Set all pixels of current row (darkness)
         public void Frames_SmoothDarknessLEFTRIGHTSetCurrentRow(int StartIndex, double darkness)
         {
-            for (int index = StartIndex; index < 4 * _width  + StartIndex; index += 4)
+            for (int index = StartIndex; index < 4 * _width + StartIndex; index += 4)
             {
                 Frames_SmoothDarknessSetPixelValues(index, darkness);
             }
@@ -428,7 +428,7 @@ namespace RemedyPic.Common
                 X = Math.Round((double)FrameWidth * Math.Cos(angle));
                 Y = Math.Round((double)FrameWidth * Math.Sin(angle));
                 StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
-                EndIndex =   Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) + 4 * (FrameWidth - (int)X);
+                EndIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) + 4 * (FrameWidth - (int)X);
                 Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
             }
         }
@@ -475,7 +475,7 @@ namespace RemedyPic.Common
                 _dstPixels[index] = (byte)Color;
                 _dstPixels[index + 1] = (byte)Color;
                 _dstPixels[index + 2] = (byte)Color;
-            }     
+            }
         }
 
         // Calculate the width of the frame
@@ -492,7 +492,7 @@ namespace RemedyPic.Common
             int FrameWidth = Frames_GetFrameWidth(20);
             Frames_DarknessAngleSetUpLeftAngle(Color, 4 * _width * FrameWidth, FrameWidth);
             Frames_DarknessAngleSetUpRightAngle(Color, 4 * _width * FrameWidth + 4 * (_width - FrameWidth * 2), FrameWidth);
-            Frames_DarknessAngleSetDownLeftAngle(Color, 4 * _width * (_height - FrameWidth) , FrameWidth);
+            Frames_DarknessAngleSetDownLeftAngle(Color, 4 * _width * (_height - FrameWidth), FrameWidth);
             Frames_DarknessAngleSetDownRightAngle(Color, 4 * _width * (_height - FrameWidth) + 4 * (_width - FrameWidth * 2), FrameWidth);
         }
 
@@ -531,7 +531,7 @@ namespace RemedyPic.Common
         public int Sharpen1_GetSquareWidth()
         {
             int val = (((_width + _height) / 2) * 1) / 100;
-            
+
             return Math.Max(1, val);
         }
         #endregion
@@ -811,49 +811,135 @@ namespace RemedyPic.Common
         #region Colorize
 
         // Main function
-        public void Colorize(string colorToLeave)
+        public void Colorize(bool leaveBlue, bool leaveRed, bool leaveGreen, bool leaveYellow,
+                                   bool leaveOrange, bool leavePurple, bool leaveCyan)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
+            double hue = 0;
+            Color currentPixelColor;
 
-            for (int CurrentByte = 0, average = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
+            for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                if (colorToLeave == "blue")
+                currentPixelColor = Color.FromArgb(_dstPixels[CurrentByte + 3], _dstPixels[CurrentByte + 2], _dstPixels[CurrentByte + 1], _dstPixels[CurrentByte]);
+                hue = getHue(currentPixelColor);
+
+                // We check the pixel for all possible colors for colorizing.
+                // If only one is true, this means the user has selected
+                // this color so we leave the pixel this way. 
+                // If all are false, this means the current pixel color is not
+                // selected from the user so we make it grayscale.
+                if (!checkPixelForColorize(CurrentByte, leaveBlue, hue, "blue") && !checkPixelForColorize(CurrentByte, leaveRed, hue, "red") && !checkPixelForColorize(CurrentByte, leaveGreen, hue, "green")
+                    && !checkPixelForColorize(CurrentByte, leaveYellow, hue, "yellow") && !checkPixelForColorize(CurrentByte, leaveOrange, hue, "orange") &&
+                    !checkPixelForColorize(CurrentByte, leavePurple, hue, "purple") && !checkPixelForColorize(CurrentByte, leaveCyan, hue, "cyan"))
                 {
-                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2]
-                        && _dstPixels[CurrentByte] < (_dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2])
-                        && (_dstPixels[CurrentByte] - _dstPixels[CurrentByte + 2]) > 150 && (_dstPixels[CurrentByte] - _dstPixels[CurrentByte + 1]) > 150)
-                    {
-                        makePixelGrayscale(CurrentByte, average);
-                    }
-                }
-                else if (colorToLeave == "red")
-                {
-                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
-                        && _dstPixels[CurrentByte + 2] < (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1])
-                        && (_dstPixels[CurrentByte + 2] - _dstPixels[CurrentByte + 1]) > 150 && (_dstPixels[CurrentByte + 2] - _dstPixels[CurrentByte]) > 150)
-                    {
-                        makePixelGrayscale(CurrentByte, average);
-                    }
-                }
-                else if (colorToLeave == "green")
-                {
-                    if (_dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
-                        && _dstPixels[CurrentByte + 1] < (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 2])
-                        && (_dstPixels[CurrentByte + 1] - _dstPixels[CurrentByte]) > 150 && (_dstPixels[CurrentByte + 1] - _dstPixels[CurrentByte + 2]) > 150)
-                    {
-                        makePixelGrayscale(CurrentByte, average);
-                    }
+                    makePixelGrayscale(CurrentByte);
                 }
             }
         }
 
-        private void makePixelGrayscale(int CurrentByte, int average)
+        private bool checkPixelForColorize(int CurrentByte, bool color, double hue, string colorToLeave)
         {
-            average = (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
+            if (!color) return false;
+
+            switch (colorToLeave)
+            {
+                case ("blue"):
+                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2]
+                        || hue > 265 || hue < 200)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("red"):
+                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
+                        || (hue > 15 && hue < 350))
+                    {
+                        return false;
+                    }
+                    break;
+                case ("green"):
+                    if (_dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
+                        || hue > 170 || hue < 60)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("yellow"):
+                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte]
+                        || hue > 65 || hue < 35)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("orange"):
+                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
+                        || hue > 50 || hue < 10)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("purple"):
+                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1]
+                        || hue < 260 || hue > 350)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("cyan"):
+                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
+                        || hue < 170 || hue > 210)
+                    {
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+
+        private void makePixelGrayscale(int CurrentByte)
+        {
+            int average = (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
             _dstPixels[CurrentByte] = (byte)average;
             _dstPixels[CurrentByte + 1] = (byte)average;
             _dstPixels[CurrentByte + 2] = (byte)average;
         }
+
+        private double getHue(Color givenColor)
+        {
+            double r = givenColor.R / 255.0;
+            double g = givenColor.G / 255.0;
+            double b = givenColor.B / 255.0;
+            double v;
+            double m;
+
+            double h = 0;
+
+            v = Math.Max(r, g);
+            v = Math.Max(v, b);
+            m = Math.Min(r, g);
+            m = Math.Min(m, b);
+
+            double delta = v - m;
+
+            if (v == r)
+            {
+                h = 60 * (((g - b) / delta) % 6);
+            }
+            else if (v == g)
+            {
+                h = 60 * (((b - r) / delta) + 2);
+            }
+            else
+            {
+                h = 60 * (((r - g) / delta) + 4);
+            }
+
+            return h;
+        }
+
+
 
         #endregion
 
