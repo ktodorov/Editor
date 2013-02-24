@@ -775,7 +775,7 @@ namespace RemedyPic
                 else if (PopupColors.IsOpen)
                     ColorApplyReset.Visibility = Visibility.Visible;
                 else if (PopupRotations.IsOpen)
-                    RotateApplyReset.Visibility = Visibility.Visible;
+                    RotateApplyReset.Visibility = Visibility.Visible;                
             }
         }
 
@@ -1471,6 +1471,8 @@ namespace RemedyPic
         #region Frames
         private void OnStandardClick(object sender, RoutedEventArgs e)
         {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
@@ -1485,6 +1487,8 @@ namespace RemedyPic
 
         private void OnStandardUpDownClick(object sender, RoutedEventArgs e)
         {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
@@ -1497,6 +1501,8 @@ namespace RemedyPic
 
         private void OnStandardLeftRightClick(object sender, RoutedEventArgs e)
         {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
@@ -1509,6 +1515,8 @@ namespace RemedyPic
 
         private void OnDarknessClick(object sender, RoutedEventArgs e)
         {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
@@ -1523,6 +1531,8 @@ namespace RemedyPic
 
         private void OnDarknessLeftRightClick(object sender, RoutedEventArgs e)
         {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
@@ -1535,6 +1545,8 @@ namespace RemedyPic
 
         private void OnDarknessUpDownSidesClick(object sender, RoutedEventArgs e)
         {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
@@ -1547,6 +1559,8 @@ namespace RemedyPic
 
         private void OnSmoothDarknessClick(object sender, RoutedEventArgs e)
         {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
@@ -1558,6 +1572,8 @@ namespace RemedyPic
 
         private void OnStandardAngleClick(object sender, RoutedEventArgs e)
         {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
@@ -1573,6 +1589,8 @@ namespace RemedyPic
 
         private void OnAngleClick(object sender, RoutedEventArgs e)
         {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
@@ -1584,7 +1602,10 @@ namespace RemedyPic
 
         private void OnApplyFramesClick(object sender, RoutedEventArgs e)
         {
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();            
+            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            setFilterBitmaps();
+            FramesApplyReset.Visibility = Visibility.Collapsed;
+
         }
 
         private void OnResetFramesClick(object sender, RoutedEventArgs e)
@@ -1597,6 +1618,8 @@ namespace RemedyPic
                 setStream(bitmapStream, bitmapImage, imageOriginal);
                 resetInterface();
             }
+
+            FramesApplyReset.Visibility = Visibility.Collapsed;
         }
 
         private void BlackFrameTapped(object sender, TappedRoutedEventArgs e)

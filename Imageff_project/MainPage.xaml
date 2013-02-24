@@ -1884,7 +1884,7 @@
                             <Button x:Name="SoftAngleButton" Content="Soft Angle" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnAngleClick" Foreground="Black" Height="35" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="SmoothDarknessButton" Content="Smooth Dark" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnSmoothDarknessClick" Foreground="Black" Height="35" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
-                        <StackPanel x:Name="FramesApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0" >
+                        <StackPanel x:Name="FramesApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0" Visibility="Collapsed">
                             <Button x:Name="ApplyButton" Content="Apply" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnApplyFramesClick" Foreground="Black" Height="35" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="ResetButton" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetFramesClick" Foreground="Black" Height="35" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                         </StackPanel>
