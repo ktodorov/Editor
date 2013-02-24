@@ -304,6 +304,7 @@ namespace RemedyPic
 
             AnimateInPicture.Begin();
             ZoomStack.Visibility = Visibility.Visible;
+            deselectColorizeGridItems();
             setFilterBitmaps();
             displayImage.MaxWidth = imagePanel.ActualWidth;
             displayImage.MaxHeight = imagePanel.ActualHeight;
@@ -1286,6 +1287,7 @@ namespace RemedyPic
 
         private void OnColorizeApplyClick(object sender, RoutedEventArgs e)
         {
+            doColorize(exampleStream, exampleBitmap, image);
             ImageLoadingRing.IsActive = true;
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
