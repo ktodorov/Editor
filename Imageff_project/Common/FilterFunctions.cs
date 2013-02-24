@@ -655,7 +655,6 @@ namespace RemedyPic.Common
             Flip_SwapValues(CurrentByte++, index + 1);
             Flip_SwapValues(CurrentByte++, index + 2);
             Flip_SwapValues(CurrentByte++, index + 3);
-            dstPixels[CurrentByte++] = 50;
         }
 
         // Swap one of BGRA data of the pixel
@@ -679,7 +678,7 @@ namespace RemedyPic.Common
                 Rotate_SetNewValues(ref CurrentByte, (_width * (_height - (CurrentColumn + 1)) + CurrentRow) * 4);
             }
 
-            Rotate_swapWH();
+            //Rotate_swapWH();
             _srcPixels = (byte[])_dstPixels.Clone();
         }
 
@@ -875,21 +874,21 @@ namespace RemedyPic.Common
             {
                 case ("blue"):
                     if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2]
-                        || hue > 265 || hue < 200)
+                        || hue > 260 || hue < 215)
                     {
                         return false;
                     }
                     break;
                 case ("red"):
                     if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
-                        || (hue > 15 && hue < 350))
+                        || (hue > 10 && hue < 350))
                     {
                         return false;
                     }
                     break;
                 case ("green"):
                     if (_dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
-                        || hue > 170 || hue < 60)
+                        || hue > 160 || hue < 90)
                     {
                         return false;
                     }

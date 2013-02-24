@@ -304,7 +304,6 @@ namespace RemedyPic
 
             AnimateInPicture.Begin();
             ZoomStack.Visibility = Visibility.Visible;
-            deselectColorizeGridItems();
             setFilterBitmaps();
             displayImage.MaxWidth = imagePanel.ActualWidth;
             displayImage.MaxHeight = imagePanel.ActualHeight;
@@ -1653,13 +1652,12 @@ namespace RemedyPic
         }
         #endregion
 
-        private async void OnRotateClick(object sender, RoutedEventArgs e)
+        private void OnRotateClick(object sender, RoutedEventArgs e)
         {
             appliedRotations = "rotate";
             prepareImage(exampleStream, exampleBitmap, image);
             image.Rotate();
             setStream(exampleStream, exampleBitmap, image);
-            exampleBitmap = await ResizeImage(exampleBitmap, (uint)(exampleBitmap.PixelHeight), (uint)(exampleBitmap.PixelWidth));
             resetInterface();
         }
 
