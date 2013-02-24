@@ -78,22 +78,22 @@ namespace RemedyPic.Common
 
         #region Standard Left Side
         // Frame for left side
-        public void Frames_StandardLeftSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
+        public void Frames_StandardLeftSide(byte[] Color, int percent)
         {
-            Frames_StandardLeftCheckFrameWidth(ref FrameWidth);
+            int FrameWidth = Frames_GetFrameWidth(percent);
 
             for (int CurrentByte = 0, CurrentColumn = 1; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
-                Frames_StandardLeftSideNewPixel(ref CurrentByte, ref CurrentColumn, BlueColorValue, GreenColorValue, RedColorValue, FrameWidth);
+                Frames_StandardLeftSideNewPixel(ref CurrentByte, ref CurrentColumn, Color, FrameWidth);
             }
         }
 
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
-        public void Frames_StandardLeftSideNewPixel(ref int CurrentByte, ref int CurrentColumn, double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
+        public void Frames_StandardLeftSideNewPixel(ref int CurrentByte, ref int CurrentColumn, byte[] Color, double FrameWidth)
         {
             if (CurrentColumn <= FrameWidth)
             {
-                Fremes_StandardSetPixelValues(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelValues(CurrentByte, Color);
             }
             else
             {
@@ -101,49 +101,36 @@ namespace RemedyPic.Common
                 CurrentByte += 4 * (_width - (int)FrameWidth - 1); //go to the next row of pixels, minus 1 because we always increment current byte by 4(1 pixel)
             }
         }
-
-        // Check if the Width of frame is more than the width of the image
-        public void Frames_StandardLeftCheckFrameWidth(ref double FrameWidth)
-        {
-            if (FrameWidth > _width)
-                FrameWidth = _width;
-        }
         #endregion
 
         #region Standard Top Side
         // Frame for top side
-        public void Frames_StandardTopSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
+        public void Frames_StandardTopSide(byte[] Color, int percent)
         {
-            Frames_StandardTopCheckFrameWidth(ref FrameWidth);
+            int FrameWidth = Frames_GetFrameWidth(percent);
 
             for (int CurrentByte = 0; CurrentByte < 4 * _width * FrameWidth; CurrentByte += 4)
             {
-                Fremes_StandardSetPixelValues(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelValues(CurrentByte, Color);
             }
-        }
-
-        // Check if the Width of frame is more than the width of the image
-        public void Frames_StandardTopCheckFrameWidth(ref double FrameWidth)
-        {
-            if (FrameWidth > _height)
-                FrameWidth = _height;
         }
         #endregion
 
         #region Standard Right Side
         // Frame for Right side
-        public void Frames_StandardRightSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
+        public void Frames_StandardRightSide(byte[] Color, int percent)
         {
+            int FrameWidth = Frames_GetFrameWidth(percent);
             int CurrentColumn = Frames_StandardRightSideGetFirstColumn(FrameWidth);
 
-            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length;)
+            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length; )
             {
-                Frames_StandardRightSideNewPixel(ref CurrentByte, ref CurrentColumn, BlueColorValue, GreenColorValue, RedColorValue, FrameWidth);
+                Frames_StandardRightSideNewPixel(ref CurrentByte, ref CurrentColumn, Color, FrameWidth);
             }
         }
 
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
-        public void Frames_StandardRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
+        public void Frames_StandardRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, byte[] Color, double FrameWidth)
         {
             if (CurrentColumn == _width)
             {
@@ -152,69 +139,56 @@ namespace RemedyPic.Common
             }
             else
             {
-                Fremes_StandardSetPixelValues(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelValues(CurrentByte, Color);
                 CurrentColumn++;
                 CurrentByte += 4;
-            }            
+            }
         }
 
         //Calculate the first index of right border
         public int Frames_StandardRightSideGetFirstColumn(double FrameWidth)
         {
-            if (FrameWidth > _height)
-            {
-                return 0;
-            }
-            else
-            {
-                return _width - (int)FrameWidth;
-            }
+            return _width - (int)FrameWidth;
         }
         #endregion
 
         #region Standard Bottom Side
         // Frame for Bottom side
-        public void Frames_StandardBottomSide(double BlueColorValue, double GreenColorValue, double RedColorValue, double FrameWidth)
+        public void Frames_StandardBottomSide(byte[] Color, int percent)
         {
+            int FrameWidth = Frames_GetFrameWidth(percent);
             int CurrentByte = Frames_StandardBottomSideGetFirstIndex(FrameWidth);
 
             for (; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                Fremes_StandardSetPixelValues(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                Fremes_StandardSetPixelValues(CurrentByte, Color);
             }
         }
 
         //Calculate the first index of bottom border
-        public int Frames_StandardBottomSideGetFirstIndex(double FrameWidth)
+        public int Frames_StandardBottomSideGetFirstIndex(int FrameWidth)
         {
-            if (FrameWidth > _height)
-            {
-                return 0;
-            }
-            else
-            {
-                return 4 * _width * (_height - (int)FrameWidth);
-            }
+            return 4 * _width * (_height - (int)FrameWidth);
         }
         #endregion
 
         // Set B G R value of the pixel
-        public void Fremes_StandardSetPixelValues(int index, double BlueColorValue, double GreenColorValue, double RedColorValue)
-        {   
-            _dstPixels[index] = (byte)BlueColorValue;
-            _dstPixels[index + 1] = (byte)GreenColorValue;
-            _dstPixels[index + 2] = (byte)RedColorValue;
+        public void Fremes_StandardSetPixelValues(int index, byte[] Color)
+        {
+            _dstPixels[index] = Color[0];
+            _dstPixels[index + 1] = Color[1];
+            _dstPixels[index + 2] = Color[2];
         }
         #endregion
 
         #region Darkness Frames
         #region Darkness Left Side
         // Frame for left side
-        public void Frames_DarknessLeftSide()
+        public void Frames_DarknessLeftSide(int percent)
         {
-            int FrameWidth = Frames_DarknessGetLeftRightFrameWidth();
+            int FrameWidth = Frames_GetFrameWidth(percent);
 
-            for (int CurrentByte = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length;)
+            for (int CurrentByte = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length; )
             {
                 Frames_DarknessLeftSideNewPixel(ref CurrentByte, ref CurrentColumn, FrameWidth);
             }
@@ -226,7 +200,7 @@ namespace RemedyPic.Common
             if (CurrentColumn == FrameWidth)
             {
                 CurrentColumn = 0;
-                CurrentByte += 4 * (_width - FrameWidth);               
+                CurrentByte += 4 * (_width - FrameWidth);
             }
             else
             {
@@ -239,9 +213,9 @@ namespace RemedyPic.Common
 
         #region Darkness Top Side
         // Frame for top side
-        public void Frames_DarknessTopSide()
+        public void Frames_DarknessTopSide(int percent)
         {
-            int FrameWidth = Frames_DarknessGetLeftRightFrameWidth();
+            int FrameWidth = Frames_GetFrameWidth(percent);
 
             for (int CurrentByte = 0; CurrentByte < 4 * _width * FrameWidth; CurrentByte += 4)
             {
@@ -252,12 +226,12 @@ namespace RemedyPic.Common
 
         #region Darkness Right Side
         // Frame for Right side
-        public void Frames_DarknessRightSide()
+        public void Frames_DarknessRightSide(int percent)
         {
-            int FrameWidth = Frames_DarknessGetLeftRightFrameWidth();
+            int FrameWidth = Frames_GetFrameWidth(percent);
             int CurrentColumn = _width - FrameWidth;
 
-            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length;)
+            for (int CurrentByte = 4 * CurrentColumn; CurrentByte < _dstPixels.Length; )
             {
                 Frames_DarknessRightSideNewPixel(ref CurrentByte, ref CurrentColumn, FrameWidth);
             }
@@ -270,7 +244,7 @@ namespace RemedyPic.Common
             {
                 CurrentColumn = _width - FrameWidth;
                 CurrentByte += 4 * (_width - FrameWidth);
-                
+
             }
             else
             {
@@ -283,9 +257,9 @@ namespace RemedyPic.Common
 
         #region Darkness Bottom Side
         // Frame for Bottom side
-        public void Frames_DarknessBottomSide()
+        public void Frames_DarknessBottomSide(int percent)
         {
-            int FrameWidth = Frames_DarknessGetLeftRightFrameWidth();
+            int FrameWidth = Frames_GetFrameWidth(percent);
             int CurrentByte = Frames_DarknessBottomSideGetFirstIndex(FrameWidth);
 
             for (; CurrentByte < _dstPixels.Length; CurrentByte += 4)
@@ -301,12 +275,6 @@ namespace RemedyPic.Common
         }
         #endregion
 
-        // Calculate the width of left and right frame
-        public int Frames_DarknessGetLeftRightFrameWidth()
-        {
-            return ((_width + _height) / 2 * 5) / 100;
-        }
-
         // Set B G R value of the pixel
         public void Fremes_DarknessSetPixelData(int index)
         {
@@ -318,18 +286,18 @@ namespace RemedyPic.Common
 
         #region Smooth Darnkess
         // Main function
-        public void Frames_SmoothDarkness()
+        public void Frames_SmoothDarkness(int percent)
         {
-            int FrameWidth = Frames_SmoothDarknessGetFrameWidth();
-            
+            int FrameWidth = Frames_GetFrameWidth(percent);
+
             Frames_SmoothDarknessLEFTRIGHT(FrameWidth);
-            Frames_SmoothDarknessTOPBOTTOM(FrameWidth);                       
+            Frames_SmoothDarknessTOPBOTTOM(FrameWidth);
         }
 
         // Smooth Darkness for Left and Right side of the image
         public void Frames_SmoothDarknessLEFTRIGHT(int FrameWidth)
         {
-            double darkness = 0.1;            
+            double darkness = 0.1;
 
             for (int CurrentByte = 0, CurrentColumn = 1; darkness < 1.0; CurrentByte += 4, CurrentColumn++)
             {
@@ -364,16 +332,10 @@ namespace RemedyPic.Common
         // Set all pixels of current row (darkness)
         public void Frames_SmoothDarknessLEFTRIGHTSetCurrentRow(int StartIndex, double darkness)
         {
-            for (int index = StartIndex; index < 4 * _width  + StartIndex; index += 4)
+            for (int index = StartIndex; index < 4 * _width + StartIndex; index += 4)
             {
                 Frames_SmoothDarknessSetPixelValues(index, darkness);
             }
-        }
-
-        // Calculate the width of left and right frame
-        public int Frames_SmoothDarknessGetFrameWidth()
-        {
-            return ((_width + _height) / 2 * 20) / 100;
         }
 
         // Set B G R value of the pixel
@@ -394,28 +356,89 @@ namespace RemedyPic.Common
         }
         #endregion
 
-        #region Darkness Angle
+        #region Angle frames
+
+        #region Standart and Angle
         // Main function
-        public void Frames_StandartAngle(double Color)
+        public void Frames_StandartAngle(byte[] Color, int percent)
         {
-            int FrameWidth = Frames_GetFrameWidth(5);
-            Frames_DarknessAngleSetUpLeftAngle(Color, 4 * FrameWidth + 4 * _width * (FrameWidth * 2), FrameWidth);
-            Frames_DarknessAngleSetUpRightAngle(Color, 4 * (_width - 3 * FrameWidth) + 4 * _width * (FrameWidth * 2 - 1), FrameWidth);
-            Frames_DarknessAngleSetDownLeftAngle(Color, 4 * _width * (_height - (FrameWidth * 2)) + 4 * FrameWidth, FrameWidth);
-            Frames_DarknessAngleSetDownRightAngle(Color, 4 * (_width - 3 * FrameWidth) + 4 * _width * (_height - (FrameWidth * 2 - 1)), FrameWidth);
+            int FrameWidth = Frames_GetFrameWidth(percent);
+            Frames_AngleSetUpLeftAngle(Color, FrameWidth, Frames_StandardAngleCenterUpLeft(FrameWidth));
+            Frames_AngleSetUpRightAngle(Color, FrameWidth, Frames_StandardAngleCenterUpRight(FrameWidth));
+            Frames_AngleSetDownLeftAngle(Color, FrameWidth, Frames_StandardAngleCenterDownLeft(FrameWidth));
+            Frames_AngleSetDownRightAngle(Color, FrameWidth, Frames_StandardAngleCenterDownRight(FrameWidth));
         }
 
+        // Calculate the center of Up Left standard angle
+        public int Frames_StandardAngleCenterUpLeft(int FrameWidth)
+        {
+            return 4 * FrameWidth + 4 * _width * (FrameWidth * 2);
+        }
+
+        // Calculate the center of Up Right standard angle
+        public int Frames_StandardAngleCenterUpRight(int FrameWidth)
+        {
+            return 4 * (_width - 3 * FrameWidth) + 4 * _width * (FrameWidth * 2 - 1);
+        }
+
+        // Calculate the center of Down Left standard angle
+        public int Frames_StandardAngleCenterDownLeft(int FrameWidth)
+        {
+            return 4 * _width * (_height - (FrameWidth * 2)) + 4 * FrameWidth;
+        }
+
+        // Calculate the center of Down Right standard angle
+        public int Frames_StandardAngleCenterDownRight(int FrameWidth)
+        {
+            return 4 * (_width - 3 * FrameWidth) + 4 * _width * (_height - (FrameWidth * 2 - 1));
+        }
+        #endregion
+
+        #region Angle
+        // Main function
+        public void Frames_Angle(byte[] Color, int percent)
+        {
+            int FrameWidth = Frames_GetFrameWidth(percent);
+            Frames_AngleSetUpLeftAngle(Color, FrameWidth, Frames_AngleCenterUpLeft(FrameWidth));
+            Frames_AngleSetUpRightAngle(Color, FrameWidth, Frames_AngleCenterUpRight(FrameWidth));
+            Frames_AngleSetDownLeftAngle(Color, FrameWidth, Frames_AngleCenterDownLeft(FrameWidth));
+            Frames_AngleSetDownRightAngle(Color, FrameWidth, Frames_AngleCenterDownRight(FrameWidth));
+        }
+
+        // Calculate the center of Up Left angle
+        public int Frames_AngleCenterUpLeft(int FrameWidth)
+        {
+            return 4 * _width * FrameWidth;
+        }
+
+        // Calculate the center of Up Right angle
+        public int Frames_AngleCenterUpRight(int FrameWidth)
+        {
+            return 4 * _width * FrameWidth + 4 * (_width - FrameWidth * 2);
+        }
+
+        // Calculate the center of Down Left angle
+        public int Frames_AngleCenterDownLeft(int FrameWidth)
+        {
+            return 4 * _width * (_height - FrameWidth);
+        }
+
+        // Calculate the center of Down Right angle
+        public int Frames_AngleCenterDownRight(int FrameWidth)
+        {
+            return 4 * _width * (_height - FrameWidth) + 4 * (_width - FrameWidth * 2);
+        }
+        #endregion
+
         // Set the pixels of Up Left angle of the image
-        public void Frames_DarknessAngleSetUpLeftAngle(double Color, int Center, int FrameWidth)
+        public void Frames_AngleSetUpLeftAngle(byte[] Color, int FrameWidth, int Center)
         {
             int StartIndex, EndIndex;
-            double X, Y, angle = 0;
+            double X = 0, Y = 0, angle = 0;
 
             for (double degrees = 90.0; degrees < 180.0; degrees += 45.0 / (double)FrameWidth)
             {
-                angle = Math.PI * degrees / 180.0;
-                X = Math.Round((double)FrameWidth * Math.Cos(angle));
-                Y = Math.Round((double)FrameWidth * Math.Sin(angle));
+                Frames_AngleGetNewPixel(ref angle, degrees, ref X, ref Y, FrameWidth);
                 StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) - 4 * (FrameWidth + (int)X);
                 EndIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
                 Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
@@ -423,33 +446,29 @@ namespace RemedyPic.Common
         }
 
         // Set the pixels of Up Right angle of the image
-        public void Frames_DarknessAngleSetUpRightAngle(double Color, int Center, int FrameWidth)
+        public void Frames_AngleSetUpRightAngle(byte[] Color, int FrameWidth, int Center)
         {
             int StartIndex, EndIndex;
-            double X, Y, angle = 0;
+            double X = 0, Y = 0, angle = 0;
 
             for (double degrees = 0.0; degrees < 90.0; degrees += 45.0 / (double)FrameWidth)
             {
-                angle = Math.PI * degrees / 180.0;
-                X = Math.Round((double)FrameWidth * Math.Cos(angle));
-                Y = Math.Round((double)FrameWidth * Math.Sin(angle));
+                Frames_AngleGetNewPixel(ref angle, degrees, ref X, ref Y, FrameWidth);
                 StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
-                EndIndex =   Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) + 4 * (FrameWidth - (int)X);
+                EndIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) + 4 * (FrameWidth - (int)X);
                 Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
             }
         }
 
         // Set the pixels of Down Left angle of the image
-        public void Frames_DarknessAngleSetDownLeftAngle(double Color, int Center, int FrameWidth)
+        public void Frames_AngleSetDownLeftAngle(byte[] Color, int FrameWidth, int Center)
         {
             int StartIndex, EndIndex;
-            double X, Y, angle = 0;
+            double X = 0, Y = 0, angle = 0;
 
             for (double degrees = 180.0; degrees < 270.0; degrees += 45.0 / (double)FrameWidth)
             {
-                angle = Math.PI * degrees / 180.0;
-                X = Math.Round((double)FrameWidth * Math.Cos(angle));
-                Y = Math.Round((double)FrameWidth * Math.Sin(angle));
+                Frames_AngleGetNewPixel(ref angle, degrees, ref X, ref Y, FrameWidth);
                 StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) - 4 * (FrameWidth + (int)X);
                 EndIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
                 Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
@@ -457,52 +476,57 @@ namespace RemedyPic.Common
         }
 
         // Set the pixels of Down Right angle of the image
-        public void Frames_DarknessAngleSetDownRightAngle(double Color, int Center, int FrameWidth)
+        public void Frames_AngleSetDownRightAngle(byte[] Color, int FrameWidth, int Center)
         {
             int StartIndex, EndIndex;
-            double X, Y, angle = 0;
+            double X = 0, Y = 0, angle = 0;
 
             for (double degrees = 270.0; degrees < 360.0; degrees += 45.0 / (double)FrameWidth)
             {
-                angle = Math.PI * degrees / 180.0;
-                X = Math.Round((double)FrameWidth * Math.Cos(angle));
-                Y = Math.Round((double)FrameWidth * Math.Sin(angle));
+                Frames_AngleGetNewPixel(ref angle, degrees, ref X, ref Y, FrameWidth);
                 StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
                 EndIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) + 4 * (FrameWidth - (int)X);
                 Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
             }
         }
 
+        // Calculate the trigonometry to find the next X and Y of the pixel
+        public void Frames_AngleGetNewPixel(ref double angle, double degrees, ref double X, ref double Y, int FrameWidth)
+        {
+            angle = Math.PI * degrees / 180.0;
+            X = Math.Round((double)FrameWidth * Math.Cos(angle));
+            Y = Math.Round((double)FrameWidth * Math.Sin(angle));
+        }
+
         // Set the pixel values of all pixels between start and end index
-        public void Frames_DarknessAngleSetRow(int StartIndex, int EndIndex, double Color)
+        public void Frames_DarknessAngleSetRow(int StartIndex, int EndIndex, byte[] Color)
         {
             for (int index = StartIndex; index < EndIndex && index < _dstPixels.Length; index += 4)
             {
-                _dstPixels[index] = (byte)Color;
-                _dstPixels[index + 1] = (byte)Color;
-                _dstPixels[index + 2] = (byte)Color;
-            }     
+                _dstPixels[index] = Color[0];
+                _dstPixels[index + 1] = Color[1];
+                _dstPixels[index + 2] = Color[2];
+            }
         }
 
         // Calculate the width of the frame
         public int Frames_GetFrameWidth(int percent)
         {
-            return ((_width + _height) / 2 * percent) / 100;
+            int val = ((_width + _height) / 2 * percent) / 100;
+            Frames_CheckFrameWidth(ref val);
+            return val;
         }
-        #endregion
 
-        #region Angle
-        // Main function
-        public void Frames_Angle(double Color)
+        // Check if the frame width is more than half of width or height of the image
+        public void Frames_CheckFrameWidth(ref int val)
         {
-            int FrameWidth = Frames_GetFrameWidth(20);
-            Frames_DarknessAngleSetUpLeftAngle(Color, 4 * _width * FrameWidth, FrameWidth);
-            Frames_DarknessAngleSetUpRightAngle(Color, 4 * _width * FrameWidth + 4 * (_width - FrameWidth * 2), FrameWidth);
-            Frames_DarknessAngleSetDownLeftAngle(Color, 4 * _width * (_height - FrameWidth) , FrameWidth);
-            Frames_DarknessAngleSetDownRightAngle(Color, 4 * _width * (_height - FrameWidth) + 4 * (_width - FrameWidth * 2), FrameWidth);
+            if (val > _width / 2)
+                val = _width / 2;
+            if (val > _height / 2)
+                val = _height / 2;
         }
-
         #endregion
+       
         #endregion
 
         #region Sharpen1
@@ -537,7 +561,7 @@ namespace RemedyPic.Common
         public int Sharpen1_GetSquareWidth()
         {
             int val = (((_width + _height) / 2) * 1) / 100;
-            
+
             return Math.Max(1, val);
         }
         #endregion
@@ -817,49 +841,135 @@ namespace RemedyPic.Common
         #region Colorize
 
         // Main function
-        public void Colorize(string colorToLeave)
+        public void Colorize(bool leaveBlue, bool leaveRed, bool leaveGreen, bool leaveYellow,
+                                   bool leaveOrange, bool leavePurple, bool leaveCyan)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
+            double hue = 0;
+            Color currentPixelColor;
 
-            for (int CurrentByte = 0, average = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
+            for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                if (colorToLeave == "blue")
+                currentPixelColor = Color.FromArgb(_dstPixels[CurrentByte + 3], _dstPixels[CurrentByte + 2], _dstPixels[CurrentByte + 1], _dstPixels[CurrentByte]);
+                hue = getHue(currentPixelColor);
+
+                // We check the pixel for all possible colors for colorizing.
+                // If only one is true, this means the user has selected
+                // this color so we leave the pixel this way. 
+                // If all are false, this means the current pixel color is not
+                // selected from the user so we make it grayscale.
+                if (!checkPixelForColorize(CurrentByte, leaveBlue, hue, "blue") && !checkPixelForColorize(CurrentByte, leaveRed, hue, "red") && !checkPixelForColorize(CurrentByte, leaveGreen, hue, "green")
+                    && !checkPixelForColorize(CurrentByte, leaveYellow, hue, "yellow") && !checkPixelForColorize(CurrentByte, leaveOrange, hue, "orange") &&
+                    !checkPixelForColorize(CurrentByte, leavePurple, hue, "purple") && !checkPixelForColorize(CurrentByte, leaveCyan, hue, "cyan"))
                 {
-                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2]
-                        && _dstPixels[CurrentByte] < (_dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2])
-                        && (_dstPixels[CurrentByte] - _dstPixels[CurrentByte + 2]) > 150 && (_dstPixels[CurrentByte] - _dstPixels[CurrentByte + 1]) > 150)
-                    {
-                        makePixelGrayscale(CurrentByte, average);
-                    }
-                }
-                else if (colorToLeave == "red")
-                {
-                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
-                        && _dstPixels[CurrentByte + 2] < (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1])
-                        && (_dstPixels[CurrentByte + 2] - _dstPixels[CurrentByte + 1]) > 150 && (_dstPixels[CurrentByte + 2] - _dstPixels[CurrentByte]) > 150)
-                    {
-                        makePixelGrayscale(CurrentByte, average);
-                    }
-                }
-                else if (colorToLeave == "green")
-                {
-                    if (_dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
-                        && _dstPixels[CurrentByte + 1] < (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 2])
-                        && (_dstPixels[CurrentByte + 1] - _dstPixels[CurrentByte]) > 150 && (_dstPixels[CurrentByte + 1] - _dstPixels[CurrentByte + 2]) > 150)
-                    {
-                        makePixelGrayscale(CurrentByte, average);
-                    }
+                    makePixelGrayscale(CurrentByte);
                 }
             }
         }
 
-        private void makePixelGrayscale(int CurrentByte, int average)
+        private bool checkPixelForColorize(int CurrentByte, bool color, double hue, string colorToLeave)
         {
-            average = (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
+            if (!color) return false;
+
+            switch (colorToLeave)
+            {
+                case ("blue"):
+                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2]
+                        || hue > 265 || hue < 200)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("red"):
+                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
+                        || (hue > 15 && hue < 350))
+                    {
+                        return false;
+                    }
+                    break;
+                case ("green"):
+                    if (_dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
+                        || hue > 170 || hue < 60)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("yellow"):
+                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte]
+                        || hue > 65 || hue < 35)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("orange"):
+                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
+                        || hue > 50 || hue < 10)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("purple"):
+                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1]
+                        || hue < 260 || hue > 350)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("cyan"):
+                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
+                        || hue < 170 || hue > 210)
+                    {
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+
+        private void makePixelGrayscale(int CurrentByte)
+        {
+            int average = (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
             _dstPixels[CurrentByte] = (byte)average;
             _dstPixels[CurrentByte + 1] = (byte)average;
             _dstPixels[CurrentByte + 2] = (byte)average;
         }
+
+        private double getHue(Color givenColor)
+        {
+            double r = givenColor.R / 255.0;
+            double g = givenColor.G / 255.0;
+            double b = givenColor.B / 255.0;
+            double v;
+            double m;
+
+            double h = 0;
+
+            v = Math.Max(r, g);
+            v = Math.Max(v, b);
+            m = Math.Min(r, g);
+            m = Math.Min(m, b);
+
+            double delta = v - m;
+
+            if (v == r)
+            {
+                h = 60 * (((g - b) / delta) % 6);
+            }
+            else if (v == g)
+            {
+                h = 60 * (((b - r) / delta) + 2);
+            }
+            else
+            {
+                h = 60 * (((r - g) / delta) + 4);
+            }
+
+            return h;
+        }
+
+
 
         #endregion
 

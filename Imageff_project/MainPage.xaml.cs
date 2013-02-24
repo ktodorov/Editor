@@ -41,7 +41,7 @@ namespace RemedyPic
         private string mruToken = null;
         StorageFile file;
         private string appliedFilters = null, appliedColors = null,
-                           appliedRotations = null, appliedColorize = null;
+                           appliedRotations = null, appliedFrameColor = null;
         // bitmapImage is the image that is edited in RemedyPic.
         private WriteableBitmap bitmapImage, exampleBitmap;
 
@@ -51,6 +51,10 @@ namespace RemedyPic
 
         // This is true if the user load a picture.
         bool pictureIsLoaded = false;
+
+        // Colorize selected colors
+        private bool redForColorize, greenForColorize, blueForColorize, yellowForColorize,
+                         orangeForColorize, purpleForColorize, cyanForColorize = false;
 
         FilterFunctions image = new FilterFunctions();
         FilterFunctions imageOriginal = new FilterFunctions();
@@ -300,6 +304,7 @@ namespace RemedyPic
 
             AnimateInPicture.Begin();
             ZoomStack.Visibility = Visibility.Visible;
+            deselectColorizeGridItems();
             setFilterBitmaps();
             displayImage.MaxWidth = imagePanel.ActualWidth;
             displayImage.MaxHeight = imagePanel.ActualHeight;
@@ -833,7 +838,6 @@ namespace RemedyPic
             RedGammaSlider.Value = 10;
             GreenGammaSlider.Value = 10;
             BlueGammaSlider.Value = 10;
-            deselectColorizeListItems();
             deselectFilters();
             //deselectMenu();
         }
@@ -1017,14 +1021,6 @@ namespace RemedyPic
             resetInterface();
         }
 
-        private void doColorize(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            givenImage.Colorize(appliedColorize);
-            setStream(stream, bitmap, givenImage);
-            resetInterface();
-        }
-
         private void doBlur(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1167,10 +1163,6 @@ namespace RemedyPic
                     doEdgeEnhance(bitmapStream, bitmapImage, imageOriginal);
                     doEdgeEnhance(exampleStream, exampleBitmap, image);
                     break;
-                case "colorize":
-                    doColorize(bitmapStream, bitmapImage, imageOriginal);
-                    doColorize(exampleStream, exampleBitmap, image);
-                    break;
                 case "retro":
                     doRetro(bitmapStream, bitmapImage, imageOriginal);
                     doRetro(exampleStream, exampleBitmap, image);
@@ -1295,12 +1287,11 @@ namespace RemedyPic
 
         private void OnColorizeApplyClick(object sender, RoutedEventArgs e)
         {
+            doColorize(exampleStream, exampleBitmap, image);
             ImageLoadingRing.IsActive = true;
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps();
-            appliedColorize = null;
-            deselectColorizeListItems();
             SelectColorize.IsChecked = false;
             ImageLoadingRing.IsActive = false;
         }
@@ -1354,9 +1345,8 @@ namespace RemedyPic
 
         private void OnColorizeResetClick(object sender, RoutedEventArgs e)
         {
-            appliedColorize = null;
+            deselectColorizeGridItems();
             RestoreOriginalBitmap();
-            deselectColorizeListItems();
         }
         #endregion
 
@@ -1486,10 +1476,10 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
-                imageOriginal.Frames_StandardTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
-                imageOriginal.Frames_StandardRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
-                imageOriginal.Frames_StandardBottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1500,7 +1490,7 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1511,7 +1501,7 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardTopSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1522,7 +1512,7 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardRightSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1533,7 +1523,7 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardBottomSide(FrameBColor.Value, FrameGColor.Value, FrameRColor.Value, FrameWidth.Value);
+                imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1544,10 +1534,10 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_DarknessLeftSide();
-                imageOriginal.Frames_DarknessTopSide();
-                imageOriginal.Frames_DarknessRightSide();
-                imageOriginal.Frames_DarknessBottomSide();
+                imageOriginal.Frames_DarknessLeftSide((int)FrameWidthPercent.Value);
+                imageOriginal.Frames_DarknessTopSide((int)FrameWidthPercent.Value);
+                imageOriginal.Frames_DarknessRightSide((int)FrameWidthPercent.Value);
+                imageOriginal.Frames_DarknessBottomSide((int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1558,8 +1548,8 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_DarknessLeftSide();
-                imageOriginal.Frames_DarknessRightSide();
+                imageOriginal.Frames_DarknessLeftSide((int)FrameWidthPercent.Value);
+                imageOriginal.Frames_DarknessRightSide((int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1570,8 +1560,8 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_DarknessTopSide();
-                imageOriginal.Frames_DarknessBottomSide();
+                imageOriginal.Frames_DarknessTopSide((int)FrameWidthPercent.Value);
+                imageOriginal.Frames_DarknessBottomSide((int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1582,109 +1572,83 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_SmoothDarkness();
+                imageOriginal.Frames_SmoothDarkness((int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
-        private void OnStandartAngleBlackClick(object sender, RoutedEventArgs e)
+
+        private void OnStandardAngleClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardTopSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardRightSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardBottomSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandartAngle(0); // 0 for Black color
+                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandartAngle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value); 
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
 
-        private void OnStandartAngleWhiteClick(object sender, RoutedEventArgs e)
+        private void OnStandardClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardTopSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardRightSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardBottomSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandartAngle(255); // 255 for White color
+                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
 
-        private void OnStandartBlackClick(object sender, RoutedEventArgs e)
+        private void OnAngleClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardTopSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardRightSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardBottomSide(0, 0, 0, imageOriginal.Frames_GetFrameWidth(5));
+                imageOriginal.Frames_Angle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value); 
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
 
-        private void OnStandartWhiteClick(object sender, RoutedEventArgs e)
+        private void BlackFrameTapped(object sender, TappedRoutedEventArgs e)
         {
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardTopSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardRightSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
-                imageOriginal.Frames_StandardBottomSide(255, 255, 255, imageOriginal.Frames_GetFrameWidth(5));
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
+            appliedFrameColor = "black";
         }
 
-        private void OnAngleBlackClick(object sender, RoutedEventArgs e)
+        private void WhiteFrameTapped(object sender, TappedRoutedEventArgs e)
         {
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_Angle(0); // 0 for Black color
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
+            appliedFrameColor = "white";
         }
 
-        private void OnAngleWhiteClick(object sender, RoutedEventArgs e)
+        public byte[] Frame_GetFrameColor()
         {
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_Angle(255); // 255 for White color
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-        }
+            byte[] Color = { 0, 0, 0 };
 
-        
-        private void OnFramesApplyClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
+            switch (appliedFrameColor)
             {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                case "black":
+                    {
+                        Color[0] = 0;
+                        Color[1] = 0;
+                        Color[2] = 0;
+                        break; 
+                    }
+                case "white":
+                    {
+                        Color[0] = 255;
+                        Color[1] = 255;
+                        Color[2] = 255;
+                        break;
+                    }
             }
-        }
-
-        private void OnFramesOriginalClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
+            return Color;
         }
         #endregion
 
@@ -2002,9 +1966,6 @@ namespace RemedyPic
                 case "EdgeEnhance":
                     doEdgeEnhance(givenStream, givenBitmap, givenImage);
                     break;
-                case "colorize":
-                    doColorize(givenStream, givenBitmap, givenImage);
-                    break;
                 case "retro":
                     doRetro(givenStream, givenBitmap, givenImage);
                     break;
@@ -2275,36 +2236,6 @@ namespace RemedyPic
                 await file.DeleteAsync();
             }
         }
-
-        #region Colorize
-        private void blueSquareTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedColorize = "blue";
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            doColorize(exampleStream, exampleBitmap, image);
-        }
-
-        private void redSquareTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedColorize = "red";
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            doColorize(exampleStream, exampleBitmap, image);
-        }
-
-        private void greenSquareTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedColorize = "green";
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            doColorize(exampleStream, exampleBitmap, image);
-        }
-
-        private void deselectColorizeListItems()
-        {
-            blueColorize.IsSelected = false;
-            redColorize.IsSelected = false;
-            greenColorize.IsSelected = false;
-        }
-        #endregion
 
         private void HistogramClicked(object sender, RoutedEventArgs e)
         {
@@ -2663,6 +2594,131 @@ namespace RemedyPic
             setFilterBitmaps();
         }
 
+        #region Colorize
+
+        #region Colorize events
+        private void blueColorize_Checked(object sender, RoutedEventArgs e)
+        {
+            blueForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            blueRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255));
+        }
+
+        private void blueColorize_Unchecked(object sender, RoutedEventArgs e)
+        {
+            blueForColorize = false;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            blueRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 0, 255));
+        }
+
+        private void redColorize_Checked(object sender, RoutedEventArgs e)
+        {
+            redForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            redRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+        }
+
+        private void redColorize_Unchecked(object sender, RoutedEventArgs e)
+        {
+            redForColorize = false;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            redRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 0));
+        }
+        private void yellowColorize_Checked(object sender, RoutedEventArgs e)
+        {
+            yellowForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            yellowRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
+        }
+
+        private void yellowColorize_Unchecked(object sender, RoutedEventArgs e)
+        {
+            yellowForColorize = false;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            yellowRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 0));
+        }
+        private void orangeColorize_Checked(object sender, RoutedEventArgs e)
+        {
+            orangeForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            orangeRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 116, 0));
+        }
+
+        private void orangeColorize_Unchecked(object sender, RoutedEventArgs e)
+        {
+            orangeForColorize = false;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            orangeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 116, 0));
+        }
+        private void greenColorize_Checked(object sender, RoutedEventArgs e)
+        {
+            greenForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            greenRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+        }
+
+        private void greenColorize_Unchecked(object sender, RoutedEventArgs e)
+        {
+            greenForColorize = false;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            greenRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 0));
+        }
+        private void cyanColorize_Checked(object sender, RoutedEventArgs e)
+        {
+            cyanForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            cyanRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 255, 255));
+        }
+
+        private void cyanColorize_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cyanForColorize = false;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            cyanRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 255));
+        }
+        private void purpleColorize_Checked(object sender, RoutedEventArgs e)
+        {
+            purpleForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            purpleRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
+        }
+
+        private void purpleColorize_Unchecked(object sender, RoutedEventArgs e)
+        {
+            purpleForColorize = false;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            purpleRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 255));
+        }
+        #endregion
+
+        private void deselectColorizeGridItems()
+        {
+            blueColorize.IsChecked = false;
+            redColorize.IsChecked = false;
+            greenColorize.IsChecked = false;
+            yellowColorize.IsChecked = false;
+            orangeColorize.IsChecked = false;
+            purpleColorize.IsChecked = false;
+            cyanColorize.IsChecked = false;
+            blueRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 0, 255));
+            redRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 0));
+            greenRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 0));
+            yellowRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 0));
+            orangeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 116, 0));
+            purpleRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 255));
+            cyanRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 255));
+        }
+
+        private void doColorize(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+            givenImage.Colorize(blueForColorize, redForColorize, greenForColorize, yellowForColorize,
+                                        orangeForColorize, purpleForColorize, cyanForColorize);
+            setStream(stream, bitmap, givenImage);
+            resetInterface();
+        }
+
+        #endregion
 
     }
     #endregion
