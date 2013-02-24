@@ -1133,7 +1133,7 @@
                     <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
-            <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0">
+            <StackPanel x:Name="imagePanel" Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel.Resources>
                     <Storyboard x:Name="AnimateInPicture">
                         <FadeInThemeAnimation Storyboard.TargetName="imagePanel"/>
@@ -1142,12 +1142,12 @@
                         <FadeOutThemeAnimation Storyboard.TargetName="imagePanel" Duration="00:00:001"/>
                     </Storyboard>
                 </StackPanel.Resources>
-                <Border x:Name="displayBorder" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border x:Name="displayBorder" Margin="0">
                     <Border.RenderTransform>
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
                     <Grid x:Name="displayGrid" Grid.Row="1" Margin="0">
-                        <Image x:ConnectionId='101' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Image x:ConnectionId='101' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
                         <Canvas x:Name="imageCanvas" Visibility="Collapsed" >
                             <Path x:Name="nonselectRegion" Fill="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Opacity="1" Stroke="White">
                                 <Path.Data>
@@ -1213,7 +1213,7 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <Border BorderThickness="0,0,0,2" Margin="0" Background="#FF515050">
+        <Border BorderThickness="0,0,0,2" Margin="0,0,-2,0" Background="#FF515050">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1238,7 +1238,7 @@
                         </TransitionCollection>
                     </Image.Transitions>
                 </Image>
-                <Border BorderThickness="0,0,0,2" VerticalAlignment="Top">
+                <Border x:Name="Browse_Save" BorderThickness="0,0,0,2" VerticalAlignment="Top" Padding="0,0,0,5">
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1253,21 +1253,43 @@
                         <Button x:ConnectionId='100' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin"                           Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
                     </StackPanel>
                 </Border>
-                <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
-                    <StackPanel Orientation="Horizontal" Width="100" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='97' x:Name="ZoomIn" Content="&#xE1A3;" VerticalAlignment="Top"                       FontSize="14" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White"/>
-                        <Button x:ConnectionId='98' x:Name="ZoomOut" Visibility="Collapsed" Content="&#xE1A4;" VerticalAlignment="Top"                        FontSize="14" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0"/>
-                    </StackPanel>
-                    <Button x:ConnectionId='95' x:Name="ResetZoom" Content="Reset" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                          Foreground="White" Height="40" BorderThickness="1" BorderBrush="White" Background="#33FFFFFF" Margin="0" Width="100"/>
-                    <CheckBox x:ConnectionId='96' x:Name="AvailableZoom" IsChecked="False" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left"                                                 HorizontalAlignment="Center"/>
+                <Border x:Name="Zoom1" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF21FF00"/>
+                            <GradientStop Color="#FF218900" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <StackPanel x:Name="ZoomStack" Height="117" Width="123">
+                        <StackPanel Orientation="Horizontal" Width="100" HorizontalAlignment="Center">
+                            <Button x:ConnectionId='97' x:Name="ZoomIn" Content="&#xE1A3;" VerticalAlignment="Top"                       FontSize="14" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White"/>
+                            <Button x:ConnectionId='98' x:Name="ZoomOut" Visibility="Collapsed" Content="&#xE1A4;" VerticalAlignment="Top"                        FontSize="14" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0"/>
+                        </StackPanel>
+                        <Button x:ConnectionId='95' x:Name="ResetZoom" Content="Reset" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                          Foreground="White" Height="40" BorderThickness="1" BorderBrush="White" Background="#33FFFFFF" Margin="0" Width="100"/>
+                        <CheckBox x:ConnectionId='96' x:Name="AvailableZoom" IsChecked="False" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left"                                                 HorizontalAlignment="Center"/>
 
-                </StackPanel>
-                <StackPanel x:Name="CropPanel" Margin="0" Orientation="Vertical" Visibility="Collapsed">
-                    <Button x:ConnectionId='94' x:Name="CropApply" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="White" Height="40" BorderThickness="1" BorderBrush="White" Background="#19FFFFFF" Visibility="Collapsed"/>
-                    <Border Background="#7F000000" Margin="5">
-                        <TextBlock x:Name="selectInfoInBitmapText" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="White" />
-                    </Border>
-                </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Border x:Name="Crop" Margin="0" BorderThickness="0,0,0,2" Visibility="Collapsed" >
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF21FF00"/>
+                            <GradientStop Color="#FF218900" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <StackPanel x:Name="CropPanel" Orientation="Vertical">
+                        <Border Background="#7F000000" Margin="5">
+                            <TextBlock x:Name="selectInfoInBitmapText" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="White" Margin="10,0,0,0" HorizontalAlignment="Center" />
+                        </Border>
+                        <Button x:ConnectionId='94' x:Name="CropApply" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="White" Height="40" BorderThickness="1" BorderBrush="White" Background="#19FFFFFF" Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
             </StackPanel>
         </Grid>
         <Grid x:Name="contentGrid" Margin="0,0,-38.571,3.429" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">

@@ -304,7 +304,6 @@ namespace RemedyPic
 
             AnimateInPicture.Begin();
             ZoomStack.Visibility = Visibility.Visible;
-            deselectColorizeGridItems();
             setFilterBitmaps();
             displayImage.MaxWidth = imagePanel.ActualWidth;
             displayImage.MaxHeight = imagePanel.ActualHeight;
@@ -330,7 +329,8 @@ namespace RemedyPic
             FeedbackGrid.Height = Feedback.ActualHeight + 5;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
-            imagePanel.MaxWidth = imageBorder.ActualWidth - 10;
+            displayImage.MaxWidth = imageBorder.ActualWidth * 0.80;
+            displayImage.MaxHeight = imageBorder.ActualHeight * 0.80;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
@@ -1850,7 +1850,7 @@ namespace RemedyPic
 
         private void ZoomOutClicked(object sender, RoutedEventArgs e)
         {
-            if (scale.ScaleX > 1 && scale.ScaleY > 1)
+            if (scale.ScaleX > 0.7 && scale.ScaleY > 0.7)
             {
                 scale.ScaleX = scale.ScaleX - 0.1;
                 scale.ScaleY = scale.ScaleY - 0.1;
@@ -2298,7 +2298,7 @@ namespace RemedyPic
             }
             else
             {
-                if (scale.ScaleX > 1 && scale.ScaleY > 1)
+                if (scale.ScaleX > 0.7 && scale.ScaleY > 0.7)
                 {
                     scale.ScaleX = scale.ScaleX - 0.1;
                     scale.ScaleY = scale.ScaleY - 0.1;
@@ -2466,7 +2466,7 @@ namespace RemedyPic
 
         private void CropChecked(object sender, RoutedEventArgs e)
         {
-            CropPanel.Visibility = Visibility.Visible;
+            Crop.Visibility = Visibility.Visible;
             imageCanvas.Visibility = Visibility.Visible;
             displayGrid.Margin = new Thickness(15);
             ResetZoomPos();
@@ -2474,10 +2474,9 @@ namespace RemedyPic
 
         private void CropUnchecked(object sender, RoutedEventArgs e)
         {
-            CropPanel.Visibility = Visibility.Collapsed;
+            Crop.Visibility = Visibility.Collapsed;
             imageCanvas.Visibility = Visibility.Collapsed;
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
-            this.selectedRegion.OuterRect = Rect.Empty;
             displayGrid.Margin = new Thickness(0);
         }
 
