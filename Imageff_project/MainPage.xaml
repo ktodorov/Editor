@@ -1743,7 +1743,7 @@
                                 <Rectangle x:Name="redRect" Fill="#66FF0000" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
                             </ToggleButton>
                             <ToggleButton x:Name="greenColorize" Grid.Column="2" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Checked="greenColorize_Checked" Unchecked="greenColorize_Unchecked">
-                                <Rectangle x:Name="greenRect" Fill="#6600FF00" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
+                                <Rectangle x:Name="greenRect" Fill="#66005A00" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
                             </ToggleButton>
                             <ToggleButton x:Name="yellowColorize" Margin="0" Padding="0" HorizontalAlignment="Center" Grid.Column="3" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Checked="yellowColorize_Checked" Unchecked="yellowColorize_Unchecked">
                                 <Rectangle x:Name="yellowRect" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0" Fill="#66FFFF00"/>
@@ -1756,6 +1756,9 @@
                             </ToggleButton>
                             <ToggleButton x:Name="cyanColorize" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Grid.Row="1" Grid.Column="2" Checked="cyanColorize_Checked" Unchecked="cyanColorize_Unchecked">
                                 <Rectangle x:Name="cyanRect" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0" Fill="#6600FFFF"/>
+                            </ToggleButton>
+                            <ToggleButton x:Name="limeColorize" Grid.Column="3" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Checked="limeColorize_Checked" Unchecked="limeColorize_Unchecked" Grid.Row="1">
+                                <Rectangle x:Name="limeRect" Fill="#6619FF19" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
                             </ToggleButton>
                         </Grid>
                         <StackPanel x:Name="ColorizeApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
