@@ -54,7 +54,7 @@ namespace RemedyPic
 
         // Colorize selected colors
         private bool redForColorize, greenForColorize, blueForColorize, yellowForColorize,
-                         orangeForColorize, purpleForColorize, cyanForColorize = false;
+                         orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize = false;
 
         FilterFunctions image = new FilterFunctions();
         FilterFunctions imageOriginal = new FilterFunctions();
@@ -2734,7 +2734,6 @@ namespace RemedyPic
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             blueRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255));
         }
-
         private void blueColorize_Unchecked(object sender, RoutedEventArgs e)
         {
             blueForColorize = false;
@@ -2748,78 +2747,91 @@ namespace RemedyPic
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             redRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
         }
-
         private void redColorize_Unchecked(object sender, RoutedEventArgs e)
         {
             redForColorize = false;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             redRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 0));
         }
+
         private void yellowColorize_Checked(object sender, RoutedEventArgs e)
         {
             yellowForColorize = true;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             yellowRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
         }
-
         private void yellowColorize_Unchecked(object sender, RoutedEventArgs e)
         {
             yellowForColorize = false;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             yellowRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 0));
         }
+
         private void orangeColorize_Checked(object sender, RoutedEventArgs e)
         {
             orangeForColorize = true;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             orangeRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 116, 0));
         }
-
         private void orangeColorize_Unchecked(object sender, RoutedEventArgs e)
         {
             orangeForColorize = false;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             orangeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 116, 0));
         }
+
         private void greenColorize_Checked(object sender, RoutedEventArgs e)
         {
             greenForColorize = true;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
-            greenRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+            greenRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 90, 0));
         }
-
         private void greenColorize_Unchecked(object sender, RoutedEventArgs e)
         {
             greenForColorize = false;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
-            greenRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 0));
+            greenRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 90, 0));
         }
+
         private void cyanColorize_Checked(object sender, RoutedEventArgs e)
         {
             cyanForColorize = true;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             cyanRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 255, 255));
         }
-
         private void cyanColorize_Unchecked(object sender, RoutedEventArgs e)
         {
             cyanForColorize = false;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             cyanRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 255));
         }
+
         private void purpleColorize_Checked(object sender, RoutedEventArgs e)
         {
             purpleForColorize = true;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             purpleRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
         }
-
         private void purpleColorize_Unchecked(object sender, RoutedEventArgs e)
         {
             purpleForColorize = false;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
             purpleRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 255));
         }
+
+        private void limeColorize_Checked(object sender, RoutedEventArgs e)
+        {
+            limeForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            limeRect.Fill = new SolidColorBrush(Color.FromArgb(255, 25, 255, 25));
+        }
+        private void limeColorize_Unchecked(object sender, RoutedEventArgs e)
+        {
+            limeForColorize = false;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            limeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 25, 255, 25));
+        }
+
         #endregion
 
         private void deselectColorizeGridItems()
@@ -2831,20 +2843,22 @@ namespace RemedyPic
             orangeColorize.IsChecked = false;
             purpleColorize.IsChecked = false;
             cyanColorize.IsChecked = false;
+            limeColorize.IsChecked = false;
             blueRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 0, 255));
             redRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 0));
-            greenRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 0));
+            greenRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 90, 0));
             yellowRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 0));
             orangeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 116, 0));
             purpleRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 255));
             cyanRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 255));
+            limeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 25, 255, 25));
         }
 
         private void doColorize(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             givenImage.Colorize(blueForColorize, redForColorize, greenForColorize, yellowForColorize,
-                                        orangeForColorize, purpleForColorize, cyanForColorize);
+                                        orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize);
             setStream(stream, bitmap, givenImage);
             resetInterface();
         }

@@ -839,7 +839,7 @@ namespace RemedyPic.Common
 
         // Main function
         public void Colorize(bool leaveBlue, bool leaveRed, bool leaveGreen, bool leaveYellow,
-                                   bool leaveOrange, bool leavePurple, bool leaveCyan)
+                                   bool leaveOrange, bool leavePurple, bool leaveCyan, bool leaveLime)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
             double hue = 0;
@@ -857,7 +857,8 @@ namespace RemedyPic.Common
                 // selected from the user so we make it grayscale.
                 if (!checkPixelForColorize(CurrentByte, leaveBlue, hue, "blue") && !checkPixelForColorize(CurrentByte, leaveRed, hue, "red") && !checkPixelForColorize(CurrentByte, leaveGreen, hue, "green")
                     && !checkPixelForColorize(CurrentByte, leaveYellow, hue, "yellow") && !checkPixelForColorize(CurrentByte, leaveOrange, hue, "orange") &&
-                    !checkPixelForColorize(CurrentByte, leavePurple, hue, "purple") && !checkPixelForColorize(CurrentByte, leaveCyan, hue, "cyan"))
+                    !checkPixelForColorize(CurrentByte, leavePurple, hue, "purple") && !checkPixelForColorize(CurrentByte, leaveCyan, hue, "cyan")
+                    && !checkPixelForColorize(CurrentByte, leaveLime, hue, "lime"))
                 {
                     makePixelGrayscale(CurrentByte);
                 }
@@ -915,6 +916,13 @@ namespace RemedyPic.Common
                 case ("cyan"):
                     if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
                         || hue < 170 || hue > 210)
+                    {
+                        return false;
+                    }
+                    break;
+                case ("lime"):
+                    if (_dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
+                        || hue > 100 || hue < 60)
                     {
                         return false;
                     }
