@@ -2334,7 +2334,7 @@ namespace RemedyPic
 
         private void CropChecked(object sender, RoutedEventArgs e)
         {
-            CropPanel.Visibility = Visibility.Visible;
+            Crop.Visibility = Visibility.Visible;
             imageCanvas.Visibility = Visibility.Visible;
             displayGrid.Margin = new Thickness(15);
             ResetZoomPos();
@@ -2342,10 +2342,9 @@ namespace RemedyPic
 
         private void CropUnchecked(object sender, RoutedEventArgs e)
         {
-            CropPanel.Visibility = Visibility.Collapsed;
+            Crop.Visibility = Visibility.Collapsed;
             imageCanvas.Visibility = Visibility.Collapsed;
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
-            this.selectedRegion.OuterRect = Rect.Empty;
             displayGrid.Margin = new Thickness(0);
         }
 
