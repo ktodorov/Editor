@@ -28,7 +28,64 @@ namespace RemedyPic.Common
         {
             CustomFilter_GetBorders();
             CustomFilter_NewPixelsValue((_width * 4 + 4) * _top, 1 + _left, 1 + _top);
+            CustomFilter_FillTheBlankPixels();
             return (byte[])_dstPixels.Clone();
+        }
+
+        public void CustomFilter_FillTheBlankPixels()
+        {
+            CustomFilter_FillLeftColumn(4); // Second Column
+            CustomFilter_FillLeftColumn(0); // First Column
+            CustomFilter_FillTopRow(4 * (_width)); // Second Row
+            CustomFilter_FillTopRow(0); // First Row
+            CustomFilter_FillRightColumn(4 * (_width - 2)); // Last - 1 Column
+            CustomFilter_FillRightColumn(4 * (_width - 1)); // Last Column
+            CustomFilter_FillBottomRow(4 * _width * (_height - 2)); // Last - 1 Row
+            CustomFilter_FillBottomRow(4 * _width * (_height - 1)); // Last Row
+        }
+
+        private void CustomFilter_FillLeftColumn(int StartIndex)
+        {
+            for (int CurrentByte = StartIndex; CurrentByte < _dstPixels.Length; CurrentByte += 4 * _width)
+            {
+                _dstPixels[CurrentByte] = _dstPixels[CurrentByte + 4];
+                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 5];
+                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte + 6];
+                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte + 7];
+            }
+        }
+
+        private void CustomFilter_FillTopRow(int StartIndex)
+        {
+            for (int CurrentByte = StartIndex; CurrentByte < StartIndex + 4 * _width; CurrentByte += 4)
+            {
+                _dstPixels[CurrentByte] = _dstPixels[CurrentByte + 4 * _width];
+                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 1 + 4 * _width];
+                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte + 2 + 4 * _width];
+                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte + 3 + 4 * _width];
+            }
+        }
+
+        private void CustomFilter_FillRightColumn(int StartIndex)
+        {
+            for (int CurrentByte = StartIndex; CurrentByte < _dstPixels.Length; CurrentByte += 4 * _width)
+            {
+                _dstPixels[CurrentByte] = _dstPixels[CurrentByte - 4];
+                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte - 3];
+                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte - 2];
+                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte - 1];
+            }
+        }
+
+        private void CustomFilter_FillBottomRow(int StartIndex)
+        {
+            for (int CurrentByte = StartIndex; CurrentByte < StartIndex + 4 * _width; CurrentByte += 4)
+            {
+                _dstPixels[CurrentByte] = _dstPixels[CurrentByte - 4 * _width];
+                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 1 - 4 * _width];
+                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte + 2 - 4 * _width];
+                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte + 3 - 4 * _width];
+            }
         }
 
         private void CustomFilter_NewPixelsValue(int current_byte, int current_width, int current_height)

@@ -357,7 +357,6 @@ namespace RemedyPic
                 image.dstPixels = custom_image.Filter();
                 setStream(exampleStream, exampleBitmap, image);
                 resetInterface();
-                //changeButton(ref invertButton);
             }
         }
 
@@ -383,7 +382,6 @@ namespace RemedyPic
                 image.BlackAndWhite(image.dstPixels, image.srcPixels);
                 setStream(exampleStream, exampleBitmap, image);
                 resetInterface();
-                //changeButton(ref BlackAndWhiteButton);
             }
         }
         #endregion
@@ -403,7 +401,6 @@ namespace RemedyPic
                 image.dstPixels = custom_image.Filter();
                 setStream(exampleStream, exampleBitmap, image);
                 resetInterface();
-                //changeButton(ref embossButton);
             }
         }
 
@@ -431,7 +428,6 @@ namespace RemedyPic
                 image.dstPixels = custom_image.Filter();
                 setStream(exampleStream, exampleBitmap, image);
                 resetInterface();
-                //changeButton(ref emboss2Button);
             }
         }
 
@@ -466,7 +462,6 @@ namespace RemedyPic
                 setStream(exampleStream, exampleBitmap, image);
 
                 resetInterface();
-                //changeButton(ref SharpenButton);
             }
         }
 
@@ -499,30 +494,20 @@ namespace RemedyPic
                 setStream(exampleStream, exampleBitmap, image);
 
                 resetInterface();
-                //changeButton(ref blurButton);
             }
         }
 
-        /*		private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-                {
-                    coeff[2, 2] = 3;
-                    coeff[0, 0] = coeff[1, 0] = coeff[2, 0] = coeff[3, 0] = coeff[4, 0] = 1;
-                    coeff[0, 1] = coeff[0, 2] = coeff[0, 3] = coeff[4, 1] = coeff[4, 2] = coeff[4, 3] = 1;
-                    coeff[0, 4] = coeff[1, 4] = coeff[2, 4] = coeff[3, 4] = coeff[4, 4] = 1;
-                    coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 2;
-                    coeff[1, 2] = coeff[3, 2] = 2;
-                    coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 2;
-                    offset = 0;
-                    scale = 35;
-                }*/
         private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
-            coeff[2, 2] = 1;
-            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 3;
-            coeff[1, 2] = coeff[3, 2] = 3;
-            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 3;
+            coeff[2, 2] = 3;
+            coeff[0, 0] = coeff[1, 0] = coeff[2, 0] = coeff[3, 0] = coeff[4, 0] = 1;
+            coeff[0, 1] = coeff[0, 2] = coeff[0, 3] = coeff[4, 1] = coeff[4, 2] = coeff[4, 3] = 1;
+            coeff[0, 4] = coeff[1, 4] = coeff[2, 4] = coeff[3, 4] = coeff[4, 4] = 1;
+            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 2;
+            coeff[1, 2] = coeff[3, 2] = 2;
+            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 2;
             offset = 0;
-            scale = 25;
+            scale = 35;
         }
         #endregion
 
@@ -543,7 +528,6 @@ namespace RemedyPic
                 setStream(exampleStream, exampleBitmap, image);
 
                 resetInterface();
-                //changeButton(ref blur2Button);
             }
         }
 
@@ -576,7 +560,6 @@ namespace RemedyPic
                 setStream(exampleStream, exampleBitmap, image);
 
                 resetInterface();
-                //changeButton(ref EdgeDetectButton);
             }
         }
 
@@ -607,14 +590,13 @@ namespace RemedyPic
                 setStream(exampleStream, exampleBitmap, image);
 
                 resetInterface();
-                //changeButton(ref EdgeEnhanceButton);
             }
         }
 
         private void EdgeEnhance_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
             coeff[2, 2] = 1;
-            coeff[1, 2] = -1;
+            coeff[3, 0] = -1;
             offset = 0;
             scale = 1;
         }
@@ -1476,7 +1458,7 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();                
                 imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
@@ -1854,7 +1836,7 @@ namespace RemedyPic
         {
             if (pictureIsLoaded)
             {
-                appliedRotations = "gamma";
+                appliedColors = "gamma";
                 prepareImage(exampleStream, exampleBitmap, image);
                 image.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
                 setStream(exampleStream, exampleBitmap, image);
