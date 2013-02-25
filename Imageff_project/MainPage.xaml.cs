@@ -994,11 +994,20 @@ namespace RemedyPic
             resetInterface();
         }
 
-        private void doSharpen1(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doNoice(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
 
-            givenImage.Sharpen1();
+            givenImage.Noice(20);
+            setStream(stream, bitmap, givenImage);
+            resetInterface();
+        }
+
+        private void doHardNoice(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        {
+            prepareImage(stream, bitmap, givenImage);
+
+            givenImage.Noice(1);
             setStream(stream, bitmap, givenImage);
             resetInterface();
         }
@@ -1133,9 +1142,13 @@ namespace RemedyPic
                     doSharpen(bitmapStream, bitmapImage, imageOriginal);
                     doSharpen(exampleStream, exampleBitmap, image);
                     break;
-                case "sharpen1":
-                    doSharpen1(bitmapStream, bitmapImage, imageOriginal);
-                    doSharpen1(exampleStream, exampleBitmap, image);
+                case "noice":
+                    doNoice(bitmapStream, bitmapImage, imageOriginal);
+                    doNoice(exampleStream, exampleBitmap, image);
+                    break;
+                case "hardNoice":
+                    doHardNoice(bitmapStream, bitmapImage, imageOriginal);
+                    doHardNoice(exampleStream, exampleBitmap, image);
                     break;
                 case "EdgeDetect":
                     doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
@@ -1983,7 +1996,8 @@ namespace RemedyPic
             blurStream = null,
             blur2Stream = null,
             sharpenStream = null,
-            sharpenStream1 = null,
+            noiceStream = null,
+            hardNoiceStream = null,
             retroStream = null,
             darkenStream = null,
             edgeDetectStream = null,
@@ -2002,7 +2016,8 @@ namespace RemedyPic
             blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            sharpenBitmap1 = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            noiceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            hardNoiceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
@@ -2018,7 +2033,8 @@ namespace RemedyPic
             blurFilter.Source = blurBitmap;
             blur2Filter.Source = blur2Bitmap;
             sharpenFilter.Source = sharpenBitmap;
-            sharpenFilter1.Source = sharpenBitmap1;
+            noiceFilter.Source = noiceBitmap;
+            hardNoiceFilter.Source = hardNoiceBitmap;
             edgeDetectFilter.Source = edgeDetectBitmap;
             edgeEnhanceFilter.Source = edgeEnhanceBitmap;
             retroFilter.Source = retroBitmap;
@@ -2034,7 +2050,8 @@ namespace RemedyPic
             blurStream = blurBitmap.PixelBuffer.AsStream();
             blur2Stream = blur2Bitmap.PixelBuffer.AsStream();
             sharpenStream = sharpenBitmap.PixelBuffer.AsStream();
-            sharpenStream1 = sharpenBitmap1.PixelBuffer.AsStream();
+            noiceStream = noiceBitmap.PixelBuffer.AsStream();
+            hardNoiceStream = hardNoiceBitmap.PixelBuffer.AsStream();
             edgeDetectStream = edgeDetectBitmap.PixelBuffer.AsStream();
             edgeEnhanceStream = edgeEnhanceBitmap.PixelBuffer.AsStream();
             retroStream = retroBitmap.PixelBuffer.AsStream();
@@ -2050,7 +2067,8 @@ namespace RemedyPic
             initializeBitmap(blurStream, blurBitmap, filterimage);
             initializeBitmap(blur2Stream, blur2Bitmap, filterimage);
             initializeBitmap(sharpenStream, sharpenBitmap, filterimage);
-            initializeBitmap(sharpenStream1, sharpenBitmap1, filterimage);
+            initializeBitmap(noiceStream, noiceBitmap, filterimage);
+            initializeBitmap(hardNoiceStream, hardNoiceBitmap, filterimage);
             initializeBitmap(edgeDetectStream, edgeDetectBitmap, filterimage);
             initializeBitmap(edgeEnhanceStream, edgeEnhanceBitmap, filterimage);
             initializeBitmap(retroStream, retroBitmap, filterimage);
@@ -2069,7 +2087,8 @@ namespace RemedyPic
             doFilter(blurStream, blurBitmap, filterimage, "blur");
             doFilter(blur2Stream, blur2Bitmap, filterimage, "blur2");
             doFilter(sharpenStream, sharpenBitmap, filterimage, "sharpen");
-            doFilter(sharpenStream1, sharpenBitmap1, filterimage, "sharpen1");
+            doFilter(noiceStream, noiceBitmap, filterimage, "noice");
+            doFilter(hardNoiceStream, hardNoiceBitmap, filterimage, "hardNoice");
             doFilter(edgeDetectStream, edgeDetectBitmap, filterimage, "EdgeDetect");
             doFilter(edgeEnhanceStream, edgeEnhanceBitmap, filterimage, "EdgeEnhance");
             doFilter(retroStream, retroBitmap, filterimage, "retro");
@@ -2111,8 +2130,11 @@ namespace RemedyPic
                 case "sharpen":
                     doSharpen(givenStream, givenBitmap, givenImage);
                     break;
-                case "sharpen1":
-                    doSharpen1(givenStream, givenBitmap, givenImage);
+                case "noice":
+                    doNoice(givenStream, givenBitmap, givenImage);
+                    break;
+                case "hardNoice":
+                    doHardNoice(givenStream, givenBitmap, givenImage);
                     break;
                 case "EdgeDetect":
                     doEdgeDetect(givenStream, givenBitmap, givenImage);
@@ -2184,9 +2206,16 @@ namespace RemedyPic
             FilterApplyReset.Visibility = Visibility.Visible;
         }
 
-        private void sharpenChecked1(object sender, RoutedEventArgs e)
+        private void noiceChecked(object sender, RoutedEventArgs e)
         {
-            appliedFilters = "sharpen1";
+            appliedFilters = "noice";
+            deselectFilters();
+            FilterApplyReset.Visibility = Visibility.Visible;
+        }
+
+        private void hardNoiceChecked(object sender, RoutedEventArgs e)
+        {
+            appliedFilters = "hardNoice";
             deselectFilters();
             FilterApplyReset.Visibility = Visibility.Visible;
         }
@@ -2269,8 +2298,10 @@ namespace RemedyPic
                 invertCheck.IsChecked = false;
             if (without != "sharpen")
                 sharpenCheck.IsChecked = false;
-            if (without != "sharpen1")
-                sharpenCheck1.IsChecked = false;
+            if (without != "noice")
+                noiceCheck.IsChecked = false;
+            if (without != "hardNoice")
+                hardNoiceCheck.IsChecked = false;
             if (without != "emboss2")
                 emboss2Check.IsChecked = false;
             if (without != "emboss")

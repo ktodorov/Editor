@@ -529,38 +529,54 @@ namespace RemedyPic.Common
        
         #endregion
 
-        #region Sharpen1
-
-        // Main function of sharpen filter
-        public void Sharpen1()
+        #region Noice
+        // Main function of Noice 
+        public void Noice(int percent)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
-            Random random = new Random();
-            int SquareWidth = Sharpen1_GetSquareWidth();
+            Random random = new Random(); 
+            int SquareWidth = Noice_GetSquareWidth(percent);
 
             for (int CurrentByte = 3, AlphaCoeff = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
-                if (CurrentColumn == _width)
-                {
-                    CurrentColumn = 0;
-                    CurrentByte += 4 * _width * (SquareWidth - 1);
-                }
-
-                if (CurrentColumn % SquareWidth == 0)
-                {
-                    AlphaCoeff = random.Next(0, 256);
-                }
-
-                for (int k = 0, index = CurrentByte; k < SquareWidth && index < _dstPixels.Length; k++, index += 4 * _width)
-                {
-                    _dstPixels[index] = (byte)AlphaCoeff;
-                }
+                Noice_GetNewColumn(ref CurrentColumn, ref CurrentByte, SquareWidth);
+                Noice_GetNewAlphacCoeff(CurrentColumn, SquareWidth, ref AlphaCoeff, ref random);
+                Noice_SetNewRow(CurrentByte, AlphaCoeff, SquareWidth);
             }
         }
 
-        public int Sharpen1_GetSquareWidth()
+        // Check if the current column is more than the width, changes to new raw pixels
+        public void Noice_GetNewColumn(ref int CurrentColumn, ref int CurrentByte, int SquareWidth)
         {
-            int val = (((_width + _height) / 2) * 1) / 100;
+            if (CurrentColumn == _width)
+            {
+                CurrentColumn = 0;
+                CurrentByte += 4 * _width * (SquareWidth - 1);
+            }
+        }
+
+        // If all of the pixel of square are set`s recalculate the new alpha coeff for the new square
+        public void Noice_GetNewAlphacCoeff(int CurrentColumn, int SquareWidth, ref int AlphaCoeff, ref Random random)
+        {
+            if (CurrentColumn % SquareWidth == 0)
+            {
+                AlphaCoeff = random.Next(0, 256);
+            }
+        }
+
+        // Set one row of the square with new alpha
+        public void Noice_SetNewRow(int index, int AlphaCoeff, int SquareWidth)
+        {
+            for (int k = 0; k < SquareWidth && index < _dstPixels.Length; k++, index += 4 * _width)
+            {
+                _dstPixels[index] = (byte)AlphaCoeff;
+            }
+        }
+
+        // Calculate the width (height) of the square
+        public int Noice_GetSquareWidth(int percent)
+        {
+            int val = (((_width + _height) / 2) * percent) / 100;
 
             return Math.Max(1, val);
         }

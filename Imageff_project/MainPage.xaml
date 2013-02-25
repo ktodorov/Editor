@@ -1485,10 +1485,10 @@
                                     </StackPanel>
                                 </ToggleButton>
                                 <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
-                                <ToggleButton x:Name="sharpenCheck1" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="sharpenChecked1" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                <ToggleButton x:Name="noiceCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="noiceChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
                                     <StackPanel VerticalAlignment="Top" >
-                                        <Image x:Name="sharpenFilter1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
-                                        <TextBlock TextWrapping="Wrap" Text="Sharpen1" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                        <Image x:Name="noiceFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Noice" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                             </StackPanel>
@@ -1499,6 +1499,13 @@
                                     <StackPanel VerticalAlignment="Top" Margin="0">
                                         <Image x:Name="retroFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
                                         <TextBlock TextWrapping="Wrap" Text="Retro" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <Border BorderBrush="#7FFFFFFF" BorderThickness="1" HorizontalAlignment="Left"/>
+                                <ToggleButton x:Name="hardNoiceCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="hardNoiceChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">
+                                    <StackPanel VerticalAlignment="Top" >
+                                        <Image x:Name="hardNoiceFilter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="170"/>
+                                        <TextBlock TextWrapping="Wrap" Text="Hard Noice" Style="{StaticResource ItemTextStyle}" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
                                     </StackPanel>
                                 </ToggleButton>
                             </StackPanel>
