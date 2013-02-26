@@ -125,6 +125,15 @@
     <None Include="Imageff_project_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\FramesPictures\Frames-darkness.jpg" />
+    <Content Include="Assets\FramesPictures\Frames-leftandright.jpg" />
+    <Content Include="Assets\FramesPictures\Frames-softangle.jpg" />
+    <Content Include="Assets\FramesPictures\Frames-Square.jpg" />
+    <Content Include="Assets\FramesPictures\Frames-squaresoft.jpg" />
+    <Content Include="Assets\FramesPictures\Frames-topandbottom.jpg" />
+    <Content Include="Assets\FramesPictures\Frames-transparent-leftright.jpg" />
+    <Content Include="Assets\FramesPictures\Frames-transparent-topbottom.jpg" />
+    <Content Include="Assets\FramesPictures\Frames-transparent.jpg" />
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\RemedyPicLogo.png" />
     <Content Include="Assets\SmallLogo.png" />

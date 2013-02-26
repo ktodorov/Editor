@@ -319,7 +319,6 @@ namespace RemedyPic
             Filters.Height = PopupFilters.ActualHeight + 5;
             Colors.Height = PopupColors.ActualHeight + 5;
             Rotations.Height = PopupRotations.ActualHeight + 5;
-            Zoom.Height = PopupZoom.ActualHeight + 5;
             ImageOptions.Height = PopupImageOptions.ActualHeight + 5;
             Colorize.Height = PopupColorize.ActualHeight + 5;
             Frames.Height = PopupFrames.ActualHeight + 5;
@@ -333,7 +332,7 @@ namespace RemedyPic
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
         {
-            // We set the XAML Image object a bitmap as source 
+            // We set the XAML Image object a bitmap as a source 
             // and then set the width and height to be proportional to the actual bitmap
             imageElement.Source = source;
             imageElement.Width = bitmapImage.PixelWidth / 4;
@@ -2858,6 +2857,20 @@ namespace RemedyPic
         }
 
         #endregion
+
+        private void FramesBorder_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            // This event completes when the mouse pointer enter the frame border.
+            var borderSender = sender as Border;
+            borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255,255,255,255));
+        }
+
+        private void FramesBorder_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            // This event completes when the mouse pointer exit the frame border.
+            var borderSender = sender as Border;
+            borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
+        }
 
     }
     #endregion
