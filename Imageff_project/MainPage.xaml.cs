@@ -2443,10 +2443,9 @@ namespace RemedyPic
         }
 
         #region Crop region
+
         #region Select Region methods
 
-        
-        
         private void Corner_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             // If a pointer presses in the corner, it means that the user starts to move the corner.
@@ -2675,8 +2674,8 @@ namespace RemedyPic
                 }
                 else
                 {
-                    double scale = e.NewSize.Height / e.PreviousSize.Height;
-                    this.selectedRegion.ResizeSelectedRect(scale);
+                    //double scale = e.NewSize.Height / e.PreviousSize.Height;
+                    //this.selectedRegion.ResizeSelectedRect(scale);
                 }
 
             }
@@ -2698,6 +2697,7 @@ namespace RemedyPic
             // When the user clicks Apply, the image is cropped.
             UpdatePreviewImage();
         }
+
         #endregion
 
         private void deselectMenu()
@@ -2713,6 +2713,7 @@ namespace RemedyPic
             SelectCrop.IsChecked = false;
         }
 
+        #region Resizing the image
         private void ResizeSlider_Changed(object sender, RangeBaseValueChangedEventArgs e)
         {
             // Event for the resize slider.
@@ -2796,6 +2797,8 @@ namespace RemedyPic
             displayImage.Source = bitmapImage;
             setFilterBitmaps();
         }
+
+        #endregion
 
         #region Colorize
 
