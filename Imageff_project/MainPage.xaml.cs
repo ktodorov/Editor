@@ -355,7 +355,8 @@ namespace RemedyPic
             ZoomStack.Visibility = Visibility.Visible;
 
             // set the small WriteableBitmap objects to the filter buttons.
-            setFilterBitmaps();
+            filterBitmapsNeedLoading = false;
+            setFilterBitmaps(false);
 
             // Display the file name.
             setFileProperties(file);
@@ -1139,7 +1140,7 @@ namespace RemedyPic
             }
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps();
+            setFilterBitmaps(false);
             appliedFilters = null;
             deselectFilters();
             ImageLoadingRing.IsActive = false;
@@ -1158,7 +1159,7 @@ namespace RemedyPic
 
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps();
+            setFilterBitmaps(false);
             appliedColors = null;
             ImageLoadingRing.IsActive = false;
         }
@@ -1183,7 +1184,7 @@ namespace RemedyPic
             }
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps();
+            setFilterBitmaps(false);
             appliedRotations = null;
             ImageLoadingRing.IsActive = false;
         }
@@ -1195,7 +1196,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = true;
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps();
+            setFilterBitmaps(false);
             SelectColorize.IsChecked = false;
             ImageLoadingRing.IsActive = false;
         }
@@ -1229,7 +1230,7 @@ namespace RemedyPic
 
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps();
+            setFilterBitmaps(false);
             appliedColors = null;
             ImageLoadingRing.IsActive = false;
 
@@ -1312,8 +1313,7 @@ namespace RemedyPic
             PopupFilters.IsOpen = true;
             if (filterBitmapsNeedLoading)
             {
-                setFilterBitmaps();
-                filterBitmapsNeedLoading = false;
+                setFilterBitmaps(true);
             }
 
         }
@@ -1588,7 +1588,7 @@ namespace RemedyPic
         private void OnApplyFramesClick(object sender, RoutedEventArgs e)
         {
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps();
+            setFilterBitmaps(false);
             FramesApplyReset.Visibility = Visibility.Collapsed;
 
         }
@@ -1979,7 +1979,7 @@ namespace RemedyPic
         #endregion
 
         #region Small Bitmaps for Filters
-        private async void setFilterBitmaps()
+        private async void setFilterBitmaps(bool doSecondHalf)
         {
             // This creates temporary Streams and WriteableBitmap objects for every filter available.
             // We set the bitmaps as source to the XAML Image objects.
@@ -1987,7 +1987,7 @@ namespace RemedyPic
 
             RemedyImage filterimage = new RemedyImage();
 
-            if (!filterBitmapsNeedLoading)
+            if (!doSecondHalf)
             {
                 Stream
                 blackWhiteStream = null,
@@ -2110,6 +2110,8 @@ namespace RemedyPic
                 doFilter(brightenStream, brightenBitmap, filterimage, "brighten");
                 doFilter(shadowStream, shadowBitmap, filterimage, "shadow");
                 doFilter(crystalStream, crystalBitmap, filterimage, "crystal");
+
+                filterBitmapsNeedLoading = false;
             }   
         }
 
@@ -2440,7 +2442,7 @@ namespace RemedyPic
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
             displayImage.Source = bitmapImage;
-            setFilterBitmaps();
+            setFilterBitmaps(false);
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
         }
 
@@ -2468,7 +2470,7 @@ namespace RemedyPic
             setStream(exampleStream, exampleBitmap, image);
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps();
+            setFilterBitmaps(false);
         }
 
         #region Crop region
@@ -2614,7 +2616,7 @@ namespace RemedyPic
             setElements(ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
             setElements(ExposureExamplePicture, exampleBitmap);
-            setFilterBitmaps();
+            setFilterBitmaps(false);
 
             SelectCrop.IsChecked = false;
 
@@ -2824,7 +2826,7 @@ namespace RemedyPic
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
             displayImage.Source = bitmapImage;
-            setFilterBitmaps();
+            setFilterBitmaps(false);
         }
 
         #endregion
