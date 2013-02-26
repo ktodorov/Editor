@@ -2576,6 +2576,11 @@ namespace RemedyPic
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
 
             exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+
+            exampleStream = exampleBitmap.PixelBuffer.AsStream();
+            image.srcPixels = new byte[(uint)exampleStream.Length];
+            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
+
             prepareImage(exampleStream, exampleBitmap, image);
             setStream(exampleStream, exampleBitmap, image);
             setElements(ColorsExamplePicture, exampleBitmap);
