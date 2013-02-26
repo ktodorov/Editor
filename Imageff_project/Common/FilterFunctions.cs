@@ -523,11 +523,10 @@ namespace RemedyPic.Common
 
         #region Noise
         // Main function of Noise 
-        public void Noise(int percent)
+        public void Noise(int SquareWidth)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
             Random random = new Random(); 
-            int SquareWidth = Noise_GetSquareWidth(percent);
 
             for (int CurrentByte = 3, AlphaCoeff = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
@@ -566,7 +565,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate the width (height) of the square
-        private int Noise_GetSquareWidth(int percent)
+       public int Noise_GetSquareWidth(int percent)
         {
             int val = (((_width + _height) / 2) * percent) / 100;
 

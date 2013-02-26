@@ -936,7 +936,7 @@ namespace RemedyPic
         {
             prepareImage(stream, bitmap, givenImage);
 
-            givenImage.Noise(20);
+            givenImage.Noise(givenImage.Noise_GetSquareWidth(20));
             setStream(stream, bitmap, givenImage);
             resetInterface();
         }
