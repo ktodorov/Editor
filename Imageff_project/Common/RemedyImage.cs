@@ -799,7 +799,7 @@ namespace RemedyPic.Common
         #endregion
 
         #region Colorize
-        // Main function
+        // Colorize function
         public void Colorize(bool leaveBlue, bool leaveRed, bool leaveGreen, bool leaveYellow,
                                    bool leaveOrange, bool leavePurple, bool leaveCyan, bool leaveLime)
         {
@@ -809,6 +809,7 @@ namespace RemedyPic.Common
 
             for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
+                // We get the hue of the curent pixel so we can test it in the Colorize function later.
                 currentPixelColor = Color.FromArgb(_dstPixels[CurrentByte + 3], _dstPixels[CurrentByte + 2], _dstPixels[CurrentByte + 1], _dstPixels[CurrentByte]);
                 hue = getHue(currentPixelColor);
 
@@ -827,11 +828,22 @@ namespace RemedyPic.Common
             }
         }
 
-        // Check if the pixel is not in the area of selected color
+        // We check the pixel for "colorize".
+        // If the color bool variable is false, this means the user
+        // hasn't selected this color for colorizing so we
+        // exit and return false.
         private bool checkPixelForColorize(int CurrentByte, bool color, double hue, string colorToLeave)
         {
-            if (!color) return false;
+            if (!color) 
+                return false;
 
+            // Every color has its own hue and algorithms. 
+            // For example, if the color is red, the red pixel must be with higher value
+            // both from the green and the blue pixel.
+            // So we check the current pixel color by calling this function 8 times
+            // for every available color for colorizing. 
+            // The if statements check the pixel color if it ISN'T the desired color.
+            // If it is, it just leave the switch statement and returns true.
             switch (colorToLeave)
             {
                 case ("blue"):
@@ -896,7 +908,8 @@ namespace RemedyPic.Common
             return true;
         }
 
-        // Sets B G R  valus of the pixel with their average value.
+        // If all colorize functions return false,
+        // the pixel must be transformed into grayscale.
         private void makePixelGrayscale(int CurrentByte)
         {
             int average = (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
@@ -905,7 +918,7 @@ namespace RemedyPic.Common
             _dstPixels[CurrentByte + 2] = (byte)average;
         }
 
-        // Get hue value of the given coler
+        // Gets hue value of the given pixel color
         private double getHue(Color givenColor)
         {
             double r = givenColor.R / 255.0;
@@ -941,7 +954,8 @@ namespace RemedyPic.Common
         #endregion
 
         #region BlackAndWhite
-        // Main function of Black and White filter, set all B G R values of the pixel with their average value
+        // Main function of Black and White filter.
+        // The algorithm sets all B G R values of the pixel with their average value
         public void BlackAndWhite(byte[] dstPixels, byte[] srcPixels)
         {
             int currentByte = 0;
@@ -958,7 +972,10 @@ namespace RemedyPic.Common
         #endregion
 
         #region Darken
-        // Darken. Makes every pixel darker by taking the array and multiplying every pixel with the ( 1 / value of the slider)
+        // Darken function. 
+        // Makes every pixel darker by taking the array and multiplying 
+        // every pixel with the ( 1 / value of the slider).
+        // If (1 / value of the slider ) isn't -1, we add 0.1 to the variable.
         public void Darken(double value)
         {
             double darkness = -value;
@@ -976,10 +993,10 @@ namespace RemedyPic.Common
         }
         #endregion
 
-        #region Lighten function
+        #region Lighten
         public void Lighten(double value)
         {
-            // This function lighten the Writeablebitmap picture
+            // This function lightens the WriteableBitmap object
             // by taking the array and multiplying every pixel with the (value of the slider * 0,05) + 1
             double brightness = (value * 0.05) + 1;
             int currentByte = 0;
@@ -1003,7 +1020,9 @@ namespace RemedyPic.Common
         #endregion
 
         #region Histogram
-        // Main function
+        // Histogram function.
+        // The algorithm make the intensities around 
+        // the grayscale image to be better distributed.
         public void MakeHistogramEqualization()
         {
             int[] frequency = new int[256];

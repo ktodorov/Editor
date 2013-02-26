@@ -36,30 +36,42 @@ namespace RemedyPic
     {
 
         #region Variables
+        // Those are all the global variables, that are used in MainPage.xaml.cs file.
 
         // mruToken is used for LoadState and SaveState functions.
         private string mruToken = null;
+        
+        // This variable holds the current file that we are using.
         StorageFile file;
+
+        // String variables that hold the current applied changes to the image.
         private string appliedFilters = null, appliedColors = null,
                            appliedRotations = null, appliedFrameColor = null;
-        // bitmapImage is the image that is edited in RemedyPic.
+
+        // We create two WriteableBitmap variables.
+        // One for the original image and one for the small bitmaps.
+        // They are used to display the image on the screen.
         private WriteableBitmap bitmapImage, exampleBitmap;
 
-        // bitmapStream is used to save the pixel stream to bitmapImage.
+        // The streams are used to save the pixels as a Stream to the WriteableBitmap objects.
         Stream bitmapStream, exampleStream;
-        static readonly long cycleDuration = TimeSpan.FromSeconds(3).Ticks;
 
-        // This is true if the user load a picture.
+        // This is set true when the user opens a picture.
         bool pictureIsLoaded = false;
 
         // Colorize selected colors
         private bool redForColorize, greenForColorize, blueForColorize, yellowForColorize,
                          orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize = false;
 
+        // We create three RemedyImages.
+        // One for the original displayed image, one for the small images and
+        // one to hold the original loaded image so we can get back to it at any time
         RemedyImage image = new RemedyImage();
         RemedyImage imageOriginal = new RemedyImage();
         RemedyImage uneditedImage = new RemedyImage();
-        Stream uneditedStream;
+        
+        // We create two streams for two of the WriteableBitmap objects.
+        private Stream uneditedStream;
         private WriteableBitmap uneditedBitmap;
 
         // Those are variables used with the manipulations of the Image
@@ -68,12 +80,15 @@ namespace RemedyPic
         private CompositeTransform _compositeTransform;
         private bool forceManipulationsToEnd;
 
+        // SelectedRegion variable, used by the crop function.
         SelectedRegion selectedRegion;
 
-        // The size of the corners.
-        double cornerSize;
+        // The original Width and Height of the image in pixels.
         uint sourceImagePixelWidth;
         uint sourceImagePixelHeight;
+
+        // The size of the corners of the crop rectangle.
+        double cornerSize;
         double CornerSize
         {
             get
@@ -87,10 +102,8 @@ namespace RemedyPic
             }
         }
 
-        // The previous points of all the pointers.
+        // The dictionary holds the history of all previous pointer locations. It is used by the crop function.
         Dictionary<uint, Point?> pointerPositionHistory = new Dictionary<uint, Point?>();
-
-
 
         #endregion
 
@@ -116,6 +129,8 @@ namespace RemedyPic
         #region Charms
         private void RegisterCharms()
         {
+            // If the user chooses the charm, we register the share charm 
+            // and the settings charm so we can get all the available apps for sharing.
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager,
                 DataRequestedEventArgs>(this.ShareImageHandler);
@@ -124,36 +139,45 @@ namespace RemedyPic
 
         private void OnSettingsPaneCommandRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
         {
+            // We add the Feedback settings to the Settings charm.
             args.Request.ApplicationCommands.Add(new SettingsCommand("commandID",
                                                                      "Feedback", FeedbackPopup));
         }
 
         private void FeedbackPopup(IUICommand command)
         {
+            // This event occures when the user clicks on the Feedback in the settings charm.
             Feedback.IsOpen = true;
         }
 
         private async void ShareImageHandler(DataTransferManager sender,
             DataRequestedEventArgs e)
         {
+            // This handles the Share charm.
+
             if (!pictureIsLoaded)
             {
+                // First we check if the user has loaded an image. If not, warn him.
                 e.Request.FailWithDisplayText("Load an image and try sharing again! :)");
             }
             else
             {
+                // If the user has loaded the image, we set the title, the description
+                // and set RemedyPic as application name.
                 DataRequest request = e.Request;
                 request.Data.Properties.Title = "RemedyPic";
                 request.Data.Properties.Description = "Share your image.";
                 request.Data.Properties.ApplicationName = "RemedyPic";
 
                 // Because we are making async calls in the DataRequested event handler,
-                //  we need to get the deferral first.
+                // we need to get the deferral first.
                 DataRequestDeferral deferral = request.GetDeferral();
 
                 // Make sure we always call Complete on the deferral.
                 try
                 {
+                    // We save the current edited image to a temporary file in the application local folder on the current machine.
+                    // This way, we can add more share handlers and use the Mail Share option.
                     using (IRandomAccessStream stream = new InMemoryRandomAccessStream())
                     {
                         Stream pixelStream = bitmapImage.PixelBuffer.AsStream();
@@ -185,6 +209,7 @@ namespace RemedyPic
         #region LoadState
         protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            // This loads information if the app had quit unexpected.
             if (pageState != null && pageState.ContainsKey("mruToken"))
             {
                 object value = null;
@@ -218,6 +243,7 @@ namespace RemedyPic
         #region Save State
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+            // This saves information if the app quits unexpected.
             if (!String.IsNullOrEmpty(mruToken))
             {
                 pageState["mruToken"] = mruToken;
@@ -225,6 +251,7 @@ namespace RemedyPic
         }
         #endregion
 
+        #region Functions, called when opening an image.
         #region Get Photo
         // This occures when GetPhoto button is clicked
         private async void GetPhotoButton_Click(object sender, RoutedEventArgs e)
@@ -234,19 +261,31 @@ namespace RemedyPic
             if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
                  Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
             {
+                // First, create a new file picker.
                 FileOpenPicker filePicker = new FileOpenPicker();
+                // Make the file picker view mode to Thumbnails.
                 filePicker.ViewMode = PickerViewMode.Thumbnail;
+                // Add several file extensions to be available for opening.
                 filePicker.FileTypeFilter.Add(".jpg");
                 filePicker.FileTypeFilter.Add(".png");
                 filePicker.FileTypeFilter.Add(".bmp");
                 filePicker.FileTypeFilter.Add(".jpeg");
+
+                // Get the selected file and save it to the StorageFile variable.
                 file = await filePicker.PickSingleFileAsync();
+                // We create the new WriteableBitmap.
                 bitmapImage = new WriteableBitmap(1, 1);
 
                 if (file != null)
                 // File is null if user cancels the file picker.
                 {
                     AnimateOutPicture.Begin();
+
+                    // We create a temporary stream for the opened file.
+                    // Then we decode the stream to a BitmapDecoder
+                    // so we can set the image width and height to the variables.
+                    // Then we set the Stream to the WriteableBitmap
+                    // and set the pictureIsLoaded variable to true.
                     Windows.Storage.Streams.IRandomAccessStream fileStream =
                             await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
 
@@ -281,6 +320,11 @@ namespace RemedyPic
             // the app elements to appear and work normal.
             uneditedBitmap = bitmapImage;
 
+            // Resize the original image for faster work.
+            // Note that we only set the resize to the small images.
+            // The original big image is left in original resolution.
+            // After this we get the image pixels as streams and then
+            // write the streams to the RemedyImage arrays.
             exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
             exampleStream = exampleBitmap.PixelBuffer.AsStream();
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
@@ -292,30 +336,49 @@ namespace RemedyPic
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
             await uneditedStream.ReadAsync(uneditedImage.srcPixels, 0, uneditedImage.srcPixels.Length);
 
+            // Set the small WriteableBitmap objects to the three XAML Image objects.
             setElements(ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
             setElements(ExposureExamplePicture, exampleBitmap);
+
+            // Make the images ready for work.
             prepareImage(exampleStream, exampleBitmap, image);
             setStream(exampleStream, exampleBitmap, image);
             prepareImage(uneditedStream, uneditedBitmap, uneditedImage);
             setStream(uneditedStream, uneditedBitmap, uneditedImage);
-
-            AnimateInPicture.Begin();
+            
             ZoomStack.Visibility = Visibility.Visible;
-            setFilterBitmaps();
-            displayImage.MaxWidth = imagePanel.ActualWidth;
-            displayImage.MaxHeight = imagePanel.ActualHeight;
-            setFileProperties(file);
-            setPopupsHeight();
-            displayImage.Source = bitmapImage;
-            AvailableZoom.IsChecked = true;
 
+            // set the small WriteableBitmap objects to the filter buttons.
+            setFilterBitmaps();
+
+            // Display the file name.
+            setFileProperties(file);
+
+            // Set the height of all popups with the current machine's resolution.
+            setPopupsHeight();
+
+            // Set the WriteableBitmap as source to the XAML Image object. This makes the picture appear on the screen.
+            displayImage.Source = bitmapImage;
+            AnimateInPicture.Begin();
+            
+            // We check the CheckBox that is required for the image to move by default.
+            AvailableForMoving.IsChecked = true;
+
+            // We set the imagePanel maximum height so the image not to go out of the screen
+            displayImage.MaxWidth = imageBorder.ActualWidth * 0.80;
+            displayImage.MaxHeight = imageBorder.ActualHeight * 0.80;
+
+            // Set the current resolution to the TextBlock, located in Changing Resolution option.
             NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+
+            // Show the interface.
+            showInterface();
         }
 
         private void setPopupsHeight()
         {
-            // We set the popup height to match the current machine resolution
+            // We set the popups height to match the current machine's resolution
             Filters.Height = PopupFilters.ActualHeight + 5;
             Colors.Height = PopupColors.ActualHeight + 5;
             Rotations.Height = PopupRotations.ActualHeight + 5;
@@ -325,10 +388,6 @@ namespace RemedyPic
             Histogram.Height = PopupHistogram.ActualHeight + 5;
             FeedbackGrid.Height = Feedback.ActualHeight + 5;
             Exposure.Height = PopupExposure.ActualHeight + 5;
-
-            // We set the imagePanel maximum height so the image not to go out of the screen
-            displayImage.MaxWidth = imageBorder.ActualWidth * 0.80;
-            displayImage.MaxHeight = imageBorder.ActualHeight * 0.80;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
@@ -339,6 +398,17 @@ namespace RemedyPic
             imageElement.Width = bitmapImage.PixelWidth / 4;
             imageElement.Height = bitmapImage.PixelHeight / 4;
         }
+
+        private void showInterface()
+        {
+            // Called when the image is loaded.
+            // It shows the interface.
+            Zoom.Visibility = Visibility.Visible;
+            Menu.Visibility = Visibility.Visible;
+        }
+        #endregion
+
+        #region Filter functions
 
         #region Invert Filter
         // Invert filter function
@@ -602,6 +672,8 @@ namespace RemedyPic
 
         #endregion
 
+        #endregion
+
         #region Save
         private async void OnSaveButtonClick(object sender, RoutedEventArgs e)
         {
@@ -610,6 +682,7 @@ namespace RemedyPic
             if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
                  Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
             {
+                // We call the SaveFile function with true so we can use the file picker.
                 await SaveFile(true);
             }
             else
@@ -624,6 +697,8 @@ namespace RemedyPic
             // Only execute if there is a picture that is loaded
             if (pictureIsLoaded)
             {
+                // If the picker variable is true, we call a FilePicker.
+                // If it's not, we save a temporary file without notifying the user to the local directory of the app.
                 if (picker == true)
                 {
                     FileSavePicker savePicker = new FileSavePicker();
@@ -645,6 +720,7 @@ namespace RemedyPic
                 {
                     if (imageOriginal.dstPixels == null)
                     {
+                        // If the array is null, this means no changes were made, so we can use the currently opened file.
                         return;
                     }
                     file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpg", CreationCollisionOption.ReplaceExisting);
@@ -720,7 +796,7 @@ namespace RemedyPic
         void setStream(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
         {
             // This sets the pixels to the bitmap
-            // and hides the visible Apply buttons.
+            // and makes the ApplyReset stackPanel of the current popup to appear.
             givenStream.Seek(0, SeekOrigin.Begin);
             givenStream.Write(givenImage.dstPixels, 0, givenImage.dstPixels.Length);
             givenBitmap.Invalidate();
@@ -748,22 +824,6 @@ namespace RemedyPic
             givenImage.Reset();
         }
 
-
-        private void resetButton(ref Windows.UI.Xaml.Controls.Button but)
-        {
-            // This resets the passed button with normal border.
-            but.BorderThickness = new Thickness(1, 1, 1, 1);
-            but.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
-        }
-
-        private void changeButton(ref Windows.UI.Xaml.Controls.Button but)
-        {
-            // This make the passed button "selected" - it makes its border bigger and green.
-            but.BorderThickness = new Thickness(3, 3, 3, 3);
-            but.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Green);
-        }
-
-
         #region Color Change
 
         private void OnColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
@@ -776,20 +836,26 @@ namespace RemedyPic
                 setStream(exampleStream, exampleBitmap, image);
             }
         }
+
         #endregion
 
         #region Resizing an image
+
+        // This function resize the passed WriteableBitmap object with the passed width and height.
+        // The passed width and height must be proportional of the original width and height( /2, /3, /4 ..).
         private async Task<WriteableBitmap> ResizeImage(WriteableBitmap baseWriteBitmap, uint width, uint height)
         {
             // Get the pixel buffer of the writable bitmap in bytes
             Stream stream = baseWriteBitmap.PixelBuffer.AsStream();
             byte[] pixels = new byte[(uint)stream.Length];
             await stream.ReadAsync(pixels, 0, pixels.Length);
+
             //Encoding the data of the PixelBuffer we have from the writable bitmap
             var inMemoryRandomStream = new InMemoryRandomAccessStream();
             var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream);
             encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)baseWriteBitmap.PixelWidth, (uint)baseWriteBitmap.PixelHeight, 96, 96, pixels);
             await encoder.FlushAsync();
+
             // At this point we have an encoded image in inMemoryRandomStream
             // We apply the transform and decode
             var transform = new BitmapTransform
@@ -805,16 +871,20 @@ namespace RemedyPic
                             transform,
                             ExifOrientationMode.IgnoreExifOrientation,
                             ColorManagementMode.DoNotColorManage);
+
             // An array containing the decoded image data
             var sourceDecodedPixels = pixelData.DetachPixelData();
-            // Approach 1 : Encoding the image buffer again:
+
+            // We encode the image buffer again:
+
             // Encoding data
             var inMemoryRandomStream2 = new InMemoryRandomAccessStream();
             var encoder2 = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream2);
             encoder2.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, width, height, 96, 96, sourceDecodedPixels);
             await encoder2.FlushAsync();
             inMemoryRandomStream2.Seek(0);
-            // finally the resized writablebitmap
+
+            // Finally the resized WritableBitmap
             var bitmap = new WriteableBitmap((int)width, (int)height);
             await bitmap.SetSourceAsync(inMemoryRandomStream2);
             return bitmap;
@@ -1163,7 +1233,7 @@ namespace RemedyPic
         #endregion
 
         #region Reset Buttons
-
+        // All those events reset the interface and return the last applied image.
         private void OnFilterResetClick(object sender, RoutedEventArgs e)
         {
             // This resets the interface and returns the last applied image.
@@ -1193,8 +1263,7 @@ namespace RemedyPic
             ColorApplyReset.Visibility = Visibility.Collapsed;
             appliedColors = null;
         }
-
-        // This resets the interface and returns the last applied image.
+        
         private void OnRotateResetClick(object sender, RoutedEventArgs e)
         {
             prepareImage(exampleStream, exampleBitmap, image);
@@ -1204,7 +1273,6 @@ namespace RemedyPic
             RotateApplyReset.Visibility = Visibility.Collapsed;
         }
 
-        // This resets the interface and returns the last applied image.
         private void OnColorizeResetClick(object sender, RoutedEventArgs e)
         {
             deselectColorizeGridItems();
@@ -1223,7 +1291,9 @@ namespace RemedyPic
 
         #endregion
 
-        #region Checked Buttons
+        #region Checked Menu Buttons
+        // The events are called when a Menu button is checked or unchecked.
+
         private void FiltersChecked(object sender, RoutedEventArgs e)
         {
             SelectColors.IsChecked = false;
@@ -1233,6 +1303,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCrop.IsChecked = false;
             PopupFilters.IsOpen = true;
 
         }
@@ -1251,6 +1322,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCrop.IsChecked = false;
             PopupColors.IsOpen = true;
         }
 
@@ -1258,7 +1330,6 @@ namespace RemedyPic
         {
             PopupColors.IsOpen = false;
         }
-
 
         private void ExposureChecked(object sender, RoutedEventArgs e)
         {
@@ -1269,6 +1340,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
             SelectColors.IsChecked = false;
+            SelectCrop.IsChecked = false;
             PopupExposure.IsOpen = true;
         }
 
@@ -1285,6 +1357,7 @@ namespace RemedyPic
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
+            SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
             PopupRotations.IsOpen = true;
         }
@@ -1302,6 +1375,7 @@ namespace RemedyPic
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
+            SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
             PopupImageOptions.IsOpen = true;
         }
@@ -1320,6 +1394,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCrop.IsChecked = false;
             PopupColorize.IsOpen = true;
         }
 
@@ -1327,7 +1402,6 @@ namespace RemedyPic
         {
             PopupColorize.IsOpen = false;
         }
-
 
         private void FramesChecked(object sender, RoutedEventArgs e)
         {
@@ -1338,6 +1412,7 @@ namespace RemedyPic
             SelectColorize.IsChecked = false;
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCrop.IsChecked = false;
             PopupFrames.IsOpen = true;
         }
 
@@ -1355,6 +1430,7 @@ namespace RemedyPic
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCrop.IsChecked = false;
             PopupHistogram.IsOpen = true;
         }
 
@@ -1366,6 +1442,8 @@ namespace RemedyPic
         #endregion
 
         #region Frames
+        // The events are called when a frame button is clicked.
+
         private void OnStandardClick(object sender, RoutedEventArgs e)
         {
             FramesApplyReset.Visibility = Visibility.Visible;
@@ -1721,6 +1799,8 @@ namespace RemedyPic
         #endregion
 
         #region Rotate
+        // The events are called when a Rotate button is clicked.
+
         private void OnHFlipClick(object sender, RoutedEventArgs e)
         {
             appliedRotations = "hflip";
@@ -1740,6 +1820,8 @@ namespace RemedyPic
         #endregion
 
         #region Gamma
+        // The event is called when the Gama slider is changed.
+
         private void OnGamaChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -1754,8 +1836,10 @@ namespace RemedyPic
         #endregion
 
         #region Back buttons
+        
         private void BackPopupClicked(object sender, RoutedEventArgs e)
         {
+            // If the back popup button is clicked, close all popups.
             SelectColors.IsChecked = false;
             SelectFilters.IsChecked = false;
             SelectRotations.IsChecked = false;
@@ -1768,6 +1852,7 @@ namespace RemedyPic
 
         private void BackFeedbackClicked(object sender, RoutedEventArgs e)
         {
+            // If the back feedback button is clicked, close the feedback and show the settings charm.
             Feedback.IsOpen = false;
             SettingsPane.Show();
         }
@@ -1886,6 +1971,9 @@ namespace RemedyPic
         #region Small Bitmaps for Filters
         private async void setFilterBitmaps()
         {
+            // This creates temporary Streams and WriteableBitmap objects for every filter available.
+            // We set the bitmaps as source to the XAML Image objects.
+            // After this, we apply different filter for each of the WriteableBitmap objects.
             Stream
             blackWhiteStream = null,
             emboss2Stream = null,
@@ -1998,6 +2086,7 @@ namespace RemedyPic
 
         private async void initializeBitmap(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
         {
+            // This makes the required operations for initializing the WriteableBitmap.
             givenStream = givenBitmap.PixelBuffer.AsStream();
             givenImage.srcPixels = new byte[(uint)givenStream.Length];
             await givenStream.ReadAsync(givenImage.srcPixels, 0, givenImage.srcPixels.Length);
@@ -2005,6 +2094,7 @@ namespace RemedyPic
 
         private void doFilter(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage, string filter)
         {
+            // Filter the passed image with the passed filter as a string.
             switch (filter)
             {
                 case "blackwhite":
@@ -2230,16 +2320,29 @@ namespace RemedyPic
 
         private void GridDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
+            // A simple "hot key".
+            // When the user double-clicks on the interface, 
+            // the currently opened popup closes.
+            deselectPopups();
+        }
+
+        private void deselectPopups()
+        {
+            // Close all popups.
             SelectColors.IsChecked = false;
             SelectFilters.IsChecked = false;
             SelectRotations.IsChecked = false;
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
+            SelectExposure.IsChecked = false;
         }
 
         private void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
         {
+            // Event for the mouse wheel. 
+            // It zooms in or out the image.
             var delta = e.GetCurrentPoint(displayImage).Properties.MouseWheelDelta;
             if (delta > 0)
             {
@@ -2265,6 +2368,7 @@ namespace RemedyPic
         #region Image Options
         private async void SetLockPic_Clicked(object sender, RoutedEventArgs e)
         {
+            // This sets the current image as a wallpaper on the lock screen of the current user and inform him that everything was okay.
             await SaveFile(false);
             await LockScreen.SetImageFileAsync(file);
             MessageDialog messageDialog = new MessageDialog("Picture set! :)", "All done");
@@ -2274,6 +2378,7 @@ namespace RemedyPic
 
         private async void SetAccountPic_Clicked(object sender, RoutedEventArgs e)
         {
+            // This sets the current image as an avatar of the current user and inform him that everything was okay.
             await SaveFile(false);
             SetAccountPictureResult result = await UserInformation.SetAccountPicturesAsync(null, file, null);
 
@@ -2292,11 +2397,13 @@ namespace RemedyPic
 
         private void ReturnOriginal_Clicked(object sender, RoutedEventArgs e)
         {
+            // Restore the original image.
             RestoreOriginalBitmap();
         }
 
         private void RestoreOriginalBitmap()
         {
+            // Reset the current image.
             imageOriginal.srcPixels = (byte[])uneditedImage.srcPixels.Clone();
             imageOriginal.dstPixels = (byte[])uneditedImage.dstPixels.Clone();
             bitmapStream = uneditedStream;
@@ -2312,6 +2419,7 @@ namespace RemedyPic
 
         private async Task deleteUsedFile()
         {
+            // Deletes the temporary created file.
             if (imageOriginal.dstPixels != null)
             {
                 file = await ApplicationData.Current.LocalFolder.GetFileAsync("temp.jpg");
@@ -2321,6 +2429,7 @@ namespace RemedyPic
 
         private void HistogramClicked(object sender, RoutedEventArgs e)
         {
+            // Equalize the histogram of the current image.
             SelectHistogram.IsChecked = false;
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             imageOriginal.MakeHistogramEqualization();
@@ -2410,6 +2519,8 @@ namespace RemedyPic
 
         private void CropChecked(object sender, RoutedEventArgs e)
         {
+            // Called when the Crop button is checked.
+            deselectPopups();
             Crop.Visibility = Visibility.Visible;
             imageCanvas.Visibility = Visibility.Visible;
             displayGrid.Margin = new Thickness(15);
@@ -2418,6 +2529,7 @@ namespace RemedyPic
 
         private void CropUnchecked(object sender, RoutedEventArgs e)
         {
+            // Called when the Crop button is unchecked.
             Crop.Visibility = Visibility.Collapsed;
             imageCanvas.Visibility = Visibility.Collapsed;
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
@@ -2426,6 +2538,7 @@ namespace RemedyPic
 
         async void UpdatePreviewImage()
         {
+            // Updates the current image with the new cropped one.
             ImageLoadingRing.IsActive = true;
             await SaveFile(false);
 
@@ -2457,6 +2570,7 @@ namespace RemedyPic
                    previewImageSize,
                    previewImageScale);
 
+            // After the cropping is done, we set the new bitmapImage objects again.
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
             imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
@@ -2480,6 +2594,7 @@ namespace RemedyPic
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            // Called when the current page is displayed.
             base.OnNavigatedTo(e);
 
             selectedRegion.PropertyChanged += selectedRegion_PropertyChanged;
@@ -2500,6 +2615,7 @@ namespace RemedyPic
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            // Called when the current page is removed.
             base.OnNavigatedFrom(e);
 
             selectedRegion.PropertyChanged -= selectedRegion_PropertyChanged;
@@ -2534,7 +2650,8 @@ namespace RemedyPic
 
         void sourceImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-
+            // Called when the original image size is changed.
+            // It calculates the new width and height.
             if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)
             {
                 this.imageCanvas.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
@@ -2562,6 +2679,7 @@ namespace RemedyPic
 
         void selectedRegion_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            // Called when the user has dragged the crop corner.
             double widthScale = imageCanvas.Width / sourceImagePixelWidth;
             double heightScale = imageCanvas.Height / sourceImagePixelHeight;
 
@@ -2572,12 +2690,14 @@ namespace RemedyPic
 
         private void saveImageButton_Click(object sender, RoutedEventArgs e)
         {
+            // When the user clicks Apply, the image is cropped.
             UpdatePreviewImage();
         }
         #endregion
 
         private void deselectMenu()
         {
+            // Deselect all Menu Toggle buttons.
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
             SelectOptions.IsChecked = false;
@@ -2590,6 +2710,8 @@ namespace RemedyPic
 
         private void ResizeSlider_Changed(object sender, RangeBaseValueChangedEventArgs e)
         {
+            // Event for the resize slider.
+            // It shows the apply button and changes the new resolution text.
             if (pictureIsLoaded)
             {
                 ApplyResize.Visibility = Visibility.Visible;
@@ -2632,6 +2754,7 @@ namespace RemedyPic
 
         private async void ApplyResize_Clicked(object sender, RoutedEventArgs e)
         {
+            // Resize the current image.
             int resizeValue = (int)ResizeSlider.Value;
             ApplyResize.Visibility = Visibility.Collapsed;
             switch (resizeValue)
@@ -2672,6 +2795,7 @@ namespace RemedyPic
         #region Colorize
 
         #region Colorize events
+        // Events for checking and unchecking the colorize rectangles.
         private void blueColorize_Checked(object sender, RoutedEventArgs e)
         {
             blueForColorize = true;
@@ -2780,6 +2904,7 @@ namespace RemedyPic
 
         private void deselectColorizeGridItems()
         {
+            // Deselect all colorize rectangles and return their original color.
             blueColorize.IsChecked = false;
             redColorize.IsChecked = false;
             greenColorize.IsChecked = false;
@@ -2800,6 +2925,7 @@ namespace RemedyPic
 
         private void doColorize(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
+            // Call the colorize function
             prepareImage(stream, bitmap, givenImage);
             givenImage.Colorize(blueForColorize, redForColorize, greenForColorize, yellowForColorize,
                                         orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize);
