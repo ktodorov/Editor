@@ -108,7 +108,7 @@
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\CropBitmap.cs" />
     <Compile Include="Common\CustomFilter.cs" />
-    <Compile Include="Common\FilterFunctions.cs" />
+    <Compile Include="Common\RemedyImage.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SelectedRegion.cs" />

@@ -56,9 +56,9 @@ namespace RemedyPic
         private bool redForColorize, greenForColorize, blueForColorize, yellowForColorize,
                          orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize = false;
 
-        FilterFunctions image = new FilterFunctions();
-        FilterFunctions imageOriginal = new FilterFunctions();
-        FilterFunctions uneditedImage = new FilterFunctions();
+        RemedyImage image = new RemedyImage();
+        RemedyImage imageOriginal = new RemedyImage();
+        RemedyImage uneditedImage = new RemedyImage();
         Stream uneditedStream;
         private WriteableBitmap uneditedBitmap;
 
@@ -730,7 +730,7 @@ namespace RemedyPic
             fileName.Text = file.Name;
         }
 
-        void setStream(Stream givenStream, WriteableBitmap givenBitmap, FilterFunctions givenImage)
+        void setStream(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
         {
             // This sets the pixels to the bitmap
             // and hides the visible Apply buttons.
@@ -748,7 +748,7 @@ namespace RemedyPic
             }
         }
 
-        void prepareImage(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        void prepareImage(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             // This calculates the width and height of the bitmap image
             // and sets the Stream and the pixels byte array
@@ -870,7 +870,7 @@ namespace RemedyPic
 
         #region Filters
         // Change the image with black and white filter applied
-        private void doBlackWhite(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doBlackWhite(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             givenImage.BlackAndWhite(givenImage.dstPixels, givenImage.srcPixels);
@@ -879,7 +879,7 @@ namespace RemedyPic
         }
 
         // Change the image with invert filter applied
-        private void doInvert(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doInvert(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             int[,] coeff = new int[5, 5];
@@ -892,7 +892,7 @@ namespace RemedyPic
         }
 
         // Change the image with emboss filter applied
-        private void doEmboss(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doEmboss(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             int[,] coeff = new int[5, 5];
@@ -905,7 +905,7 @@ namespace RemedyPic
         }
 
         // Change the image with emboss2 filter applied
-        private void doEmboss2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doEmboss2(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             int[,] coeff = new int[5, 5];
@@ -918,7 +918,7 @@ namespace RemedyPic
         }
 
         // Change the image with sharpen filter applied
-        private void doSharpen(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doSharpen(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             int[,] coeff = new int[5, 5];
@@ -931,7 +931,7 @@ namespace RemedyPic
         }
 
         // Change the image with noise filter applied
-        private void doNoise(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doNoise(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
 
@@ -941,7 +941,7 @@ namespace RemedyPic
         }
 
         // Change the image with hardnoise filter applied
-        private void doHardNoise(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doHardNoise(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
 
@@ -951,7 +951,7 @@ namespace RemedyPic
         }
 
         // Change the image with blur filter applied
-        private void doBlur(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doBlur(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             int[,] coeff = new int[5, 5];
@@ -965,7 +965,7 @@ namespace RemedyPic
         }
 
         // Change the image with blur2 filter applied
-        private void doBlur2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doBlur2(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             int[,] coeff = new int[5, 5];
@@ -979,7 +979,7 @@ namespace RemedyPic
         }
 
         // Change the image with edgeDetect filter applied
-        private void doEdgeDetect(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doEdgeDetect(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             int[,] coeff = new int[5, 5];
@@ -993,7 +993,7 @@ namespace RemedyPic
         }
 
         // Change the image with edgeEnhance filter applied
-        private void doEdgeEnhance(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doEdgeEnhance(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             int[,] coeff = new int[5, 5];
@@ -1007,7 +1007,7 @@ namespace RemedyPic
         }
 
         // Change the image with retro filter applied
-        private void doRetro(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doRetro(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(0, 0, 0, 50, 50, -50);
@@ -1016,7 +1016,7 @@ namespace RemedyPic
         }
 
         // Change the image with darken filter applied
-        private void doDarken(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doDarken(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(0, 0, 0, 50, 50, 0);
@@ -1025,7 +1025,7 @@ namespace RemedyPic
         }
 
         // Change the image with brighten filter applied
-        private void doBrighten(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doBrighten(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(70, 70, 70, 0, 0, 0);
@@ -1034,7 +1034,7 @@ namespace RemedyPic
         }
 
         // Change the image with shadow filter applied
-        private void doShadow(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doShadow(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(-80, -80, -80, 0, 0, 0);
@@ -1043,7 +1043,7 @@ namespace RemedyPic
         }
 
         // Change the image with crystal filter applied
-        private void doCrystal(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doCrystal(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(0, 0, 0, 50, 35, 35);
@@ -1266,28 +1266,6 @@ namespace RemedyPic
         }
         #endregion
 
-        //
-        //
-        //
-        // 
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        // 
-        //
-        //
-        //
-        //
-        //
-        //
-        //
 
         #region Checked Buttons
         private void FiltersChecked(object sender, RoutedEventArgs e)
@@ -1946,7 +1924,7 @@ namespace RemedyPic
             shadowStream = null,
             crystalStream = null;
 
-            FilterFunctions filterimage = new FilterFunctions();
+            RemedyImage filterimage = new RemedyImage();
 
             WriteableBitmap
             blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
@@ -2038,14 +2016,14 @@ namespace RemedyPic
             doFilter(crystalStream, crystalBitmap, filterimage, "crystal");
         }
 
-        private async void initializeBitmap(Stream givenStream, WriteableBitmap givenBitmap, FilterFunctions givenImage)
+        private async void initializeBitmap(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
         {
             givenStream = givenBitmap.PixelBuffer.AsStream();
             givenImage.srcPixels = new byte[(uint)givenStream.Length];
             await givenStream.ReadAsync(givenImage.srcPixels, 0, givenImage.srcPixels.Length);
         }
 
-        private void doFilter(Stream givenStream, WriteableBitmap givenBitmap, FilterFunctions givenImage, string filter)
+        private void doFilter(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage, string filter)
         {
             switch (filter)
             {
@@ -2225,7 +2203,6 @@ namespace RemedyPic
 
         private void filterUnchecked(object sender, RoutedEventArgs e)
         {
-            appliedFilters = null;
             deselectFilters();
         }
 
@@ -2348,7 +2325,6 @@ namespace RemedyPic
             setFilterBitmaps();
             resetInterface();
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
-            this.selectedRegion.OuterRect = Rect.Empty;
         }
 
         #endregion
@@ -2847,7 +2823,7 @@ namespace RemedyPic
             limeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 25, 255, 25));
         }
 
-        private void doColorize(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        private void doColorize(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
             givenImage.Colorize(blueForColorize, redForColorize, greenForColorize, yellowForColorize,

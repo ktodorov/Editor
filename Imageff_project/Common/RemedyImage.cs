@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace RemedyPic.Common
 {
-    class FilterFunctions
+    class RemedyImage
     {
         private int _width, _height;
         private byte[] _dstPixels, _srcPixels;
@@ -836,7 +836,7 @@ namespace RemedyPic.Common
             {
                 case ("blue"):
                     if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2]
-                        || hue > 260 || hue < 215)
+                        || hue > 260 || hue < 210)
                     {
                         return false;
                     }
