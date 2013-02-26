@@ -1253,7 +1253,7 @@
                         <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
                     </StackPanel>
                 </Border>
-                <Border x:Name="Zoom1" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5">
+                <Border x:Name="Zoom" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5" Visibility="Collapsed">
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1263,13 +1263,13 @@
                             <GradientStop Color="#FF218900" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
-                    <StackPanel x:Name="ZoomStack" Height="117" Width="123">
-                        <StackPanel Orientation="Horizontal" Width="100" HorizontalAlignment="Center">
-                            <Button x:Name="ZoomIn" Content="&#xE1A3;" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="14" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White"/>
-                            <Button x:Name="ZoomOut" Visibility="Collapsed" Content="&#xE1A4;" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="14" BorderThickness="1" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0"/>
+                    <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="ZoomIn" Content="&#xE1A3;" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}"/>
+                            <Button x:Name="ZoomOut" Visibility="Collapsed" Content="&#xE1A4;" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}"/>
                         </StackPanel>
-                        <Button x:Name="ResetZoom" Content="Reset" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="White" Height="40" BorderThickness="1" BorderBrush="White" Background="#33FFFFFF" Margin="0" Width="100"/>
-                        <CheckBox x:Name="AvailableZoom" IsChecked="False" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left" Checked="MoveChecked" Unchecked="MoveUnchecked" HorizontalAlignment="Center"/>
+                        <Button x:Name="ResetZoom" Content="Reset Image position" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="White" Height="40" BorderThickness="0,0,0,1" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                        <CheckBox x:Name="AvailableForMoving" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left" Checked="MoveChecked" Unchecked="MoveUnchecked" HorizontalAlignment="Center" IsChecked="False"/>
 
                     </StackPanel>
                 </Border>
@@ -1956,7 +1956,8 @@
                                 </TransitionCollection>
                             </Image.Transitions>
                         </Image>
-                        <Button Content="Equalize" HorizontalAlignment="Center" VerticalAlignment="Stretch" Click="HistogramClicked"/>
+                        <TextBlock TextWrapping="Wrap" Text="*Note that this function only works on black and white images." Margin="0,15" Foreground="#FFC7C7C7" HorizontalAlignment="Center" FontStyle="Italic" FontSize="14" Width="250"/>
+                        <Button Content="Equalize" HorizontalAlignment="Center" VerticalAlignment="Stretch" Click="HistogramClicked" Background="#00B6B6B6" Foreground="White"/>
 
                     </StackPanel>
                 </ScrollViewer>
@@ -1999,7 +2000,7 @@
                         <Image x:Name="ExposureExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnValueChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
+                        <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnExposureChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
                             <Slider.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <LinearGradientBrush.RelativeTransform>
@@ -2011,9 +2012,9 @@
                             </Slider.Background>
                         </Slider>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="GAMA" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="132.095,0,131.905,0"/>
-                        <Slider x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnGamaChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
-                        <Slider x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnGamaChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
-                        <Slider x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnGamaChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
+                        <Slider x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
+                        <Slider x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
+                        <Slider x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
                         <StackPanel x:Name="ExposureApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
                             <Button x:Name="ExposureApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnExposureApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
                             <Button x:Name="ExposureResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnExposureResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
@@ -2024,7 +2025,7 @@
         </Grid>
 
         <!-- Back button and page title -->
-        <StackPanel x:Name="Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Margin="0">
+        <StackPanel x:Name="Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Margin="0" Visibility="Collapsed">
             <ToggleButton x:Name="SelectFilters" Content="Filters" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                 <ToggleButton.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
