@@ -10,7 +10,6 @@ namespace RemedyPic.Common
 {
     class FilterFunctions
     {
-        static byte[] blackWhiteAlreadyArray;
         private int _width, _height;
         private byte[] _dstPixels, _srcPixels;
         #region getters and setters
@@ -59,13 +58,6 @@ namespace RemedyPic.Common
             }
         }
         #endregion
-        public enum ColorType
-        {
-            Red,
-            Green,
-            Blue,
-            Purple
-        };
 
         public void Reset()
         {
@@ -89,7 +81,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
-        public void Frames_StandardLeftSideNewPixel(ref int CurrentByte, ref int CurrentColumn, byte[] Color, double FrameWidth)
+        private void Frames_StandardLeftSideNewPixel(ref int CurrentByte, ref int CurrentColumn, byte[] Color, double FrameWidth)
         {
             if (CurrentColumn <= FrameWidth)
             {
@@ -130,7 +122,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
-        public void Frames_StandardRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, byte[] Color, double FrameWidth)
+        private void Frames_StandardRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, byte[] Color, double FrameWidth)
         {
             if (CurrentColumn == _width)
             {
@@ -146,7 +138,7 @@ namespace RemedyPic.Common
         }
 
         //Calculate the first index of right border
-        public int Frames_StandardRightSideGetFirstColumn(double FrameWidth)
+        private int Frames_StandardRightSideGetFirstColumn(double FrameWidth)
         {
             return _width - (int)FrameWidth;
         }
@@ -166,14 +158,14 @@ namespace RemedyPic.Common
         }
 
         //Calculate the first index of bottom border
-        public int Frames_StandardBottomSideGetFirstIndex(int FrameWidth)
+        private int Frames_StandardBottomSideGetFirstIndex(int FrameWidth)
         {
             return 4 * _width * (_height - (int)FrameWidth);
         }
         #endregion
 
         // Set B G R value of the pixel
-        public void Fremes_StandardSetPixelValues(int index, byte[] Color)
+        private void Fremes_StandardSetPixelValues(int index, byte[] Color)
         {
             _dstPixels[index] = Color[0];
             _dstPixels[index + 1] = Color[1];
@@ -195,7 +187,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
-        public void Frames_DarknessLeftSideNewPixel(ref int CurrentByte, ref int CurrentColumn, int FrameWidth)
+        private void Frames_DarknessLeftSideNewPixel(ref int CurrentByte, ref int CurrentColumn, int FrameWidth)
         {
             if (CurrentColumn == FrameWidth)
             {
@@ -238,7 +230,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate where is the pixel and if it is in the frame- it change it or set new currenybyte and currentcolumn
-        public void Frames_DarknessRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, int FrameWidth)
+        private void Frames_DarknessRightSideNewPixel(ref int CurrentByte, ref int CurrentColumn, int FrameWidth)
         {
             if (CurrentColumn == _width)
             {
@@ -269,14 +261,14 @@ namespace RemedyPic.Common
         }
 
         //Calculate the first index of bottom border
-        public int Frames_DarknessBottomSideGetFirstIndex(int FrameWidth)
+        private int Frames_DarknessBottomSideGetFirstIndex(int FrameWidth)
         {
             return 4 * _width * (_height - FrameWidth);
         }
         #endregion
 
         // Set B G R value of the pixel
-        public void Fremes_DarknessSetPixelData(int index)
+        private void Fremes_DarknessSetPixelData(int index)
         {
             _dstPixels[index] = (byte)(_srcPixels[index] * 0.3);
             _dstPixels[index + 1] = (byte)(_srcPixels[index + 1] * 0.3);
@@ -295,7 +287,7 @@ namespace RemedyPic.Common
         }
 
         // Smooth Darkness for Left and Right side of the image
-        public void Frames_SmoothDarknessLEFTRIGHT(int FrameWidth)
+        private void Frames_SmoothDarknessLEFTRIGHT(int FrameWidth)
         {
             double darkness = 0.1;
 
@@ -308,7 +300,7 @@ namespace RemedyPic.Common
         }
 
         // Set all pixels of current column (darkness)
-        public void Frames_SmoothDarknessLEFTRIGHTSetCurrentColumn(int StartIndex, double darkness)
+        private void Frames_SmoothDarknessLEFTRIGHTSetCurrentColumn(int StartIndex, double darkness)
         {
             for (int index = StartIndex; index < _dstPixels.Length; index += 4 * _width)
             {
@@ -317,7 +309,7 @@ namespace RemedyPic.Common
         }
 
         // Smooth Darkness for Top and Bottom side of the image
-        public void Frames_SmoothDarknessTOPBOTTOM(int FrameWidth)
+        private void Frames_SmoothDarknessTOPBOTTOM(int FrameWidth)
         {
             double darkness = 0.1;
 
@@ -330,7 +322,7 @@ namespace RemedyPic.Common
         }
 
         // Set all pixels of current row (darkness)
-        public void Frames_SmoothDarknessLEFTRIGHTSetCurrentRow(int StartIndex, double darkness)
+        private void Frames_SmoothDarknessLEFTRIGHTSetCurrentRow(int StartIndex, double darkness)
         {
             for (int index = StartIndex; index < 4 * _width + StartIndex; index += 4)
             {
@@ -339,7 +331,7 @@ namespace RemedyPic.Common
         }
 
         // Set B G R value of the pixel
-        public void Frames_SmoothDarknessSetPixelValues(int CurrentByte, double darkness)
+        private void Frames_SmoothDarknessSetPixelValues(int CurrentByte, double darkness)
         {
             if (Frames_CheckForBrighterPixel(CurrentByte, darkness)) 
             {
@@ -350,7 +342,7 @@ namespace RemedyPic.Common
         }
 
         // Check if the pixel is brighter
-        public bool Frames_CheckForBrighterPixel(int CurrentByte, double darkness)
+        private bool Frames_CheckForBrighterPixel(int CurrentByte, double darkness)
         {
             return _dstPixels[CurrentByte] > srcPixels[CurrentByte] * darkness || _dstPixels[CurrentByte + 1] > srcPixels[CurrentByte + 1] * darkness || _dstPixels[CurrentByte + 2] > srcPixels[CurrentByte + 2] * darkness;
         }
@@ -370,25 +362,25 @@ namespace RemedyPic.Common
         }
 
         // Calculate the center of Up Left standard angle
-        public int Frames_StandardAngleCenterUpLeft(int FrameWidth)
+        private int Frames_StandardAngleCenterUpLeft(int FrameWidth)
         {
             return 4 * FrameWidth + 4 * _width * (FrameWidth * 2);
         }
 
         // Calculate the center of Up Right standard angle
-        public int Frames_StandardAngleCenterUpRight(int FrameWidth)
+        private int Frames_StandardAngleCenterUpRight(int FrameWidth)
         {
             return 4 * (_width - 3 * FrameWidth) + 4 * _width * (FrameWidth * 2 - 1);
         }
 
         // Calculate the center of Down Left standard angle
-        public int Frames_StandardAngleCenterDownLeft(int FrameWidth)
+        private int Frames_StandardAngleCenterDownLeft(int FrameWidth)
         {
             return 4 * _width * (_height - (FrameWidth * 2)) + 4 * FrameWidth;
         }
 
         // Calculate the center of Down Right standard angle
-        public int Frames_StandardAngleCenterDownRight(int FrameWidth)
+        private int Frames_StandardAngleCenterDownRight(int FrameWidth)
         {
             return 4 * (_width - 3 * FrameWidth) + 4 * _width * (_height - (FrameWidth * 2 - 1));
         }
@@ -406,32 +398,32 @@ namespace RemedyPic.Common
         }
 
         // Calculate the center of Up Left angle
-        public int Frames_AngleCenterUpLeft(int FrameWidth)
+        private int Frames_AngleCenterUpLeft(int FrameWidth)
         {
             return 4 * _width * FrameWidth;
         }
 
         // Calculate the center of Up Right angle
-        public int Frames_AngleCenterUpRight(int FrameWidth)
+        private int Frames_AngleCenterUpRight(int FrameWidth)
         {
             return 4 * _width * FrameWidth + 4 * (_width - FrameWidth * 2);
         }
 
         // Calculate the center of Down Left angle
-        public int Frames_AngleCenterDownLeft(int FrameWidth)
+        private int Frames_AngleCenterDownLeft(int FrameWidth)
         {
             return 4 * _width * (_height - FrameWidth);
         }
 
         // Calculate the center of Down Right angle
-        public int Frames_AngleCenterDownRight(int FrameWidth)
+        private int Frames_AngleCenterDownRight(int FrameWidth)
         {
             return 4 * _width * (_height - FrameWidth) + 4 * (_width - FrameWidth * 2);
         }
         #endregion
 
         // Set the pixels of Up Left angle of the image
-        public void Frames_AngleSetUpLeftAngle(byte[] Color, int FrameWidth, int Center)
+        private void Frames_AngleSetUpLeftAngle(byte[] Color, int FrameWidth, int Center)
         {
             int StartIndex, EndIndex;
             double X = 0, Y = 0, angle = 0;
@@ -446,7 +438,7 @@ namespace RemedyPic.Common
         }
 
         // Set the pixels of Up Right angle of the image
-        public void Frames_AngleSetUpRightAngle(byte[] Color, int FrameWidth, int Center)
+        private void Frames_AngleSetUpRightAngle(byte[] Color, int FrameWidth, int Center)
         {
             int StartIndex, EndIndex;
             double X = 0, Y = 0, angle = 0;
@@ -461,7 +453,7 @@ namespace RemedyPic.Common
         }
 
         // Set the pixels of Down Left angle of the image
-        public void Frames_AngleSetDownLeftAngle(byte[] Color, int FrameWidth, int Center)
+        private void Frames_AngleSetDownLeftAngle(byte[] Color, int FrameWidth, int Center)
         {
             int StartIndex, EndIndex;
             double X = 0, Y = 0, angle = 0;
@@ -476,7 +468,7 @@ namespace RemedyPic.Common
         }
 
         // Set the pixels of Down Right angle of the image
-        public void Frames_AngleSetDownRightAngle(byte[] Color, int FrameWidth, int Center)
+        private void Frames_AngleSetDownRightAngle(byte[] Color, int FrameWidth, int Center)
         {
             int StartIndex, EndIndex;
             double X = 0, Y = 0, angle = 0;
@@ -491,7 +483,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate the trigonometry to find the next X and Y of the pixel
-        public void Frames_AngleGetNewPixel(ref double angle, double degrees, ref double X, ref double Y, int FrameWidth)
+        private void Frames_AngleGetNewPixel(ref double angle, double degrees, ref double X, ref double Y, int FrameWidth)
         {
             angle = Math.PI * degrees / 180.0;
             X = Math.Round((double)FrameWidth * Math.Cos(angle));
@@ -508,6 +500,7 @@ namespace RemedyPic.Common
                 _dstPixels[index + 2] = Color[2];
             }
         }
+        #endregion
 
         // Calculate the width of the frame
         public int Frames_GetFrameWidth(int percent)
@@ -518,35 +511,34 @@ namespace RemedyPic.Common
         }
 
         // Check if the frame width is more than half of width or height of the image
-        public void Frames_CheckFrameWidth(ref int val)
+        private void Frames_CheckFrameWidth(ref int val)
         {
             if (val > _width / 2)
                 val = _width / 2;
+
             if (val > _height / 2)
                 val = _height / 2;
         }
         #endregion
-       
-        #endregion
 
-        #region Noice
-        // Main function of Noice 
-        public void Noice(int percent)
+        #region Noise
+        // Main function of Noise 
+        public void Noise(int percent)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
             Random random = new Random(); 
-            int SquareWidth = Noice_GetSquareWidth(percent);
+            int SquareWidth = Noise_GetSquareWidth(percent);
 
             for (int CurrentByte = 3, AlphaCoeff = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
-                Noice_GetNewColumn(ref CurrentColumn, ref CurrentByte, SquareWidth);
-                Noice_GetNewAlphacCoeff(CurrentColumn, SquareWidth, ref AlphaCoeff, ref random);
-                Noice_SetNewRow(CurrentByte, AlphaCoeff, SquareWidth);
+                Noise_GetNewColumn(ref CurrentColumn, ref CurrentByte, SquareWidth);
+                Noise_GetNewAlphacCoeff(CurrentColumn, SquareWidth, ref AlphaCoeff, ref random);
+                Noise_SetNewRow(CurrentByte, AlphaCoeff, SquareWidth);
             }
         }
 
         // Check if the current column is more than the width, changes to new raw pixels
-        public void Noice_GetNewColumn(ref int CurrentColumn, ref int CurrentByte, int SquareWidth)
+        private void Noise_GetNewColumn(ref int CurrentColumn, ref int CurrentByte, int SquareWidth)
         {
             if (CurrentColumn == _width)
             {
@@ -556,7 +548,7 @@ namespace RemedyPic.Common
         }
 
         // If all of the pixel of square are set`s recalculate the new alpha coeff for the new square
-        public void Noice_GetNewAlphacCoeff(int CurrentColumn, int SquareWidth, ref int AlphaCoeff, ref Random random)
+        private void Noise_GetNewAlphacCoeff(int CurrentColumn, int SquareWidth, ref int AlphaCoeff, ref Random random)
         {
             if (CurrentColumn % SquareWidth == 0)
             {
@@ -565,7 +557,7 @@ namespace RemedyPic.Common
         }
 
         // Set one row of the square with new alpha
-        public void Noice_SetNewRow(int index, int AlphaCoeff, int SquareWidth)
+        private void Noise_SetNewRow(int index, int AlphaCoeff, int SquareWidth)
         {
             for (int k = 0; k < SquareWidth && index < _dstPixels.Length; k++, index += 4 * _width)
             {
@@ -574,7 +566,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate the width (height) of the square
-        public int Noice_GetSquareWidth(int percent)
+        private int Noise_GetSquareWidth(int percent)
         {
             int val = (((_width + _height) / 2) * percent) / 100;
 
@@ -597,7 +589,7 @@ namespace RemedyPic.Common
         }
 
         // Set the new values for the pixel
-        public void HFlip_SetNewValues(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
+        private void HFlip_SetNewValues(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
         {
             HFlip_GetNewColumnRowByte(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
 
@@ -609,7 +601,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate the new Row, Byte, Column of pixel
-        public void HFlip_GetNewColumnRowByte(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
+        private void HFlip_GetNewColumnRowByte(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
         {
             int ColumnsInLeftSide = HFlip_GetColumnNumber();
 
@@ -622,7 +614,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate the column number of left side of the image
-        public int HFlip_GetColumnNumber()
+        private int HFlip_GetColumnNumber()
         {
             return _width / 2;
         }
@@ -638,12 +630,10 @@ namespace RemedyPic.Common
             {
                 VFlip_SetNewValues(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
             }
-
-            //_srcPixels = (byte[])_dstPixels.Clone();
         }
 
         // Set the new values for the pixel
-        public void VFlip_SetNewValues(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
+        private void VFlip_SetNewValues(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
         {
             VFlip_GetNewColumnRow(ref CurrentColumn, ref CurrentRow);
 
@@ -652,7 +642,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate the new Row and Column of pixel
-        public void VFlip_GetNewColumnRow(ref int CurrentColumn, ref int CurrentRow)
+        private void VFlip_GetNewColumnRow(ref int CurrentColumn, ref int CurrentRow)
         {
             if (CurrentColumn == _width)
             {
@@ -663,7 +653,7 @@ namespace RemedyPic.Common
         #endregion
 
         // Swap pixel data of B G R A
-        public void Flip_SwapPixelData(ref int CurrentByte, int index)
+        private void Flip_SwapPixelData(ref int CurrentByte, int index)
         {
             Flip_SwapValues(CurrentByte++, index);
             Flip_SwapValues(CurrentByte++, index + 1);
@@ -672,57 +662,13 @@ namespace RemedyPic.Common
         }
 
         // Swap one of BGRA data of the pixel
-        public void Flip_SwapValues(int CurrentByte, int index)
+        private void Flip_SwapValues(int CurrentByte, int index)
         {
             _dstPixels[CurrentByte] = _srcPixels[index];
             _dstPixels[index] = _srcPixels[CurrentByte];
         }
 
-        #endregion
-
-        #region Rotate
-        // Main function of rotation
-        public void Rotate()
-        {
-            _dstPixels = (byte[])_srcPixels.Clone();
-
-            for (int CurrentByte = 0, CurrentColumn = 0, CurrentRow = 0; CurrentByte < 4 * _height * _width; CurrentColumn++)
-            {
-                Rotate_GetNewColumnRow(ref CurrentColumn, ref CurrentRow);
-                Rotate_SetNewValues(ref CurrentByte, (_width * (_height - (CurrentColumn + 1)) + CurrentRow) * 4);
-            }
-
-            //Rotate_swapWH();
-            _srcPixels = (byte[])_dstPixels.Clone();
-        }
-
-        // Sets the new values of BGRA
-        public void Rotate_SetNewValues(ref int CurrentByte, int index)
-        {
-            _dstPixels[CurrentByte++] = _srcPixels[index];
-            _dstPixels[CurrentByte++] = _srcPixels[index + 1];
-            _dstPixels[CurrentByte++] = _srcPixels[index + 2];
-            _dstPixels[CurrentByte++] = _srcPixels[index + 3];
-        }
-
-        // Check if the currentcolumn is at the last cell of row
-        public void Rotate_GetNewColumnRow(ref int CurrentColumn, ref int CurrentRow)
-        {
-            if (CurrentColumn == _height)
-            {
-                CurrentRow++;
-                CurrentColumn = 0;
-            }
-        }
-
-        // Swap width and height
-        public void Rotate_swapWH()
-        {
-            int temp = _width;
-            _width = _height;
-            _height = _width;
-        }
-        #endregion
+        #endregion   
 
         #region Color
         // Main function which changes BGR colors
@@ -738,7 +684,7 @@ namespace RemedyPic.Common
 
         #region Colors
         // Gets new values for B G R color of selected pixel of image (depends of the value of R G B color sliders)
-        public void ColorChange_GetNewColors(int CurrentByte, double RedValue, double GreenValue, double BlueValue)
+        private void ColorChange_GetNewColors(int CurrentByte, double RedValue, double GreenValue, double BlueValue)
         {
             ColorChange_GetNewColor(CurrentByte, (int)BlueValue);
             ColorChange_GetNewColor(CurrentByte + 1, (int)GreenValue);
@@ -746,7 +692,7 @@ namespace RemedyPic.Common
         }
 
         // Get new value for one color of selected pixel of image
-        public void ColorChange_GetNewColor(int CurrentByte, int value)
+        private void ColorChange_GetNewColor(int CurrentByte, int value)
         {
             int temp = _dstPixels[CurrentByte] + value;
             ColorChange_CheckColorValue(ref temp);
@@ -754,7 +700,7 @@ namespace RemedyPic.Common
         }
 
         // Sets the value of the color in the bounds [20-200]
-        public void ColorChange_CheckColorValue(ref int val)
+        private void ColorChange_CheckColorValue(ref int val)
         {
             if (val > 200)
                 val = 200;
@@ -765,27 +711,27 @@ namespace RemedyPic.Common
 
         #region Contrasts
         // Gets new values for B G R color of selected pixel of image (depends of the value of R G B contrast sliders)
-        public void ColorChange_GetNewContrasts(int CurrentByte, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
+        private void ColorChange_GetNewContrasts(int CurrentByte, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
         {
+            // Get the contrast values of each color
             Contrast_GetContrastValue(ref BlueContrastValue);
             Contrast_GetContrastValue(ref GreenContrastValue);
             Contrast_GetContrastValue(ref RedContrastValue);
 
-            ColorChange_GetNewContrast(CurrentByte, BlueContrastValue);
-            ColorChange_GetNewContrast(CurrentByte + 1, GreenContrastValue);
-            ColorChange_GetNewContrast(CurrentByte + 2, RedContrastValue);
-
+            Contrast_GetNewContrast(CurrentByte, BlueContrastValue);
+            Contrast_GetNewContrast(CurrentByte + 1, GreenContrastValue);
+            Contrast_GetNewContrast(CurrentByte + 2, RedContrastValue);
         }
 
         // Calculate contrast value of slider to value between 0 and 4
-        public void Contrast_GetContrastValue(ref double contrast)
+        private void Contrast_GetContrastValue(ref double contrast)
         {
             contrast = (100.0 + contrast) / 100.0;
             contrast *= contrast;
         }
 
         // Get new value for one color of selected pixel of image
-        public void ColorChange_GetNewContrast(int currentByte, double contrast)
+        private void Contrast_GetNewContrast(int currentByte, double contrast)
         {
             double temp = Contrast_GetNewValue(dstPixels[currentByte], contrast);
             ColorChange_CheckContrastValue(ref temp);
@@ -794,7 +740,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate the new value of the color
-        public double Contrast_GetNewValue(double temp, double contrast)
+        private double Contrast_GetNewValue(double temp, double contrast)
         {
             temp /= 255.0;
             temp -= 0.5;
@@ -804,7 +750,7 @@ namespace RemedyPic.Common
         }
 
         // Sets the value of the color in the bounds [0-255]
-        public void ColorChange_CheckContrastValue(ref double val)
+        private void ColorChange_CheckContrastValue(ref double val)
         {
             if (val > 255)
                 val = 255;
@@ -812,6 +758,7 @@ namespace RemedyPic.Common
                 val = 0;
         }
         #endregion
+
         #endregion
 
         #region Gamma
@@ -830,14 +777,15 @@ namespace RemedyPic.Common
             }
         }
 
-        public void Gamma_SetNewBGRValues(int CurrentByte, byte[] BlueGamma, byte[] GreenGamma, byte[] RedGamma)
+        // Set the pixel values
+        private void Gamma_SetNewBGRValues(int CurrentByte, byte[] BlueGamma, byte[] GreenGamma, byte[] RedGamma)
         {
             _dstPixels[CurrentByte] = BlueGamma[_dstPixels[CurrentByte]];
             _dstPixels[CurrentByte + 1] = GreenGamma[_dstPixels[CurrentByte + 1]];
             _dstPixels[CurrentByte + 2] = RedGamma[_dstPixels[CurrentByte + 2]];
         }
 
-        // Sets the new array of colors
+        // Sets the new array of color
         private byte[] Gamma_GetArray(double color)
         {
             byte[] gammaArray = new byte[256];
@@ -852,7 +800,6 @@ namespace RemedyPic.Common
         #endregion
 
         #region Colorize
-
         // Main function
         public void Colorize(bool leaveBlue, bool leaveRed, bool leaveGreen, bool leaveYellow,
                                    bool leaveOrange, bool leavePurple, bool leaveCyan, bool leaveLime)
@@ -881,6 +828,7 @@ namespace RemedyPic.Common
             }
         }
 
+        // Check if the pixel is not in the area of selected color
         private bool checkPixelForColorize(int CurrentByte, bool color, double hue, string colorToLeave)
         {
             if (!color) return false;
@@ -949,6 +897,7 @@ namespace RemedyPic.Common
             return true;
         }
 
+        // Sets B G R  valus of the pixel with their average value.
         private void makePixelGrayscale(int CurrentByte)
         {
             int average = (_dstPixels[CurrentByte] + _dstPixels[CurrentByte + 1] + _dstPixels[CurrentByte + 2]) / 3;
@@ -957,6 +906,7 @@ namespace RemedyPic.Common
             _dstPixels[CurrentByte + 2] = (byte)average;
         }
 
+        // Get hue value of the given coler
         private double getHue(Color givenColor)
         {
             double r = givenColor.R / 255.0;
@@ -989,31 +939,27 @@ namespace RemedyPic.Common
 
             return h;
         }
-
-
-
         #endregion
 
         #region BlackAndWhite
+        // Main function of Black and White filter, set all B G R values of the pixel with their average value
         public void BlackAndWhite(byte[] dstPixels, byte[] srcPixels)
         {
             int currentByte = 0;
             while (currentByte < (4 * height * width))
             {
-                blackWhiteAlreadyArray = srcPixels;
                 int baw = (srcPixels[currentByte] + srcPixels[currentByte + 1] + srcPixels[currentByte + 2]) / 3;
                 Color tempColor = Color.FromArgb(srcPixels[currentByte + 3], (byte)baw, (byte)baw, (byte)baw);
                 dstPixels[currentByte++] = tempColor.B;
                 dstPixels[currentByte++] = tempColor.G;
                 dstPixels[currentByte++] = tempColor.R;
                 dstPixels[currentByte++] = tempColor.A;
-
             }
-
         }
         #endregion
 
         #region Darken
+        // Darken. Makes every pixel darker by taking the array and multiplying every pixel with the ( 1 / value of the slider)
         public void Darken(double value)
         {
             double darkness = -value;
@@ -1058,6 +1004,7 @@ namespace RemedyPic.Common
         #endregion
 
         #region Histogram
+        // Main function
         public void MakeHistogramEqualization()
         {
             int[] frequency = new int[256];

@@ -113,8 +113,6 @@ namespace RemedyPic
             this.DataContext = selectedRegion;
         }
 
-
-
         #region Charms
         private void RegisterCharms()
         {
@@ -343,6 +341,7 @@ namespace RemedyPic
         }
 
         #region Invert Filter
+        // Invert filter function
         private void OnInvertClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -360,6 +359,7 @@ namespace RemedyPic
             }
         }
 
+        // Set the matrix for invert filter
         private void Invert_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
             coeff[2, 2] = -1;
@@ -387,6 +387,7 @@ namespace RemedyPic
         #endregion
 
         #region Emboss Filter
+        // Emboss filter function
         private void OnEmbossClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -404,6 +405,7 @@ namespace RemedyPic
             }
         }
 
+        // Set the matrix for emboss filter
         private void Emboss_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
             coeff[2, 2] = 1;
@@ -414,6 +416,7 @@ namespace RemedyPic
         #endregion
 
         #region Emboss 2 Filter
+        // Emboss 2 filter function
         private void OnEmboss2Click(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -431,6 +434,7 @@ namespace RemedyPic
             }
         }
 
+        // Set the matrix for emboss2 filter
         private void Emboss2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
             coeff[2, 2] = 1;
@@ -446,6 +450,7 @@ namespace RemedyPic
         #endregion
 
         #region Sharpen Filter
+        // Sharpen filter function
         private void OnSharpenClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -465,6 +470,7 @@ namespace RemedyPic
             }
         }
 
+        // Set the matrix for sharpen filter
         private void Sharpen_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
             coeff[2, 2] = 5;
@@ -478,6 +484,7 @@ namespace RemedyPic
         #endregion
 
         #region Blur Filter
+        // Blur filter function
         private void OnBlurClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -497,6 +504,7 @@ namespace RemedyPic
             }
         }
 
+        // Set the matrix for blur filter
         private void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
             coeff[2, 2] = 3;
@@ -512,6 +520,7 @@ namespace RemedyPic
         #endregion
 
         #region Blur2 Filter
+        // Blur2 filter function
         private void OnBlur2Click(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -531,6 +540,7 @@ namespace RemedyPic
             }
         }
 
+        // Set the matrix for blur2 filter
         private void Blur2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
             coeff[2, 2] = 1;
@@ -544,6 +554,7 @@ namespace RemedyPic
         #endregion
 
         #region EdgeDetect Filter
+        // EdgeDetect filter function
         private void OnEdgeDetectClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -563,6 +574,7 @@ namespace RemedyPic
             }
         }
 
+        // Set the matrix for edgeDetect filter
         private void EdgeDetect_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
             coeff[2, 2] = -4;
@@ -570,10 +582,10 @@ namespace RemedyPic
             offset = 0;
             scale = 1;
         }
-
         #endregion
 
         #region EdgeEnhance Filter
+        // EdgeEnhance filter function
         private void OnEdgeEnhanceClick(object sender, RoutedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -593,6 +605,7 @@ namespace RemedyPic
             }
         }
 
+        // Set the matrix for edgeEnhance filter
         private void EdgeEnhance_SetValues(ref int[,] coeff, ref int offset, ref int scale)
         {
             coeff[2, 2] = 1;
@@ -601,31 +614,6 @@ namespace RemedyPic
             scale = 1;
         }
 
-        #endregion
-
-        #region Custom Filter
-        private void OnCustomClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Custom_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        private void Custom_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = -1; //Set All values from fields...
-            offset = 255;
-            scale = 1;
-        }
         #endregion
 
         #region Save
@@ -824,69 +812,13 @@ namespace RemedyPic
             //deselectMenu();
         }
 
-        #region Color Change RGB
-        private void OnRColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedColors = "redcolor";
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
+        #region Color Change
 
-        private void OnGColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void OnColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (pictureIsLoaded)
             {
-                appliedColors = "greencolor";
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        private void OnBColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedColors = "bluecolor";
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-        #endregion
-
-        #region Contrast Change
-        private void OnRContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedColors = "redcontrast";
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        private void OnGContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedColors = "greencontrast";
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        private void OnBContrastChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedColors = "bluecontrast";
+                appliedColors = "colorchange";
                 prepareImage(exampleStream, exampleBitmap, image);
                 image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
                 setStream(exampleStream, exampleBitmap, image);
@@ -938,6 +870,7 @@ namespace RemedyPic
         #endregion
 
         #region Filters
+        // Change the image with black and white filter applied
         private void doBlackWhite(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -946,6 +879,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with invert filter applied
         private void doInvert(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -958,6 +892,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with emboss filter applied
         private void doEmboss(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -970,6 +905,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with emboss2 filter applied
         private void doEmboss2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -982,6 +918,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with sharpen filter applied
         private void doSharpen(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -994,24 +931,27 @@ namespace RemedyPic
             resetInterface();
         }
 
-        private void doNoice(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        // Change the image with noise filter applied
+        private void doNoise(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
 
-            givenImage.Noice(20);
+            givenImage.Noise(20);
             setStream(stream, bitmap, givenImage);
             resetInterface();
         }
 
-        private void doHardNoice(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
+        // Change the image with hardnoise filter applied
+        private void doHardNoise(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
 
-            givenImage.Noice(1);
+            givenImage.Noise(1);
             setStream(stream, bitmap, givenImage);
             resetInterface();
         }
 
+        // Change the image with blur filter applied
         private void doBlur(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1025,6 +965,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with blur2 filter applied
         private void doBlur2(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1038,6 +979,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with edgeDetect filter applied
         private void doEdgeDetect(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1051,6 +993,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with edgeEnhance filter applied
         private void doEdgeEnhance(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1064,6 +1007,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with retro filter applied
         private void doRetro(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1072,6 +1016,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with darken filter applied
         private void doDarken(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1080,6 +1025,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with brighten filter applied
         private void doBrighten(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1088,6 +1034,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with shadow filter applied
         private void doShadow(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1096,6 +1043,7 @@ namespace RemedyPic
             resetInterface();
         }
 
+        // Change the image with crystal filter applied
         private void doCrystal(Stream stream, WriteableBitmap bitmap, FilterFunctions givenImage)
         {
             prepareImage(stream, bitmap, givenImage);
@@ -1103,10 +1051,10 @@ namespace RemedyPic
             setStream(stream, bitmap, givenImage);
             resetInterface();
         }
-
         #endregion
 
         #region Apply Buttons
+        // Function for apply button on Filters popup. Sets the image with the applied filter
         private void OnFilterApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
@@ -1142,13 +1090,13 @@ namespace RemedyPic
                     doSharpen(bitmapStream, bitmapImage, imageOriginal);
                     doSharpen(exampleStream, exampleBitmap, image);
                     break;
-                case "noice":
-                    doNoice(bitmapStream, bitmapImage, imageOriginal);
-                    doNoice(exampleStream, exampleBitmap, image);
+                case "noise":
+                    doNoise(bitmapStream, bitmapImage, imageOriginal);
+                    doNoise(exampleStream, exampleBitmap, image);
                     break;
-                case "hardNoice":
-                    doHardNoice(bitmapStream, bitmapImage, imageOriginal);
-                    doHardNoice(exampleStream, exampleBitmap, image);
+                case "hardNoise":
+                    doHardNoise(bitmapStream, bitmapImage, imageOriginal);
+                    doHardNoise(exampleStream, exampleBitmap, image);
                     break;
                 case "EdgeDetect":
                     doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
@@ -1189,6 +1137,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
+        // Function for apply button on Colors popup. Sets the image with the applied colors
         private void OnColorApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
@@ -1205,33 +1154,8 @@ namespace RemedyPic
                     prepareImage(bitmapStream, bitmapImage, imageOriginal);
                     imageOriginal.Lighten(brightSlider.Value);
                     setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                case "redcolor":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                case "greencolor":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                case "bluecolor":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                case "redcontrast":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                case "greencontrast":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                case "bluecontrast":
+                    break;                
+                case "colorchange":
                     prepareImage(bitmapStream, bitmapImage, imageOriginal);
                     imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
                     setStream(bitmapStream, bitmapImage, imageOriginal);
@@ -1251,17 +1175,13 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
+        // Function for apply button on  Rotate popup. Sets the image with the applied flip
         private void OnRotateApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
             SelectRotations.IsChecked = false;
             switch (appliedRotations)
             {
-                case "rotate":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.Rotate();
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
                 case "hflip":
                     prepareImage(bitmapStream, bitmapImage, imageOriginal);
                     imageOriginal.HFlip();
@@ -1280,6 +1200,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
+        // Function for apply button on Colorize popup. Sets the image with the applied color
         private void OnColorizeApplyClick(object sender, RoutedEventArgs e)
         {
             doColorize(exampleStream, exampleBitmap, image);
@@ -1327,6 +1248,7 @@ namespace RemedyPic
             appliedColors = null;
         }
 
+        // This resets the interface and returns the last applied image.
         private void OnRotateResetClick(object sender, RoutedEventArgs e)
         {
             prepareImage(exampleStream, exampleBitmap, image);
@@ -1337,13 +1259,36 @@ namespace RemedyPic
             RotateApplyReset.Visibility = Visibility.Collapsed;
         }
 
-
+        // This resets the interface and returns the last applied image.
         private void OnColorizeResetClick(object sender, RoutedEventArgs e)
         {
             deselectColorizeGridItems();
             RestoreOriginalBitmap();
         }
         #endregion
+
+        //
+        //
+        //
+        // 
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        // 
+        //
+        //
+        //
+        //
+        //
+        //
+        //
 
         #region Checked Buttons
         private void FiltersChecked(object sender, RoutedEventArgs e)
@@ -1361,7 +1306,6 @@ namespace RemedyPic
         private void FiltersUnchecked(object sender, RoutedEventArgs e)
         {
             PopupFilters.IsOpen = false;
-
         }
 
         private void ColorsChecked(object sender, RoutedEventArgs e)
@@ -1819,15 +1763,7 @@ namespace RemedyPic
         }
         #endregion
 
-        private void OnRotateClick(object sender, RoutedEventArgs e)
-        {
-            appliedRotations = "rotate";
-            prepareImage(exampleStream, exampleBitmap, image);
-            image.Rotate();
-            setStream(exampleStream, exampleBitmap, image);
-            resetInterface();
-        }
-
+        #region Rotate
         private void OnHFlipClick(object sender, RoutedEventArgs e)
         {
             appliedRotations = "hflip";
@@ -1845,6 +1781,9 @@ namespace RemedyPic
             setStream(exampleStream, exampleBitmap, image);
         }
 
+        #endregion
+
+        #region Gamma
         private void OnGamaChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (pictureIsLoaded)
@@ -1855,6 +1794,8 @@ namespace RemedyPic
                 setStream(exampleStream, exampleBitmap, image);
             }
         }
+
+        #endregion
 
         #region Back buttons
         private void BackPopupClicked(object sender, RoutedEventArgs e)
@@ -1996,8 +1937,8 @@ namespace RemedyPic
             blurStream = null,
             blur2Stream = null,
             sharpenStream = null,
-            noiceStream = null,
-            hardNoiceStream = null,
+            noiseStream = null,
+            hardNoiseStream = null,
             retroStream = null,
             darkenStream = null,
             edgeDetectStream = null,
@@ -2016,8 +1957,8 @@ namespace RemedyPic
             blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            noiceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            hardNoiceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            noiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+            hardNoiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
             retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
@@ -2033,8 +1974,8 @@ namespace RemedyPic
             blurFilter.Source = blurBitmap;
             blur2Filter.Source = blur2Bitmap;
             sharpenFilter.Source = sharpenBitmap;
-            noiceFilter.Source = noiceBitmap;
-            hardNoiceFilter.Source = hardNoiceBitmap;
+            noiseFilter.Source = noiseBitmap;
+            hardNoiseFilter.Source = hardNoiseBitmap;
             edgeDetectFilter.Source = edgeDetectBitmap;
             edgeEnhanceFilter.Source = edgeEnhanceBitmap;
             retroFilter.Source = retroBitmap;
@@ -2050,8 +1991,8 @@ namespace RemedyPic
             blurStream = blurBitmap.PixelBuffer.AsStream();
             blur2Stream = blur2Bitmap.PixelBuffer.AsStream();
             sharpenStream = sharpenBitmap.PixelBuffer.AsStream();
-            noiceStream = noiceBitmap.PixelBuffer.AsStream();
-            hardNoiceStream = hardNoiceBitmap.PixelBuffer.AsStream();
+            noiseStream = noiseBitmap.PixelBuffer.AsStream();
+            hardNoiseStream = hardNoiseBitmap.PixelBuffer.AsStream();
             edgeDetectStream = edgeDetectBitmap.PixelBuffer.AsStream();
             edgeEnhanceStream = edgeEnhanceBitmap.PixelBuffer.AsStream();
             retroStream = retroBitmap.PixelBuffer.AsStream();
@@ -2067,8 +2008,8 @@ namespace RemedyPic
             initializeBitmap(blurStream, blurBitmap, filterimage);
             initializeBitmap(blur2Stream, blur2Bitmap, filterimage);
             initializeBitmap(sharpenStream, sharpenBitmap, filterimage);
-            initializeBitmap(noiceStream, noiceBitmap, filterimage);
-            initializeBitmap(hardNoiceStream, hardNoiceBitmap, filterimage);
+            initializeBitmap(noiseStream, noiseBitmap, filterimage);
+            initializeBitmap(hardNoiseStream, hardNoiseBitmap, filterimage);
             initializeBitmap(edgeDetectStream, edgeDetectBitmap, filterimage);
             initializeBitmap(edgeEnhanceStream, edgeEnhanceBitmap, filterimage);
             initializeBitmap(retroStream, retroBitmap, filterimage);
@@ -2087,8 +2028,8 @@ namespace RemedyPic
             doFilter(blurStream, blurBitmap, filterimage, "blur");
             doFilter(blur2Stream, blur2Bitmap, filterimage, "blur2");
             doFilter(sharpenStream, sharpenBitmap, filterimage, "sharpen");
-            doFilter(noiceStream, noiceBitmap, filterimage, "noice");
-            doFilter(hardNoiceStream, hardNoiceBitmap, filterimage, "hardNoice");
+            doFilter(noiseStream, noiseBitmap, filterimage, "noise");
+            doFilter(hardNoiseStream, hardNoiseBitmap, filterimage, "hardNoise");
             doFilter(edgeDetectStream, edgeDetectBitmap, filterimage, "EdgeDetect");
             doFilter(edgeEnhanceStream, edgeEnhanceBitmap, filterimage, "EdgeEnhance");
             doFilter(retroStream, retroBitmap, filterimage, "retro");
@@ -2130,11 +2071,11 @@ namespace RemedyPic
                 case "sharpen":
                     doSharpen(givenStream, givenBitmap, givenImage);
                     break;
-                case "noice":
-                    doNoice(givenStream, givenBitmap, givenImage);
+                case "noise":
+                    doNoise(givenStream, givenBitmap, givenImage);
                     break;
-                case "hardNoice":
-                    doHardNoice(givenStream, givenBitmap, givenImage);
+                case "hardNoise":
+                    doHardNoise(givenStream, givenBitmap, givenImage);
                     break;
                 case "EdgeDetect":
                     doEdgeDetect(givenStream, givenBitmap, givenImage);
@@ -2206,16 +2147,16 @@ namespace RemedyPic
             FilterApplyReset.Visibility = Visibility.Visible;
         }
 
-        private void noiceChecked(object sender, RoutedEventArgs e)
+        private void noiseChecked(object sender, RoutedEventArgs e)
         {
-            appliedFilters = "noice";
+            appliedFilters = "noise";
             deselectFilters();
             FilterApplyReset.Visibility = Visibility.Visible;
         }
 
-        private void hardNoiceChecked(object sender, RoutedEventArgs e)
+        private void hardNoiseChecked(object sender, RoutedEventArgs e)
         {
-            appliedFilters = "hardNoice";
+            appliedFilters = "hardNoise";
             deselectFilters();
             FilterApplyReset.Visibility = Visibility.Visible;
         }
@@ -2298,10 +2239,10 @@ namespace RemedyPic
                 invertCheck.IsChecked = false;
             if (without != "sharpen")
                 sharpenCheck.IsChecked = false;
-            if (without != "noice")
-                noiceCheck.IsChecked = false;
-            if (without != "hardNoice")
-                hardNoiceCheck.IsChecked = false;
+            if (without != "noise")
+                noiseCheck.IsChecked = false;
+            if (without != "hardNoise")
+                hardNoiseCheck.IsChecked = false;
             if (without != "emboss2")
                 emboss2Check.IsChecked = false;
             if (without != "emboss")

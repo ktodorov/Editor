@@ -9,10 +9,11 @@ namespace RemedyPic.Common
 {
     class CustomFilter
     {
-        byte[] _dstPixels, _srcPixels;
+        private byte[] _dstPixels, _srcPixels;
         private int _width, _height, _left, _top, _right, _bottom, _offset, _scale;
-        int[,] _coeff;
+        private int[,] _coeff;
 
+        // Constructor, sets the parameters
         public CustomFilter(byte[] Pixels, int width, int height, int offset, int scale, int[,] coeff)
         {
             _dstPixels = (byte[])Pixels.Clone();
@@ -24,6 +25,8 @@ namespace RemedyPic.Common
             _coeff = coeff;
         }
         
+        // Main function- Get the borders of the image(depends on the matrix`s values), set the new values of the pixles and fill the black pixels
+        // return the new array of the image
         public byte[] Filter()
         {
             CustomFilter_GetBorders();
@@ -32,62 +35,7 @@ namespace RemedyPic.Common
             return (byte[])_dstPixels.Clone();
         }
 
-        public void CustomFilter_FillTheBlankPixels()
-        {
-            CustomFilter_FillLeftColumn(4); // Second Column
-            CustomFilter_FillLeftColumn(0); // First Column
-            CustomFilter_FillTopRow(4 * (_width)); // Second Row
-            CustomFilter_FillTopRow(0); // First Row
-            CustomFilter_FillRightColumn(4 * (_width - 2)); // Last - 1 Column
-            CustomFilter_FillRightColumn(4 * (_width - 1)); // Last Column
-            CustomFilter_FillBottomRow(4 * _width * (_height - 2)); // Last - 1 Row
-            CustomFilter_FillBottomRow(4 * _width * (_height - 1)); // Last Row
-        }
-
-        private void CustomFilter_FillLeftColumn(int StartIndex)
-        {
-            for (int CurrentByte = StartIndex; CurrentByte < _dstPixels.Length; CurrentByte += 4 * _width)
-            {
-                _dstPixels[CurrentByte] = _dstPixels[CurrentByte + 4];
-                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 5];
-                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte + 6];
-                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte + 7];
-            }
-        }
-
-        private void CustomFilter_FillTopRow(int StartIndex)
-        {
-            for (int CurrentByte = StartIndex; CurrentByte < StartIndex + 4 * _width; CurrentByte += 4)
-            {
-                _dstPixels[CurrentByte] = _dstPixels[CurrentByte + 4 * _width];
-                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 1 + 4 * _width];
-                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte + 2 + 4 * _width];
-                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte + 3 + 4 * _width];
-            }
-        }
-
-        private void CustomFilter_FillRightColumn(int StartIndex)
-        {
-            for (int CurrentByte = StartIndex; CurrentByte < _dstPixels.Length; CurrentByte += 4 * _width)
-            {
-                _dstPixels[CurrentByte] = _dstPixels[CurrentByte - 4];
-                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte - 3];
-                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte - 2];
-                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte - 1];
-            }
-        }
-
-        private void CustomFilter_FillBottomRow(int StartIndex)
-        {
-            for (int CurrentByte = StartIndex; CurrentByte < StartIndex + 4 * _width; CurrentByte += 4)
-            {
-                _dstPixels[CurrentByte] = _dstPixels[CurrentByte - 4 * _width];
-                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 1 - 4 * _width];
-                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte + 2 - 4 * _width];
-                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte + 3 - 4 * _width];
-            }
-        }
-
+        // Recalculate the new values of all pixels of the image
         private void CustomFilter_NewPixelsValue(int current_byte, int current_width, int current_height)
         {
             while (current_byte < _srcPixels.Length && current_height <= _height - _bottom)
@@ -106,6 +54,7 @@ namespace RemedyPic.Common
             }
         }
 
+        // Calculate the new pixel values
         private void CustomFilter_NewBGR(ref int current_byte)
         {
             CustomFilter_CalcPixelValue(current_byte++);
@@ -114,13 +63,15 @@ namespace RemedyPic.Common
             current_byte++; //For 4th value (A)
         }
 
+        // Calculate one of the pixel values
         private void CustomFilter_CalcPixelValue(int current_byte)
         {
-            int val = CustomFilter_GetNewVal(current_byte - (2 * 4 * _width + 2 * 4));      
+            int val = CustomFilter_GetNewVal(current_byte - (2 * 4 * _width + 2 * 4));  
             CustomFilter_CheckVal(ref val);
             _dstPixels[current_byte] = (byte)val;
         }
 
+        // Calculate the B or G or R value depends on the matrix of the filter
         private int CustomFilter_GetNewVal(int current_byte)
         {
             int val = 0;
@@ -136,6 +87,7 @@ namespace RemedyPic.Common
             return val;
         }
 
+        // Check if the value is between [0;255]
         private void CustomFilter_CheckVal(ref int val)
         {
             if (val > 255)
@@ -144,6 +96,7 @@ namespace RemedyPic.Common
                 val = 0;
         }
 
+        // Get the borders of the matrix
         private void CustomFilter_GetBorders()
         {
             _left = CustomFilter_GetLeftBorder();
@@ -152,6 +105,7 @@ namespace RemedyPic.Common
             _bottom = CustomFilter_GetBottomBorder();
         }
 
+        // Left border
         private int CustomFilter_GetLeftBorder()
         {
             if (CustomFilter_CoefInFirstColumn())
@@ -161,15 +115,18 @@ namespace RemedyPic.Common
             else
                 return 0;
         }
+        // Check of there is coeff in first column
         private bool CustomFilter_CoefInFirstColumn()
         {
             return _coeff[0, 0] != 0 || _coeff[0, 1] != 0 || _coeff[0, 2] != 0 || _coeff[0, 3] != 0 || _coeff[0, 4] != 0;
         }
+        // Check of there is coeff in second column
         private bool CustomFilter_CoefInSecondColumn()
         {
             return _coeff[1, 0] != 0 || _coeff[1, 1] != 0 || _coeff[1, 2] != 0 || _coeff[1, 3] != 0 || _coeff[1, 4] != 0;
         }
 
+        // Top border
         private int CustomFilter_GetTopBorder()
         {
             if (CustomFilter_CoefInFirstRow())
@@ -179,15 +136,18 @@ namespace RemedyPic.Common
             else
                 return 0;
         }
+        // Check of there is coeff in first row
         private bool CustomFilter_CoefInFirstRow()
         {
             return _coeff[0, 0] != 0 || _coeff[1, 0] != 0 || _coeff[2, 0] != 0 || _coeff[3, 0] != 0 || _coeff[4, 0] != 0;
         }
+        // Check of there is coeff in second row
         private bool CustomFilter_CoefInSecondRow()
         {
             return _coeff[0, 1] != 0 || _coeff[1, 1] != 0 || _coeff[2, 1] != 0 || _coeff[3, 1] != 0 || _coeff[4, 1] != 0;
         }
 
+        // Right Border
         private int CustomFilter_GetRightBorder()
         {
             if (CustomFilter_CoefInFifthColumn())
@@ -197,15 +157,18 @@ namespace RemedyPic.Common
             else
                 return 0;
         }
+        // Check of there is coeff in Fifth Column
         private bool CustomFilter_CoefInFifthColumn()
         {
             return _coeff[4, 0] != 0 || _coeff[4, 1] != 0 || _coeff[4, 2] != 0 || _coeff[4, 3] != 0 || _coeff[4, 4] != 0;       
         }
+        // Check of there is coeff in fourth Column
         private bool CustomFilter_CoefInFourthColumn()
         {
             return _coeff[3, 0] != 0 || _coeff[3, 1] != 0 || _coeff[3, 2] != 0 || _coeff[3, 3] != 0 || _coeff[3, 4] != 0;
         }
 
+        // Bottom border
         private int CustomFilter_GetBottomBorder()
         {
             if (CustomFilter_CoefInFifthRow())
@@ -215,13 +178,76 @@ namespace RemedyPic.Common
             else
                 return 0;
         }
+        // Check of there is coeff in Fifth row
         private bool CustomFilter_CoefInFifthRow()
         {
             return _coeff[0, 4] != 0 || _coeff[1, 4] != 0 || _coeff[2, 4] != 0 || _coeff[3, 4] != 0 || _coeff[4, 4] != 0;
         }
+        // Check of there is coeff in Fourth row
         private bool CustomFilter_CoefInForthRow()
         {
             return _coeff[0, 3] != 0 || _coeff[1, 3] != 0 || _coeff[2, 3] != 0 || _coeff[3, 3] != 0 || _coeff[4, 3] != 0;
+        }
+
+        // Fill the black pixels (2x2 wide border)
+        private void CustomFilter_FillTheBlankPixels()
+        {
+            CustomFilter_FillLeftColumn(4); // Second Column
+            CustomFilter_FillLeftColumn(0); // First Column
+            CustomFilter_FillTopRow(4 * (_width)); // Second Row
+            CustomFilter_FillTopRow(0); // First Row
+            CustomFilter_FillRightColumn(4 * (_width - 2)); // Last - 1 Column
+            CustomFilter_FillRightColumn(4 * (_width - 1)); // Last Column
+            CustomFilter_FillBottomRow(4 * _width * (_height - 2)); // Last - 1 Row
+            CustomFilter_FillBottomRow(4 * _width * (_height - 1)); // Last Row
+        }
+
+        // Fill the pixels of one row - left side 
+        private void CustomFilter_FillLeftColumn(int StartIndex)
+        {
+            for (int CurrentByte = StartIndex; CurrentByte < _dstPixels.Length; CurrentByte += 4 * _width)
+            {
+                _dstPixels[CurrentByte] = _dstPixels[CurrentByte + 4];
+                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 5];
+                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte + 6];
+                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte + 7];
+            }
+        }
+
+        // Fill the pixels of one row - top side 
+        private void CustomFilter_FillTopRow(int StartIndex)
+        {
+            for (int CurrentByte = StartIndex; CurrentByte < StartIndex + 4 * _width; CurrentByte += 4)
+            {
+                _dstPixels[CurrentByte] = _dstPixels[CurrentByte + 4 * _width];
+                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 1 + 4 * _width];
+                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte + 2 + 4 * _width];
+                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte + 3 + 4 * _width];
+            }
+        }
+
+        // Fill the pixels of one row - right side 
+        private void CustomFilter_FillRightColumn(int StartIndex)
+        {
+            for (int CurrentByte = StartIndex; CurrentByte < _dstPixels.Length; CurrentByte += 4 * _width)
+            {
+                _dstPixels[CurrentByte] = _dstPixels[CurrentByte - 4];
+                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte - 3];
+                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte - 2];
+                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte - 1];
+            }
+        }
+
+        // Fill the pixels of one row - bottom side 
+        private void CustomFilter_FillBottomRow(int StartIndex)
+        {
+            for (int CurrentByte = StartIndex; CurrentByte < StartIndex + 4 * _width; CurrentByte += 4)
+            {
+                _dstPixels[CurrentByte] = _dstPixels[CurrentByte - 4 * _width];
+                _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 1 - 4 * _width];
+                _dstPixels[CurrentByte + 2] = _dstPixels[CurrentByte + 2 - 4 * _width];
+                _dstPixels[CurrentByte + 3] = _dstPixels[CurrentByte + 3 - 4 * _width];
+            }
         }
     }
 }
