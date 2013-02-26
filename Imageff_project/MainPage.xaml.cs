@@ -259,7 +259,6 @@ namespace RemedyPic
                     RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
 
                     // If the interface was changed from previous image, it should be resetted.
-                    resetInterface();
                     ResetZoomPos();
                     // Show the interface after the picture is loaded.
                     //contentGrid.Visibility = Visibility.Visible;
@@ -295,6 +294,7 @@ namespace RemedyPic
 
             setElements(ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
+            setElements(ExposureExamplePicture, exampleBitmap);
             prepareImage(exampleStream, exampleBitmap, image);
             setStream(exampleStream, exampleBitmap, image);
             prepareImage(uneditedStream, uneditedBitmap, uneditedImage);
@@ -324,6 +324,7 @@ namespace RemedyPic
             Frames.Height = PopupFrames.ActualHeight + 5;
             Histogram.Height = PopupHistogram.ActualHeight + 5;
             FeedbackGrid.Height = Feedback.ActualHeight + 5;
+            Exposure.Height = PopupExposure.ActualHeight + 5;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
             displayImage.MaxWidth = imageBorder.ActualWidth * 0.80;
@@ -354,7 +355,6 @@ namespace RemedyPic
                 CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
                 image.dstPixels = custom_image.Filter();
                 setStream(exampleStream, exampleBitmap, image);
-                resetInterface();
             }
         }
 
@@ -380,7 +380,6 @@ namespace RemedyPic
                 prepareImage(exampleStream, exampleBitmap, image);
                 image.BlackAndWhite(image.dstPixels, image.srcPixels);
                 setStream(exampleStream, exampleBitmap, image);
-                resetInterface();
             }
         }
         #endregion
@@ -400,7 +399,6 @@ namespace RemedyPic
                 CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
                 image.dstPixels = custom_image.Filter();
                 setStream(exampleStream, exampleBitmap, image);
-                resetInterface();
             }
         }
 
@@ -429,7 +427,6 @@ namespace RemedyPic
                 CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
                 image.dstPixels = custom_image.Filter();
                 setStream(exampleStream, exampleBitmap, image);
-                resetInterface();
             }
         }
 
@@ -464,8 +461,6 @@ namespace RemedyPic
                 image.dstPixels = custom_image.Filter();
 
                 setStream(exampleStream, exampleBitmap, image);
-
-                resetInterface();
             }
         }
 
@@ -498,8 +493,6 @@ namespace RemedyPic
                 image.dstPixels = custom_image.Filter();
 
                 setStream(exampleStream, exampleBitmap, image);
-
-                resetInterface();
             }
         }
 
@@ -534,8 +527,6 @@ namespace RemedyPic
                 image.dstPixels = custom_image.Filter();
 
                 setStream(exampleStream, exampleBitmap, image);
-
-                resetInterface();
             }
         }
 
@@ -568,8 +559,6 @@ namespace RemedyPic
                 image.dstPixels = custom_image.Filter();
 
                 setStream(exampleStream, exampleBitmap, image);
-
-                resetInterface();
             }
         }
 
@@ -599,8 +588,6 @@ namespace RemedyPic
                 image.dstPixels = custom_image.Filter();
 
                 setStream(exampleStream, exampleBitmap, image);
-
-                resetInterface();
             }
         }
 
@@ -744,7 +731,9 @@ namespace RemedyPic
                 else if (PopupColors.IsOpen)
                     ColorApplyReset.Visibility = Visibility.Visible;
                 else if (PopupRotations.IsOpen)
-                    RotateApplyReset.Visibility = Visibility.Visible;                
+                    RotateApplyReset.Visibility = Visibility.Visible;
+                else if (PopupExposure.IsOpen)
+                    ExposureApplyReset.Visibility = Visibility.Visible;
             }
         }
 
@@ -757,24 +746,6 @@ namespace RemedyPic
             stream = bitmap.PixelBuffer.AsStream();
             givenImage.dstPixels = new byte[4 * bitmap.PixelWidth * bitmap.PixelHeight];
             givenImage.Reset();
-        }
-
-        private void OnResetClick(object sender, RoutedEventArgs e)
-        {
-            // This resets the interface and returns the last applied image.
-            if (pictureIsLoaded)
-            {
-                brightSlider.Value = 0;
-                RedColorSlider.Value = 0;
-                GreenColorSlider.Value = 0;
-                BlueColorSlider.Value = 0;
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.Reset();
-                setStream(exampleStream, exampleBitmap, image);
-                resetInterface();
-            }
-            appliedFilters = null;
-            appliedColors = null;
         }
 
 
@@ -792,24 +763,6 @@ namespace RemedyPic
             but.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Green);
         }
 
-
-        private void resetInterface()
-        {
-            // This calls the reset function for every button
-            // and sets the values of all sliders to 0.
-            brightSlider.Value = 0;
-            RedColorSlider.Value = 0;
-            GreenColorSlider.Value = 0;
-            BlueColorSlider.Value = 0;
-            RedContrastSlider.Value = 0;
-            GreenContrastSlider.Value = 0;
-            BlueContrastSlider.Value = 0;
-            RedGammaSlider.Value = 10;
-            GreenGammaSlider.Value = 10;
-            BlueGammaSlider.Value = 10;
-            deselectFilters();
-            //deselectMenu();
-        }
 
         #region Color Change
 
@@ -875,7 +828,6 @@ namespace RemedyPic
             prepareImage(stream, bitmap, givenImage);
             givenImage.BlackAndWhite(givenImage.dstPixels, givenImage.srcPixels);
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with invert filter applied
@@ -888,7 +840,6 @@ namespace RemedyPic
             CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
             givenImage.dstPixels = custom_image.Filter();
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with emboss filter applied
@@ -901,7 +852,6 @@ namespace RemedyPic
             CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
             givenImage.dstPixels = custom_image.Filter();
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with emboss2 filter applied
@@ -914,7 +864,6 @@ namespace RemedyPic
             CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
             givenImage.dstPixels = custom_image.Filter();
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with sharpen filter applied
@@ -927,7 +876,6 @@ namespace RemedyPic
             CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
             givenImage.dstPixels = custom_image.Filter();
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with noise filter applied
@@ -937,7 +885,6 @@ namespace RemedyPic
 
             givenImage.Noise(givenImage.Noise_GetSquareWidth(20));
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with hardnoise filter applied
@@ -947,7 +894,6 @@ namespace RemedyPic
 
             givenImage.Noise(1);
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with blur filter applied
@@ -960,8 +906,6 @@ namespace RemedyPic
             CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
             givenImage.dstPixels = custom_image.Filter();
             setStream(stream, bitmap, givenImage);
-
-            resetInterface();
         }
 
         // Change the image with blur2 filter applied
@@ -974,8 +918,6 @@ namespace RemedyPic
             CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
             givenImage.dstPixels = custom_image.Filter();
             setStream(stream, bitmap, givenImage);
-
-            resetInterface();
         }
 
         // Change the image with edgeDetect filter applied
@@ -988,8 +930,6 @@ namespace RemedyPic
             CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
             givenImage.dstPixels = custom_image.Filter();
             setStream(stream, bitmap, givenImage);
-
-            resetInterface();
         }
 
         // Change the image with edgeEnhance filter applied
@@ -1003,7 +943,6 @@ namespace RemedyPic
             givenImage.dstPixels = custom_image.Filter();
             setStream(stream, bitmap, givenImage);
 
-            resetInterface();
         }
 
         // Change the image with retro filter applied
@@ -1012,7 +951,6 @@ namespace RemedyPic
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(0, 0, 0, 50, 50, -50);
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with darken filter applied
@@ -1021,7 +959,6 @@ namespace RemedyPic
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(0, 0, 0, 50, 50, 0);
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with brighten filter applied
@@ -1030,7 +967,6 @@ namespace RemedyPic
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(70, 70, 70, 0, 0, 0);
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with shadow filter applied
@@ -1039,7 +975,6 @@ namespace RemedyPic
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(-80, -80, -80, 0, 0, 0);
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         // Change the image with crystal filter applied
@@ -1048,7 +983,6 @@ namespace RemedyPic
             prepareImage(stream, bitmap, givenImage);
             givenImage.ColorChange(0, 0, 0, 50, 35, 35);
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
         #endregion
 
@@ -1142,31 +1076,11 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = true;
             ColorApplyReset.Visibility = Visibility.Collapsed;
             SelectColors.IsChecked = false;
-            switch (appliedColors)
-            {
-                case "darken":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.Darken(brightSlider.Value);
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                case "lighten":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.Lighten(brightSlider.Value);
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;                
-                case "colorchange":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                case "gamma":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                default:
-                    break;
-            }
+
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
+
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps();
@@ -1211,6 +1125,40 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
+        private void OnExposureApplyClick(object sender, RoutedEventArgs e)
+        {
+            ImageLoadingRing.IsActive = true;
+            ExposureApplyReset.Visibility = Visibility.Collapsed;
+            SelectExposure.IsChecked = false;
+            switch (appliedColors)
+            {
+                case "darken":
+                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    imageOriginal.Darken(brightSlider.Value);
+                    setStream(bitmapStream, bitmapImage, imageOriginal);
+                    break;
+                case "lighten":
+                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    imageOriginal.Lighten(brightSlider.Value);
+                    setStream(bitmapStream, bitmapImage, imageOriginal);
+                    break;
+                case "gamma":
+                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    imageOriginal.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
+                    setStream(bitmapStream, bitmapImage, imageOriginal);
+                    break;
+                default:
+                    break;
+            }
+
+            image.srcPixels = (byte[])image.dstPixels.Clone();
+            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            setFilterBitmaps();
+            appliedColors = null;
+            ImageLoadingRing.IsActive = false;
+
+        }
+
         #endregion
 
         #region Reset Buttons
@@ -1222,7 +1170,6 @@ namespace RemedyPic
                 prepareImage(exampleStream, exampleBitmap, image);
                 image.Reset();
                 setStream(exampleStream, exampleBitmap, image);
-                resetInterface();
             }
             FilterApplyReset.Visibility = Visibility.Collapsed;
             appliedFilters = null;
@@ -1232,17 +1179,15 @@ namespace RemedyPic
         private void OnColorResetClick(object sender, RoutedEventArgs e)
         {
             // This resets the interface and returns the last applied image.
-            if (pictureIsLoaded)
-            {
-                brightSlider.Value = 0;
-                RedColorSlider.Value = 0;
-                GreenColorSlider.Value = 0;
-                BlueColorSlider.Value = 0;
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.Reset();
-                setStream(exampleStream, exampleBitmap, image);
-                resetInterface();
-            }
+            RedColorSlider.Value = 0;
+            GreenColorSlider.Value = 0;
+            BlueColorSlider.Value = 0;
+            RedContrastSlider.Value = 0;
+            BlueContrastSlider.Value = 0;
+            GreenContrastSlider.Value = 0;
+            prepareImage(exampleStream, exampleBitmap, image);
+            image.Reset();
+            setStream(exampleStream, exampleBitmap, image);
             ColorApplyReset.Visibility = Visibility.Collapsed;
             appliedColors = null;
         }
@@ -1253,7 +1198,6 @@ namespace RemedyPic
             prepareImage(exampleStream, exampleBitmap, image);
             image.Reset();
             setStream(exampleStream, exampleBitmap, image);
-            ColorApplyReset.Visibility = Visibility.Collapsed;
             appliedRotations = null;
             RotateApplyReset.Visibility = Visibility.Collapsed;
         }
@@ -1263,6 +1207,16 @@ namespace RemedyPic
         {
             deselectColorizeGridItems();
             RestoreOriginalBitmap();
+        }
+
+        private void OnExposureResetClick(object sender, RoutedEventArgs e)
+        {
+            brightSlider.Value = 0;
+            BlueGammaSlider.Value = 10;
+            RedGammaSlider.Value = 10;
+            GreenGammaSlider.Value = 10;
+            appliedColors = null;
+            ExposureApplyReset.Visibility = Visibility.Collapsed;
         }
         #endregion
 
@@ -1276,6 +1230,7 @@ namespace RemedyPic
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
+            SelectExposure.IsChecked = false;
             PopupFilters.IsOpen = true;
 
         }
@@ -1293,12 +1248,31 @@ namespace RemedyPic
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
+            SelectExposure.IsChecked = false;
             PopupColors.IsOpen = true;
         }
 
         private void ColorsUnchecked(object sender, RoutedEventArgs e)
         {
             PopupColors.IsOpen = false;
+        }
+
+
+        private void ExposureChecked(object sender, RoutedEventArgs e)
+        {
+            SelectFilters.IsChecked = false;
+            SelectRotations.IsChecked = false;
+            SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
+            SelectColors.IsChecked = false;
+            PopupExposure.IsOpen = true;
+        }
+
+        private void ExposureUnchecked(object sender, RoutedEventArgs e)
+        {
+            PopupExposure.IsOpen = false;
         }
 
         private void RotationsChecked(object sender, RoutedEventArgs e)
@@ -1309,6 +1283,7 @@ namespace RemedyPic
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
+            SelectExposure.IsChecked = false;
             PopupRotations.IsOpen = true;
         }
 
@@ -1325,6 +1300,7 @@ namespace RemedyPic
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
+            SelectExposure.IsChecked = false;
             PopupImageOptions.IsOpen = true;
         }
 
@@ -1341,6 +1317,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
+            SelectExposure.IsChecked = false;
             PopupColorize.IsOpen = true;
         }
 
@@ -1358,6 +1335,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectHistogram.IsChecked = false;
+            SelectExposure.IsChecked = false;
             PopupFrames.IsOpen = true;
         }
 
@@ -1374,6 +1352,7 @@ namespace RemedyPic
             SelectOptions.IsChecked = false;
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
+            SelectExposure.IsChecked = false;
             PopupHistogram.IsOpen = true;
         }
 
@@ -1392,7 +1371,7 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();                
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
@@ -1498,7 +1477,7 @@ namespace RemedyPic
                 imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandartAngle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value); 
+                imageOriginal.Frames_StandartAngle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1511,7 +1490,7 @@ namespace RemedyPic
             {
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_Angle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value); 
+                imageOriginal.Frames_Angle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1532,7 +1511,6 @@ namespace RemedyPic
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.Reset();
                 setStream(bitmapStream, bitmapImage, imageOriginal);
-                resetInterface();
             }
 
             FramesApplyReset.Visibility = Visibility.Collapsed;
@@ -1628,7 +1606,7 @@ namespace RemedyPic
                         Color[0] = 0;
                         Color[1] = 0;
                         Color[2] = 0;
-                        break; 
+                        break;
                     }
                 case "gray":
                     {
@@ -1747,7 +1725,6 @@ namespace RemedyPic
             prepareImage(exampleStream, exampleBitmap, image);
             image.HFlip();
             setStream(exampleStream, exampleBitmap, image);
-            resetInterface();
         }
 
         private void OnVFlipClick(object sender, RoutedEventArgs e)
@@ -1784,6 +1761,7 @@ namespace RemedyPic
             SelectColorize.IsChecked = false;
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
+            SelectExposure.IsChecked = false;
         }
 
         private void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -2323,7 +2301,6 @@ namespace RemedyPic
             setStream(bitmapStream, bitmapImage, imageOriginal);
             displayImage.Source = bitmapImage;
             setFilterBitmaps();
-            resetInterface();
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
         }
 
@@ -2355,14 +2332,14 @@ namespace RemedyPic
         #region Crop region
         #region Select Region methods
 
-        /// <summary>
-        /// If a pointer presses in the corner, it means that the user starts to move the corner.
-        /// 1. Capture the pointer, so that the UIElement can get the Pointer events (PointerMoved,
-        ///    PointerReleased...) even the pointer is outside of the UIElement.
-        /// 2. Record the start position of the move.
-        /// </summary>
+        
+        
         private void Corner_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            // If a pointer presses in the corner, it means that the user starts to move the corner.
+            // 1. Capture the pointer, so that the UIElement can get the Pointer events (PointerMoved,
+            //    PointerReleased...) even the pointer is outside of the UIElement.
+            // 2. Record the start position of the move.
             (sender as UIElement).CapturePointer(e.Pointer);
 
             Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
@@ -2373,11 +2350,9 @@ namespace RemedyPic
             e.Handled = true;
         }
 
-        /// <summary>
-        /// If a pointer which is captured by the corner moves，the select region will be updated.
-        /// </summary>
         void Corner_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
+            // If a pointer which is captured by the corner moves，the select region will be updated.
             Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
             uint ptrId = pt.PointerId;
 
@@ -2397,13 +2372,11 @@ namespace RemedyPic
             e.Handled = true;
         }
 
-        /// <summary>
-        /// The pressed pointer is released, which means that the move is ended.
-        /// 1. Release the Pointer.
-        /// 2. Clear the position history of the Pointer.
-        /// </summary>
         private void Corner_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
+            // The pressed pointer is released, which means that the move is ended.
+            // 1. Release the Pointer.
+            // 2. Clear the position history of the Pointer.
             uint ptrId = e.GetCurrentPoint(this).PointerId;
             if (this.pointerPositionHistory.ContainsKey(ptrId))
             {
@@ -2413,7 +2386,6 @@ namespace RemedyPic
             (sender as UIElement).ReleasePointerCapture(e.Pointer);
 
             CropApply.Visibility = Visibility.Visible;
-            //UpdatePreviewImage();
             e.Handled = true;
 
 
@@ -2427,7 +2399,6 @@ namespace RemedyPic
 
         void selectRegion_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            //UpdatePreviewImage();
             CropApply.Visibility = Visibility.Visible;
         }
 
@@ -2491,7 +2462,7 @@ namespace RemedyPic
             setStream(exampleStream, exampleBitmap, image);
             setElements(ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
-
+            setElements(ExposureExamplePicture, exampleBitmap);
             setFilterBitmaps();
 
             SelectCrop.IsChecked = false;
@@ -2829,7 +2800,6 @@ namespace RemedyPic
             givenImage.Colorize(blueForColorize, redForColorize, greenForColorize, yellowForColorize,
                                         orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize);
             setStream(stream, bitmap, givenImage);
-            resetInterface();
         }
 
         #endregion
@@ -2838,7 +2808,7 @@ namespace RemedyPic
         {
             // This event completes when the mouse pointer enter the frame border.
             var borderSender = sender as Border;
-            borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255,255,255,255));
+            borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
         }
 
         private void FramesBorder_PointerExited(object sender, PointerRoutedEventArgs e)
@@ -2847,6 +2817,9 @@ namespace RemedyPic
             var borderSender = sender as Border;
             borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
         }
+
+
+
 
     }
     #endregion
