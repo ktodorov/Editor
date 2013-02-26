@@ -1265,8 +1265,12 @@
                     </Border.BorderBrush>
                     <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:ConnectionId='112' x:Name="ZoomIn" Content="&#xE1A3;" VerticalAlignment="Top"                       FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}"/>
-                            <Button x:ConnectionId='113' x:Name="ZoomOut" Visibility="Collapsed" Content="&#xE1A4;" VerticalAlignment="Top"                        FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}"/>
+                            <Button x:ConnectionId='112' x:Name="ZoomIn" VerticalAlignment="Top"                       FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}" Padding="0">
+                                <Image Source="Assets/Zoom/Zoom-in.png" Width="40" Height="40" HorizontalAlignment="Center"/>
+                            </Button>
+                            <Button x:ConnectionId='113' x:Name="ZoomOut" Visibility="Collapsed" VerticalAlignment="Top"                        FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0">
+                                <Image Source="Assets/Zoom/Zoom-out.png" Width="40" Height="40" HorizontalAlignment="Center"/>
+                            </Button>
                         </StackPanel>
                         <Button x:ConnectionId='110' x:Name="ResetZoom" Content="Reset Image position" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                          Foreground="White" Height="40" BorderThickness="0,0,0,1" BorderBrush="White" Background="{x:Null}" Margin="0"/>
                         <CheckBox x:ConnectionId='111' x:Name="AvailableForMoving" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left"                                                 HorizontalAlignment="Center" IsChecked="False"/>

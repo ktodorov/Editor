@@ -1918,7 +1918,7 @@ namespace RemedyPic
 
         private void ZoomOutClicked(object sender, RoutedEventArgs e)
         {
-            if (scale.ScaleX > 0.7 && scale.ScaleY > 0.7)
+            if (scale.ScaleX > 0.9 && scale.ScaleY > 0.9)
             {
                 scale.ScaleX = scale.ScaleX - 0.1;
                 scale.ScaleY = scale.ScaleY - 0.1;
@@ -1937,7 +1937,6 @@ namespace RemedyPic
         private void ResetZoomPos()
         {
             displayImage.Margin = new Thickness(0, 0, 0, 0);
-            ZoomOut.Visibility = Visibility.Collapsed;
             displayImage.RenderTransform = null;
             InitManipulationTransforms();
             scale.ScaleX = 1;
@@ -2424,12 +2423,12 @@ namespace RemedyPic
             }
             else
             {
-                if (scale.ScaleX > 0.7 && scale.ScaleY > 0.7)
+                if (scale.ScaleX > 0.9 && scale.ScaleY > 0.9)
                 {
                     scale.ScaleX = scale.ScaleX - 0.1;
                     scale.ScaleY = scale.ScaleY - 0.1;
                 }
-                if (ZoomOut.Visibility == Visibility.Visible && scale.ScaleX <= 1)
+                if (ZoomOut.Visibility == Visibility.Visible && scale.ScaleX <= 0.9)
                 {
                     ZoomOut.Visibility = Visibility.Collapsed;
                 }
