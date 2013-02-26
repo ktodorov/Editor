@@ -40,7 +40,7 @@ namespace RemedyPic
 
         // mruToken is used for LoadState and SaveState functions.
         private string mruToken = null;
-        
+
         // This variable holds the current file that we are using.
         StorageFile file;
 
@@ -63,13 +63,18 @@ namespace RemedyPic
         private bool redForColorize, greenForColorize, blueForColorize, yellowForColorize,
                          orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize = false;
 
+        // This variable is set false when half of the filter images are loaded
+        // so to manage the other half during the next opening of the filter popup. 
+        // When all the filter images are loaded, the variable is set to false;
+        bool filterBitmapsNeedLoading = false;
+
         // We create three RemedyImages.
         // One for the original displayed image, one for the small images and
         // one to hold the original loaded image so we can get back to it at any time
         RemedyImage image = new RemedyImage();
         RemedyImage imageOriginal = new RemedyImage();
         RemedyImage uneditedImage = new RemedyImage();
-        
+
         // We create two streams for two of the WriteableBitmap objects.
         private Stream uneditedStream;
         private WriteableBitmap uneditedBitmap;
@@ -346,7 +351,7 @@ namespace RemedyPic
             setStream(exampleStream, exampleBitmap, image);
             prepareImage(uneditedStream, uneditedBitmap, uneditedImage);
             setStream(uneditedStream, uneditedBitmap, uneditedImage);
-            
+
             ZoomStack.Visibility = Visibility.Visible;
 
             // set the small WriteableBitmap objects to the filter buttons.
@@ -361,7 +366,7 @@ namespace RemedyPic
             // Set the WriteableBitmap as source to the XAML Image object. This makes the picture appear on the screen.
             displayImage.Source = bitmapImage;
             AnimateInPicture.Begin();
-            
+
             // We check the CheckBox that is required for the image to move by default.
             AvailableForMoving.IsChecked = true;
 
@@ -1263,7 +1268,7 @@ namespace RemedyPic
             ColorApplyReset.Visibility = Visibility.Collapsed;
             appliedColors = null;
         }
-        
+
         private void OnRotateResetClick(object sender, RoutedEventArgs e)
         {
             prepareImage(exampleStream, exampleBitmap, image);
@@ -1305,6 +1310,11 @@ namespace RemedyPic
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             PopupFilters.IsOpen = true;
+            if (filterBitmapsNeedLoading)
+            {
+                setFilterBitmaps();
+                filterBitmapsNeedLoading = false;
+            }
 
         }
 
@@ -1836,7 +1846,7 @@ namespace RemedyPic
         #endregion
 
         #region Back buttons
-        
+
         private void BackPopupClicked(object sender, RoutedEventArgs e)
         {
             // If the back popup button is clicked, close all popups.
@@ -1974,114 +1984,133 @@ namespace RemedyPic
             // This creates temporary Streams and WriteableBitmap objects for every filter available.
             // We set the bitmaps as source to the XAML Image objects.
             // After this, we apply different filter for each of the WriteableBitmap objects.
-            Stream
-            blackWhiteStream = null,
-            emboss2Stream = null,
-            embossStream = null,
-            invertStream = null,
-            blurStream = null,
-            blur2Stream = null,
-            sharpenStream = null,
-            noiseStream = null,
-            hardNoiseStream = null,
-            retroStream = null,
-            darkenStream = null,
-            edgeDetectStream = null,
-            edgeEnhanceStream = null,
-            brightenStream = null,
-            shadowStream = null,
-            crystalStream = null;
 
             RemedyImage filterimage = new RemedyImage();
 
-            WriteableBitmap
-            blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            noiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            hardNoiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            darkenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            brightenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            shadowBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-            crystalBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+            if (!filterBitmapsNeedLoading)
+            {
+                Stream
+                blackWhiteStream = null,
+                emboss2Stream = null,
+                embossStream = null,
+                invertStream = null,
+                blurStream = null,
+                blur2Stream = null,
+                sharpenStream = null,
+                noiseStream = null;
 
-            blackWhiteFilter.Source = blackWhiteBitmap;
-            embossFilter.Source = embossBitmap;
-            emboss2Filter.Source = emboss2Bitmap;
-            invertFilter.Source = invertBitmap;
-            blurFilter.Source = blurBitmap;
-            blur2Filter.Source = blur2Bitmap;
-            sharpenFilter.Source = sharpenBitmap;
-            noiseFilter.Source = noiseBitmap;
-            hardNoiseFilter.Source = hardNoiseBitmap;
-            edgeDetectFilter.Source = edgeDetectBitmap;
-            edgeEnhanceFilter.Source = edgeEnhanceBitmap;
-            retroFilter.Source = retroBitmap;
-            darkenFilter.Source = darkenBitmap;
-            brightenFilter.Source = brightenBitmap;
-            shadowFilter.Source = shadowBitmap;
-            crystalFilter.Source = crystalBitmap;
+                WriteableBitmap
+                blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                noiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
 
-            blackWhiteStream = blackWhiteBitmap.PixelBuffer.AsStream();
-            embossStream = embossBitmap.PixelBuffer.AsStream();
-            emboss2Stream = emboss2Bitmap.PixelBuffer.AsStream();
-            invertStream = invertBitmap.PixelBuffer.AsStream();
-            blurStream = blurBitmap.PixelBuffer.AsStream();
-            blur2Stream = blur2Bitmap.PixelBuffer.AsStream();
-            sharpenStream = sharpenBitmap.PixelBuffer.AsStream();
-            noiseStream = noiseBitmap.PixelBuffer.AsStream();
-            hardNoiseStream = hardNoiseBitmap.PixelBuffer.AsStream();
-            edgeDetectStream = edgeDetectBitmap.PixelBuffer.AsStream();
-            edgeEnhanceStream = edgeEnhanceBitmap.PixelBuffer.AsStream();
-            retroStream = retroBitmap.PixelBuffer.AsStream();
-            darkenStream = darkenBitmap.PixelBuffer.AsStream();
-            brightenStream = brightenBitmap.PixelBuffer.AsStream();
-            shadowStream = shadowBitmap.PixelBuffer.AsStream();
-            crystalStream = crystalBitmap.PixelBuffer.AsStream();
+                blackWhiteFilter.Source = blackWhiteBitmap;
+                embossFilter.Source = embossBitmap;
+                emboss2Filter.Source = emboss2Bitmap;
+                invertFilter.Source = invertBitmap;
+                blurFilter.Source = blurBitmap;
+                blur2Filter.Source = blur2Bitmap;
+                sharpenFilter.Source = sharpenBitmap;
+                noiseFilter.Source = noiseBitmap;
 
-            initializeBitmap(blackWhiteStream, blackWhiteBitmap, filterimage);
-            initializeBitmap(embossStream, embossBitmap, filterimage);
-            initializeBitmap(emboss2Stream, emboss2Bitmap, filterimage);
-            initializeBitmap(invertStream, invertBitmap, filterimage);
-            initializeBitmap(blurStream, blurBitmap, filterimage);
-            initializeBitmap(blur2Stream, blur2Bitmap, filterimage);
-            initializeBitmap(sharpenStream, sharpenBitmap, filterimage);
-            initializeBitmap(noiseStream, noiseBitmap, filterimage);
-            initializeBitmap(hardNoiseStream, hardNoiseBitmap, filterimage);
-            initializeBitmap(edgeDetectStream, edgeDetectBitmap, filterimage);
-            initializeBitmap(edgeEnhanceStream, edgeEnhanceBitmap, filterimage);
-            initializeBitmap(retroStream, retroBitmap, filterimage);
-            initializeBitmap(darkenStream, darkenBitmap, filterimage);
-            initializeBitmap(brightenStream, brightenBitmap, filterimage);
-            initializeBitmap(shadowStream, shadowBitmap, filterimage);
-            initializeBitmap(crystalStream, crystalBitmap, filterimage);
+                blackWhiteStream = blackWhiteBitmap.PixelBuffer.AsStream();
+                embossStream = embossBitmap.PixelBuffer.AsStream();
+                emboss2Stream = emboss2Bitmap.PixelBuffer.AsStream();
+                invertStream = invertBitmap.PixelBuffer.AsStream();
+                blurStream = blurBitmap.PixelBuffer.AsStream();
+                blur2Stream = blur2Bitmap.PixelBuffer.AsStream();
+                sharpenStream = sharpenBitmap.PixelBuffer.AsStream();
+                noiseStream = noiseBitmap.PixelBuffer.AsStream();
 
-            prepareImage(blackWhiteStream, blackWhiteBitmap, filterimage);
-            setStream(blackWhiteStream, blackWhiteBitmap, filterimage);
+                initializeBitmap(blackWhiteStream, blackWhiteBitmap, filterimage);
+                initializeBitmap(embossStream, embossBitmap, filterimage);
+                initializeBitmap(emboss2Stream, emboss2Bitmap, filterimage);
+                initializeBitmap(invertStream, invertBitmap, filterimage);
+                initializeBitmap(blurStream, blurBitmap, filterimage);
+                initializeBitmap(blur2Stream, blur2Bitmap, filterimage);
+                initializeBitmap(sharpenStream, sharpenBitmap, filterimage);
+                initializeBitmap(noiseStream, noiseBitmap, filterimage);
 
-            doFilter(blackWhiteStream, blackWhiteBitmap, filterimage, "blackwhite");
-            doFilter(embossStream, embossBitmap, filterimage, "emboss");
-            doFilter(emboss2Stream, emboss2Bitmap, filterimage, "emboss2");
-            doFilter(invertStream, invertBitmap, filterimage, "invert");
-            doFilter(blurStream, blurBitmap, filterimage, "blur");
-            doFilter(blur2Stream, blur2Bitmap, filterimage, "blur2");
-            doFilter(sharpenStream, sharpenBitmap, filterimage, "sharpen");
-            doFilter(noiseStream, noiseBitmap, filterimage, "noise");
-            doFilter(hardNoiseStream, hardNoiseBitmap, filterimage, "hardNoise");
-            doFilter(edgeDetectStream, edgeDetectBitmap, filterimage, "EdgeDetect");
-            doFilter(edgeEnhanceStream, edgeEnhanceBitmap, filterimage, "EdgeEnhance");
-            doFilter(retroStream, retroBitmap, filterimage, "retro");
-            doFilter(darkenStream, darkenBitmap, filterimage, "darken");
-            doFilter(brightenStream, brightenBitmap, filterimage, "brighten");
-            doFilter(shadowStream, shadowBitmap, filterimage, "shadow");
-            doFilter(crystalStream, crystalBitmap, filterimage, "crystal");
+                prepareImage(blackWhiteStream, blackWhiteBitmap, filterimage);
+                setStream(blackWhiteStream, blackWhiteBitmap, filterimage);
+
+                doFilter(blackWhiteStream, blackWhiteBitmap, filterimage, "blackwhite");
+                doFilter(embossStream, embossBitmap, filterimage, "emboss");
+                doFilter(emboss2Stream, emboss2Bitmap, filterimage, "emboss2");
+                doFilter(invertStream, invertBitmap, filterimage, "invert");
+                doFilter(blurStream, blurBitmap, filterimage, "blur");
+                doFilter(blur2Stream, blur2Bitmap, filterimage, "blur2");
+                doFilter(sharpenStream, sharpenBitmap, filterimage, "sharpen");
+                doFilter(noiseStream, noiseBitmap, filterimage, "noise");
+
+                filterBitmapsNeedLoading = true;
+            }
+            else
+            {
+                Stream
+                hardNoiseStream = null,
+                retroStream = null,
+                darkenStream = null,
+                edgeDetectStream = null,
+                edgeEnhanceStream = null,
+                brightenStream = null,
+                shadowStream = null,
+                crystalStream = null;
+
+                WriteableBitmap
+                hardNoiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                darkenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                brightenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                shadowBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
+                crystalBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+
+                hardNoiseFilter.Source = hardNoiseBitmap;
+                edgeDetectFilter.Source = edgeDetectBitmap;
+                edgeEnhanceFilter.Source = edgeEnhanceBitmap;
+                retroFilter.Source = retroBitmap;
+                darkenFilter.Source = darkenBitmap;
+                brightenFilter.Source = brightenBitmap;
+                shadowFilter.Source = shadowBitmap;
+                crystalFilter.Source = crystalBitmap;
+
+                hardNoiseStream = hardNoiseBitmap.PixelBuffer.AsStream();
+                edgeDetectStream = edgeDetectBitmap.PixelBuffer.AsStream();
+                edgeEnhanceStream = edgeEnhanceBitmap.PixelBuffer.AsStream();
+                retroStream = retroBitmap.PixelBuffer.AsStream();
+                darkenStream = darkenBitmap.PixelBuffer.AsStream();
+                brightenStream = brightenBitmap.PixelBuffer.AsStream();
+                shadowStream = shadowBitmap.PixelBuffer.AsStream();
+                crystalStream = crystalBitmap.PixelBuffer.AsStream();
+
+                initializeBitmap(hardNoiseStream, hardNoiseBitmap, filterimage);
+                initializeBitmap(edgeDetectStream, edgeDetectBitmap, filterimage);
+                initializeBitmap(edgeEnhanceStream, edgeEnhanceBitmap, filterimage);
+                initializeBitmap(retroStream, retroBitmap, filterimage);
+                initializeBitmap(darkenStream, darkenBitmap, filterimage);
+                initializeBitmap(brightenStream, brightenBitmap, filterimage);
+                initializeBitmap(shadowStream, shadowBitmap, filterimage);
+                initializeBitmap(crystalStream, crystalBitmap, filterimage);
+
+                prepareImage(hardNoiseStream, hardNoiseBitmap, filterimage);
+                setStream(hardNoiseStream, hardNoiseBitmap, filterimage);
+
+                doFilter(hardNoiseStream, hardNoiseBitmap, filterimage, "hardNoise");
+                doFilter(edgeDetectStream, edgeDetectBitmap, filterimage, "EdgeDetect");
+                doFilter(edgeEnhanceStream, edgeEnhanceBitmap, filterimage, "EdgeEnhance");
+                doFilter(retroStream, retroBitmap, filterimage, "retro");
+                doFilter(darkenStream, darkenBitmap, filterimage, "darken");
+                doFilter(brightenStream, brightenBitmap, filterimage, "brighten");
+                doFilter(shadowStream, shadowBitmap, filterimage, "shadow");
+                doFilter(crystalStream, crystalBitmap, filterimage, "crystal");
+            }   
         }
 
         private async void initializeBitmap(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
@@ -2674,8 +2703,8 @@ namespace RemedyPic
                 }
                 else
                 {
-                    //double scale = e.NewSize.Height / e.PreviousSize.Height;
-                    //this.selectedRegion.ResizeSelectedRect(scale);
+                    double scale = e.NewSize.Height / e.PreviousSize.Height;
+                    this.selectedRegion.ResizeSelectedRect(scale);
                 }
 
             }
