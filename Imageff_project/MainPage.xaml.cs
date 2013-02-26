@@ -987,7 +987,7 @@ namespace RemedyPic
         #endregion
 
         #region Apply Buttons
-        // Function for apply button on Filters popup. Sets the image with the applied filter
+        // Event for apply button on Filters popup. Sets the image with the applied filter
         private void OnFilterApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
@@ -1070,7 +1070,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
-        // Function for apply button on Colors popup. Sets the image with the applied colors
+        // Event for apply button on Colors popup. Sets the image with the applied colors
         private void OnColorApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
@@ -1088,7 +1088,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
-        // Function for apply button on  Rotate popup. Sets the image with the applied flip
+        // Event for apply button on  Rotate popup. Sets the image with the applied flip
         private void OnRotateApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
@@ -1113,7 +1113,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
-        // Function for apply button on Colorize popup. Sets the image with the applied color
+        // Event for apply button on Colorize popup. Sets the image with the applied color
         private void OnColorizeApplyClick(object sender, RoutedEventArgs e)
         {
             doColorize(exampleStream, exampleBitmap, image);
@@ -1125,6 +1125,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
+        // Event for apply button on Exposure popup. Sets the image with the applied exposure
         private void OnExposureApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
@@ -1162,6 +1163,7 @@ namespace RemedyPic
         #endregion
 
         #region Reset Buttons
+
         private void OnFilterResetClick(object sender, RoutedEventArgs e)
         {
             // This resets the interface and returns the last applied image.
@@ -1218,8 +1220,8 @@ namespace RemedyPic
             appliedColors = null;
             ExposureApplyReset.Visibility = Visibility.Collapsed;
         }
-        #endregion
 
+        #endregion
 
         #region Checked Buttons
         private void FiltersChecked(object sender, RoutedEventArgs e)
@@ -2181,7 +2183,9 @@ namespace RemedyPic
 
         private void filterUnchecked(object sender, RoutedEventArgs e)
         {
-            deselectFilters();
+            var filterSender = sender as ToggleButton;
+            filterSender.IsChecked = false;
+            FilterApplyReset.Visibility = Visibility.Collapsed;
         }
 
         private void deselectFilters()
@@ -2817,9 +2821,6 @@ namespace RemedyPic
             var borderSender = sender as Border;
             borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
         }
-
-
-
 
     }
     #endregion
