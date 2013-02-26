@@ -125,6 +125,8 @@
     <None Include="Imageff_project_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Arrows\Arrow-horizontal.png" />
+    <Content Include="Assets\Arrows\Arrow-vertical.png" />
     <Content Include="Assets\FramesPictures\Frames-darkness.jpg" />
     <Content Include="Assets\FramesPictures\Frames-leftandright.jpg" />
     <Content Include="Assets\FramesPictures\Frames-softangle.jpg" />

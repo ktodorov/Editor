@@ -1287,7 +1287,7 @@
                         <Border Background="#7F000000" Margin="5">
                             <TextBlock x:Name="selectInfoInBitmapText" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="White" Margin="10,0,0,0" HorizontalAlignment="Center" />
                         </Border>
-                        <Button x:Name="CropApply" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="saveImageButton_Click" Foreground="White" Height="40" BorderThickness="1" BorderBrush="White" Background="#19FFFFFF" Visibility="Collapsed"/>
+                        <Button x:Name="CropApply" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="saveImageButton_Click" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Visibility="Collapsed"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -1374,8 +1374,8 @@
                         <Slider x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
                         <Slider x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40" Style="{StaticResource SliderStyle1}" />
                         <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-                            <Button x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnColorApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnColorResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                            <Button x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnColorApplyClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                            <Button x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnColorResetClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1583,12 +1583,24 @@
                             </Image.Transitions>
                         </Image>
                         <Image x:Name="RotationsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>                        
-                        <Button x:Name="HFlipButton" Content="HFLIP" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnHFlipClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
-                        <Button x:Name="VFlipButton" Content="VFLIP" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnVFlipClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0" Width="100"/>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
+                        <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="HFlipButton" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnHFlipClick" Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
+                                <StackPanel Width="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Source="Assets/Arrows/Arrow-horizontal.png" Width="50" Height="50"/>
+                                    <TextBlock TextWrapping="Wrap" Text="Horizontal Flip" HorizontalAlignment="Center" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="VFlipButton" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnVFlipClick" Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
+                                <StackPanel Width="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Source="Assets/Arrows/Arrow-vertical.png" Width="50" Height="50"/>
+                                    <TextBlock TextWrapping="Wrap" Text="Vertical Flip" HorizontalAlignment="Center" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
                         <StackPanel x:Name="RotateApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
-                            <Button x:Name="RotateApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="RotateResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnRotateResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                            <Button x:Name="RotateApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateApplyClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="0"/>
+                            <Button x:Name="RotateResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnRotateResetClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="20,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1714,8 +1726,8 @@
                             </ToggleButton>
                         </Grid>
                         <StackPanel x:Name="ColorizeApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
-                            <Button x:Name="ColorizeApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnColorizeApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="ColorizeResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnColorizeResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                            <Button x:Name="ColorizeApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnColorizeApplyClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                            <Button x:Name="ColorizeResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnColorizeResetClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
                         </StackPanel>
 
                     </StackPanel>
@@ -1915,8 +1927,8 @@
                             </Border>
                         </StackPanel>
                         <StackPanel x:Name="FramesApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0" Visibility="Collapsed">
-                            <Button x:Name="ApplyButton" Content="Apply" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnApplyFramesClick" Foreground="Black" Height="35" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="ResetButton" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetFramesClick" Foreground="Black" Height="35" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
+                            <Button x:Name="ApplyButton" Content="Apply" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnApplyFramesClick" Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                            <Button x:Name="ResetButton" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetFramesClick" Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -2016,8 +2028,8 @@
                         <Slider x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
                         <Slider x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
                         <StackPanel x:Name="ExposureApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-                            <Button x:Name="ExposureApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnExposureApplyClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:Name="ExposureResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnExposureResetClick" Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                            <Button x:Name="ExposureApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnExposureApplyClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                            <Button x:Name="ExposureResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnExposureResetClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
