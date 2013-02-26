@@ -1725,7 +1725,7 @@
                                 <Rectangle x:Name="limeRect" Fill="#6619FF19" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
                             </ToggleButton>
                         </Grid>
-                        <StackPanel x:Name="ColorizeApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
+                        <StackPanel x:Name="ColorizeApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0" Visibility="Collapsed">
                             <Button x:ConnectionId='58' x:Name="ColorizeApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
                             <Button x:ConnectionId='59' x:Name="ColorizeResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
                         </StackPanel>

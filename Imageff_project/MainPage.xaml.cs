@@ -795,6 +795,8 @@ namespace RemedyPic
                 else if (PopupExposure.IsOpen)
                     ExposureApplyReset.Visibility = Visibility.Visible;
             }
+            if (PopupColorize.IsOpen)
+                ColorizeApplyReset.Visibility = Visibility.Visible;
         }
 
         void prepareImage(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
@@ -1184,6 +1186,7 @@ namespace RemedyPic
             setFilterBitmaps(false);
             SelectColorize.IsChecked = false;
             ImageLoadingRing.IsActive = false;
+            ColorizeApplyReset.Visibility = Visibility.Visible;
         }
 
         // Event for apply button on Exposure popup. Sets the image with the applied exposure
@@ -1232,7 +1235,7 @@ namespace RemedyPic
             imageOriginal.Lighten(brightSlider.Value);
             setStream(bitmapStream, bitmapImage, imageOriginal);
         }
-        
+
         #endregion
 
         #region Reset Buttons
@@ -2149,7 +2152,7 @@ namespace RemedyPic
                 doFilter(crystalStream, crystalBitmap, filterimage, "crystal");
 
                 filterBitmapsNeedLoading = false;
-            }   
+            }
         }
 
         private async void initializeBitmap(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
@@ -2469,7 +2472,7 @@ namespace RemedyPic
             RestoreOriginalBitmap();
         }
 
-        private void RestoreOriginalBitmap()
+        private async void RestoreOriginalBitmap()
         {
             // Reset the current image.
             imageOriginal.srcPixels = (byte[])uneditedImage.srcPixels.Clone();
@@ -2479,6 +2482,17 @@ namespace RemedyPic
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
             displayImage.Source = bitmapImage;
+
+            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+            exampleStream = exampleBitmap.PixelBuffer.AsStream();
+            image.srcPixels = new byte[(uint)exampleStream.Length];
+            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
+            prepareImage(exampleStream, exampleBitmap, image);
+            setStream(exampleStream, exampleBitmap, image);
+            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(RotationsExamplePicture, exampleBitmap);
+            setElements(ExposureExamplePicture, exampleBitmap);
+
             setFilterBitmaps(false);
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
         }
