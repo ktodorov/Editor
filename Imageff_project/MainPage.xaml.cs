@@ -304,8 +304,7 @@ namespace RemedyPic
 
                     // If the interface was changed from previous image, it should be resetted.
                     ResetZoomPos();
-                    // Show the interface after the picture is loaded.
-                    //contentGrid.Visibility = Visibility.Visible;
+
                     pictureIsLoaded = true;
                     doAllCalculations();
                 }
@@ -324,7 +323,7 @@ namespace RemedyPic
             // We make all the required calculations in order for
             // the app elements to appear and work normal.
             uneditedBitmap = bitmapImage;
-
+            
             // Resize the original image for faster work.
             // Note that we only set the resize to the small images.
             // The original big image is left in original resolution.
@@ -340,7 +339,7 @@ namespace RemedyPic
             await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
             await uneditedStream.ReadAsync(uneditedImage.srcPixels, 0, uneditedImage.srcPixels.Length);
-
+            
             // Set the slider values of Exposure Gamma B G R
             BlueGammaSlider.Value = 10;
             GreenGammaSlider.Value = 10;
@@ -377,14 +376,16 @@ namespace RemedyPic
             AvailableForMoving.IsChecked = true;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
-            displayImage.MaxWidth = imageBorder.ActualWidth * 0.80;
-            displayImage.MaxHeight = imageBorder.ActualHeight * 0.80;
+            displayImage.MaxWidth = imageBorder.ActualWidth *0.80;
+            displayImage.MaxHeight = imageBorder.ActualHeight *0.80;
 
             // Set the current resolution to the TextBlock, located in Changing Resolution option.
             NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
 
             // Show the interface.
-            showInterface();
+            showInterface(); 
+            
+
         }
 
         private void setPopupsHeight()
@@ -2629,8 +2630,6 @@ namespace RemedyPic
                 this.selectedRegion.SelectedRect.Width / sourceImageWidthScale,
                 this.selectedRegion.SelectedRect.Height / sourceImageHeightScale);
 
-            double previewImageScale = 1;
-
             if (previewImageSize.Width <= imageCanvas.Width &&
                 previewImageSize.Height <= imageCanvas.Height)
             {
@@ -2639,21 +2638,19 @@ namespace RemedyPic
             else
             {
                 displayImage.Stretch = Windows.UI.Xaml.Media.Stretch.Uniform;
-
-                previewImageScale = Math.Min(imageCanvas.Width / previewImageSize.Width,
-                    imageCanvas.Height / previewImageSize.Height);
             }
 
             bitmapImage = await CropBitmap.GetCroppedBitmapAsync(
                    file,
                    new Point(this.selectedRegion.SelectedRect.X / sourceImageWidthScale, this.selectedRegion.SelectedRect.Y / sourceImageHeightScale),
                    previewImageSize,
-                   previewImageScale);
+                   1);
 
             // After the cropping is done, we set the new bitmapImage objects again.
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
             imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
+            imageOriginal.Reset();
 
             exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
 
