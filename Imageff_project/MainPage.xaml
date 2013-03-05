@@ -1971,7 +1971,7 @@
                                     <EntranceThemeTransition/>
                                 </TransitionCollection>
                             </Image.Transitions>
-                        </Image>
+                        </Image>                   
                         <TextBlock TextWrapping="Wrap" Text="*Note that this function only works on black and white images." Margin="0,15" Foreground="#FFC7C7C7" HorizontalAlignment="Center" FontStyle="Italic" FontSize="14" Width="250"/>
                         <Button Content="Equalize" HorizontalAlignment="Center" VerticalAlignment="Stretch" Click="HistogramClicked" Background="#00B6B6B6" Foreground="White"/>
 
