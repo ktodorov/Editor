@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-
+using System.IO;
 
 namespace RemedyPic.Common
 {
@@ -38,25 +38,42 @@ namespace RemedyPic.Common
 		}
 		#endregion
 
+        #region Export
         public async void Export()
         {
             FileSavePicker savePicker = new FileSavePicker();
-
-            // Set My Documents folder as suggested location if no past selected folder is available
             savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
-            // Dropdown of file types the user can save the file as
             savePicker.FileTypeChoices.Add(".TXT", new List<string>() { ".txt" });
+            StorageFile file = await savePicker.PickSaveFileAsync();            
 
-            // Default file name if the user does not type one in or select a file to replace
+            if (file != null)
+            // File is null if user cancels the file picker.
+            {
+                await Windows.Storage.FileIO.WriteTextAsync(file, "Swift as a shadow");
+            }       
+        }
+        #endregion
 
-            StorageFile file = await savePicker.PickSaveFileAsync();
+        #region Import
+        public async void Import()
+		{
+			FileOpenPicker filePicker = new FileOpenPicker();
+			filePicker.FileTypeFilter.Add(".txt");
+			StorageFile file = await filePicker.PickSingleFileAsync();
 
-            
+			if (file != null)
+			// File is null if user cancels the file picker.
+			{
+
+				var stream = await file.OpenReadAsync();
+				var rdr = new StreamReader(stream.AsStream());
+
+				var contents = rdr.ReadToEnd();
+			}
 
 
         }
+        #endregion
 
-
-	}
+    }
 }

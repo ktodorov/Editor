@@ -106,6 +106,7 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Common\Configuration.cs" />
     <Compile Include="Common\CropBitmap.cs" />
     <Compile Include="Common\CustomFilter.cs" />
     <Compile Include="Common\RemedyImage.cs" />

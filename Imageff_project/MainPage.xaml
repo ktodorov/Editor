@@ -1655,6 +1655,21 @@
                                 <Button x:Name="ApplyResize" Content="Resize" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}" BorderThickness="0,0,0,2" Click="ApplyResize_Clicked" BorderBrush="White" Foreground="White" Visibility="Collapsed"/>
                             </StackPanel>
                         </StackPanel>
+                        <Border x:Name="Import_Export" BorderThickness="0,0,0,2" VerticalAlignment="Top" Padding="0,0,0,5" Margin="0" HorizontalAlignment="Center">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
+                                    </LinearGradientBrush.RelativeTransform>
+                                    <GradientStop Color="#FF21FF00"/>
+                                    <GradientStop Color="#FF218900" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <Button x:Name="importButton" Content="IMPORT" FontFamily="Segoe UI" FontSize="19" Click="onImportButtonClick" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
+                                <Button x:Name="exportButton" Content="EXPORT" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin" Click="OnExportButtonClick" Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
