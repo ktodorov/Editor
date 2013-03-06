@@ -1668,11 +1668,11 @@
                             </Border.BorderBrush>
                             <StackPanel Margin="0" VerticalAlignment="Top">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
-                                    <Button x:ConnectionId='71' x:Name="importFileButton" Content="SELECT FILE TO IMPORT" FontFamily="Segoe UI" FontSize="19"                                       Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
+                                    <Button x:ConnectionId='71' x:Name="importFileButton" Content="Select file to import..." FontFamily="Segoe UI" FontSize="19"                                       Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Button x:ConnectionId='69' x:Name="importButton" Content="IMPORT" FontFamily="Segoe UI" FontSize="19"                             Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0,0,20,0"/>
-                                    <Button x:ConnectionId='70' x:Name="exportButton" Content="EXPORT" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin"                             Foreground="#FFF1E9E9" Margin="0"/>
+                                    <Button x:ConnectionId='69' x:Name="importButton" Content="Import" FontFamily="Segoe UI" FontSize="19"                             Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0,0,20,0"/>
+                                    <Button x:ConnectionId='70' x:Name="exportButton" Content="Export" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin"                             Foreground="#FFF1E9E9" Margin="0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
