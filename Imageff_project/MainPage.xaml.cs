@@ -1049,11 +1049,10 @@ namespace RemedyPic
         // Event for apply button on Filters popup. Sets the image with the applied filter
         private void OnFilterApplyClick(object sender, RoutedEventArgs e)
         {
-            ApplyFilter(appliedFilters);
-            FilterApplyReset.Visibility = Visibility.Collapsed;
-            SelectFilters.IsChecked = false;
             effectsApplied.Add("Filter = " + appliedFilters);
             ApplyFilter(appliedFilters);
+            FilterApplyReset.Visibility = Visibility.Collapsed;
+            SelectFilters.IsChecked = false;            
             setFilterBitmaps(false);
         }
 
@@ -1139,8 +1138,8 @@ namespace RemedyPic
         // Event for apply button on Colors popup. Sets the image with the applied colors
         private void OnColorApplyClick(object sender, RoutedEventArgs e)
         {
-            effectsApplied.Add("Color " + RedColorSlider.Value + " " + GreenColorSlider.Value + " " + RedColorSlider.Value);
-            effectsApplied.Add("Contrast " + RedContrastSlider.Value + " " + GreenContrastSlider.Value + " " + BlueContrastSlider.Value);
+            effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value);
+            effectsApplied.Add("Contrast = " + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
             ApplyColor();
             setFilterBitmaps(false);
         }
@@ -1149,9 +1148,7 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
             ColorApplyReset.Visibility = Visibility.Collapsed;
-            SelectColors.IsChecked = false;
-            effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value);
-            effectsApplied.Add("Contrast = " + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
+            SelectColors.IsChecked = false;            
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             imageOriginal.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
             setStream(bitmapStream, bitmapImage, imageOriginal);
@@ -1208,7 +1205,7 @@ namespace RemedyPic
         {
             string colorizeColors = "";
             Colorize_GetColorizeColors(ref colorizeColors);
-            effectsApplied.Add("Colorize =" + colorizeColors);
+            effectsApplied.Add("Colorize = " + colorizeColors);
             
         }
 
@@ -1220,38 +1217,48 @@ namespace RemedyPic
                 colorizeColors += "blue";
             }
             if (redForColorize)
-            { 
+            {
+                Colorize_CheckForFirsColor(ref colorizeColors);
                 colorizeColors += "red";
             }
             if (greenForColorize)
-            { 
+            {
+                Colorize_CheckForFirsColor(ref colorizeColors);
                 colorizeColors += "green";
             }
             if (yellowForColorize)
-            { 
+            {
+                Colorize_CheckForFirsColor(ref colorizeColors);
                 colorizeColors += "yellow";
             }
             if (orangeForColorize)
             {
+                Colorize_CheckForFirsColor(ref colorizeColors);
                 colorizeColors += "orange";
             }
             if (purpleForColorize)
             {
+                Colorize_CheckForFirsColor(ref colorizeColors);
                 colorizeColors += "purple";
             }
             if (cyanForColorize)
             {
+                Colorize_CheckForFirsColor(ref colorizeColors);
                 colorizeColors += "cyan";
             }
             if (limeForColorize)
             {
+                Colorize_CheckForFirsColor(ref colorizeColors);
                 colorizeColors += "lime";
             }
         }
 
-        private void Colorize_CheckForFirsColor(ref string colorizeColors);
-        { 
-            if (colorizeColors != null)
+        private void Colorize_CheckForFirsColor(ref string colorizeColors)
+        {
+            if (!colorizeColors.Equals(""))
+            {
+                colorizeColors += ",";
+            }
                 
         }
         // Event for apply button on Exposure popup. Sets the image with the applied exposure
@@ -1266,7 +1273,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = true;
             ExposureApplyReset.Visibility = Visibility.Collapsed;
             SelectExposure.IsChecked = false;
-            effectsApplied.Add("Exposure = " + brightSlider.Value + "," + BlueGammaSlider.Value + "," + GreenGammaSlider.Value + ",W" + RedGammaSlider.Value);
+            effectsApplied.Add("Exposure = " + brightSlider.Value + "," + BlueGammaSlider.Value + "," + GreenGammaSlider.Value + "," + RedGammaSlider.Value);
 
             switch (effect)
             {
