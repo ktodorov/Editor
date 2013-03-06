@@ -1666,9 +1666,14 @@
                                     <GradientStop Color="#FF218900" Offset="1"/>
                                 </LinearGradientBrush>
                             </Border.BorderBrush>
-                            <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <Button x:Name="importButton" Content="IMPORT" FontFamily="Segoe UI" FontSize="19" Click="onImportButtonClick" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
-                                <Button x:Name="exportButton" Content="EXPORT" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin" Click="OnExportButtonClick" Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
+                            <StackPanel Margin="0" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
+                                    <Button x:Name="importFileButton" Content="SELECT FILE TO IMPORT" FontFamily="Segoe UI" FontSize="19" Click="onImportFileSelectButtonClick" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button x:Name="importButton" Content="IMPORT" FontFamily="Segoe UI" FontSize="19" Click="onImportButtonClick" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0,0,20,0"/>
+                                    <Button x:Name="exportButton" Content="EXPORT" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin" Click="OnExportButtonClick" Foreground="#FFF1E9E9" Margin="0"/>
+                                </StackPanel>
                             </StackPanel>
                         </Border>
                     </StackPanel>

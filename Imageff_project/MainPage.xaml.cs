@@ -1128,7 +1128,90 @@ namespace RemedyPic
             appliedFilters = null;
             deselectFilters();
             ImageLoadingRing.IsActive = false;
+			ApplyFilter(appliedFilters);
         }
+
+		public void ApplyFilter(string filter)
+		{
+			ImageLoadingRing.IsActive = true;
+			FilterApplyReset.Visibility = Visibility.Collapsed;
+			SelectFilters.IsChecked = false;
+			switch (filter)
+			{
+				case "blackwhite":
+					doBlackWhite(bitmapStream, bitmapImage, imageOriginal);
+					doBlackWhite(exampleStream, exampleBitmap, image);
+					break;
+				case "invert":
+					doInvert(bitmapStream, bitmapImage, imageOriginal);
+					doInvert(exampleStream, exampleBitmap, image);
+					break;
+				case "emboss":
+					doEmboss(bitmapStream, bitmapImage, imageOriginal);
+					doEmboss(exampleStream, exampleBitmap, image);
+					break;
+				case "emboss2":
+					doEmboss2(bitmapStream, bitmapImage, imageOriginal);
+					doEmboss2(exampleStream, exampleBitmap, image);
+					break;
+				case "blur":
+					doBlur(bitmapStream, bitmapImage, imageOriginal);
+					doBlur(exampleStream, exampleBitmap, image);
+					break;
+				case "blur2":
+					doBlur2(bitmapStream, bitmapImage, imageOriginal);
+					doBlur2(exampleStream, exampleBitmap, image);
+					break;
+				case "sharpen":
+					doSharpen(bitmapStream, bitmapImage, imageOriginal);
+					doSharpen(exampleStream, exampleBitmap, image);
+					break;
+				case "noise":
+					doNoise(bitmapStream, bitmapImage, imageOriginal);
+					doNoise(exampleStream, exampleBitmap, image);
+					break;
+				case "hardNoise":
+					doHardNoise(bitmapStream, bitmapImage, imageOriginal);
+					doHardNoise(exampleStream, exampleBitmap, image);
+					break;
+				case "EdgeDetect":
+					doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
+					doEdgeDetect(exampleStream, exampleBitmap, image);
+					break;
+				case "EdgeEnhance":
+					doEdgeEnhance(bitmapStream, bitmapImage, imageOriginal);
+					doEdgeEnhance(exampleStream, exampleBitmap, image);
+					break;
+				case "retro":
+					doRetro(bitmapStream, bitmapImage, imageOriginal);
+					doRetro(exampleStream, exampleBitmap, image);
+					break;
+				case "darken":
+					doDarken(bitmapStream, bitmapImage, imageOriginal);
+					doDarken(exampleStream, exampleBitmap, image);
+					break;
+				case "brighten":
+					doBrighten(bitmapStream, bitmapImage, imageOriginal);
+					doBrighten(exampleStream, exampleBitmap, image);
+					break;
+				case "shadow":
+					doShadow(bitmapStream, bitmapImage, imageOriginal);
+					doShadow(exampleStream, exampleBitmap, image);
+					break;
+				case "crystal":
+					doCrystal(bitmapStream, bitmapImage, imageOriginal);
+					doCrystal(exampleStream, exampleBitmap, image);
+					break;
+				default:
+					break;
+			}
+			image.srcPixels = (byte[])image.dstPixels.Clone();
+			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+			setFilterBitmaps(false);
+			appliedFilters = null;
+			deselectFilters();
+			ImageLoadingRing.IsActive = false;
+		}
 
         // Event for apply button on Colors popup. Sets the image with the applied colors
         private void OnColorApplyClick(object sender, RoutedEventArgs e)
@@ -3050,7 +3133,13 @@ namespace RemedyPic
 
 		private void onImportButtonClick(object sender, RoutedEventArgs e)
 		{
+			if (configFile.effects[0] == "blackwhite")
+				ApplyFilter("blackwhite");
+		}
 
+		private void onImportFileSelectButtonClick(object sender, RoutedEventArgs e)
+		{
+			configFile.Import();
 		}
 
     }
