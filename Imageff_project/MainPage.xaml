@@ -1265,8 +1265,12 @@
                     </Border.BorderBrush>
                     <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="ZoomIn" Content="&#xE1A3;" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}"/>
-                            <Button x:Name="ZoomOut" Visibility="Collapsed" Content="&#xE1A4;" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}"/>
+                            <Button x:Name="ZoomIn" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}" Padding="0">
+                                <Image Source="Assets/Zoom/Zoom-in.png" Width="40" Height="40" HorizontalAlignment="Center"/>
+                            </Button>
+                            <Button x:Name="ZoomOut" Visibility="Collapsed" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0">
+                                <Image Source="Assets/Zoom/Zoom-out.png" Width="40" Height="40" HorizontalAlignment="Center"/>
+                            </Button>
                         </StackPanel>
                         <Button x:Name="ResetZoom" Content="Reset Image position" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="White" Height="40" BorderThickness="0,0,0,1" BorderBrush="White" Background="{x:Null}" Margin="0"/>
                         <CheckBox x:Name="AvailableForMoving" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left" Checked="MoveChecked" Unchecked="MoveUnchecked" HorizontalAlignment="Center" IsChecked="False"/>
@@ -1725,7 +1729,7 @@
                                 <Rectangle x:Name="limeRect" Fill="#6619FF19" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
                             </ToggleButton>
                         </Grid>
-                        <StackPanel x:Name="ColorizeApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0">
+                        <StackPanel x:Name="ColorizeApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0" Visibility="Collapsed">
                             <Button x:Name="ColorizeApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnColorizeApplyClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
                             <Button x:Name="ColorizeResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnColorizeResetClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
                         </StackPanel>

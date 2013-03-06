@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using Windows.UI;
 using Windows.UI.Input;
 using Windows.UI.Popups;
@@ -304,8 +305,7 @@ namespace RemedyPic
 
                     // If the interface was changed from previous image, it should be resetted.
                     ResetZoomPos();
-                    // Show the interface after the picture is loaded.
-                    //contentGrid.Visibility = Visibility.Visible;
+
                     pictureIsLoaded = true;
                     doAllCalculations();
                 }
@@ -324,7 +324,7 @@ namespace RemedyPic
             // We make all the required calculations in order for
             // the app elements to appear and work normal.
             uneditedBitmap = bitmapImage;
-
+            
             // Resize the original image for faster work.
             // Note that we only set the resize to the small images.
             // The original big image is left in original resolution.
@@ -340,7 +340,7 @@ namespace RemedyPic
             await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
             await uneditedStream.ReadAsync(uneditedImage.srcPixels, 0, uneditedImage.srcPixels.Length);
-
+            
             // Set the slider values of Exposure Gamma B G R
             BlueGammaSlider.Value = 10;
             GreenGammaSlider.Value = 10;
@@ -377,14 +377,16 @@ namespace RemedyPic
             AvailableForMoving.IsChecked = true;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
-            displayImage.MaxWidth = imageBorder.ActualWidth * 0.80;
-            displayImage.MaxHeight = imageBorder.ActualHeight * 0.80;
+            displayImage.MaxWidth = imageBorder.ActualWidth *0.80;
+            displayImage.MaxHeight = imageBorder.ActualHeight *0.80;
 
             // Set the current resolution to the TextBlock, located in Changing Resolution option.
             NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
 
             // Show the interface.
-            showInterface();
+            showInterface(); 
+            
+
         }
 
         private void setPopupsHeight()
@@ -795,6 +797,8 @@ namespace RemedyPic
                 else if (PopupExposure.IsOpen)
                     ExposureApplyReset.Visibility = Visibility.Visible;
             }
+            if (PopupColorize.IsOpen)
+                ColorizeApplyReset.Visibility = Visibility.Visible;
         }
 
         void prepareImage(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
@@ -1184,6 +1188,7 @@ namespace RemedyPic
             setFilterBitmaps(false);
             SelectColorize.IsChecked = false;
             ImageLoadingRing.IsActive = false;
+            ColorizeApplyReset.Visibility = Visibility.Visible;
         }
 
         // Event for apply button on Exposure popup. Sets the image with the applied exposure
@@ -1232,7 +1237,7 @@ namespace RemedyPic
             imageOriginal.Lighten(brightSlider.Value);
             setStream(bitmapStream, bitmapImage, imageOriginal);
         }
-        
+
         #endregion
 
         #region Reset Buttons
@@ -1450,7 +1455,7 @@ namespace RemedyPic
         #region Frames
         // The events are called when a frame button is clicked.
         // Set standard frame to the image
-        private void OnStandardClick(object sender, RoutedEventArgs e)
+       /* private void OnStandardClick(object sender, RoutedEventArgs e)
         {
             FramesApplyReset.Visibility = Visibility.Visible;
 
@@ -1462,6 +1467,24 @@ namespace RemedyPic
                 imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+        }*/
+
+        private void OnStandardClick(object sender, RoutedEventArgs e)
+        {
+            FramesApplyReset.Visibility = Visibility.Visible;
+
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                TextBlock textBlock = new TextBlock();
+                textBlock.Text = "G";
+
+                // set font, size, etc. on textBlock
+
+                bitmapImage.Render(textBlock.Text, null);
+                bitmapImage.Invalidate();
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }
@@ -1915,7 +1938,7 @@ namespace RemedyPic
 
         private void ZoomOutClicked(object sender, RoutedEventArgs e)
         {
-            if (scale.ScaleX > 0.7 && scale.ScaleY > 0.7)
+            if (scale.ScaleX > 0.9 && scale.ScaleY > 0.9)
             {
                 scale.ScaleX = scale.ScaleX - 0.1;
                 scale.ScaleY = scale.ScaleY - 0.1;
@@ -1934,7 +1957,6 @@ namespace RemedyPic
         private void ResetZoomPos()
         {
             displayImage.Margin = new Thickness(0, 0, 0, 0);
-            ZoomOut.Visibility = Visibility.Collapsed;
             displayImage.RenderTransform = null;
             InitManipulationTransforms();
             scale.ScaleX = 1;
@@ -2149,7 +2171,7 @@ namespace RemedyPic
                 doFilter(crystalStream, crystalBitmap, filterimage, "crystal");
 
                 filterBitmapsNeedLoading = false;
-            }   
+            }
         }
 
         private async void initializeBitmap(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
@@ -2421,12 +2443,12 @@ namespace RemedyPic
             }
             else
             {
-                if (scale.ScaleX > 0.7 && scale.ScaleY > 0.7)
+                if (scale.ScaleX > 0.9 && scale.ScaleY > 0.9)
                 {
                     scale.ScaleX = scale.ScaleX - 0.1;
                     scale.ScaleY = scale.ScaleY - 0.1;
                 }
-                if (ZoomOut.Visibility == Visibility.Visible && scale.ScaleX <= 1)
+                if (ZoomOut.Visibility == Visibility.Visible && scale.ScaleX <= 0.9)
                 {
                     ZoomOut.Visibility = Visibility.Collapsed;
                 }
@@ -2469,7 +2491,7 @@ namespace RemedyPic
             RestoreOriginalBitmap();
         }
 
-        private void RestoreOriginalBitmap()
+        private async void RestoreOriginalBitmap()
         {
             // Reset the current image.
             imageOriginal.srcPixels = (byte[])uneditedImage.srcPixels.Clone();
@@ -2479,6 +2501,17 @@ namespace RemedyPic
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
             displayImage.Source = bitmapImage;
+
+            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+            exampleStream = exampleBitmap.PixelBuffer.AsStream();
+            image.srcPixels = new byte[(uint)exampleStream.Length];
+            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
+            prepareImage(exampleStream, exampleBitmap, image);
+            setStream(exampleStream, exampleBitmap, image);
+            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(RotationsExamplePicture, exampleBitmap);
+            setElements(ExposureExamplePicture, exampleBitmap);
+
             setFilterBitmaps(false);
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
         }
@@ -2616,8 +2649,6 @@ namespace RemedyPic
                 this.selectedRegion.SelectedRect.Width / sourceImageWidthScale,
                 this.selectedRegion.SelectedRect.Height / sourceImageHeightScale);
 
-            double previewImageScale = 1;
-
             if (previewImageSize.Width <= imageCanvas.Width &&
                 previewImageSize.Height <= imageCanvas.Height)
             {
@@ -2626,21 +2657,19 @@ namespace RemedyPic
             else
             {
                 displayImage.Stretch = Windows.UI.Xaml.Media.Stretch.Uniform;
-
-                previewImageScale = Math.Min(imageCanvas.Width / previewImageSize.Width,
-                    imageCanvas.Height / previewImageSize.Height);
             }
 
             bitmapImage = await CropBitmap.GetCroppedBitmapAsync(
                    file,
                    new Point(this.selectedRegion.SelectedRect.X / sourceImageWidthScale, this.selectedRegion.SelectedRect.Y / sourceImageHeightScale),
                    previewImageSize,
-                   previewImageScale);
+                   1);
 
             // After the cropping is done, we set the new bitmapImage objects again.
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
             imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
+            imageOriginal.Reset();
 
             exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
 
