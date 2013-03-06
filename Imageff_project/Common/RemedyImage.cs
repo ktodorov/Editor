@@ -676,14 +676,14 @@ namespace RemedyPic.Common
             _dstPixels = (byte[])_srcPixels.Clone();
             for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
             {
-                ColorChange_GetNewColors(CurrentByte, RedColorValue, GreenColorValue, BlueColorValue);
-                ColorChange_GetNewContrasts(CurrentByte, RedContrastValue, GreenContrastValue, BlueContrastValue);
+                ColorChange_GetNewColors(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
+                ColorChange_GetNewContrasts(CurrentByte, BlueContrastValue, GreenContrastValue, RedContrastValue);
             }
         }
 
         #region Colors
         // Gets new values for B G R color of selected pixel of image (depends of the value of R G B color sliders)
-        private void ColorChange_GetNewColors(int CurrentByte, double RedValue, double GreenValue, double BlueValue)
+        private void ColorChange_GetNewColors(int CurrentByte, double BlueValue, double GreenValue, double RedValue)
         {
             ColorChange_GetNewColor(CurrentByte, (int)BlueValue);
             ColorChange_GetNewColor(CurrentByte + 1, (int)GreenValue);
@@ -710,7 +710,7 @@ namespace RemedyPic.Common
 
         #region Contrasts
         // Gets new values for B G R color of selected pixel of image (depends of the value of R G B contrast sliders)
-        private void ColorChange_GetNewContrasts(int CurrentByte, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
+        private void ColorChange_GetNewContrasts(int CurrentByte, double BlueContrastValue, double GreenContrastValue, double RedContrastValue)
         {
             // Get the contrast values of each color
             Contrast_GetContrastValue(ref BlueContrastValue);

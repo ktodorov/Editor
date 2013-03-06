@@ -1052,7 +1052,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = true;
             FilterApplyReset.Visibility = Visibility.Collapsed;
             SelectFilters.IsChecked = false;
-            effectsApplied.Add("Filter " + appliedFilters);
+            effectsApplied.Add("Filter = " + appliedFilters);
             switch (appliedFilters)
             {
                 case "blackwhite":
@@ -1137,8 +1137,8 @@ namespace RemedyPic
             ColorApplyReset.Visibility = Visibility.Collapsed;
             SelectColors.IsChecked = false;
 
-            effectsApplied.Add("Color " + RedColorSlider.Value + " " + GreenColorSlider.Value + " " + RedColorSlider.Value);
-            effectsApplied.Add("Contrast " + RedContrastSlider.Value + " " + GreenContrastSlider.Value + " " + BlueContrastSlider.Value);
+            effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value);
+            effectsApplied.Add("Contrast = " + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
 
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             imageOriginal.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
@@ -1162,7 +1162,7 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
             SelectRotations.IsChecked = false;
-            effectsApplied.Add("Flip " + appliedRotations);
+            effectsApplied.Add("Flip = " + appliedRotations);
             switch (appliedRotations)
             {
                 case "hflip":
@@ -1189,6 +1189,7 @@ namespace RemedyPic
         {
             doColorize(exampleStream, exampleBitmap, image);
             ImageLoadingRing.IsActive = true;
+            Colorize_SetColorizeEffect();
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps(false);
@@ -1197,13 +1198,56 @@ namespace RemedyPic
             ColorizeApplyReset.Visibility = Visibility.Visible;
         }
 
+        private void Colorize_SetColorizeEffect()
+        {
+            string colorizeColors = "";
+            Colorize_GetColorizeColors(ref colorizeColors);
+            effectsApplied.Add("Colorize =" + colorizeColors);
+            
+        }
+
+        private void Colorize_GetColorizeColors(ref string colorizeColors)
+        {
+            if (blueForColorize)
+            { 
+                colorizeColors += " blue";
+            }
+            if (redForColorize)
+            { 
+                colorizeColors += " red";
+            }
+            if (greenForColorize)
+            { 
+                colorizeColors += " green";
+            }
+            if (yellowForColorize)
+            { 
+                colorizeColors += " yellow";
+            }
+            if (orangeForColorize)
+            {
+                colorizeColors += " orange";
+            }
+            if (purpleForColorize)
+            {
+                colorizeColors += " purple";
+            }
+            if (cyanForColorize)
+            {
+                colorizeColors += " cyan";
+            }
+            if (limeForColorize)
+            {
+                colorizeColors += " lime";
+            }
+        }
         // Event for apply button on Exposure popup. Sets the image with the applied exposure
         private void OnExposureApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
             ExposureApplyReset.Visibility = Visibility.Collapsed;
             SelectExposure.IsChecked = false;
-            effectsApplied.Add("Exposure " + appliedRotations + " " + BlueGammaSlider.Value + " " + GreenGammaSlider.Value + " " + RedGammaSlider.Value + " " + brightSlider.Value);
+            effectsApplied.Add("Exposure = " + brightSlider.Value + "," + BlueGammaSlider.Value + "," + GreenGammaSlider.Value + ",W" + RedGammaSlider.Value);
 
             switch (appliedColors)
             {
