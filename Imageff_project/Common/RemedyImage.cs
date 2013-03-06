@@ -671,7 +671,7 @@ namespace RemedyPic.Common
 
         #region Color
         // Main function which changes BGR colors
-        public void ColorChange(double RedColorValue, double GreenColorValue, double BlueColorValue, double RedContrastValue, double GreenContrastValue, double BlueContrastValue)
+        public void ColorChange(double BlueColorValue, double GreenColorValue, double RedColorValue, double BlueContrastValue, double GreenContrastValue, double RedContrastValue)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
             for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)

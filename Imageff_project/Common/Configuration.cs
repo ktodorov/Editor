@@ -39,17 +39,24 @@ namespace RemedyPic.Common
 		#endregion
 
         #region Export
-        public async void Export()
+        public async void Export(List<string> effectsApplied)
         {
+            
             FileSavePicker savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
             savePicker.FileTypeChoices.Add(".TXT", new List<string>() { ".txt" });
-            StorageFile file = await savePicker.PickSaveFileAsync();            
+            StorageFile file = await savePicker.PickSaveFileAsync();       
+            string EffectsForWrite = "";
 
             if (file != null)
             // File is null if user cancels the file picker.
             {
-                await Windows.Storage.FileIO.WriteTextAsync(file, "Swift as a shadow");
+                for (int i = 0; i < effectsApplied.Count; i++)
+                {
+                    EffectsForWrite += effectsApplied[i] + "\n";
+                    
+                }
+                await Windows.Storage.FileIO.WriteTextAsync(file, EffectsForWrite);
             }       
         }
         #endregion

@@ -39,7 +39,7 @@ namespace RemedyPic
         // Those are all the global variables, that are used in MainPage.xaml.cs file.
         
 		private Configuration configFile = new Configuration();
-        private string[] effectsApplied;
+        private List<string> effectsApplied = new List<string>();
 
         // mruToken is used for LoadState and SaveState functions.
         private string mruToken = null;
@@ -820,9 +820,8 @@ namespace RemedyPic
         {
             if (pictureIsLoaded)
             {
-                appliedColors = "colorchange";
                 prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+                image.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
                 setStream(exampleStream, exampleBitmap, image);
             }
         }
@@ -1053,7 +1052,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = true;
             FilterApplyReset.Visibility = Visibility.Collapsed;
             SelectFilters.IsChecked = false;
-         //   effectsApplied.
+            effectsApplied.Add("Filter " + appliedFilters);
             switch (appliedFilters)
             {
                 case "blackwhite":
@@ -1138,8 +1137,11 @@ namespace RemedyPic
             ColorApplyReset.Visibility = Visibility.Collapsed;
             SelectColors.IsChecked = false;
 
+            effectsApplied.Add("Color " + RedColorSlider.Value + " " + GreenColorSlider.Value + " " + RedColorSlider.Value);
+            effectsApplied.Add("Contrast " + RedContrastSlider.Value + " " + GreenContrastSlider.Value + " " + BlueContrastSlider.Value);
+
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.ColorChange(RedColorSlider.Value, GreenColorSlider.Value, BlueColorSlider.Value, RedContrastSlider.Value, GreenContrastSlider.Value, BlueContrastSlider.Value);
+            imageOriginal.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
             setStream(bitmapStream, bitmapImage, imageOriginal);
 
             image.srcPixels = (byte[])image.dstPixels.Clone();
@@ -1160,6 +1162,7 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
             SelectRotations.IsChecked = false;
+            effectsApplied.Add("Flip " + appliedRotations);
             switch (appliedRotations)
             {
                 case "hflip":
@@ -1200,6 +1203,8 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = true;
             ExposureApplyReset.Visibility = Visibility.Collapsed;
             SelectExposure.IsChecked = false;
+            effectsApplied.Add("Exposure " + appliedRotations + " " + BlueGammaSlider.Value + " " + GreenGammaSlider.Value + " " + RedGammaSlider.Value + " " + brightSlider.Value);
+
             switch (appliedColors)
             {
                 case "gammadarken":
@@ -3040,7 +3045,7 @@ namespace RemedyPic
 
 		private void OnExportButtonClick(object sender, RoutedEventArgs e)
 		{
-            configFile.Export();
+            configFile.Export(effectsApplied);
 		}
 
 		private void onImportButtonClick(object sender, RoutedEventArgs e)
