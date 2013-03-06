@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using Windows.UI;
 using Windows.UI.Input;
 using Windows.UI.Popups;
@@ -1455,7 +1454,7 @@ namespace RemedyPic
         #region Frames
         // The events are called when a frame button is clicked.
         // Set standard frame to the image
-       /* private void OnStandardClick(object sender, RoutedEventArgs e)
+        private void OnStandardClick(object sender, RoutedEventArgs e)
         {
             FramesApplyReset.Visibility = Visibility.Visible;
 
@@ -1467,24 +1466,6 @@ namespace RemedyPic
                 imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
                 imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-        }*/
-
-        private void OnStandardClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = "G";
-
-                // set font, size, etc. on textBlock
-
-                bitmapImage.Render(textBlock.Text, null);
-                bitmapImage.Invalidate();
                 setStream(bitmapStream, bitmapImage, imageOriginal);
             }
         }

@@ -333,7 +333,7 @@ namespace RemedyPic.Common
         // Set B G R value of the pixel
         private void Frames_SmoothDarknessSetPixelValues(int CurrentByte, double darkness)
         {
-            if (Frames_CheckForBrighterPixel(CurrentByte, darkness)) 
+            if (Frames_CheckForBrighterPixel(CurrentByte, darkness))
             {
                 _dstPixels[CurrentByte] = (byte)(_srcPixels[CurrentByte] * darkness);
                 _dstPixels[CurrentByte + 1] = (byte)(_srcPixels[CurrentByte + 1] * darkness);
@@ -526,7 +526,7 @@ namespace RemedyPic.Common
         public void Noise(int SquareWidth)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
-            Random random = new Random(); 
+            Random random = new Random();
 
             for (int CurrentByte = 3, AlphaCoeff = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
@@ -565,7 +565,7 @@ namespace RemedyPic.Common
         }
 
         // Calculate the width (height) of the square
-       public int Noise_GetSquareWidth(int percent)
+        public int Noise_GetSquareWidth(int percent)
         {
             int val = (((_width + _height) / 2) * percent) / 100;
 
@@ -667,7 +667,7 @@ namespace RemedyPic.Common
             _dstPixels[index] = _srcPixels[CurrentByte];
         }
 
-        #endregion   
+        #endregion
 
         #region Color
         // Main function which changes BGR colors
@@ -764,7 +764,7 @@ namespace RemedyPic.Common
         // Main function which changes BGR colors
         public void GammaChange(double BlueColorValue, double GreenColorValue, double RedColorValue)
         {                                                             // Divide by 10 because the value must be between 0.2 and 5. 
-            byte[] BlueGamma = Gamma_GetArray(BlueColorValue/ 10);   // Get new color list for BlueGamma. 
+            byte[] BlueGamma = Gamma_GetArray(BlueColorValue / 10);   // Get new color list for BlueGamma. 
             byte[] GreenGamma = Gamma_GetArray(GreenColorValue / 10);// Get new color list for GreenGamma  
             byte[] RedGamma = Gamma_GetArray(RedColorValue / 10);    // Get new color list for RedGamma            
 
@@ -832,7 +832,7 @@ namespace RemedyPic.Common
         // exit and return false.
         private bool checkPixelForColorize(int CurrentByte, bool color, double hue, string colorToLeave)
         {
-            if (!color) 
+            if (!color)
                 return false;
 
             // Every color has its own hue and algorithms. 
@@ -1018,14 +1018,31 @@ namespace RemedyPic.Common
         #endregion
 
         #region Histogram
-        // Histogram function.
-        // The algorithm make the intensities around 
-        // the grayscale image to be better distributed.
+       
         public void MakeHistogramEqualization()
         {
-            int[] frequency = new int[256];
+            Equalize("blue");
+            Equalize("green");
+            Equalize("red");
+        }
 
-            for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
+        private void Equalize(string colorPixel)
+        { 
+            // Histogram function.
+            // The algorithm make the intensities around 
+            // the grayscale image to be better distributed.
+            int[] frequency = new int[256];
+            int startingPixel = 0;
+
+            if (colorPixel == "blue")
+                startingPixel = 0;
+            else if (colorPixel == "green")
+                startingPixel = 1;
+            else
+                startingPixel = 2;
+
+
+            for (int CurrentByte = startingPixel; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
                 int i = _dstPixels[CurrentByte];
                 frequency[i] += 1;
@@ -1043,13 +1060,17 @@ namespace RemedyPic.Common
                 cdf[i] = (float)cumulative[i] / (_width * _height);
                 cdf[i] = cdf[i] * 255;
             }
-            for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
+            for (int CurrentByte = startingPixel; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
                 int temp = (int)_dstPixels[CurrentByte];
-                _dstPixels[CurrentByte] = _dstPixels[CurrentByte + 1] = _dstPixels[CurrentByte + 2] = (byte)(cdf[temp]);
+
+                _dstPixels[CurrentByte] = (byte)(cdf[temp]);
             }
 
         }
+
+
+
         #endregion
     }
 }
