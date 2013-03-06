@@ -38,6 +38,9 @@ namespace RemedyPic
         #region Variables
         // Those are all the global variables, that are used in MainPage.xaml.cs file.
 
+
+		Configuration configFile = new Configuration();
+
         // mruToken is used for LoadState and SaveState functions.
         private string mruToken = null;
 
@@ -3033,6 +3036,16 @@ namespace RemedyPic
             var borderSender = sender as Border;
             borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
         }
+
+		private void OnExportButtonClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void onImportButtonClick(object sender, RoutedEventArgs e)
+		{
+
+		}
 
     }
     #endregion

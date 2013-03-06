@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows;
 using Windows.Storage;
+using Windows.Storage.Pickers;
+using System.IO;
 
 namespace RemedyPic.Common
 {
 	class Configuration
 	{
+		#region Getters and setters.
 		public StorageFile configFile
 		{
-
-			#region Getters and setters.
 			get
 			{
 				return configFile;
@@ -35,9 +36,26 @@ namespace RemedyPic.Common
 				effects = value;
 			}
 		}
-			#endregion
+		#endregion
+
+		public async void Import()
+		{
+			FileOpenPicker filePicker = new FileOpenPicker();
+			filePicker.FileTypeFilter.Add(".txt");
+			StorageFile file = await filePicker.PickSingleFileAsync();
+
+			if (file != null)
+			// File is null if user cancels the file picker.
+			{
+
+				var stream = await file.OpenReadAsync();
+				var rdr = new StreamReader(stream.AsStream());
+
+				var contents = rdr.ReadToEnd();
+			}
 
 
+		}
 
 	}
 }
