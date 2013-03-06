@@ -37,8 +37,8 @@ namespace RemedyPic
 
         #region Variables
         // Those are all the global variables, that are used in MainPage.xaml.cs file.
-        
-		private Configuration configFile = new Configuration();
+
+        private Configuration configFile = new Configuration();
         private List<string> effectsApplied = new List<string>();
 
         // mruToken is used for LoadState and SaveState functions.
@@ -326,7 +326,7 @@ namespace RemedyPic
             // We make all the required calculations in order for
             // the app elements to appear and work normal.
             uneditedBitmap = bitmapImage;
-            
+
             // Resize the original image for faster work.
             // Note that we only set the resize to the small images.
             // The original big image is left in original resolution.
@@ -342,7 +342,7 @@ namespace RemedyPic
             await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
             await uneditedStream.ReadAsync(uneditedImage.srcPixels, 0, uneditedImage.srcPixels.Length);
-            
+
             // Set the slider values of Exposure Gamma B G R
             BlueGammaSlider.Value = 10;
             GreenGammaSlider.Value = 10;
@@ -379,15 +379,15 @@ namespace RemedyPic
             AvailableForMoving.IsChecked = true;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
-            displayImage.MaxWidth = imageBorder.ActualWidth *0.80;
-            displayImage.MaxHeight = imageBorder.ActualHeight *0.80;
+            displayImage.MaxWidth = imageBorder.ActualWidth * 0.80;
+            displayImage.MaxHeight = imageBorder.ActualHeight * 0.80;
 
             // Set the current resolution to the TextBlock, located in Changing Resolution option.
             NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
 
             // Show the interface.
-            showInterface(); 
-            
+            showInterface();
+
 
         }
 
@@ -1049,11 +1049,18 @@ namespace RemedyPic
         // Event for apply button on Filters popup. Sets the image with the applied filter
         private void OnFilterApplyClick(object sender, RoutedEventArgs e)
         {
-            ImageLoadingRing.IsActive = true;
+            ApplyFilter(appliedFilters);
             FilterApplyReset.Visibility = Visibility.Collapsed;
             SelectFilters.IsChecked = false;
             effectsApplied.Add("Filter = " + appliedFilters);
-            switch (appliedFilters)
+            ApplyFilter(appliedFilters);
+            setFilterBitmaps(false);
+        }
+
+        public void ApplyFilter(string filter)
+        {
+            ImageLoadingRing.IsActive = true;
+            switch (filter)
             {
                 case "blackwhite":
                     doBlackWhite(bitmapStream, bitmapImage, imageOriginal);
@@ -1124,7 +1131,6 @@ namespace RemedyPic
             }
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps(false);
             appliedFilters = null;
             deselectFilters();
             ImageLoadingRing.IsActive = false;
@@ -1133,26 +1139,26 @@ namespace RemedyPic
         // Event for apply button on Colors popup. Sets the image with the applied colors
         private void OnColorApplyClick(object sender, RoutedEventArgs e)
         {
+            effectsApplied.Add("Color " + RedColorSlider.Value + " " + GreenColorSlider.Value + " " + RedColorSlider.Value);
+            effectsApplied.Add("Contrast " + RedContrastSlider.Value + " " + GreenContrastSlider.Value + " " + BlueContrastSlider.Value);
+            ApplyColor();
+            setFilterBitmaps(false);
+        }
+
+        private void ApplyColor()
+        {
             ImageLoadingRing.IsActive = true;
             ColorApplyReset.Visibility = Visibility.Collapsed;
             SelectColors.IsChecked = false;
-
             effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value);
             effectsApplied.Add("Contrast = " + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
-
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             imageOriginal.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
             setStream(bitmapStream, bitmapImage, imageOriginal);
 
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            RedColorSlider.Value = 0;
-            GreenColorSlider.Value = 0;
-            BlueColorSlider.Value = 0;
-            RedContrastSlider.Value = 0;
-            BlueContrastSlider.Value = 0;
-            GreenContrastSlider.Value = 0;
-            setFilterBitmaps(false);
+
             appliedColors = null;
             ImageLoadingRing.IsActive = false;
         }
@@ -1209,47 +1215,60 @@ namespace RemedyPic
         private void Colorize_GetColorizeColors(ref string colorizeColors)
         {
             if (blueForColorize)
-            { 
-                colorizeColors += " blue";
+            {
+                Colorize_CheckForFirsColor(ref colorizeColors);
+                colorizeColors += "blue";
             }
             if (redForColorize)
             { 
-                colorizeColors += " red";
+                colorizeColors += "red";
             }
             if (greenForColorize)
             { 
-                colorizeColors += " green";
+                colorizeColors += "green";
             }
             if (yellowForColorize)
             { 
-                colorizeColors += " yellow";
+                colorizeColors += "yellow";
             }
             if (orangeForColorize)
             {
-                colorizeColors += " orange";
+                colorizeColors += "orange";
             }
             if (purpleForColorize)
             {
-                colorizeColors += " purple";
+                colorizeColors += "purple";
             }
             if (cyanForColorize)
             {
-                colorizeColors += " cyan";
+                colorizeColors += "cyan";
             }
             if (limeForColorize)
             {
-                colorizeColors += " lime";
+                colorizeColors += "lime";
             }
+        }
+
+        private void Colorize_CheckForFirsColor(ref string colorizeColors);
+        { 
+            if (colorizeColors != null)
+                
         }
         // Event for apply button on Exposure popup. Sets the image with the applied exposure
         private void OnExposureApplyClick(object sender, RoutedEventArgs e)
+        {
+            ApplyExposure(appliedColors);
+            setFilterBitmaps(false);
+        }
+
+        private void ApplyExposure(string effect)
         {
             ImageLoadingRing.IsActive = true;
             ExposureApplyReset.Visibility = Visibility.Collapsed;
             SelectExposure.IsChecked = false;
             effectsApplied.Add("Exposure = " + brightSlider.Value + "," + BlueGammaSlider.Value + "," + GreenGammaSlider.Value + ",W" + RedGammaSlider.Value);
 
-            switch (appliedColors)
+            switch (effect)
             {
                 case "gammadarken":
                     doGammaDarken();
@@ -1263,11 +1282,6 @@ namespace RemedyPic
 
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            brightSlider.Value = 0;
-            BlueGammaSlider.Value = 10;
-            RedGammaSlider.Value = 10;
-            GreenGammaSlider.Value = 10;
-            setFilterBitmaps(false);
             appliedColors = null;
             ImageLoadingRing.IsActive = false;
         }
@@ -3087,15 +3101,58 @@ namespace RemedyPic
             borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
         }
 
-		private void OnExportButtonClick(object sender, RoutedEventArgs e)
-		{
+        private void OnExportButtonClick(object sender, RoutedEventArgs e)
+        {
             configFile.Export(effectsApplied);
-		}
+        }
 
-		private void onImportButtonClick(object sender, RoutedEventArgs e)
-		{
+        private void onImportButtonClick(object sender, RoutedEventArgs e)
+        {
+            string[] temp = new string[10];
+            for (int i = 0; i < configFile.effects.Count; i += 2)
+            {
+                switch (configFile.effects[i])
+                {
+                    case "filter":
+                        string aa = configFile.effects[i + 1];
+                        ApplyFilter(configFile.effects[i + 1]);
+                        break;
+                    case "color":
+                        temp = configFile.effects[i + 1].Split(',');
+                        BlueColorSlider.Value = Convert.ToDouble(temp[0]);
+                        GreenColorSlider.Value = Convert.ToDouble(temp[1]);
+                        RedColorSlider.Value = Convert.ToDouble(temp[2]);
+                        ApplyColor();
+                        break;
+                    case "contrast":
+                        temp = configFile.effects[i + 1].Split(',');
+                        BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
+                        GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
+                        RedContrastSlider.Value = Convert.ToDouble(temp[2]);
+                        ApplyColor();
+                        break;
+                    case "exposure":
+                        temp = configFile.effects[i + 1].Split(',');
+                        brightSlider.Value = Convert.ToDouble(temp[0]);
+                        BlueGammaSlider.Value = Convert.ToDouble(temp[1]);
+                        GreenGammaSlider.Value = Convert.ToDouble(temp[2]);
+                        RedGammaSlider.Value = Convert.ToDouble(temp[3]);
+                        if (brightSlider.Value < 0)
+                            ApplyExposure("gammadarken");
+                        else
+                            ApplyExposure("gammalighten");
+                        break;
+                    default: break;
+                }
 
-		}
+            }
+            setFilterBitmaps(false);
+        }
+
+        private void onImportFileSelectButtonClick(object sender, RoutedEventArgs e)
+        {
+            configFile.Import();
+        }
 
     }
     #endregion
