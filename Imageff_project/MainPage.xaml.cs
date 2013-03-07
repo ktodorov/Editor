@@ -1679,7 +1679,7 @@ namespace RemedyPic
         // Apply the frame on the image
         private void OnApplyFramesClick(object sender, RoutedEventArgs e)
         {
-            effectsApplied.Add("Frame = " + appliedFrameColor + "," + appliedFrame);
+            effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps(false);
             FramesApplyReset.Visibility = Visibility.Collapsed;
