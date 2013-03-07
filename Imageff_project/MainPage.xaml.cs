@@ -49,7 +49,7 @@ namespace RemedyPic
 
         // String variables that hold the current applied changes to the image.
         private string appliedFilters = null, appliedColors = null,
-                           appliedRotations = null, appliedFrameColor = null;
+                           appliedRotations = null, appliedFrame = null, appliedFrameColor = null;
 
         // We create two WriteableBitmap variables.
         // One for the original image and one for the small bitmaps.
@@ -1534,6 +1534,7 @@ namespace RemedyPic
 
             if (pictureIsLoaded)
             {
+                appliedFrame = "standard";
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
@@ -1551,6 +1552,7 @@ namespace RemedyPic
 
             if (pictureIsLoaded)
             {
+                appliedFrame = "standard up down";
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
@@ -1566,6 +1568,7 @@ namespace RemedyPic
 
             if (pictureIsLoaded)
             {
+                appliedFrame = "standard left right";
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
@@ -1581,6 +1584,7 @@ namespace RemedyPic
 
             if (pictureIsLoaded)
             {
+                appliedFrame = "darkness";
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_DarknessLeftSide((int)FrameWidthPercent.Value);
@@ -1598,6 +1602,7 @@ namespace RemedyPic
 
             if (pictureIsLoaded)
             {
+                appliedFrame = "darkness left right";
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_DarknessLeftSide((int)FrameWidthPercent.Value);
@@ -1613,6 +1618,7 @@ namespace RemedyPic
 
             if (pictureIsLoaded)
             {
+                appliedFrame = "darkness up down";
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_DarknessTopSide((int)FrameWidthPercent.Value);
@@ -1628,6 +1634,7 @@ namespace RemedyPic
 
             if (pictureIsLoaded)
             {
+                appliedFrame = "smooth darkness";
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_SmoothDarkness((int)FrameWidthPercent.Value);
@@ -1642,6 +1649,7 @@ namespace RemedyPic
 
             if (pictureIsLoaded)
             {
+                appliedFrame = "standard angle";
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
@@ -1660,6 +1668,7 @@ namespace RemedyPic
 
             if (pictureIsLoaded)
             {
+                appliedFrame = "angle";
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
                 imageOriginal.Frames_Angle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
@@ -1670,10 +1679,10 @@ namespace RemedyPic
         // Apply the frame on the image
         private void OnApplyFramesClick(object sender, RoutedEventArgs e)
         {
+            effectsApplied.Add("Frame = " + appliedFrameColor + "," + appliedFrame);
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps(false);
             FramesApplyReset.Visibility = Visibility.Collapsed;
-
         }
 
         // Reset the image (return the pixels before applying the frame)
