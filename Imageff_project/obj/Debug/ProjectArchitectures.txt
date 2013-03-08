@@ -1,1 +1,1 @@
-C:\Users\Anton\Editor\Imageff_project\RemedyPic.csproj;neutral
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\RemedyPic.csproj;neutral

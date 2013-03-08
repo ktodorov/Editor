@@ -1357,7 +1357,12 @@ namespace RemedyPic
         private void OnColorizeResetClick(object sender, RoutedEventArgs e)
         {
             deselectColorizeGridItems();
-            RestoreOriginalBitmap();
+			 redForColorize = greenForColorize = blueForColorize = yellowForColorize =
+                         orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = true;
+			 doColorize(bitmapStream, bitmapImage, imageOriginal);
+			 redForColorize = greenForColorize = blueForColorize = yellowForColorize =
+						  orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = false;
+            //RestoreOriginalBitmap();
         }
 
         private void OnExposureResetClick(object sender, RoutedEventArgs e)
