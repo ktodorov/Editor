@@ -1249,8 +1249,8 @@
                         </LinearGradientBrush>
                     </Border.BorderBrush>
                     <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
-                        <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
+                        <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"/>
+                        <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
                     </StackPanel>
                 </Border>
                 <Border x:Name="Zoom" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5" Visibility="Collapsed">
@@ -1552,6 +1552,66 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
+            <Popup x:Name="PopupExposure" Margin="0,0,380,-0.429" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="3">
+                <Popup.ChildTransitions>
+                    <TransitionCollection>
+                        <PaneThemeTransition/>
+                    </TransitionCollection>
+                </Popup.ChildTransitions>
+                <ScrollViewer x:Name="Exposure" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" Background="#FF323131" VerticalScrollBarVisibility="Hidden" Height="768" HorizontalAlignment="Right">
+                    <ScrollViewer.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF21FF00"/>
+                            <GradientStop Color="#FF215500" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ScrollViewer.BorderBrush>
+                    <StackPanel x:Name="ExposurePanel"  Width="340" Margin="0" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                            <StackPanel Orientation="Horizontal" Margin="0">
+                                <Button x:Name="BackExposure" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <TextBlock TextWrapping="Wrap" Text="Exposure" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                            </StackPanel>
+                        </Border>
+                        <Image x:Name="Logo_Copy3" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
+                        <Image x:Name="ExposureExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
+                        <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnExposureChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
+                            <Slider.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                                    </LinearGradientBrush.RelativeTransform>
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="White" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Slider.Background>
+                        </Slider>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="GAMA" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="132.095,0,131.905,0"/>
+                        <Slider x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
+                        <Slider x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
+                        <Slider x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
+                        <StackPanel x:Name="ExposureApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                            <Button x:Name="ExposureApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnExposureApplyClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                            <Button x:Name="ExposureResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnExposureResetClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Popup>
             <Popup x:Name="PopupRotations" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
@@ -1646,36 +1706,33 @@
                             </Image.Transitions>
                         </Image>
                         <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetLockPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
-                            <Button x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetAccountPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
-                            <Button x:Name="ReturnOriginalButton" Content="Return the original image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="ReturnOriginal_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
-                            <ToggleButton x:Name="Resize" Content="Change your image resolution" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ToggleButtonStyle1}" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Checked="Resize_Checked" Unchecked="Resize_Unchecked"/>
-                            <StackPanel x:Name="ResizePanel" Margin="10,0" Visibility="Collapsed">
-                                <Slider x:Name="ResizeSlider" IsThumbToolTipEnabled="False" Width="200" Value="6" ValueChanged="ResizeSlider_Changed" Style="{StaticResource SliderStyle1}" Minimum="1" Maximum="6" VerticalAlignment="Center" Foreground="#7F6AF740" LargeChange="1"/>
-                                <TextBlock x:Name="NewResolution" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource ItemTextStyle}" VerticalAlignment="Top" Foreground="White" Margin="0,-25,0,0"/>
-                                <Button x:Name="ApplyResize" Content="Resize" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}" BorderThickness="0,0,0,2" Click="ApplyResize_Clicked" BorderBrush="White" Foreground="White" Visibility="Collapsed"/>
-                            </StackPanel>
+                            <Border x:Name="SetLock_Avatar" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
+                                <StackPanel Orientation="Vertical">
+                                    <Button x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetLockPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250"/>
+                                    <Button x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetAccountPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250"/>
+                                </StackPanel>
+                            </Border>
+                            <Border x:Name="Return_original" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
+                                <Button x:Name="ReturnOriginalButton" Content="Return the original image" Style="{StaticResource ImageOptionsStyle}" Click="ReturnOriginal_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border x:Name="Import_export" Margin="0" HorizontalAlignment="Center" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
+                                <StackPanel x:Name="Import_Export" Orientation="Vertical" Height="102" Width="180">
+                                    <Button x:Name="importFileButton" Content="Select file to import..." FontFamily="Segoe UI" FontSize="14.667" Click="onImportFileSelectButtonClick" Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Width="250"/>
+                                    <Button x:Name="importButton" Content="Import settings" FontFamily="Segoe UI" FontSize="14.667" Click="onImportButtonClick" Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" Width="250"/>
+                                    <Button x:Name="exportButton" Content="Export settings" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="14.667" Click="OnExportButtonClick" Foreground="#FFF1E9E9" Margin="0" Width="250" Background="{x:Null}"/>
+                                </StackPanel>
+                            </Border>
+                            <Border x:Name="Resize1" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
+                                <StackPanel Margin="0" Orientation="Vertical">
+                                    <ToggleButton x:Name="Resize" Content="Change your image resolution" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ToggleButtonStyle1}" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Checked="Resize_Checked" Unchecked="Resize_Unchecked"/>
+                                    <StackPanel x:Name="ResizePanel" Margin="0,0,0,10" Visibility="Collapsed">
+                                        <Slider x:Name="ResizeSlider" IsThumbToolTipEnabled="False" Width="200" Value="6" ValueChanged="ResizeSlider_Changed" Style="{StaticResource SliderStyle1}" Minimum="1" Maximum="6" VerticalAlignment="Center" Foreground="#7F6AF740" LargeChange="1"/>
+                                        <TextBlock x:Name="NewResolution" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource ItemTextStyle}" VerticalAlignment="Top" Foreground="White" Margin="0,-25,0,0"/>
+                                        <Button x:Name="ApplyResize" Content="Resize" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}" BorderThickness="0,0,0,2" Click="ApplyResize_Clicked" BorderBrush="White" Foreground="White" Visibility="Collapsed"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
-                        <Border x:Name="Import_Export" BorderThickness="0,0,0,2" VerticalAlignment="Top" Padding="0,0,0,5" Margin="0" HorizontalAlignment="Center">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <LinearGradientBrush.RelativeTransform>
-                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
-                                    </LinearGradientBrush.RelativeTransform>
-                                    <GradientStop Color="#FF21FF00"/>
-                                    <GradientStop Color="#FF218900" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
-                            <StackPanel Margin="0" VerticalAlignment="Top">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
-                                    <Button x:Name="importFileButton" Content="Select file to import..." FontFamily="Segoe UI" FontSize="19" Click="onImportFileSelectButtonClick" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Button x:Name="importButton" Content="Import" FontFamily="Segoe UI" FontSize="19" Click="onImportButtonClick" Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0,0,20,0"/>
-                                    <Button x:Name="exportButton" Content="Export" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin" Click="OnExportButtonClick" Foreground="#FFF1E9E9" Margin="0"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
@@ -1714,7 +1771,7 @@
                                 </TransitionCollection>
                             </Image.Transitions>
                         </Image>
-                        <Grid x:Name="ColorizeGrid" Margin="0" RenderTransformOrigin="1,0" Width="320">
+                        <Grid x:Name="ColorizeGrid" Margin="0,20" RenderTransformOrigin="1,0" Width="320">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="85*"/>
                                 <RowDefinition Height="54*"/>
@@ -1996,66 +2053,6 @@
                         <TextBlock TextWrapping="Wrap" Text="*Note that this function only works on black and white images." Margin="0,15" Foreground="#FFC7C7C7" HorizontalAlignment="Center" FontStyle="Italic" FontSize="14" Width="250"/>
                         <Button Content="Equalize" HorizontalAlignment="Center" VerticalAlignment="Stretch" Click="HistogramClicked" Background="#00B6B6B6" Foreground="White"/>
 
-                    </StackPanel>
-                </ScrollViewer>
-            </Popup>
-            <Popup x:Name="PopupExposure" Margin="0,0,380,-0.429" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="3">
-                <Popup.ChildTransitions>
-                    <TransitionCollection>
-                        <PaneThemeTransition/>
-                    </TransitionCollection>
-                </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Exposure" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" Background="#FF323131" VerticalScrollBarVisibility="Hidden" Height="768" HorizontalAlignment="Right">
-                    <ScrollViewer.BorderBrush>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#FF21FF00"/>
-                            <GradientStop Color="#FF215500" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ScrollViewer.BorderBrush>
-                    <StackPanel x:Name="ExposurePanel"  Width="340" Margin="0" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
-                        <StackPanel.Transitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition/>
-                            </TransitionCollection>
-                        </StackPanel.Transitions>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
-                            <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:Name="BackExposure" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
-                                <TextBlock TextWrapping="Wrap" Text="Exposure" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
-                            </StackPanel>
-                        </Border>
-                        <Image x:Name="Logo_Copy3" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
-                            <Image.Transitions>
-                                <TransitionCollection>
-                                    <EntranceThemeTransition/>
-                                </TransitionCollection>
-                            </Image.Transitions>
-                        </Image>
-                        <Image x:Name="ExposureExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25" ValueChanged="OnExposureChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
-                            <Slider.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <LinearGradientBrush.RelativeTransform>
-                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                                    </LinearGradientBrush.RelativeTransform>
-                                    <GradientStop Color="Black"/>
-                                    <GradientStop Color="White" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Slider.Background>
-                        </Slider>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="GAMA" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="132.095,0,131.905,0"/>
-                        <Slider x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
-                        <Slider x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
-                        <Slider x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50" ValueChanged="OnExposureChanged" BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
-                        <StackPanel x:Name="ExposureApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-                            <Button x:Name="ExposureApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnExposureApplyClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
-                            <Button x:Name="ExposureResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnExposureResetClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
-                        </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
