@@ -1249,8 +1249,8 @@
                         </LinearGradientBrush>
                     </Border.BorderBrush>
                     <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Button x:ConnectionId='117' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
-                        <Button x:ConnectionId='118' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin"                           Foreground="#FFF1E9E9" Margin="36,0,0,0"/>
+                        <Button x:ConnectionId='117' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"/>
+                        <Button x:ConnectionId='118' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19"                           Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
                     </StackPanel>
                 </Border>
                 <Border x:Name="Zoom" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5" Visibility="Collapsed">
@@ -1552,6 +1552,66 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
+            <Popup x:Name="PopupExposure" Margin="0,0,380,-0.429" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="3">
+                <Popup.ChildTransitions>
+                    <TransitionCollection>
+                        <PaneThemeTransition/>
+                    </TransitionCollection>
+                </Popup.ChildTransitions>
+                <ScrollViewer x:Name="Exposure" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" Background="#FF323131" VerticalScrollBarVisibility="Hidden" Height="768" HorizontalAlignment="Right">
+                    <ScrollViewer.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF21FF00"/>
+                            <GradientStop Color="#FF215500" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ScrollViewer.BorderBrush>
+                    <StackPanel x:Name="ExposurePanel"  Width="340" Margin="0" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                            <StackPanel Orientation="Horizontal" Margin="0">
+                                <Button x:ConnectionId='83' x:Name="BackExposure" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <TextBlock TextWrapping="Wrap" Text="Exposure" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                            </StackPanel>
+                        </Border>
+                        <Image x:Name="Logo_Copy3" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
+                        <Image x:Name="ExposureExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
+                        <Slider x:ConnectionId='77' x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25"                                  BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
+                            <Slider.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                                    </LinearGradientBrush.RelativeTransform>
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="White" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Slider.Background>
+                        </Slider>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="GAMA" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="132.095,0,131.905,0"/>
+                        <Slider x:ConnectionId='78' x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                                  BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
+                        <Slider x:ConnectionId='79' x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                                  BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
+                        <Slider x:ConnectionId='80' x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                                  BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
+                        <StackPanel x:Name="ExposureApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                            <Button x:ConnectionId='81' x:Name="ExposureApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                            <Button x:ConnectionId='82' x:Name="ExposureResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Popup>
             <Popup x:Name="PopupRotations" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
@@ -1576,7 +1636,7 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:ConnectionId='83' x:Name="BackRotations" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <Button x:ConnectionId='76' x:Name="BackRotations" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Rotations" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
@@ -1590,13 +1650,13 @@
                         <Image x:Name="RotationsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                         <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:ConnectionId='81' x:Name="HFlipButton" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                      Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
+                            <Button x:ConnectionId='74' x:Name="HFlipButton" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                      Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
                                 <StackPanel Width="120" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Source="Assets/Arrows/Arrow-horizontal.png" Width="50" Height="50"/>
                                     <TextBlock TextWrapping="Wrap" Text="Horizontal Flip" HorizontalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
-                            <Button x:ConnectionId='82' x:Name="VFlipButton" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                      Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
+                            <Button x:ConnectionId='75' x:Name="VFlipButton" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                      Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
                                 <StackPanel Width="120" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Source="Assets/Arrows/Arrow-vertical.png" Width="50" Height="50"/>
                                     <TextBlock TextWrapping="Wrap" Text="Vertical Flip" HorizontalAlignment="Center" Foreground="White"/>
@@ -1604,8 +1664,8 @@
                             </Button>
                         </StackPanel>
                         <StackPanel x:Name="RotateApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
-                            <Button x:ConnectionId='79' x:Name="RotateApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="0"/>
-                            <Button x:ConnectionId='80' x:Name="RotateResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="20,0,0,0"/>
+                            <Button x:ConnectionId='72' x:Name="RotateApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="0"/>
+                            <Button x:ConnectionId='73' x:Name="RotateResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="20,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1634,7 +1694,7 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:ConnectionId='78' x:Name="BackOptions" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <Button x:ConnectionId='71' x:Name="BackOptions" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Image options" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="5,0,0,10"/>
                             </StackPanel>
                         </Border>
@@ -1646,36 +1706,33 @@
                             </Image.Transitions>
                         </Image>
                         <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button x:ConnectionId='72' x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}"                            Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
-                            <Button x:ConnectionId='73' x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}"                               Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
-                            <Button x:ConnectionId='74' x:Name="ReturnOriginalButton" Content="Return the original image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}"                                Background="#00000000" BorderBrush="{x:Null}" Foreground="White"/>
-                            <ToggleButton x:ConnectionId='75' x:Name="Resize" Content="Change your image resolution" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ToggleButtonStyle1}" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"                                                      />
-                            <StackPanel x:Name="ResizePanel" Margin="10,0" Visibility="Collapsed">
-                                <Slider x:ConnectionId='76' x:Name="ResizeSlider" IsThumbToolTipEnabled="False" Width="200" Value="6"                                     Style="{StaticResource SliderStyle1}" Minimum="1" Maximum="6" VerticalAlignment="Center" Foreground="#7F6AF740" LargeChange="1"/>
-                                <TextBlock x:Name="NewResolution" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource ItemTextStyle}" VerticalAlignment="Top" Foreground="White" Margin="0,-25,0,0"/>
-                                <Button x:ConnectionId='77' x:Name="ApplyResize" Content="Resize" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}" BorderThickness="0,0,0,2"                             BorderBrush="White" Foreground="White" Visibility="Collapsed"/>
-                            </StackPanel>
+                            <Border x:Name="SetLock_Avatar" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
+                                <StackPanel Orientation="Vertical">
+                                    <Button x:ConnectionId='69' x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}"                            Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250"/>
+                                    <Button x:ConnectionId='70' x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}"                               Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250"/>
+                                </StackPanel>
+                            </Border>
+                            <Border x:Name="Return_original" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
+                                <Button x:ConnectionId='68' x:Name="ReturnOriginalButton" Content="Return the original image" Style="{StaticResource ImageOptionsStyle}"                                Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border x:Name="Import_export" Margin="0" HorizontalAlignment="Center" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
+                                <StackPanel x:Name="Import_Export" Orientation="Vertical" Height="102" Width="180">
+                                    <Button x:ConnectionId='65' x:Name="importFileButton" Content="Select file to import..." FontFamily="Segoe UI" FontSize="14.667"                                       Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Width="250"/>
+                                    <Button x:ConnectionId='66' x:Name="importButton" Content="Import settings" FontFamily="Segoe UI" FontSize="14.667"                             Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" Width="250"/>
+                                    <Button x:ConnectionId='67' x:Name="exportButton" Content="Export settings" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="14.667"                             Foreground="#FFF1E9E9" Margin="0" Width="250" Background="{x:Null}"/>
+                                </StackPanel>
+                            </Border>
+                            <Border x:Name="Resize1" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
+                                <StackPanel Margin="0" Orientation="Vertical">
+                                    <ToggleButton x:ConnectionId='62' x:Name="Resize" Content="Change your image resolution" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ToggleButtonStyle1}" Background="#00000000" BorderBrush="{x:Null}" Foreground="White"                                                      />
+                                    <StackPanel x:Name="ResizePanel" Margin="0,0,0,10" Visibility="Collapsed">
+                                        <Slider x:ConnectionId='63' x:Name="ResizeSlider" IsThumbToolTipEnabled="False" Width="200" Value="6"                                     Style="{StaticResource SliderStyle1}" Minimum="1" Maximum="6" VerticalAlignment="Center" Foreground="#7F6AF740" LargeChange="1"/>
+                                        <TextBlock x:Name="NewResolution" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource ItemTextStyle}" VerticalAlignment="Top" Foreground="White" Margin="0,-25,0,0"/>
+                                        <Button x:ConnectionId='64' x:Name="ApplyResize" Content="Resize" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}" BorderThickness="0,0,0,2"                             BorderBrush="White" Foreground="White" Visibility="Collapsed"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
-                        <Border x:Name="Import_Export" BorderThickness="0,0,0,2" VerticalAlignment="Top" Padding="0,0,0,5" Margin="0" HorizontalAlignment="Center">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <LinearGradientBrush.RelativeTransform>
-                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
-                                    </LinearGradientBrush.RelativeTransform>
-                                    <GradientStop Color="#FF21FF00"/>
-                                    <GradientStop Color="#FF218900" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
-                            <StackPanel Margin="0" VerticalAlignment="Top">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
-                                    <Button x:ConnectionId='71' x:Name="importFileButton" Content="Select file to import..." FontFamily="Segoe UI" FontSize="19"                                       Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Button x:ConnectionId='69' x:Name="importButton" Content="Import" FontFamily="Segoe UI" FontSize="19"                             Background="#FF4D0000" BorderThickness="2" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource BrowseOpenStyle}" FontWeight="Light" Foreground="#FFF1E9E9" Margin="0,0,20,0"/>
-                                    <Button x:ConnectionId='70' x:Name="exportButton" Content="Export" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource BrowseOpenStyle}" FontSize="19" FontWeight="Thin"                             Foreground="#FFF1E9E9" Margin="0"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
@@ -1703,7 +1760,7 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:ConnectionId='68' x:Name="BackColorize" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <Button x:ConnectionId='61' x:Name="BackColorize" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Colorize" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
@@ -1714,7 +1771,7 @@
                                 </TransitionCollection>
                             </Image.Transitions>
                         </Image>
-                        <Grid x:Name="ColorizeGrid" Margin="0" RenderTransformOrigin="1,0" Width="320">
+                        <Grid x:Name="ColorizeGrid" Margin="0,20" RenderTransformOrigin="1,0" Width="320">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="85*"/>
                                 <RowDefinition Height="54*"/>
@@ -1725,34 +1782,34 @@
                                 <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
-                            <ToggleButton x:ConnectionId='60' x:Name="blueColorize" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                  >
+                            <ToggleButton x:ConnectionId='53' x:Name="blueColorize" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                  >
                                 <Rectangle x:Name="blueRect" Fill="#660000FF" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
                             </ToggleButton>
-                            <ToggleButton x:ConnectionId='61' x:Name="redColorize" Grid.Column="1" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                >
+                            <ToggleButton x:ConnectionId='54' x:Name="redColorize" Grid.Column="1" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                >
                                 <Rectangle x:Name="redRect" Fill="#66FF0000" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
                             </ToggleButton>
-                            <ToggleButton x:ConnectionId='62' x:Name="greenColorize" Grid.Column="2" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                    >
+                            <ToggleButton x:ConnectionId='55' x:Name="greenColorize" Grid.Column="2" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                    >
                                 <Rectangle x:Name="greenRect" Fill="#66005A00" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
                             </ToggleButton>
-                            <ToggleButton x:ConnectionId='63' x:Name="yellowColorize" Margin="0" Padding="0" HorizontalAlignment="Center" Grid.Column="3" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                      >
+                            <ToggleButton x:ConnectionId='56' x:Name="yellowColorize" Margin="0" Padding="0" HorizontalAlignment="Center" Grid.Column="3" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                      >
                                 <Rectangle x:Name="yellowRect" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0" Fill="#66FFFF00"/>
                             </ToggleButton>
-                            <ToggleButton x:ConnectionId='64' x:Name="orangeColorize" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Grid.Row="1"                                                                      >
+                            <ToggleButton x:ConnectionId='57' x:Name="orangeColorize" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Grid.Row="1"                                                                      >
                                 <Rectangle x:Name="orangeRect" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0" Fill="#66FF7400"/>
                             </ToggleButton>
-                            <ToggleButton x:ConnectionId='65' x:Name="purpleColorize" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Grid.Row="1" Grid.Column="1"                                                                      >
+                            <ToggleButton x:ConnectionId='58' x:Name="purpleColorize" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Grid.Row="1" Grid.Column="1"                                                                      >
                                 <Rectangle x:Name="purpleRect" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0" Fill="#66FF00FF"/>
                             </ToggleButton>
-                            <ToggleButton x:ConnectionId='66' x:Name="cyanColorize" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Grid.Row="1" Grid.Column="2"                                                                  >
+                            <ToggleButton x:ConnectionId='59' x:Name="cyanColorize" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF" Grid.Row="1" Grid.Column="2"                                                                  >
                                 <Rectangle x:Name="cyanRect" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0" Fill="#6600FFFF"/>
                             </ToggleButton>
-                            <ToggleButton x:ConnectionId='67' x:Name="limeColorize" Grid.Column="3" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                   Grid.Row="1">
+                            <ToggleButton x:ConnectionId='60' x:Name="limeColorize" Grid.Column="3" Margin="0" Padding="0" HorizontalAlignment="Center" BorderThickness="2" Style="{StaticResource ToggleButtonStyleColorize}" BorderBrush="#33FFFFFF"                                                                   Grid.Row="1">
                                 <Rectangle x:Name="limeRect" Fill="#6619FF19" Stroke="Black" Height="70" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="0"/>
                             </ToggleButton>
                         </Grid>
                         <StackPanel x:Name="ColorizeApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0" Visibility="Collapsed">
-                            <Button x:ConnectionId='58' x:Name="ColorizeApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
-                            <Button x:ConnectionId='59' x:Name="ColorizeResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
+                            <Button x:ConnectionId='51' x:Name="ColorizeApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                            <Button x:ConnectionId='52' x:Name="ColorizeResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
                         </StackPanel>
 
                     </StackPanel>
@@ -1782,7 +1839,7 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:ConnectionId='57' x:Name="BackFrames" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <Button x:ConnectionId='50' x:Name="BackFrames" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Frames" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
@@ -1805,52 +1862,52 @@
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
                                     <ListViewItem IsSelected="True">
-                                        <Rectangle x:ConnectionId='56' x:Name="BlackRect" Fill="Black" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='49' x:Name="BlackRect" Fill="Black" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='55' x:Name="GrayRect" Fill="#808080" Stroke="Black" Height="55" Width="55"                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='48' x:Name="GrayRect" Fill="#808080" Stroke="Black" Height="55" Width="55"                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='54' x:Name="SilverRect" Fill="#C0C0C0" Stroke="Black" Height="55" Width="55"                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='47' x:Name="SilverRect" Fill="#C0C0C0" Stroke="Black" Height="55" Width="55"                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='53' x:Name="WhiteRect" Fill="White" Stroke="Black" Height="55" Width="55"                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='46' x:Name="WhiteRect" Fill="White" Stroke="Black" Height="55" Width="55"                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='52' x:Name="NavyRect" Fill="#000080" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='45' x:Name="NavyRect" Fill="#000080" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='51' x:Name="BlueRect" Fill="#0000FF" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='44' x:Name="BlueRect" Fill="#0000FF" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='50' x:Name="TealRect" Fill="#008080" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='43' x:Name="TealRect" Fill="#008080" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='49' x:Name="CyanRect" Fill="#00FFFF " Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='42' x:Name="CyanRect" Fill="#00FFFF " Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='48' x:Name="MaroonRect" Fill="#800000" Stroke="Black" Height="55" Width="55"                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='41' x:Name="MaroonRect" Fill="#800000" Stroke="Black" Height="55" Width="55"                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='47' x:Name="PurpleRect" Fill="#800080" Stroke="Black" Height="55" Width="55"                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='40' x:Name="PurpleRect" Fill="#800080" Stroke="Black" Height="55" Width="55"                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='46' x:Name="MagentaRect" Fill="#FF00FF" Stroke="Black" Height="55" Width="55"                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='39' x:Name="MagentaRect" Fill="#FF00FF" Stroke="Black" Height="55" Width="55"                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='45' x:Name="RedRect" Fill="#FF0000" Stroke="Black" Height="55" Width="55"                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='38' x:Name="RedRect" Fill="#FF0000" Stroke="Black" Height="55" Width="55"                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='44' x:Name="GreenRect" Fill="#008000" Stroke="Black" Height="55" Width="55"                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='37' x:Name="GreenRect" Fill="#008000" Stroke="Black" Height="55" Width="55"                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='43' x:Name="LimeRect" Fill="Lime" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='36' x:Name="LimeRect" Fill="Lime" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='42' x:Name="OliveRect" Fill="Olive" Stroke="Black" Height="55" Width="55"                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='35' x:Name="OliveRect" Fill="Olive" Stroke="Black" Height="55" Width="55"                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>
-                                        <Rectangle x:ConnectionId='41' x:Name="YellowRect" Fill="Yellow" Stroke="Black" Height="55" Width="55"                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Rectangle x:ConnectionId='34' x:Name="YellowRect" Fill="Yellow" Stroke="Black" Height="55" Width="55"                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                 </ListView>
 
@@ -1865,8 +1922,8 @@
                         </StackPanel>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Frames" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="20" Foreground="White" />
                         <StackPanel x:Name="StandardFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
-                            <Border x:ConnectionId='35' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
-                                <Button x:ConnectionId='40' x:Name="StandardButton" Content="Sqr" RenderTransformOrigin="0.5,0.5"                         Foreground="Black" BorderThickness="2" Background="#7FFFFFFF" Padding="3" BorderBrush="#FF0CFF00" Height="65" Width="75" HorizontalAlignment="Center">
+                            <Border x:ConnectionId='28' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
+                                <Button x:ConnectionId='33' x:Name="StandardButton" Content="Sqr" RenderTransformOrigin="0.5,0.5"                         Foreground="Black" BorderThickness="2" Background="#7FFFFFFF" Padding="3" BorderBrush="#FF0CFF00" Height="65" Width="75" HorizontalAlignment="Center">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="Assets/FramesPictures/Frames-Square.jpg"/>
@@ -1874,8 +1931,8 @@
                                     </Button.Template>
                                 </Button>
                             </Border>
-                            <Border x:ConnectionId='36' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
-                                <Button x:ConnectionId='39' x:Name="StandardUpDownButton" Content="Trim 1" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="Black" Height="65" BorderThickness="2" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3" BorderBrush="#FF0CFF00">
+                            <Border x:ConnectionId='29' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
+                                <Button x:ConnectionId='32' x:Name="StandardUpDownButton" Content="Trim 1" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="Black" Height="65" BorderThickness="2" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3" BorderBrush="#FF0CFF00">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="Assets/FramesPictures/Frames-topandbottom.jpg"/>
@@ -1883,8 +1940,8 @@
                                     </Button.Template>
                                 </Button>
                             </Border>
-                            <Border x:ConnectionId='37' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
-                                <Button x:ConnectionId='38' x:Name="StandradLeftRightButton" Content="Trim 2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                                  Foreground="Black" Height="65" BorderThickness="2" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3" BorderBrush="#FF0CFF00">
+                            <Border x:ConnectionId='30' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
+                                <Button x:ConnectionId='31' x:Name="StandradLeftRightButton" Content="Trim 2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                                  Foreground="Black" Height="65" BorderThickness="2" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3" BorderBrush="#FF0CFF00">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="Assets/FramesPictures/Frames-leftandright.jpg"/>
@@ -1894,8 +1951,8 @@
                             </Border>
                         </StackPanel>
                         <StackPanel x:Name="DarknessFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
-                            <Border x:ConnectionId='29' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
-                                <Button x:ConnectionId='34' x:Name="DarknessButton" Content="Sqr Darkness" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                         Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
+                            <Border x:ConnectionId='22' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
+                                <Button x:ConnectionId='27' x:Name="DarknessButton" Content="Sqr Darkness" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                         Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="Assets/FramesPictures/Frames-transparent.jpg"/>
@@ -1903,8 +1960,8 @@
                                     </Button.Template>
                                 </Button>
                             </Border>
-                            <Border x:ConnectionId='30' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
-                                <Button x:ConnectionId='33' x:Name="DarknessTopBottomButton" Content="Dark Trim 1" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                                    Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
+                            <Border x:ConnectionId='23' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
+                                <Button x:ConnectionId='26' x:Name="DarknessTopBottomButton" Content="Dark Trim 1" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                                    Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="Assets/FramesPictures/Frames-transparent-topbottom.jpg"/>
@@ -1912,8 +1969,8 @@
                                     </Button.Template>
                                 </Button>
                             </Border>
-                            <Border x:ConnectionId='31' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
-                                <Button x:ConnectionId='32' x:Name="DarknessLeftRightButton" Content="Dark Trim 2" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                                  Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
+                            <Border x:ConnectionId='24' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
+                                <Button x:ConnectionId='25' x:Name="DarknessLeftRightButton" Content="Dark Trim 2" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                                  Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="Assets/FramesPictures/Frames-transparent-leftright.jpg"/>
@@ -1923,8 +1980,8 @@
                             </Border>
                         </StackPanel>
                         <StackPanel x:Name="SmoothDarknessFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
-                            <Border x:ConnectionId='23' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
-                                <Button x:ConnectionId='28' x:Name="StandardSmoothAngleButton" Content="Sqr Soft" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
+                            <Border x:ConnectionId='16' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
+                                <Button x:ConnectionId='21' x:Name="StandardSmoothAngleButton" Content="Sqr Soft" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="Assets/FramesPictures/Frames-squaresoft.jpg"/>
@@ -1932,8 +1989,8 @@
                                     </Button.Template>
                                 </Button>
                             </Border>
-                            <Border x:ConnectionId='24' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
-                                <Button x:ConnectionId='27' x:Name="SoftAngleButton" Content="Soft Angle" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                      Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
+                            <Border x:ConnectionId='17' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
+                                <Button x:ConnectionId='20' x:Name="SoftAngleButton" Content="Soft Angle" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                      Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="Assets/FramesPictures/Frames-softangle.jpg"/>
@@ -1941,8 +1998,8 @@
                                     </Button.Template>
                                 </Button>
                             </Border>
-                            <Border x:ConnectionId='25' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
-                                <Button x:ConnectionId='26' x:Name="SmoothDarknessButton" Content="Smooth Dark" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
+                            <Border x:ConnectionId='18' HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000"                                                                                        >
+                                <Button x:ConnectionId='19' x:Name="SmoothDarknessButton" Content="Smooth Dark" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="Black" Height="65" BorderThickness="2" BorderBrush="#FF0CFF00" Background="#7FFFFFFF" Margin="3,0" Width="75" Padding="3">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="Assets/FramesPictures/Frames-darkness.jpg"/>
@@ -1952,8 +2009,8 @@
                             </Border>
                         </StackPanel>
                         <StackPanel x:Name="FramesApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0" Visibility="Collapsed">
-                            <Button x:ConnectionId='21' x:Name="ApplyButton" Content="Apply" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
-                            <Button x:ConnectionId='22' x:Name="ResetButton" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                            <Button x:ConnectionId='14' x:Name="ApplyButton" Content="Apply" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                            <Button x:ConnectionId='15' x:Name="ResetButton" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1982,7 +2039,7 @@
                         </StackPanel.Transitions>
                         <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
                             <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:ConnectionId='20' x:Name="BackHistogram" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <Button x:ConnectionId='13' x:Name="BackHistogram" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                                 <TextBlock TextWrapping="Wrap" Text="Histogram" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
                             </StackPanel>
                         </Border>
@@ -1994,68 +2051,8 @@
                             </Image.Transitions>
                         </Image>                   
                         <TextBlock TextWrapping="Wrap" Text="*Note that this function only works on black and white images." Margin="0,15" Foreground="#FFC7C7C7" HorizontalAlignment="Center" FontStyle="Italic" FontSize="14" Width="250"/>
-                        <Button x:ConnectionId='19' Content="Equalize" HorizontalAlignment="Center" VerticalAlignment="Stretch"                          Background="#00B6B6B6" Foreground="White"/>
+                        <Button x:ConnectionId='12' Content="Equalize" HorizontalAlignment="Center" VerticalAlignment="Stretch"                          Background="#00B6B6B6" Foreground="White"/>
 
-                    </StackPanel>
-                </ScrollViewer>
-            </Popup>
-            <Popup x:Name="PopupExposure" Margin="0,0,380,-0.429" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="3">
-                <Popup.ChildTransitions>
-                    <TransitionCollection>
-                        <PaneThemeTransition/>
-                    </TransitionCollection>
-                </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Exposure" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" Background="#FF323131" VerticalScrollBarVisibility="Hidden" Height="768" HorizontalAlignment="Right">
-                    <ScrollViewer.BorderBrush>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#FF21FF00"/>
-                            <GradientStop Color="#FF215500" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ScrollViewer.BorderBrush>
-                    <StackPanel x:Name="ExposurePanel"  Width="340" Margin="0" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
-                        <StackPanel.Transitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition/>
-                            </TransitionCollection>
-                        </StackPanel.Transitions>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
-                            <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:ConnectionId='18' x:Name="BackExposure" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
-                                <TextBlock TextWrapping="Wrap" Text="Exposure" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
-                            </StackPanel>
-                        </Border>
-                        <Image x:Name="Logo_Copy3" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
-                            <Image.Transitions>
-                                <TransitionCollection>
-                                    <EntranceThemeTransition/>
-                                </TransitionCollection>
-                            </Image.Transitions>
-                        </Image>
-                        <Image x:Name="ExposureExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="BRIGHTNESS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:ConnectionId='12' x:Name ="brightSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-25" Maximum="25"                                  BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
-                            <Slider.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <LinearGradientBrush.RelativeTransform>
-                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                                    </LinearGradientBrush.RelativeTransform>
-                                    <GradientStop Color="Black"/>
-                                    <GradientStop Color="White" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Slider.Background>
-                        </Slider>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="GAMA" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="132.095,0,131.905,0"/>
-                        <Slider x:ConnectionId='13' x:Name ="BlueGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                                  BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}"/>
-                        <Slider x:ConnectionId='14' x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                                  BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
-                        <Slider x:ConnectionId='15' x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                                  BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
-                        <StackPanel x:Name="ExposureApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-                            <Button x:ConnectionId='16' x:Name="ExposureApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
-                            <Button x:ConnectionId='17' x:Name="ExposureResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
-                        </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </Popup>

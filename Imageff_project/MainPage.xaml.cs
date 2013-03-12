@@ -343,10 +343,8 @@ namespace RemedyPic
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
             await uneditedStream.ReadAsync(uneditedImage.srcPixels, 0, uneditedImage.srcPixels.Length);
 
-            // Set the slider values of Exposure Gamma B G R
-            BlueGammaSlider.Value = 10;
-            GreenGammaSlider.Value = 10;
-            RedGammaSlider.Value = 10;
+            // Reset all sliders
+            ResetAllSliders();
 
             // Set the small WriteableBitmap objects to the three XAML Image objects.
             setElements(ColorsExamplePicture, exampleBitmap);
@@ -388,6 +386,54 @@ namespace RemedyPic
             // Show the interface.
             showInterface();
 
+
+        }
+
+        private void ResetAllSliders()
+        {
+            appliedFilters = null; appliedColors = null; appliedRotations = null; appliedFrame = null; appliedFrameColor = null;
+            
+
+            // Reset data for Filter menu
+            appliedFilters = null;
+
+            // Reset the slider values of Color menu
+            BlueColorSlider.Value = 0;
+            GreenColorSlider.Value = 0;
+            RedColorSlider.Value = 0;
+
+            BlueContrastSlider.Value = 0;
+            GreenContrastSlider.Value = 0;
+            RedContrastSlider.Value = 0;
+
+            // Reset the slider values of Exposure Menu
+            brightSlider.Value = 0;
+
+            BlueGammaSlider.Value = 10;
+            GreenGammaSlider.Value = 10;
+            RedGammaSlider.Value = 10;
+
+            // Reset the data for Rotate menu
+            appliedRotations = null;
+
+            // Reset the data for Colorize menu
+            deselectColorizeGridItems();
+            redForColorize = false;
+            greenForColorize = false;
+            blueForColorize = false;
+            yellowForColorize = false;
+            orangeForColorize = false; 
+            purpleForColorize = false; 
+            cyanForColorize = false;
+            limeForColorize = false;
+
+            // Reset the data for Frame menu
+            appliedFrameColor = "black";
+            FrameWidthPercent.Value = 1;
+            appliedFrame = null;
+            
+
+            
 
         }
 
@@ -1052,7 +1098,7 @@ namespace RemedyPic
             effectsApplied.Add("Filter = " + appliedFilters);
             ApplyFilter(appliedFilters);
             FilterApplyReset.Visibility = Visibility.Collapsed;
-            SelectFilters.IsChecked = false;            
+            SelectFilters.IsChecked = false;
             setFilterBitmaps(false);
         }
 
@@ -1148,7 +1194,7 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
             ColorApplyReset.Visibility = Visibility.Collapsed;
-            SelectColors.IsChecked = false;            
+            SelectColors.IsChecked = false;
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             imageOriginal.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
             setStream(bitmapStream, bitmapImage, imageOriginal);
@@ -1166,20 +1212,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = true;
             SelectRotations.IsChecked = false;
             effectsApplied.Add("Flip = " + appliedRotations);
-            switch (appliedRotations)
-            {
-                case "hflip":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.HFlip();
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-
-                    break;
-                case "vflip":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.VFlip();
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-            }
+            ApplyRotate(appliedRotations);
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps(false);
@@ -1187,18 +1220,42 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
+        private void ApplyRotate(string rotation)
+        {
+            switch (rotation)
+            {
+                case "hflip":
+                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    imageOriginal.HFlip();
+                    setStream(bitmapStream, bitmapImage, imageOriginal);
+                    break;
+                case "vflip":
+                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                    imageOriginal.VFlip();
+                    setStream(bitmapStream, bitmapImage, imageOriginal);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         // Event for apply button on Colorize popup. Sets the image with the applied color
         private void OnColorizeApplyClick(object sender, RoutedEventArgs e)
         {
             doColorize(exampleStream, exampleBitmap, image);
+            ApplyColorize();
+            setFilterBitmaps(false);
+            ColorizeApplyReset.Visibility = Visibility.Visible;
+            SelectColorize.IsChecked = false;
+        }
+
+        private void ApplyColorize()
+        {
             ImageLoadingRing.IsActive = true;
             Colorize_SetColorizeEffect();
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps(false);
-            SelectColorize.IsChecked = false;
             ImageLoadingRing.IsActive = false;
-            ColorizeApplyReset.Visibility = Visibility.Visible;
         }
 
         private void Colorize_SetColorizeEffect()
@@ -1206,7 +1263,7 @@ namespace RemedyPic
             string colorizeColors = "";
             Colorize_GetColorizeColors(ref colorizeColors);
             effectsApplied.Add("Colorize = " + colorizeColors);
-            
+
         }
 
         private void Colorize_GetColorizeColors(ref string colorizeColors)
@@ -1259,7 +1316,7 @@ namespace RemedyPic
             {
                 colorizeColors += ",";
             }
-                
+
         }
         // Event for apply button on Exposure popup. Sets the image with the applied exposure
         private void OnExposureApplyClick(object sender, RoutedEventArgs e)
@@ -1357,7 +1414,12 @@ namespace RemedyPic
         private void OnColorizeResetClick(object sender, RoutedEventArgs e)
         {
             deselectColorizeGridItems();
-            RestoreOriginalBitmap();
+            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
+                        orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
+                         orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = false;
+            //RestoreOriginalBitmap();
         }
 
         private void OnExposureResetClick(object sender, RoutedEventArgs e)
@@ -3021,7 +3083,7 @@ namespace RemedyPic
         {
             greenForColorize = true;
             doColorize(bitmapStream, bitmapImage, imageOriginal);
-            greenRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 90, 0));
+            greenRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 120, 0));
         }
         private void greenColorize_Unchecked(object sender, RoutedEventArgs e)
         {
@@ -3117,6 +3179,7 @@ namespace RemedyPic
             borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
         }
 
+        #region Export/Import
         private void OnExportButtonClick(object sender, RoutedEventArgs e)
         {
             configFile.Export(effectsApplied);
@@ -3124,52 +3187,115 @@ namespace RemedyPic
 
         private void onImportButtonClick(object sender, RoutedEventArgs e)
         {
-            string[] temp = new string[10];
             for (int i = 0; i < configFile.effects.Count; i += 2)
             {
-                switch (configFile.effects[i])
-                {
-                    case "filter":
-                        string aa = configFile.effects[i + 1];
-                        ApplyFilter(configFile.effects[i + 1]);
-                        break;
-                    case "color":
-                        temp = configFile.effects[i + 1].Split(',');
-                        BlueColorSlider.Value = Convert.ToDouble(temp[0]);
-                        GreenColorSlider.Value = Convert.ToDouble(temp[1]);
-                        RedColorSlider.Value = Convert.ToDouble(temp[2]);
-                        ApplyColor();
-                        break;
-                    case "contrast":
-                        temp = configFile.effects[i + 1].Split(',');
-                        BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
-                        GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
-                        RedContrastSlider.Value = Convert.ToDouble(temp[2]);
-                        ApplyColor();
-                        break;
-                    case "exposure":
-                        temp = configFile.effects[i + 1].Split(',');
-                        brightSlider.Value = Convert.ToDouble(temp[0]);
-                        BlueGammaSlider.Value = Convert.ToDouble(temp[1]);
-                        GreenGammaSlider.Value = Convert.ToDouble(temp[2]);
-                        RedGammaSlider.Value = Convert.ToDouble(temp[3]);
-                        if (brightSlider.Value < 0)
-                            ApplyExposure("gammadarken");
-                        else
-                            ApplyExposure("gammalighten");
-                        break;
-                    default: break;
-                }
-
+                checkEffect(i);
             }
             setFilterBitmaps(false);
+        }
+
+        private void checkEffect(int i)
+        {
+            string[] temp = new string[10];
+            switch (configFile.effects[i])
+            {
+                case "filter":
+                    ApplyFilter(configFile.effects[i + 1]);
+                    break;
+
+                case "color":
+                    temp = configFile.effects[i + 1].Split(',');
+                    BlueColorSlider.Value = Convert.ToDouble(temp[0]);
+                    GreenColorSlider.Value = Convert.ToDouble(temp[1]);
+                    RedColorSlider.Value = Convert.ToDouble(temp[2]);
+                    ApplyColor();
+                    break;
+
+                case "contrast":
+                    temp = configFile.effects[i + 1].Split(',');
+                    BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
+                    GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
+                    RedContrastSlider.Value = Convert.ToDouble(temp[2]);
+                    ApplyColor();
+                    break;
+
+                case "exposure":
+                    temp = configFile.effects[i + 1].Split(',');
+                    brightSlider.Value = Convert.ToDouble(temp[0]);
+                    BlueGammaSlider.Value = Convert.ToDouble(temp[1]);
+                    GreenGammaSlider.Value = Convert.ToDouble(temp[2]);
+                    RedGammaSlider.Value = Convert.ToDouble(temp[3]);
+                    if (brightSlider.Value < 0)
+                        ApplyExposure("gammadarken");
+                    else
+                        ApplyExposure("gammalighten");
+                    break;
+
+                case "flip":
+                    temp = configFile.effects[i + 1].Split(',');
+                    ApplyRotate(temp[0]);
+                    break;
+
+                case "colorize":
+                    temp = configFile.effects[i + 1].Split(',');
+                    for (int k = 0; k < temp.Length; k++)
+                    {
+                        checkColorizeColor(temp[k]);
+                    }
+                    doColorize(bitmapStream, bitmapImage, imageOriginal);
+                    ApplyColorize();
+                    break;
+
+                default: break;
+            }
+        }
+
+        private void checkColorizeColor(string color)
+        {
+            switch (color)
+            {
+                case "red":
+                    redForColorize = true;
+                    redRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+                    break;
+                case "blue":
+                    blueForColorize = true;
+                    blueRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255));
+                    break;
+                case "green":
+                    greenForColorize = true;
+                    greenRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 120, 0));
+                    break;
+                case "lime":
+                    limeForColorize = true;
+                    limeRect.Fill = new SolidColorBrush(Color.FromArgb(255, 25, 255, 25));
+                    break;
+                case "yellow":
+                    yellowForColorize = true;
+                    yellowRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
+                    break;
+                case "cyan":
+                    cyanForColorize = true;
+                    cyanRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 255, 255));
+                    break;
+                case "orange":
+                    orangeForColorize = true;
+                    orangeRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 116, 0));
+                    break;
+                case "purple":
+                    purpleForColorize = true;
+                    purpleRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void onImportFileSelectButtonClick(object sender, RoutedEventArgs e)
         {
             configFile.Import();
         }
-
+        #endregion
     }
     #endregion
 }

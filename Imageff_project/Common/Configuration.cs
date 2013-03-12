@@ -106,27 +106,12 @@ namespace RemedyPic.Common
 
         private void apply(string effect, string value)
         {
-            switch (effect)
-            {
-                case "filter":
-                    effects.Add("filter");
-                    effects.Add(value);
-                    break;
-                case "color":
-                    effects.Add("color");
-                    effects.Add(value);
-                    break;
-                case "contrast":
-                    effects.Add("contrast");
-                    effects.Add(value);
-                    break;
-                case "exposure":
-                    effects.Add("exposure");
-                    effects.Add(value);
-                    break;
-                default:
-                    break;
-            }
+            if (effect != "filter" && effect != "color" && effect != "contrast" && effect != "exposure"
+                && effect != "colorize" && effect != "flip")
+                return;
+
+            effects.Add(effect);
+            effects.Add(value);
         }
 
         #endregion
