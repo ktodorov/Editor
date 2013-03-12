@@ -48,8 +48,9 @@ namespace RemedyPic
         StorageFile file;
 
         // String variables that hold the current applied changes to the image.
+        // Frame Color is set black by default.
         private string appliedFilters = null, appliedColors = null,
-                           appliedRotations = null, appliedFrame = null, appliedFrameColor = null;
+                           appliedRotations = null, appliedFrame = null, appliedFrameColor = "black";
 
         // We create two WriteableBitmap variables.
         // One for the original image and one for the small bitmaps.
@@ -1543,6 +1544,8 @@ namespace RemedyPic
 
         #region Frames
         // The events are called when a frame button is clicked.
+
+
         // Set standard frame to the image
         private void OnStandardClick(object sender, RoutedEventArgs e)
         {
@@ -1551,14 +1554,19 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 appliedFrame = "standard";
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                ApplyStandardFrame((int)FrameWidthPercent.Value);
             }
+        }
+
+        private void ApplyStandardFrame(int thick)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+            imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), thick);
+            imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), thick);
+            imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), thick);
+            imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), thick);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         // Set standard frame (only UP or DOWN) to the image
@@ -1569,12 +1577,17 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 appliedFrame = "standard up down";
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                ApplyStandartUpDownFrame((int)FrameWidthPercent.Value);
             }
+        }
+
+        private void ApplyStandartUpDownFrame(int thick)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+            imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), thick);
+            imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), thick);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         // Set standard frame (only LEFT or RIGHT) to the image
@@ -1585,12 +1598,17 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 appliedFrame = "standard left right";
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                ApplyStandardLeftRightFrame((int)FrameWidthPercent.Value);
             }
+        }
+
+        private void ApplyStandardLeftRightFrame(int thick)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+            imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), thick);
+            imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), thick);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         // Set darkness frame to the image
@@ -1601,14 +1619,19 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 appliedFrame = "darkness";
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_DarknessLeftSide((int)FrameWidthPercent.Value);
-                imageOriginal.Frames_DarknessTopSide((int)FrameWidthPercent.Value);
-                imageOriginal.Frames_DarknessRightSide((int)FrameWidthPercent.Value);
-                imageOriginal.Frames_DarknessBottomSide((int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                ApplyDarknessFrame((int)FrameWidthPercent.Value);
             }
+        }
+
+        private void ApplyDarknessFrame(int thick)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+            imageOriginal.Frames_DarknessLeftSide(thick);
+            imageOriginal.Frames_DarknessTopSide(thick);
+            imageOriginal.Frames_DarknessRightSide(thick);
+            imageOriginal.Frames_DarknessBottomSide(thick);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         // Set darkness frame (only left or right) to the image
@@ -1619,12 +1642,17 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 appliedFrame = "darkness left right";
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_DarknessLeftSide((int)FrameWidthPercent.Value);
-                imageOriginal.Frames_DarknessRightSide((int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                ApplyDarknessLeftRightFrame((int)FrameWidthPercent.Value);
             }
+        }
+
+        private void ApplyDarknessLeftRightFrame(int thick)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+            imageOriginal.Frames_DarknessLeftSide(thick);
+            imageOriginal.Frames_DarknessRightSide(thick);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         // Set darkness frame (only up or down) to the image
@@ -1635,12 +1663,17 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 appliedFrame = "darkness up down";
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_DarknessTopSide((int)FrameWidthPercent.Value);
-                imageOriginal.Frames_DarknessBottomSide((int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                ApplyDarknessUpDownFrame((int)FrameWidthPercent.Value);
             }
+        }
+
+        private void ApplyDarknessUpDownFrame(int thick)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+            imageOriginal.Frames_DarknessTopSide(thick);
+            imageOriginal.Frames_DarknessBottomSide(thick);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         // Set smooth darkness frame to the image
@@ -1651,11 +1684,16 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 appliedFrame = "smooth darkness";
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_SmoothDarkness((int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                ApplySmoothDarknessFrame((int)FrameWidthPercent.Value);
             }
+        }
+
+        private void ApplySmoothDarknessFrame(int thick)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+            imageOriginal.Frames_SmoothDarkness(thick);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         // Set standard frame with smooth angles to the image
@@ -1666,15 +1704,20 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 appliedFrame = "standard angle";
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                imageOriginal.Frames_StandartAngle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                ApplyStandardAngleFrame((int)FrameWidthPercent.Value);
             }
+        }
+
+        private void ApplyStandardAngleFrame(int thick)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+            imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), thick);
+            imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), thick);
+            imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), thick);
+            imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), thick);
+            imageOriginal.Frames_StandartAngle(Frame_GetFrameColor(), thick);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         // Set smooth angles frame to the image
@@ -1685,11 +1728,16 @@ namespace RemedyPic
             if (pictureIsLoaded)
             {
                 appliedFrame = "angle";
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                imageOriginal.Frames_Angle(Frame_GetFrameColor(), (int)FrameWidthPercent.Value);
-                setStream(bitmapStream, bitmapImage, imageOriginal);
+                ApplyAngleFrame((int)FrameWidthPercent.Value);
             }
+        }
+
+        private void ApplyAngleFrame(int thick)
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+            imageOriginal.Frames_Angle(Frame_GetFrameColor(), thick);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         // Apply the frame on the image
@@ -3151,13 +3199,14 @@ namespace RemedyPic
         private void checkEffect(int i)
         {
             string[] temp = new string[10];
+            string a = configFile.effects[i];
             switch (configFile.effects[i])
             {
-                case "filter":
+                case "Filter":
                     ApplyFilter(configFile.effects[i + 1]);
                     break;
 
-                case "color":
+                case "Color":
                     temp = configFile.effects[i + 1].Split(',');
                     BlueColorSlider.Value = Convert.ToDouble(temp[0]);
                     GreenColorSlider.Value = Convert.ToDouble(temp[1]);
@@ -3165,7 +3214,7 @@ namespace RemedyPic
                     ApplyColor();
                     break;
 
-                case "contrast":
+                case "Contrast":
                     temp = configFile.effects[i + 1].Split(',');
                     BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
                     GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
@@ -3173,7 +3222,7 @@ namespace RemedyPic
                     ApplyColor();
                     break;
 
-                case "exposure":
+                case "Exposure":
                     temp = configFile.effects[i + 1].Split(',');
                     brightSlider.Value = Convert.ToDouble(temp[0]);
                     BlueGammaSlider.Value = Convert.ToDouble(temp[1]);
@@ -3185,12 +3234,12 @@ namespace RemedyPic
                         ApplyExposure("gammalighten");
                     break;
 
-                case "flip":
+                case "Flip":
                     temp = configFile.effects[i + 1].Split(',');
                     ApplyRotate(temp[0]);
                     break;
 
-                case "colorize":
+                case "Colorize":
                     temp = configFile.effects[i + 1].Split(',');
                     for (int k = 0; k < temp.Length; k++)
                     {
@@ -3198,6 +3247,11 @@ namespace RemedyPic
                     }
                     doColorize(bitmapStream, bitmapImage, imageOriginal);
                     ApplyColorize();
+                    break;
+                case "Frame":
+                    temp = configFile.effects[i + 1].Split(',');
+                    checkAndApplyFrames(temp);
+                    imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
                     break;
 
                 default: break;
@@ -3239,6 +3293,46 @@ namespace RemedyPic
                 case "purple":
                     purpleForColorize = true;
                     purpleRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void checkAndApplyFrames(string[] frameStats)
+        {
+            int thickPercent = Convert.ToInt32(frameStats[0]);
+            appliedFrameColor = frameStats[1];
+            string frameType = frameStats[2];
+
+            switch (frameType)
+            {
+                case "standard":
+                    ApplyStandardFrame(thickPercent);
+                    break;
+                case "standard up down":
+                    ApplyStandartUpDownFrame(thickPercent);
+                    break;
+                case "standard left right":
+                    ApplyStandardLeftRightFrame(thickPercent);
+                    break;
+                case "darkness":
+                    ApplyDarknessFrame(thickPercent);
+                    break;
+                case "darkness left right":
+                    ApplyDarknessLeftRightFrame(thickPercent);
+                    break;
+                case "darkness up down":
+                    ApplyDarknessUpDownFrame(thickPercent);
+                    break;
+                case "smooth darkness":
+                    ApplySmoothDarknessFrame(thickPercent);
+                    break;
+                case "standard angle":
+                    ApplyStandardAngleFrame(thickPercent);
+                    break;
+                case "angle":
+                    ApplyAngleFrame(thickPercent);
                     break;
                 default:
                     break;
