@@ -1166,7 +1166,7 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = true;
             SelectRotations.IsChecked = false;
             effectsApplied.Add("Flip = " + appliedRotations);
-
+            ApplyRotate(appliedRotations);
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps(false);
