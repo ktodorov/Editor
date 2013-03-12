@@ -5,7 +5,7 @@
     <WindowsUser>Tony</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>4A502028D431A70658AB89AD89B8D2C403C87CDA8F854E72AC66F65666D8D454</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>42835573FD839074BB73FD728E4A0F7CB00BBE2F1F0EFB8767D532F5BA9EC043</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>DF4D1F28-642E-40AC-AB55-7182B8AD0385_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>DF4D1F28-642E-40AC-AB55-7182B8AD0385_pexwghfzd4yhp!App</RegisteredUserModeAppID>
     <RegisteredPackageID>DF4D1F28-642E-40AC-AB55-7182B8AD0385</RegisteredPackageID>
@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-06T12:41:21.381</Modified>
+      <Modified>2013-03-08T19:51:40.355</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-03-07T16:57:53.499</Modified>
+      <Modified>2013-03-08T19:51:40.200</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-03-07T16:57:53.480</Modified>
+      <Modified>2013-03-08T19:51:40.181</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
