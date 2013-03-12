@@ -1861,7 +1861,7 @@
                                             <WrapGrid Orientation="Horizontal" MaximumRowsOrColumns="6"/>
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
-                                    <ListViewItem IsSelected="True">
+                                    <ListViewItem x:Name="BlackFrameColor" IsSelected="True">
                                         <Rectangle x:ConnectionId='49' x:Name="BlackRect" Fill="Black" Stroke="Black" Height="55" Width="55"                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </ListViewItem>
                                     <ListViewItem>

@@ -391,13 +391,26 @@ namespace RemedyPic
 
         private void ResetAllSliders()
         {
-            appliedFilters = null; appliedColors = null; appliedRotations = null; appliedFrame = null; appliedFrameColor = null;
-            
+            ResetFilterMenuData();
+            ResetColorMenuData();
+            ResetExposureMenuData();
+            ResetRotateMenuData();
+            ResetColorizeMenuData();
+            ResetFrameMenuData();
+        }
 
-            // Reset data for Filter menu
-            appliedFilters = null;
+        // Reset data of Filter menu
+        private void ResetFilterMenuData()
+        {
+            appliedFilters = null;  
+            deselectFilters();                  
+        }
 
-            // Reset the slider values of Color menu
+        // Reset the data of Color menu
+        private void ResetColorMenuData()
+        {
+            appliedColors = null;
+
             BlueColorSlider.Value = 0;
             GreenColorSlider.Value = 0;
             RedColorSlider.Value = 0;
@@ -405,38 +418,44 @@ namespace RemedyPic
             BlueContrastSlider.Value = 0;
             GreenContrastSlider.Value = 0;
             RedContrastSlider.Value = 0;
+        }
 
-            // Reset the slider values of Exposure Menu
+        // Reset the slider values of Exposure Menu
+        private void ResetExposureMenuData()
+        {            
             brightSlider.Value = 0;
 
             BlueGammaSlider.Value = 10;
             GreenGammaSlider.Value = 10;
             RedGammaSlider.Value = 10;
-
-            // Reset the data for Rotate menu
-            appliedRotations = null;
-
-            // Reset the data for Colorize menu
-            deselectColorizeGridItems();
-            redForColorize = false;
-            greenForColorize = false;
-            blueForColorize = false;
-            yellowForColorize = false;
-            orangeForColorize = false; 
-            purpleForColorize = false; 
-            cyanForColorize = false;
-            limeForColorize = false;
-
-            // Reset the data for Frame menu
-            appliedFrameColor = "black";
-            FrameWidthPercent.Value = 1;
-            appliedFrame = null;
-            
-
-            
-
         }
 
+        // Reset the data of Rotate menu
+        private void ResetRotateMenuData()
+        {
+            appliedRotations = null;
+        }
+
+        // Reset the data of Colorize menu
+        private void ResetColorizeMenuData()
+        {            
+            deselectColorizeGridItems();
+
+            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
+                        orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = true;
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
+                         orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = false;
+        }
+
+        // Reset the data of Frame menu
+        private void ResetFrameMenuData()
+        {            
+            appliedFrameColor = "black";
+            BlackFrameColor.IsSelected = true;
+            FrameWidthPercent.Value = 1;
+            appliedFrame = null;
+        }
         private void setPopupsHeight()
         {
             // We set the popups height to match the current machine's resolution
@@ -1176,8 +1195,7 @@ namespace RemedyPic
             }
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            appliedFilters = null;
-            deselectFilters();
+            ResetFilterMenuData();
             ImageLoadingRing.IsActive = false;
         }
 
@@ -1202,7 +1220,7 @@ namespace RemedyPic
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
 
-            appliedColors = null;
+            ResetColorMenuData();
             ImageLoadingRing.IsActive = false;
         }
 
@@ -1215,8 +1233,7 @@ namespace RemedyPic
             ApplyRotate(appliedRotations);
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps(false);
-            appliedRotations = null;
+            setFilterBitmaps(false);            
             ImageLoadingRing.IsActive = false;
         }
 
@@ -1237,6 +1254,8 @@ namespace RemedyPic
                 default:
                     break;
             }
+
+            ResetRotateMenuData();
         }
 
         // Event for apply button on Colorize popup. Sets the image with the applied color
@@ -1256,6 +1275,7 @@ namespace RemedyPic
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ImageLoadingRing.IsActive = false;
+            ResetColorizeMenuData();
         }
 
         private void Colorize_SetColorizeEffect()
@@ -1346,7 +1366,7 @@ namespace RemedyPic
 
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            appliedColors = null;
+            ResetExposureMenuData();
             ImageLoadingRing.IsActive = false;
         }
 
@@ -1382,24 +1402,18 @@ namespace RemedyPic
                 setStream(exampleStream, exampleBitmap, image);
             }
             FilterApplyReset.Visibility = Visibility.Collapsed;
-            appliedFilters = null;
+            ResetFilterMenuData();
             deselectFilters();
         }
 
         private void OnColorResetClick(object sender, RoutedEventArgs e)
         {
             // This resets the interface and returns the last applied image.
-            RedColorSlider.Value = 0;
-            GreenColorSlider.Value = 0;
-            BlueColorSlider.Value = 0;
-            RedContrastSlider.Value = 0;
-            BlueContrastSlider.Value = 0;
-            GreenContrastSlider.Value = 0;
+            ResetColorMenuData();
             prepareImage(exampleStream, exampleBitmap, image);
             image.Reset();
             setStream(exampleStream, exampleBitmap, image);
             ColorApplyReset.Visibility = Visibility.Collapsed;
-            appliedColors = null;
         }
 
         private void OnRotateResetClick(object sender, RoutedEventArgs e)
@@ -1407,28 +1421,19 @@ namespace RemedyPic
             prepareImage(exampleStream, exampleBitmap, image);
             image.Reset();
             setStream(exampleStream, exampleBitmap, image);
-            appliedRotations = null;
+            ResetRotateMenuData();
             RotateApplyReset.Visibility = Visibility.Collapsed;
         }
 
         private void OnColorizeResetClick(object sender, RoutedEventArgs e)
         {
-            deselectColorizeGridItems();
-            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                        orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                         orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = false;
+            ResetColorizeMenuData();
             //RestoreOriginalBitmap();
         }
 
         private void OnExposureResetClick(object sender, RoutedEventArgs e)
         {
-            brightSlider.Value = 0;
-            BlueGammaSlider.Value = 10;
-            RedGammaSlider.Value = 10;
-            GreenGammaSlider.Value = 10;
-            appliedColors = null;
+            ResetExposureMenuData();
             ExposureApplyReset.Visibility = Visibility.Collapsed;
         }
         #endregion
@@ -1745,6 +1750,7 @@ namespace RemedyPic
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps(false);
             FramesApplyReset.Visibility = Visibility.Collapsed;
+            ResetFrameMenuData();
         }
 
         // Reset the image (return the pixels before applying the frame)
@@ -1752,7 +1758,7 @@ namespace RemedyPic
         {
             if (pictureIsLoaded)
             {
-                FrameWidthPercent.Value = 1;
+                ResetFrameMenuData();
                 prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 imageOriginal.Reset();
                 setStream(bitmapStream, bitmapImage, imageOriginal);

@@ -48,8 +48,7 @@ namespace RemedyPic.Common
             {
                 for (int i = 0; i < effectsApplied.Count; i++)
                 {
-                    EffectsForWrite += effectsApplied[i] + "\n";
-
+                    EffectsForWrite += effectsApplied[i] + "\r\n";
                 }
                 await Windows.Storage.FileIO.WriteTextAsync(file, EffectsForWrite);
             }
@@ -95,9 +94,9 @@ namespace RemedyPic.Common
 
             if (words.Length > 3)
             {
-                for (int i = 2; i < words.Length; i++)
+                for (int i = 3; i < words.Length; i++)
                 {
-                    value += words[i] + " ";
+                    value += " " + words[i];
                 }
             }
             apply(effect, value);
@@ -106,8 +105,8 @@ namespace RemedyPic.Common
 
         private void apply(string effect, string value)
         {
-            if (effect != "filter" && effect != "color" && effect != "contrast" && effect != "exposure"
-                && effect != "colorize" && effect != "flip")
+            if (effect != "Filter" && effect != "Color" && effect != "Contrast" && effect != "Exposure"
+                && effect != "Colorize" && effect != "Flip" && effect != "Frame")
                 return;
 
             effects.Add(effect);
