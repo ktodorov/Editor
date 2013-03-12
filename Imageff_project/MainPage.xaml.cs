@@ -1235,6 +1235,7 @@ namespace RemedyPic
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps(false);            
             ImageLoadingRing.IsActive = false;
+            RotateApplyReset.Visibility = Visibility.Collapsed;
         }
 
         private void ApplyRotate(string rotation)
