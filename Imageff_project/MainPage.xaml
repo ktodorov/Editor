@@ -1268,7 +1268,7 @@
                             <Button x:Name="ZoomIn" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}" Padding="0">
                                 <Image Source="Assets/Zoom/Zoom-in.png" Width="40" Height="40" HorizontalAlignment="Center"/>
                             </Button>
-                            <Button x:Name="ZoomOut" Visibility="Collapsed" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0">
+                            <Button x:Name="ZoomOut" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0">
                                 <Image Source="Assets/Zoom/Zoom-out.png" Width="40" Height="40" HorizontalAlignment="Center"/>
                             </Button>
                         </StackPanel>
@@ -1716,9 +1716,13 @@
                                 <Button x:Name="ReturnOriginalButton" Content="Return the original image" Style="{StaticResource ImageOptionsStyle}" Click="ReturnOriginal_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250" HorizontalAlignment="Center"/>
                             </Border>
                             <Border x:Name="Import_export" Margin="0" HorizontalAlignment="Center" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
-                                <StackPanel x:Name="Import_Export" Orientation="Vertical" Height="102" Width="180">
+                                <StackPanel x:Name="Import_Export" Orientation="Vertical" Width="180">
                                     <Button x:Name="importFileButton" Content="Select file to import..." FontFamily="Segoe UI" FontSize="14.667" Click="onImportFileSelectButtonClick" Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Width="250"/>
-                                    <Button x:Name="importButton" Content="Import settings" FontFamily="Segoe UI" FontSize="14.667" Click="onImportButtonClick" Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" Width="250"/>
+                                    <StackPanel x:Name="importFilePanel" Margin="0" Orientation="Vertical" HorizontalAlignment="Center" Visibility="Collapsed">
+                                        <TextBlock TextWrapping="Wrap" Text="File for import:" Margin="0" Style="{StaticResource BasicTextStyle}" HorizontalAlignment="Center" Foreground="#DEFFFFFF"/>
+                                        <TextBlock x:Name="importFileName" TextWrapping="Wrap" Margin="0" Style="{StaticResource BasicTextStyle}" HorizontalAlignment="Center" Foreground="#DEFFFFFF"/>
+                                        <Button x:Name="importButton" Content="Import settings" FontFamily="Segoe UI" FontSize="14.667" Click="onImportButtonClick" Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" Width="250"/>
+                                    </StackPanel>
                                     <Button x:Name="exportButton" Content="Export settings" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="14.667" Click="OnExportButtonClick" Foreground="#FFF1E9E9" Margin="0" Width="250" Background="{x:Null}"/>
                                 </StackPanel>
                             </Border>

@@ -3302,7 +3302,8 @@ namespace RemedyPic
 
         private void onImportFileSelectButtonClick(object sender, RoutedEventArgs e)
         {
-            configFile.Import();
+			configFile.Import(importFileName);
+			importFilePanel.Visibility = Visibility.Visible;
         }
         #endregion
     }
