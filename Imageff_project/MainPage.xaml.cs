@@ -2942,7 +2942,8 @@ namespace RemedyPic
 
         private void OnNewWidthTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (keepProportions && newWidth.Text != "")
+            int temp;
+            if (keepProportions && newWidth.Text != "" && int.TryParse(newWidth.Text, out temp))
             {
                 double tempWidth = Convert.ToDouble(newWidth.Text);
                 newHeight.Text = (tempWidth / widthHeightRatio).ToString();
@@ -2959,7 +2960,8 @@ namespace RemedyPic
 
         private void OnNewHeightTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (keepProportions && newHeight.Text != "")
+            int temp;
+            if (keepProportions && newHeight.Text != "" && int.TryParse(newHeight.Text, out temp))
             {
                 double tempHeight = Convert.ToDouble(newHeight.Text);
                 newWidth.Text = (tempHeight * widthHeightRatio).ToString();
