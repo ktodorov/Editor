@@ -2178,6 +2178,15 @@ namespace RemedyPic
             // After this, we apply different filter for each of the WriteableBitmap objects.
 
             RemedyImage filterimage = new RemedyImage();
+            uint newWidth = (uint)bitmapImage.PixelWidth;
+            uint newHeight = (uint)bitmapImage.PixelHeight;
+
+            while (newWidth > 150 && newHeight > 150)
+            {
+                newWidth = newWidth / 2;
+                newHeight = newHeight / 2;
+            }
+
 
             if (!doSecondHalf)
             {
@@ -2192,14 +2201,14 @@ namespace RemedyPic
                 noiseStream = null;
 
                 WriteableBitmap
-                blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                noiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+                blackWhiteBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                embossBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                emboss2Bitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                invertBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                blurBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                blur2Bitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                sharpenBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                noiseBitmap = await ResizeImage(bitmapImage, newWidth, newHeight);
 
                 blackWhiteFilter.Source = blackWhiteBitmap;
                 embossFilter.Source = embossBitmap;
@@ -2255,14 +2264,14 @@ namespace RemedyPic
                 crystalStream = null;
 
                 WriteableBitmap
-                hardNoiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                darkenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                brightenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                shadowBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                crystalBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+                hardNoiseBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                edgeDetectBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                edgeEnhanceBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                retroBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                darkenBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                brightenBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                shadowBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                crystalBitmap = await ResizeImage(bitmapImage, newWidth, newHeight);
 
                 hardNoiseFilter.Source = hardNoiseBitmap;
                 edgeDetectFilter.Source = edgeDetectBitmap;
