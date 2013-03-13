@@ -1268,7 +1268,7 @@
                             <Button x:ConnectionId='115' x:Name="ZoomIn" VerticalAlignment="Top"                       FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}" Padding="0">
                                 <Image Source="Assets/Zoom/Zoom-in.png" Width="40" Height="40" HorizontalAlignment="Center"/>
                             </Button>
-                            <Button x:ConnectionId='116' x:Name="ZoomOut" Visibility="Collapsed" VerticalAlignment="Top"                        FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0">
+                            <Button x:ConnectionId='116' x:Name="ZoomOut" VerticalAlignment="Top"                        FontSize="14" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0">
                                 <Image Source="Assets/Zoom/Zoom-out.png" Width="40" Height="40" HorizontalAlignment="Center"/>
                             </Button>
                         </StackPanel>
@@ -1716,10 +1716,14 @@
                                 <Button x:ConnectionId='68' x:Name="ReturnOriginalButton" Content="Return the original image" Style="{StaticResource ImageOptionsStyle}"                                Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250" HorizontalAlignment="Center"/>
                             </Border>
                             <Border x:Name="Import_export" Margin="0" HorizontalAlignment="Center" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
-                                <StackPanel x:Name="Import_Export" Orientation="Vertical" Height="102" Width="180">
+                                <StackPanel x:Name="Import_Export" Orientation="Vertical" Width="180">
                                     <Button x:ConnectionId='65' x:Name="importFileButton" Content="Select file to import..." FontFamily="Segoe UI" FontSize="14.667"                                       Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Width="250"/>
-                                    <Button x:ConnectionId='66' x:Name="importButton" Content="Import settings" FontFamily="Segoe UI" FontSize="14.667"                             Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" Width="250"/>
-                                    <Button x:ConnectionId='67' x:Name="exportButton" Content="Export settings" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="14.667"                             Foreground="#FFF1E9E9" Margin="0" Width="250" Background="{x:Null}"/>
+                                    <StackPanel x:Name="importFilePanel" Margin="0" Orientation="Vertical" HorizontalAlignment="Center" Visibility="Collapsed">
+                                        <TextBlock TextWrapping="Wrap" Text="File for import:" Margin="0" Style="{StaticResource BasicTextStyle}" HorizontalAlignment="Center" Foreground="#DEFFFFFF"/>
+                                        <TextBlock x:Name="importFileName" TextWrapping="Wrap" Margin="0" Style="{StaticResource BasicTextStyle}" HorizontalAlignment="Center" Foreground="#DEFFFFFF"/>
+                                        <Button x:ConnectionId='67' x:Name="importButton" Content="Import settings" FontFamily="Segoe UI" FontSize="14.667"                             Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" Width="250"/>
+                                    </StackPanel>
+                                    <Button x:ConnectionId='66' x:Name="exportButton" Content="Export settings" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="14.667"                             Foreground="#FFF1E9E9" Margin="0" Width="250" Background="{x:Null}"/>
                                 </StackPanel>
                             </Border>
                             <Border x:Name="Resize1" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">

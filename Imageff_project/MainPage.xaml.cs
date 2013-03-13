@@ -287,6 +287,7 @@ namespace RemedyPic
                 if (file != null)
                 // File is null if user cancels the file picker.
                 {
+                    ImageLoadingRing.IsActive = true;
                     AnimateOutPicture.Begin();
 
                     // We create a temporary stream for the opened file.
@@ -310,6 +311,7 @@ namespace RemedyPic
 
                     pictureIsLoaded = true;
                     doAllCalculations();
+                    ImageLoadingRing.IsActive = false;
                 }
             }
             else
@@ -441,9 +443,9 @@ namespace RemedyPic
         {            
             deselectColorizeGridItems();
 
-            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
+            //redForColorize = greenForColorize = blueForColorize = yellowForColorize =
                         orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            //doColorize(bitmapStream, bitmapImage, imageOriginal);
             redForColorize = greenForColorize = blueForColorize = yellowForColorize =
                          orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = false;
         }
@@ -863,8 +865,7 @@ namespace RemedyPic
                     RotateApplyReset.Visibility = Visibility.Visible;
                 else if (PopupExposure.IsOpen)
                     ExposureApplyReset.Visibility = Visibility.Visible;
-            }
-            if (PopupColorize.IsOpen)
+            } else if (PopupColorize.IsOpen)
                 ColorizeApplyReset.Visibility = Visibility.Visible;
         }
 
@@ -1276,7 +1277,6 @@ namespace RemedyPic
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ImageLoadingRing.IsActive = false;
-            ResetColorizeMenuData();
         }
 
         private void Colorize_SetColorizeEffect()
@@ -2886,6 +2886,8 @@ namespace RemedyPic
         {
             // Called when the original image size is changed.
             // It calculates the new width and height.
+            NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+
             if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)
             {
                 this.imageCanvas.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
@@ -3300,7 +3302,8 @@ namespace RemedyPic
 
         private void onImportFileSelectButtonClick(object sender, RoutedEventArgs e)
         {
-            configFile.Import();
+			configFile.Import(importFileName);
+			importFilePanel.Visibility = Visibility.Visible;
         }
         #endregion
     }

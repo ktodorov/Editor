@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Xaml.Controls;
 using System.IO;
 using RemedyPic;
 
@@ -56,7 +57,7 @@ namespace RemedyPic.Common
         #endregion
 
         #region Import
-        public async void Import()
+        public async void Import(TextBlock givenBlock)
         {
             FileOpenPicker filePicker = new FileOpenPicker();
             filePicker.FileTypeFilter.Add(".txt");
@@ -65,6 +66,7 @@ namespace RemedyPic.Common
             if (file != null)
             // File is null if user cancels the file picker.
             {
+				givenBlock.Text = file.Name;
                 var stream = await file.OpenReadAsync();
                 var rdr = new StreamReader(stream.AsStream());
 
