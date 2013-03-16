@@ -442,7 +442,8 @@ namespace RemedyPic
         {
             deselectColorizeGridItems();
             redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-            orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = false;
+                             orangeForColorize = purpleForColorize = cyanForColorize = 
+                             limeForColorize = false;
         }
 
         // Reset the data of Frame menu
