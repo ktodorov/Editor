@@ -41,6 +41,9 @@ namespace RemedyPic
         private Configuration configFile = new Configuration();
         private List<string> effectsApplied = new List<string>();
 
+        private double widthHeightRatio = 0;
+        private bool keepProportions = true;
+
         // mruToken is used for LoadState and SaveState functions.
         private string mruToken = null;
 
@@ -65,11 +68,6 @@ namespace RemedyPic
         // Colorize selected colors
         private bool redForColorize, greenForColorize, blueForColorize, yellowForColorize,
                          orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize = false;
-
-        // This variable is set false when half of the filter images are loaded
-        // so to manage the other half during the next opening of the filter popup. 
-        // When all the filter images are loaded, the variable is set to false;
-        bool filterBitmapsNeedLoading = false;
 
         // We create three RemedyImages.
         // One for the original displayed image, one for the small images and
@@ -303,6 +301,7 @@ namespace RemedyPic
                     sourceImagePixelHeight = decoder.PixelHeight;
                     sourceImagePixelWidth = decoder.PixelWidth;
 
+
                     bitmapImage.SetSource(fileStream);
                     RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
 
@@ -362,8 +361,7 @@ namespace RemedyPic
             ZoomStack.Visibility = Visibility.Visible;
 
             // set the small WriteableBitmap objects to the filter buttons.
-            filterBitmapsNeedLoading = false;
-            setFilterBitmaps(false);
+            setFilterBitmaps();
 
             // Display the file name.
             setFileProperties(file);
@@ -382,8 +380,9 @@ namespace RemedyPic
             displayImage.MaxWidth = imageBorder.ActualWidth * 0.80;
             displayImage.MaxHeight = imageBorder.ActualHeight * 0.80;
 
-            // Set the current resolution to the TextBlock, located in Changing Resolution option.
-            NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+            widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
+            newWidth.Text = bitmapImage.PixelWidth.ToString();
+            newHeight.Text = bitmapImage.PixelHeight.ToString();
 
             // Show the interface.
             showInterface();
@@ -404,8 +403,8 @@ namespace RemedyPic
         // Reset data of Filter menu
         private void ResetFilterMenuData()
         {
-            appliedFilters = null;  
-            deselectFilters();                  
+            appliedFilters = null;
+            deselectFilters();
         }
 
         // Reset the data of Color menu
@@ -424,7 +423,7 @@ namespace RemedyPic
 
         // Reset the slider values of Exposure Menu
         private void ResetExposureMenuData()
-        {            
+        {
             brightSlider.Value = 0;
 
             BlueGammaSlider.Value = 10;
@@ -440,19 +439,15 @@ namespace RemedyPic
 
         // Reset the data of Colorize menu
         private void ResetColorizeMenuData()
-        {            
+        {
             deselectColorizeGridItems();
-
-            //redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                        orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = true;
-            //doColorize(bitmapStream, bitmapImage, imageOriginal);
             redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                         orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = false;
+            orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = false;
         }
 
         // Reset the data of Frame menu
         private void ResetFrameMenuData()
-        {            
+        {
             appliedFrameColor = "black";
             BlackFrameColor.IsSelected = true;
             FrameWidthPercent.Value = 1;
@@ -865,7 +860,8 @@ namespace RemedyPic
                     RotateApplyReset.Visibility = Visibility.Visible;
                 else if (PopupExposure.IsOpen)
                     ExposureApplyReset.Visibility = Visibility.Visible;
-            } else if (PopupColorize.IsOpen)
+            }
+            else if (PopupColorize.IsOpen)
                 ColorizeApplyReset.Visibility = Visibility.Visible;
         }
 
@@ -1119,7 +1115,7 @@ namespace RemedyPic
             ApplyFilter(appliedFilters);
             FilterApplyReset.Visibility = Visibility.Collapsed;
             SelectFilters.IsChecked = false;
-            setFilterBitmaps(false);
+            setFilterBitmaps();
         }
 
         public void ApplyFilter(string filter)
@@ -1206,7 +1202,7 @@ namespace RemedyPic
             effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value);
             effectsApplied.Add("Contrast = " + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
             ApplyColor();
-            setFilterBitmaps(false);
+            setFilterBitmaps();
         }
 
         private void ApplyColor()
@@ -1234,7 +1230,7 @@ namespace RemedyPic
             ApplyRotate(appliedRotations);
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps(false);            
+            setFilterBitmaps();
             ImageLoadingRing.IsActive = false;
             RotateApplyReset.Visibility = Visibility.Collapsed;
         }
@@ -1265,7 +1261,7 @@ namespace RemedyPic
         {
             doColorize(exampleStream, exampleBitmap, image);
             ApplyColorize();
-            setFilterBitmaps(false);
+            setFilterBitmaps();
             ColorizeApplyReset.Visibility = Visibility.Visible;
             SelectColorize.IsChecked = false;
         }
@@ -1343,7 +1339,7 @@ namespace RemedyPic
         private void OnExposureApplyClick(object sender, RoutedEventArgs e)
         {
             ApplyExposure(appliedColors);
-            setFilterBitmaps(false);
+            setFilterBitmaps();
         }
 
         private void ApplyExposure(string effect)
@@ -1428,8 +1424,9 @@ namespace RemedyPic
 
         private void OnColorizeResetClick(object sender, RoutedEventArgs e)
         {
-            ResetColorizeMenuData();
-            //RestoreOriginalBitmap();
+            //ResetColorizeMenuData();
+			deselectColorizeGridItems();
+            RestoreOriginalBitmap();
         }
 
         private void OnExposureResetClick(object sender, RoutedEventArgs e)
@@ -1453,11 +1450,6 @@ namespace RemedyPic
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             PopupFilters.IsOpen = true;
-            if (filterBitmapsNeedLoading)
-            {
-                setFilterBitmaps(true);
-            }
-
         }
 
         private void FiltersUnchecked(object sender, RoutedEventArgs e)
@@ -1749,7 +1741,7 @@ namespace RemedyPic
         {
             effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps(false);
+            setFilterBitmaps();
             FramesApplyReset.Visibility = Visibility.Collapsed;
             ResetFrameMenuData();
         }
@@ -2171,16 +2163,22 @@ namespace RemedyPic
         #endregion
 
         #region Small Bitmaps for Filters
-        private async void setFilterBitmaps(bool doSecondHalf)
+        private async void setFilterBitmaps()
         {
             // This creates temporary Streams and WriteableBitmap objects for every filter available.
             // We set the bitmaps as source to the XAML Image objects.
             // After this, we apply different filter for each of the WriteableBitmap objects.
 
             RemedyImage filterimage = new RemedyImage();
+            uint newWidth = (uint)bitmapImage.PixelWidth;
+            uint newHeight = (uint)bitmapImage.PixelHeight;
 
-            if (!doSecondHalf)
+            while (newWidth > 150 && newHeight > 150)
             {
+                newWidth = newWidth / 2;
+                newHeight = newHeight / 2;
+            }
+
                 Stream
                 blackWhiteStream = null,
                 emboss2Stream = null,
@@ -2192,14 +2190,14 @@ namespace RemedyPic
                 noiseStream = null;
 
                 WriteableBitmap
-                blackWhiteBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                embossBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                emboss2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                invertBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                blurBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                blur2Bitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                sharpenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                noiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+                blackWhiteBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                embossBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                emboss2Bitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                invertBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                blurBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                blur2Bitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                sharpenBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                noiseBitmap = await ResizeImage(bitmapImage, newWidth, newHeight);
 
                 blackWhiteFilter.Source = blackWhiteBitmap;
                 embossFilter.Source = embossBitmap;
@@ -2240,10 +2238,6 @@ namespace RemedyPic
                 doFilter(sharpenStream, sharpenBitmap, filterimage, "sharpen");
                 doFilter(noiseStream, noiseBitmap, filterimage, "noise");
 
-                filterBitmapsNeedLoading = true;
-            }
-            else
-            {
                 Stream
                 hardNoiseStream = null,
                 retroStream = null,
@@ -2255,14 +2249,14 @@ namespace RemedyPic
                 crystalStream = null;
 
                 WriteableBitmap
-                hardNoiseBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                edgeDetectBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                edgeEnhanceBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                retroBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                darkenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                brightenBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                shadowBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5)),
-                crystalBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+                hardNoiseBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                edgeDetectBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                edgeEnhanceBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                retroBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                darkenBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                brightenBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                shadowBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
+                crystalBitmap = await ResizeImage(bitmapImage, newWidth, newHeight);
 
                 hardNoiseFilter.Source = hardNoiseBitmap;
                 edgeDetectFilter.Source = edgeDetectBitmap;
@@ -2302,9 +2296,6 @@ namespace RemedyPic
                 doFilter(brightenStream, brightenBitmap, filterimage, "brighten");
                 doFilter(shadowStream, shadowBitmap, filterimage, "shadow");
                 doFilter(crystalStream, crystalBitmap, filterimage, "crystal");
-
-                filterBitmapsNeedLoading = false;
-            }
         }
 
         private async void initializeBitmap(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
@@ -2645,7 +2636,7 @@ namespace RemedyPic
             setElements(RotationsExamplePicture, exampleBitmap);
             setElements(ExposureExamplePicture, exampleBitmap);
 
-            setFilterBitmaps(false);
+            setFilterBitmaps();
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
         }
 
@@ -2673,7 +2664,7 @@ namespace RemedyPic
             setStream(exampleStream, exampleBitmap, image);
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps(false);
+            setFilterBitmaps();
         }
 
         #region Crop region
@@ -2815,7 +2806,7 @@ namespace RemedyPic
             setElements(ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
             setElements(ExposureExamplePicture, exampleBitmap);
-            setFilterBitmaps(false);
+            setFilterBitmaps();
 
             SelectCrop.IsChecked = false;
 
@@ -2886,7 +2877,6 @@ namespace RemedyPic
         {
             // Called when the original image size is changed.
             // It calculates the new width and height.
-            NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", bitmapImage.PixelWidth, bitmapImage.PixelHeight);
 
             if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)
             {
@@ -2946,38 +2936,51 @@ namespace RemedyPic
         }
 
         #region Resizing the image
-        private void ResizeSlider_Changed(object sender, RangeBaseValueChangedEventArgs e)
+
+        private void OnNewWidthTextChanged(object sender, TextChangedEventArgs e)
         {
-            // Event for the resize slider.
-            // It shows the apply button and changes the new resolution text.
-            if (pictureIsLoaded)
+            int temp;
+            if (keepProportions && newWidth.Text != "" && int.TryParse(newWidth.Text, out temp))
+            {
+                double tempWidth = Convert.ToDouble(newWidth.Text);
+                newHeight.Text = (tempWidth / widthHeightRatio).ToString();
+            }
+            if (newWidth.Text != "")
             {
                 ApplyResize.Visibility = Visibility.Visible;
-                int value = (int)ResizeSlider.Value;
-                switch (value)
-                {
-                    case 1:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 6, sourceImagePixelHeight / 6);
-                        break;
-                    case 2:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 5, sourceImagePixelHeight / 5);
-                        break;
-                    case 3:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 4, sourceImagePixelHeight / 4);
-                        break;
-                    case 4:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 3, sourceImagePixelHeight / 3);
-                        break;
-                    case 5:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1}", sourceImagePixelWidth / 2, sourceImagePixelHeight / 2);
-                        break;
-                    case 6:
-                        NewResolution.Text = string.Format("New Resolution: {0}x{1} (original)", sourceImagePixelWidth, sourceImagePixelHeight);
-                        break;
-                    default:
-                        break;
-                }
             }
+            else
+            {
+                ApplyResize.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void OnNewHeightTextChanged(object sender, TextChangedEventArgs e)
+        {
+            int temp;
+            if (keepProportions && newHeight.Text != "" && int.TryParse(newHeight.Text, out temp))
+            {
+                double tempHeight = Convert.ToDouble(newHeight.Text);
+                newWidth.Text = (tempHeight * widthHeightRatio).ToString();
+            }
+            if (newHeight.Text != "")
+            {
+                ApplyResize.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ApplyResize.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void OnKeepPropsUnchecked(object sender, RoutedEventArgs e)
+        {
+            keepProportions = false;
+        }
+
+        private void OnKeepPropsChecked(object sender, RoutedEventArgs e)
+        {
+            keepProportions = true;
         }
 
         private void Resize_Checked(object sender, RoutedEventArgs e)
@@ -2993,33 +2996,11 @@ namespace RemedyPic
         private async void ApplyResize_Clicked(object sender, RoutedEventArgs e)
         {
             // Resize the current image.
-            int resizeValue = (int)ResizeSlider.Value;
+            int resizeWidth = Convert.ToInt32(newWidth.Text);
+            int resizeHeight = Convert.ToInt32(newHeight.Text);
             ApplyResize.Visibility = Visibility.Collapsed;
-            switch (resizeValue)
-            {
-                case 1:
-                    resizeValue = 6;
-                    break;
-                case 2:
-                    resizeValue = 5;
-                    break;
-                case 3:
-                    resizeValue = 4;
-                    break;
-                case 4:
-                    resizeValue = 3;
-                    break;
-                case 5:
-                    resizeValue = 2;
-                    break;
-                case 6:
-                    RestoreOriginalBitmap();
-                    return;
-                default:
-                    break;
-            }
-
-            bitmapImage = await ResizeImage(bitmapImage, (uint)(sourceImagePixelWidth / resizeValue), (uint)(sourceImagePixelHeight / resizeValue));
+ 
+            bitmapImage = await ResizeImage(bitmapImage, (uint)(resizeWidth), (uint)(resizeHeight));
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
             imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
             image.srcPixels = new byte[(uint)exampleStream.Length];
@@ -3027,7 +3008,7 @@ namespace RemedyPic
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
             displayImage.Source = bitmapImage;
-            setFilterBitmaps(false);
+            setFilterBitmaps();
         }
 
         #endregion
@@ -3200,7 +3181,7 @@ namespace RemedyPic
             {
                 checkEffect(i);
             }
-            setFilterBitmaps(false);
+            setFilterBitmaps();
         }
 
         private void checkEffect(int i)
@@ -3302,10 +3283,11 @@ namespace RemedyPic
 
         private void onImportFileSelectButtonClick(object sender, RoutedEventArgs e)
         {
-			configFile.Import(importFileName);
-			importFilePanel.Visibility = Visibility.Visible;
+            configFile.Import(importFileName);
+            importFilePanel.Visibility = Visibility.Visible;
         }
         #endregion
+
     }
     #endregion
 }
