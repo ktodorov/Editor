@@ -441,12 +441,9 @@ namespace RemedyPic
         private void ResetColorizeMenuData()
         {
             deselectColorizeGridItems();
-
             redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-            orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                         orangeForColorize = purpleForColorize = cyanForColorize = limeForColorize = false;
+                             orangeForColorize = purpleForColorize = cyanForColorize = 
+                             limeForColorize = false;
         }
 
         // Reset the data of Frame menu
@@ -497,7 +494,7 @@ namespace RemedyPic
         {
             if (pictureIsLoaded)
             {
-                appliedFilters = "invert";
+                appliedFilters = "invert";                
                 prepareImage(exampleStream, exampleBitmap, image);
                 int[,] coeff = new int[5, 5];
                 int offset = 0, scale = 0;
