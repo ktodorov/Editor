@@ -29,66 +29,90 @@ namespace RemedyPic.Common
         // return the new array of the image
         public byte[] Filter()
         {
+            
             CustomFilter_GetBorders();
-            CustomFilter_NewPixelsValue((_width * 4 + 4) * _top, 1 + _left, 1 + _top);
+            CustomFilter_NewPixelsValue(8 * (_width + 1));// Set the current byte to second row, second column pixel
             CustomFilter_FillTheBlankPixels();
             return (byte[])_dstPixels.Clone();
         }
 
         // Recalculate the new values of all pixels of the image
-        private void CustomFilter_NewPixelsValue(int current_byte, int current_width, int current_height)
+        private void CustomFilter_NewPixelsValue(int current_byte, int current_width = 3, int current_height = 3)
         {
-            while (current_byte < _srcPixels.Length && current_height <= _height - _bottom)
+            while (current_byte < _srcPixels.Length && current_height <= _height - 2)
             {
-                if (current_width <= _width - _right)
+                if (current_width <= _width - 2)
                 {
-                    CustomFilter_NewBGR(ref current_byte);
+                    CustomFilter_CalcPixelValues(current_byte);
+                    current_byte += 4;
                     current_width++;
                 }
                 else
                 {
-                    current_width = 1 + _left;
+                    current_width = 3;  // avoid first two columns
                     current_height++;
-                    current_byte += 4 * _left + 4 * _right;
+                    current_byte += 16; // avoid last two colums and first two colums
                 }
             }
         }
 
-        // Calculate the new pixel values
-        private void CustomFilter_NewBGR(ref int current_byte)
+        // Calculate the pixel values
+        private void CustomFilter_CalcPixelValues(int current_byte)
         {
-            CustomFilter_CalcPixelValue(current_byte++);
-            CustomFilter_CalcPixelValue(current_byte++);
-            CustomFilter_CalcPixelValue(current_byte++);
-            current_byte++; //For 4th value (A)
+            int[] BGRValues = {0,0,0};
+            CustomFilter_GetNewValues(ref BGRValues, current_byte - 8 * (_width + 1));
+            CustomFilter_CheckNewValues(ref BGRValues);
+            CustomFilter_SetNewValues(current_byte, BGRValues);
         }
 
-        // Calculate one of the pixel values
-        private void CustomFilter_CalcPixelValue(int current_byte)
+        // Set the new values of pixel colors
+        private void CustomFilter_SetNewValues(int current_byte, int[] BGRValues)
         {
-            int val = CustomFilter_GetNewVal(current_byte - (2 * 4 * _width + 2 * 4));  
-            CustomFilter_CheckVal(ref val);
-            _dstPixels[current_byte] = (byte)val;
+            _dstPixels[current_byte++] = (byte)BGRValues[0];
+            _dstPixels[current_byte++] = (byte)BGRValues[1];
+            _dstPixels[current_byte++] = (byte)BGRValues[2];
         }
 
-        // Calculate the B or G or R value depends on the matrix of the filter
-        private int CustomFilter_GetNewVal(int current_byte)
+        // Calculate the B G R values
+        private void CustomFilter_GetNewValues(ref int[] BGRValues, int current_byte)
         {
-            int val = 0;
+            CustomFilter_MultiplyByMatrixValues(ref BGRValues, current_byte);
+            CustomFilter_DiviteByScaleAddOffset(ref BGRValues, current_byte);            
+        }
 
+        // Calculate the B G R values. Depends on the matrix of the filter
+        private void CustomFilter_MultiplyByMatrixValues(ref int[] BGRValues, int current_byte)
+        {
             for (int i = 2 - _left; i < 3 + _right; i++)
                 for (int j = 2 - _top; j < 3 + _bottom; j++)
-                    if (_coeff[i,j] != 0)
-                        val += _srcPixels[Math.Abs(current_byte + i * 4 + j * _width * 4 )] * _coeff[i, j];// Abs, because it can be negative...
-
-            val /= _scale;
-            val += _offset;
-
-            return val;
+                    if (_coeff[i, j] != 0)
+                    {
+                        BGRValues[0] += _srcPixels[current_byte + i * 4 + j * _width * 4] * _coeff[i, j];
+                        BGRValues[1] += _srcPixels[current_byte + i * 4 + j * _width * 4 + 1] * _coeff[i, j];
+                        BGRValues[2] += _srcPixels[current_byte + i * 4 + j * _width * 4 + 2] * _coeff[i, j];
+                    }        
         }
 
-        // Check if the value is between [0;255]
-        private void CustomFilter_CheckVal(ref int val)
+        // Divide the values by scale and add offset
+        private void CustomFilter_DiviteByScaleAddOffset(ref int[] BGRValues, int current_byte)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                BGRValues[i] /= _scale;
+                BGRValues[i] += _offset;
+            }
+        }
+
+        // Check if the values of B G R color are between [0;255]
+        private void CustomFilter_CheckNewValues(ref int[] BGRValues)
+        {
+            CustomFilter_CheckNewVal(ref BGRValues[0]); // Blue value
+            CustomFilter_CheckNewVal(ref BGRValues[1]); // Green value
+            CustomFilter_CheckNewVal(ref BGRValues[2]); // Red value
+        }
+
+        // Check if the given values is between 0 and 255 and set it if it isn`t
+        private void CustomFilter_CheckNewVal(ref int val)
         {
             if (val > 255)
                 val = 255;
@@ -192,12 +216,12 @@ namespace RemedyPic.Common
         // Fill the black pixels (2x2 wide border)
         private void CustomFilter_FillTheBlankPixels()
         {
-            CustomFilter_FillLeftColumn(4); // Second Column
-            CustomFilter_FillLeftColumn(0); // First Column
-            CustomFilter_FillTopRow(4 * (_width)); // Second Row
-            CustomFilter_FillTopRow(0); // First Row
-            CustomFilter_FillRightColumn(4 * (_width - 2)); // Last - 1 Column
-            CustomFilter_FillRightColumn(4 * (_width - 1)); // Last Column
+            CustomFilter_FillLeftColumn(4);                         // Second Column
+            CustomFilter_FillLeftColumn(0);                         // First Column
+            CustomFilter_FillTopRow(4 * (_width));                  // Second Row
+            CustomFilter_FillTopRow(0);                             // First Row
+            CustomFilter_FillRightColumn(4 * (_width - 2));         // Last - 1 Column
+            CustomFilter_FillRightColumn(4 * (_width - 1));         // Last Column
             CustomFilter_FillBottomRow(4 * _width * (_height - 2)); // Last - 1 Row
             CustomFilter_FillBottomRow(4 * _width * (_height - 1)); // Last Row
         }

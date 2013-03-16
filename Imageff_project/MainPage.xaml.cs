@@ -494,7 +494,7 @@ namespace RemedyPic
         {
             if (pictureIsLoaded)
             {
-                appliedFilters = "invert";
+                appliedFilters = "invert";                
                 prepareImage(exampleStream, exampleBitmap, image);
                 int[,] coeff = new int[5, 5];
                 int offset = 0, scale = 0;
