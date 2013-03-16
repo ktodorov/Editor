@@ -440,10 +440,10 @@ namespace RemedyPic
         // Reset the data of Colorize menu
         private void ResetColorizeMenuData()
         {
-            deselectColorizeGridItems();
             redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                             orangeForColorize = purpleForColorize = cyanForColorize = 
+                             orangeForColorize = purpleForColorize = cyanForColorize =
                              limeForColorize = false;
+            deselectColorizeGridItems();
         }
 
         // Reset the data of Frame menu
