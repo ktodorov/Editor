@@ -962,11 +962,10 @@ namespace RemedyPic.Common
             while (currentByte < (4 * height * width))
             {
                 int baw = (srcPixels[currentByte] + srcPixels[currentByte + 1] + srcPixels[currentByte + 2]) / 3;
-                Color tempColor = Color.FromArgb(srcPixels[currentByte + 3], (byte)baw, (byte)baw, (byte)baw);
-                dstPixels[currentByte++] = tempColor.B;
-                dstPixels[currentByte++] = tempColor.G;
-                dstPixels[currentByte++] = tempColor.R;
-                dstPixels[currentByte++] = tempColor.A;
+                dstPixels[currentByte++] = (byte)baw;
+                dstPixels[currentByte++] = (byte)baw;
+                dstPixels[currentByte++] = (byte)baw;
+                currentByte++;
             }
         }
         #endregion
