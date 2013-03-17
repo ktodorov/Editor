@@ -115,6 +115,13 @@ namespace RemedyPic
 
         public MainPage()
         {
+            // This function is called when the page is loaded in the beginning.
+            // We first initialize the interface, then drop the picture border out
+            // so we can animate it later. 
+            // Then the charms are registered for using later. 
+            // After this, the events are generated for the image.
+            // They are used later for the image panning and crop function.
+            // Finally, we set the selected crop region width and height.
             this.InitializeComponent();
             AnimateOutPicture.Begin();
             RegisterCharms();

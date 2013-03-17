@@ -1046,7 +1046,7 @@ namespace RemedyPic.Common
 
             for (int CurrentByte = startingPixel; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                int i = _dstPixels[CurrentByte];
+                int i = _srcPixels[CurrentByte];
                 frequency[i] += 1;
             }
             int[] cumulative = new int[256];
@@ -1064,7 +1064,7 @@ namespace RemedyPic.Common
             }
             for (int CurrentByte = startingPixel; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                int temp = (int)_dstPixels[CurrentByte];
+                int temp = (int)_srcPixels[CurrentByte];
 
                 _dstPixels[CurrentByte] = (byte)(cdf[temp]);
             }
