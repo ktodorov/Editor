@@ -440,10 +440,14 @@ namespace RemedyPic
         // Reset the data of Colorize menu
         private void ResetColorizeMenuData()
         {
-            deselectColorizeGridItems();
+            long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            
             redForColorize = greenForColorize = blueForColorize = yellowForColorize =
                              orangeForColorize = purpleForColorize = cyanForColorize = 
                              limeForColorize = false;
+            deselectColorizeGridItems();
+            milliseconds -= DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            int b = 0;
         }
 
         // Reset the data of Frame menu

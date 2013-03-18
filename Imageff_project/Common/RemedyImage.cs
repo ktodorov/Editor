@@ -765,8 +765,8 @@ namespace RemedyPic.Common
         public void GammaChange(double BlueColorValue, double GreenColorValue, double RedColorValue)
         {                                                             // Divide by 10 because the value must be between 0.2 and 5. 
             byte[] BlueGamma = Gamma_GetArray(BlueColorValue / 10);   // Get new color list for BlueGamma. 
-            byte[] GreenGamma = Gamma_GetArray(GreenColorValue / 10);// Get new color list for GreenGamma  
-            byte[] RedGamma = Gamma_GetArray(RedColorValue / 10);    // Get new color list for RedGamma            
+            byte[] GreenGamma = Gamma_GetArray(GreenColorValue / 10); // Get new color list for GreenGamma  
+            byte[] RedGamma = Gamma_GetArray(RedColorValue / 10);     // Get new color list for RedGamma            
 
             for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
             {
