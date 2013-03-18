@@ -2955,11 +2955,13 @@ namespace RemedyPic
         private void OnNewWidthTextChanged(object sender, TextChangedEventArgs e)
         {
             int temp;
+
             if (keepProportions && newWidth.Text != "" && int.TryParse(newWidth.Text, out temp))
             {
-                double tempWidth = Convert.ToDouble(newWidth.Text);
-                newHeight.Text = (tempWidth / widthHeightRatio).ToString();
+                //int tempWidth = Convert.ToInt32(newWidth.Text);
+                newHeight.Text = (Math.Round(temp / widthHeightRatio)).ToString();
             }
+            keepProportions = !keepProportions;
             if (newWidth.Text != "")
             {
                 ApplyResize.Visibility = Visibility.Visible;
@@ -2975,9 +2977,10 @@ namespace RemedyPic
             int temp;
             if (keepProportions && newHeight.Text != "" && int.TryParse(newHeight.Text, out temp))
             {
-                double tempHeight = Convert.ToDouble(newHeight.Text);
-                newWidth.Text = (tempHeight * widthHeightRatio).ToString();
+                //int tempHeight = Convert.ToInt32(newHeight.Text);
+                newWidth.Text = (Math.Round(temp * widthHeightRatio)).ToString();
             }
+            keepProportions = !keepProportions;
             if (newHeight.Text != "")
             {
                 ApplyResize.Visibility = Visibility.Visible;
