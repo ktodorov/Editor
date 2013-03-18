@@ -356,19 +356,6 @@ namespace RemedyPic
 
 		#endregion
 
-        private async void setExampleImage()
-        {
-            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
-            exampleStream = exampleBitmap.PixelBuffer.AsStream();
-            image.srcPixels = new byte[(uint)exampleStream.Length];
-            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
-            setElements(ColorsExamplePicture, exampleBitmap);
-            setElements(RotationsExamplePicture, exampleBitmap);
-            setElements(ExposureExamplePicture, exampleBitmap);
-            prepareImage(exampleStream, exampleBitmap, image);
-            setStream(exampleStream, exampleBitmap, image);
-        }
-
 		private async void doAllCalculations()
 		{
 			// We make all the required calculations in order for
@@ -438,6 +425,19 @@ namespace RemedyPic
 
 
 		}
+
+        private async void setExampleImage()
+        {
+            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+            exampleStream = exampleBitmap.PixelBuffer.AsStream();
+            image.srcPixels = new byte[(uint)exampleStream.Length];
+            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
+            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(RotationsExamplePicture, exampleBitmap);
+            setElements(ExposureExamplePicture, exampleBitmap);
+            prepareImage(exampleStream, exampleBitmap, image);
+            setStream(exampleStream, exampleBitmap, image);
+        }
 
 		private void ResetAllSliders()
 		{
@@ -912,8 +912,6 @@ namespace RemedyPic
 				else if (PopupExposure.IsOpen)
 					ExposureApplyReset.Visibility = Visibility.Visible;
 			}
-			else if (PopupColorize.IsOpen)
-				ColorizeApplyReset.Visibility = Visibility.Visible;
 		}
 
 		void prepareImage(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
@@ -931,28 +929,37 @@ namespace RemedyPic
 
         // Undo button click
         private void OnUndoClick(object sender, RoutedEventArgs e)
-        {            
+        {
+            ImageLoadingRing.IsActive = true;
+
             if (archive_current_index > 0) // Check if there is no more for undo
             {                       
-                ImageLoadingRing.IsActive = true;
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
                 archive_current_index--;
-                imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
-                imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
-
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-                setExampleImage();
-                setFilterBitmaps();
-
-                ImageLoadingRing.IsActive = false;
+                ArchiveSetNewImage();               
             }
-
+            ImageLoadingRing.IsActive = false;
         }
 
         //Redo button click
         private void OnRedoClick(object sender, RoutedEventArgs e)
-        {            
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+        {
+            ImageLoadingRing.IsActive = true;
+
+            if (archive_current_index < archive_data.Count - 1) // Check if there is array for redo
+            {
+                archive_current_index++;
+                ArchiveSetNewImage();                
+            }
+            ImageLoadingRing.IsActive = false;
+        }
+
+        private void ArchiveSetNewImage()
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
+            imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
+            setStream(bitmapStream, bitmapImage, imageOriginal);
+            setExampleImage();
             setFilterBitmaps();
         }
 
@@ -1358,7 +1365,7 @@ namespace RemedyPic
 			doColorize(exampleStream, exampleBitmap, image);
 			ApplyColorize();
 			setFilterBitmaps();
-			ColorizeApplyReset.Visibility = Visibility.Visible;
+			ColorizeApplyReset.Visibility = Visibility.Collapsed;
 			SelectColorize.IsChecked = false;
 		}
 
@@ -1522,18 +1529,13 @@ namespace RemedyPic
 
 		private void OnColorizeResetClick(object sender, RoutedEventArgs e)
 		{
-			deselectColorizeGridItems();/*
-            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                 orangeForColorize = purpleForColorize = cyanForColorize =
-                 limeForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);*/
+			deselectColorizeGridItems();
 			prepareImage(bitmapStream, bitmapImage, imageOriginal);
 			imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
 			setStream(bitmapStream, bitmapImage, imageOriginal);
 			redForColorize = greenForColorize = blueForColorize = yellowForColorize =
 				 orangeForColorize = purpleForColorize = cyanForColorize =
 				 limeForColorize = false;
-			//RestoreOriginalBitmap();
 		}
 
 		private void OnExposureResetClick(object sender, RoutedEventArgs e)
@@ -3256,6 +3258,7 @@ namespace RemedyPic
 			purpleRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 255));
 			cyanRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 255));
 			limeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 25, 255, 25));
+			ColorizeApplyReset.Visibility = Visibility.Collapsed;
 		}
 
 		private void doColorize(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
@@ -3265,6 +3268,7 @@ namespace RemedyPic
 			givenImage.Colorize(blueForColorize, redForColorize, greenForColorize, yellowForColorize,
 										orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize);
 			setStream(stream, bitmap, givenImage);
+			ColorizeApplyReset.Visibility = Visibility.Visible;
 		}
 
 		#endregion
