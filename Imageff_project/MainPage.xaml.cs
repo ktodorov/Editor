@@ -42,6 +42,10 @@ namespace RemedyPic
 		private Configuration configFile = new Configuration();
 		private List<string> effectsApplied = new List<string>();
 
+        // Undo Redo archive
+        private List<byte[]> archive_data = new List<byte[]>();
+        private int archive_current_index = -1;     // -1 because we don`t have saved pixel array
+
 		private double widthHeightRatio = 0;
 		private bool keepProportions = true;
 
@@ -352,6 +356,19 @@ namespace RemedyPic
 
 		#endregion
 
+        private async void setExampleImage()
+        {
+            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+            exampleStream = exampleBitmap.PixelBuffer.AsStream();
+            image.srcPixels = new byte[(uint)exampleStream.Length];
+            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
+            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(RotationsExamplePicture, exampleBitmap);
+            setElements(ExposureExamplePicture, exampleBitmap);
+            prepareImage(exampleStream, exampleBitmap, image);
+            setStream(exampleStream, exampleBitmap, image);
+        }
+
 		private async void doAllCalculations()
 		{
 			// We make all the required calculations in order for
@@ -376,6 +393,9 @@ namespace RemedyPic
 
 			// Reset all sliders
 			ResetAllSliders();
+
+            // Archive the pixel array
+            ArchiveAddArray();
 
 			// Set the small WriteableBitmap objects to the three XAML Image objects.
 			setElements(ColorsExamplePicture, exampleBitmap);
@@ -908,11 +928,25 @@ namespace RemedyPic
 		}
 
         #region Undo and Redo
+
         // Undo button click
         private void OnUndoClick(object sender, RoutedEventArgs e)
         {            
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            setFilterBitmaps();
+            if (archive_current_index > 0) // Check if there is no more for undo
+            {                       
+                ImageLoadingRing.IsActive = true;
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                archive_current_index--;
+                imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
+                imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
+
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+                setExampleImage();
+                setFilterBitmaps();
+
+                ImageLoadingRing.IsActive = false;
+            }
+
         }
 
         //Redo button click
@@ -920,6 +954,17 @@ namespace RemedyPic
         {            
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             setFilterBitmaps();
+        }
+
+        // Add pixel array to the archive and increment current index of the archive
+        private void ArchiveAddArray()
+        {
+            if (archive_current_index != -1 && archive_current_index != archive_data.Count - 1)
+            {
+                archive_data.RemoveRange(archive_current_index + 1, archive_data.Count - 1 - archive_current_index);
+            }
+            archive_data.Add((byte[])imageOriginal.srcPixels.Clone());
+            archive_current_index++;
         }
         #endregion
 
@@ -1239,10 +1284,11 @@ namespace RemedyPic
 			}
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            ArchiveAddArray();
 			ResetFilterMenuData();
 			ImageLoadingRing.IsActive = false;
 		}
-
+        
 		// Event for apply button on Colors popup. Sets the image with the applied colors
 		private void OnColorApplyClick(object sender, RoutedEventArgs e)
 		{
@@ -1264,6 +1310,8 @@ namespace RemedyPic
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
 
+            ArchiveAddArray();
+
 			ResetColorMenuData();
 			ImageLoadingRing.IsActive = false;
 		}
@@ -1277,6 +1325,7 @@ namespace RemedyPic
 			ApplyRotate(appliedRotations);
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            ArchiveAddArray();
 			setFilterBitmaps();
 			ImageLoadingRing.IsActive = false;
 			RotateApplyReset.Visibility = Visibility.Collapsed;
@@ -1299,7 +1348,7 @@ namespace RemedyPic
 				default:
 					break;
 			}
-
+                       
 			ResetRotateMenuData();
 		}
 
@@ -1319,6 +1368,7 @@ namespace RemedyPic
 			Colorize_SetColorizeEffect();
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            ArchiveAddArray();
 			ImageLoadingRing.IsActive = false;
 		}
 
@@ -1410,6 +1460,7 @@ namespace RemedyPic
 
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            ArchiveAddArray();
 			ResetExposureMenuData();
 			ImageLoadingRing.IsActive = false;
 		}
@@ -1797,6 +1848,8 @@ namespace RemedyPic
 		{
 			effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            ArchiveAddArray();
+            setExampleImage();
 			setFilterBitmaps();
 			FramesApplyReset.Visibility = Visibility.Collapsed;
 			ResetFrameMenuData();
@@ -2720,6 +2773,7 @@ namespace RemedyPic
 			setStream(exampleStream, exampleBitmap, image);
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            ArchiveAddArray();
 			setFilterBitmaps();
 		}
 
