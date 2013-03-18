@@ -1416,9 +1416,14 @@
                             <GradientStop Color="#FF218900" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
-                    <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"/>
-                        <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                    <StackPanel Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <StackPanel Height="40" Orientation="Horizontal">
+                            <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"/>
+                            <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button x:Name="CameraButton" Content="USE CAMERA" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19" Click="OnCameraButtonClick" Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
                 <Border x:Name="Zoom" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5">
@@ -1539,9 +1544,9 @@
                             </Slider.Background>
                         </Slider>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="SATURATION" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-70" Maximum="70" ValueChanged="OnColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}" />
-                        <Slider x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-70" Maximum="70" ValueChanged="OnColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
-                        <Slider x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-70" Maximum="70" ValueChanged="OnColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" Style="{StaticResource SliderStyle1}" />
+                        <Slider x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}" />
+                        <Slider x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
+                        <Slider x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50" ValueChanged="OnColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" Style="{StaticResource SliderStyle1}" />
                         <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
                             <Button x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnColorApplyClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
                             <Button x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnColorResetClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
@@ -2401,8 +2406,8 @@
         </Popup>
         <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="80" IsActive="False" Margin="0" VerticalAlignment="Center" Width="80" Grid.Row="2"/>
         <StackPanel x:Name="UndoRedoPanel" Margin="0" Orientation="Vertical" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Collapsed">
-            <Button x:Name="Undo" Content="&#xE10E;" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
-            <Button x:Name="Redo" Content="&#xE10D;" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
+            <Button x:Name="Undo" Content="&#xE10E;" Click="OnUndoClick" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
+            <Button x:Name="Redo" Content="&#xE10D;" Click="OnRedoClick" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
         </StackPanel>
     </Grid>
 </common:LayoutAwarePage>

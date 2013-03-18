@@ -1316,7 +1316,7 @@
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
                     <Grid x:Name="displayGrid" Grid.Row="1" Margin="0">
-                        <Image x:ConnectionId='121' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
+                        <Image x:ConnectionId='122' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
                         <Canvas x:Name="imageCanvas" Visibility="Collapsed" >
                             <Path x:Name="nonselectRegion" Fill="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Opacity="1" Stroke="White">
                                 <Path.Data>
@@ -1416,9 +1416,14 @@
                             <GradientStop Color="#FF218900" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
-                    <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Button x:ConnectionId='119' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"/>
-                        <Button x:ConnectionId='120' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19"                           Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                    <StackPanel Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <StackPanel Height="40" Orientation="Horizontal">
+                            <Button x:ConnectionId='120' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"/>
+                            <Button x:ConnectionId='121' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19"                           Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button x:ConnectionId='119' x:Name="CameraButton" Content="USE CAMERA" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19"                             Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
                 <Border x:Name="Zoom" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5">
@@ -1539,9 +1544,9 @@
                             </Slider.Background>
                         </Slider>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="SATURATION" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:ConnectionId='108' x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-70" Maximum="70"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}" />
-                        <Slider x:ConnectionId='109' x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-70" Maximum="70"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
-                        <Slider x:ConnectionId='110' x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-70" Maximum="70"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" Style="{StaticResource SliderStyle1}" />
+                        <Slider x:ConnectionId='108' x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}" />
+                        <Slider x:ConnectionId='109' x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
+                        <Slider x:ConnectionId='110' x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" Style="{StaticResource SliderStyle1}" />
                         <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
                             <Button x:ConnectionId='111' x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                           Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
                             <Button x:ConnectionId='112' x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                           Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
