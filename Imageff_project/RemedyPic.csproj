@@ -142,8 +142,6 @@
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\WideLogo.png" />
-    <Content Include="Assets\Zoom\Zoom-in.png" />
-    <Content Include="Assets\Zoom\Zoom-out.png" />
     <Content Include="Common\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

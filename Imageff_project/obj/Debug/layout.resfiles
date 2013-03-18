@@ -14,8 +14,6 @@ Assets\RemedyPicLogo.png
 Assets\SmallLogo.png
 Assets\SplashScreen.png
 Assets\WideLogo.png
-Assets\Zoom\Zoom-in.png
-Assets\Zoom\Zoom-out.png
 App.xaml
 Common\StandardStyles.xaml
 MainPage.xaml
