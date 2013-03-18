@@ -2234,7 +2234,7 @@
                 </ScrollViewer>
             </Popup>
         </Grid>
-        <ScrollViewer Grid.Row="3" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" >
+        <ScrollViewer x:Name="MenuScroll" Grid.Row="3" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" >
             <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,5">
                 <ToggleButton x:Name="SelectFilters" Content="Filters" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                     <ToggleButton.BorderBrush>
@@ -2400,5 +2400,9 @@
             </Grid>
         </Popup>
         <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="80" IsActive="False" Margin="0" VerticalAlignment="Center" Width="80" Grid.Row="2"/>
+        <StackPanel x:Name="UndoRedoPanel" Margin="0" Orientation="Vertical" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Collapsed">
+            <Button x:Name="Undo" Content="&#xE10E;" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
+            <Button x:Name="Redo" Content="&#xE10D;" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
+        </StackPanel>
     </Grid>
 </common:LayoutAwarePage>

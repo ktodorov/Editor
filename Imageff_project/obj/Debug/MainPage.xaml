@@ -1992,13 +1992,13 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupFrames" Margin="0,0,380,-0.571" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+            <Popup x:Name="PopupFrames" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Frames" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="968">
+                <ScrollViewer x:Name="Frames" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2234,7 +2234,7 @@
                 </ScrollViewer>
             </Popup>
         </Grid>
-        <ScrollViewer Grid.Row="3" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" >
+        <ScrollViewer x:Name="MenuScroll" Grid.Row="3" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" >
             <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,5">
                 <ToggleButton x:ConnectionId='3' x:Name="SelectFilters" Content="Filters" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100"                                                       Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                     <ToggleButton.BorderBrush>
@@ -2400,6 +2400,10 @@
             </Grid>
         </Popup>
         <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="80" IsActive="False" Margin="0" VerticalAlignment="Center" Width="80" Grid.Row="2"/>
+        <StackPanel x:Name="UndoRedoPanel" Margin="0" Orientation="Vertical" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Collapsed">
+            <Button x:Name="Undo" Content="&#xE10E;" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
+            <Button x:Name="Redo" Content="&#xE10D;" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
+        </StackPanel>
     </Grid>
 </common:LayoutAwarePage>
 

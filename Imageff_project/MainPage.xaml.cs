@@ -488,6 +488,7 @@ namespace RemedyPic
             // It shows the interface.
             Zoom.Visibility = Visibility.Visible;
             Menu.Visibility = Visibility.Visible;
+            UndoRedoPanel.Visibility = Visibility.Visible;
         }
         #endregion
 
