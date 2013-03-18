@@ -2958,7 +2958,6 @@ namespace RemedyPic
 
             if (keepProportions && newWidth.Text != "" && int.TryParse(newWidth.Text, out temp))
             {
-                //int tempWidth = Convert.ToInt32(newWidth.Text);
                 newHeight.Text = (Math.Round(temp / widthHeightRatio)).ToString();
             }
             keepProportions = !keepProportions;
@@ -2977,7 +2976,6 @@ namespace RemedyPic
             int temp;
             if (keepProportions && newHeight.Text != "" && int.TryParse(newHeight.Text, out temp))
             {
-                //int tempHeight = Convert.ToInt32(newHeight.Text);
                 newWidth.Text = (Math.Round(temp * widthHeightRatio)).ToString();
             }
             keepProportions = !keepProportions;
