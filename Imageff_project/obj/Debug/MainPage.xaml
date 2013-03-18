@@ -1316,7 +1316,7 @@
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
                     <Grid x:Name="displayGrid" Grid.Row="1" Margin="0">
-                        <Image x:ConnectionId='121' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
+                        <Image x:ConnectionId='122' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
                         <Canvas x:Name="imageCanvas" Visibility="Collapsed" >
                             <Path x:Name="nonselectRegion" Fill="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Opacity="1" Stroke="White">
                                 <Path.Data>
@@ -1416,9 +1416,14 @@
                             <GradientStop Color="#FF218900" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
-                    <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Button x:ConnectionId='119' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"/>
-                        <Button x:ConnectionId='120' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19"                           Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                    <StackPanel Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <StackPanel Height="40" Orientation="Horizontal">
+                            <Button x:ConnectionId='120' x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19"                              Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"/>
+                            <Button x:ConnectionId='121' x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19"                           Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button x:ConnectionId='119' x:Name="CameraButton" Content="USE CAMERA" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19"                             Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
                 <Border x:Name="Zoom" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5">
