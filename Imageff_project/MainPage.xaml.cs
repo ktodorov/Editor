@@ -912,8 +912,6 @@ namespace RemedyPic
 				else if (PopupExposure.IsOpen)
 					ExposureApplyReset.Visibility = Visibility.Visible;
 			}
-			else if (PopupColorize.IsOpen)
-				ColorizeApplyReset.Visibility = Visibility.Visible;
 		}
 
 		void prepareImage(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
@@ -1358,7 +1356,7 @@ namespace RemedyPic
 			doColorize(exampleStream, exampleBitmap, image);
 			ApplyColorize();
 			setFilterBitmaps();
-			ColorizeApplyReset.Visibility = Visibility.Visible;
+			ColorizeApplyReset.Visibility = Visibility.Collapsed;
 			SelectColorize.IsChecked = false;
 		}
 
@@ -1522,18 +1520,13 @@ namespace RemedyPic
 
 		private void OnColorizeResetClick(object sender, RoutedEventArgs e)
 		{
-			deselectColorizeGridItems();/*
-            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                 orangeForColorize = purpleForColorize = cyanForColorize =
-                 limeForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);*/
+			deselectColorizeGridItems();
 			prepareImage(bitmapStream, bitmapImage, imageOriginal);
 			imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
 			setStream(bitmapStream, bitmapImage, imageOriginal);
 			redForColorize = greenForColorize = blueForColorize = yellowForColorize =
 				 orangeForColorize = purpleForColorize = cyanForColorize =
 				 limeForColorize = false;
-			//RestoreOriginalBitmap();
 		}
 
 		private void OnExposureResetClick(object sender, RoutedEventArgs e)
@@ -3256,6 +3249,7 @@ namespace RemedyPic
 			purpleRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 255));
 			cyanRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 255));
 			limeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 25, 255, 25));
+			ColorizeApplyReset.Visibility = Visibility.Collapsed;
 		}
 
 		private void doColorize(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
@@ -3265,6 +3259,7 @@ namespace RemedyPic
 			givenImage.Colorize(blueForColorize, redForColorize, greenForColorize, yellowForColorize,
 										orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize);
 			setStream(stream, bitmap, givenImage);
+			ColorizeApplyReset.Visibility = Visibility.Visible;
 		}
 
 		#endregion
