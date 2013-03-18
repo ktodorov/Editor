@@ -137,6 +137,7 @@ namespace RemedyPic
 
             selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
             this.DataContext = selectedRegion;
+            setPopupsHeight();
         }
 
         #region Charms
@@ -373,9 +374,6 @@ namespace RemedyPic
             // Display the file name.
             setFileProperties(file);
 
-            // Set the height of all popups with the current machine's resolution.
-            setPopupsHeight();
-
             // Set the WriteableBitmap as source to the XAML Image object. This makes the picture appear on the screen.
             displayImage.Source = bitmapImage;
             AnimateInPicture.Begin();
@@ -464,15 +462,15 @@ namespace RemedyPic
         private void setPopupsHeight()
         {
             // We set the popups height to match the current machine's resolution
-            Filters.Height = PopupFilters.ActualHeight + 5;
-            Colors.Height = PopupColors.ActualHeight + 5;
-            Rotations.Height = PopupRotations.ActualHeight + 5;
-            ImageOptions.Height = PopupImageOptions.ActualHeight + 5;
-            Colorize.Height = PopupColorize.ActualHeight + 5;
-            Frames.Height = PopupFrames.ActualHeight + 5;
-            Histogram.Height = PopupHistogram.ActualHeight + 5;
-            FeedbackGrid.Height = Feedback.ActualHeight + 5;
-            Exposure.Height = PopupExposure.ActualHeight + 5;
+            Filters.Height = Window.Current.Bounds.Height;
+            Colors.Height = Window.Current.Bounds.Height;
+            Rotations.Height = Window.Current.Bounds.Height;
+            ImageOptions.Height = Window.Current.Bounds.Height;
+            Colorize.Height = Window.Current.Bounds.Height;
+            Frames.Height = Window.Current.Bounds.Height;
+            Histogram.Height = Window.Current.Bounds.Height;
+            FeedbackGrid.Height = Window.Current.Bounds.Height;
+            Exposure.Height = Window.Current.Bounds.Height;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
