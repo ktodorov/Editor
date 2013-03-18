@@ -803,23 +803,31 @@ namespace RemedyPic.Common
         {
             _dstPixels = (byte[])_srcPixels.Clone();
             double hue = 0;
+            double sat = 0;
+            double bright = 0;
             Color currentPixelColor;
 
             for (int CurrentByte = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
                 // We get the hue of the curent pixel so we can test it in the Colorize function later.
                 currentPixelColor = Color.FromArgb(_dstPixels[CurrentByte + 3], _dstPixels[CurrentByte + 2], _dstPixels[CurrentByte + 1], _dstPixels[CurrentByte]);
-                hue = getHue(currentPixelColor);
-
+                //hue = getHue(currentPixelColor);
+                calculateHue_Sat(currentPixelColor, ref hue, ref sat, ref bright);
                 // We check the pixel for all possible colors for colorizing.
                 // If only one is true, this means the user has selected
                 // this color so we leave the pixel this way. 
                 // If all are false, this means the current pixel color is not
                 // selected from the user so we make it grayscale.
-                if (!checkPixelForColorize(CurrentByte, leaveBlue, hue, "blue") && !checkPixelForColorize(CurrentByte, leaveRed, hue, "red") && !checkPixelForColorize(CurrentByte, leaveGreen, hue, "green")
+
+                /*
+                 * if (!checkPixelForColorize(CurrentByte, leaveBlue, hue, "blue") && !checkPixelForColorize(CurrentByte, leaveRed, hue, "red") && !checkPixelForColorize(CurrentByte, leaveGreen, hue, "green")
                     && !checkPixelForColorize(CurrentByte, leaveYellow, hue, "yellow") && !checkPixelForColorize(CurrentByte, leaveOrange, hue, "orange") &&
                     !checkPixelForColorize(CurrentByte, leavePurple, hue, "purple") && !checkPixelForColorize(CurrentByte, leaveCyan, hue, "cyan")
                     && !checkPixelForColorize(CurrentByte, leaveLime, hue, "lime"))
+                 */
+
+
+                if (!checkPixelForColorize(CurrentByte, leaveBlue, leaveRed, leaveGreen, leaveYellow, leaveOrange, leavePurple, leaveCyan, leaveLime, hue, sat, bright))
                 {
                     makePixelGrayscale(CurrentByte);
                 }
@@ -830,80 +838,72 @@ namespace RemedyPic.Common
         // If the color bool variable is false, this means the user
         // hasn't selected this color for colorizing so we
         // exit and return false.
-        private bool checkPixelForColorize(int CurrentByte, bool color, double hue, string colorToLeave)
+        private bool checkPixelForColorize(int CurrentByte, bool Blue, bool Red, bool Green, bool Yellow, bool Orange, bool Purple, bool Cyan, bool Lime, double hue, double saturation, double bright)
         {
-            if (!color)
-                return false;
 
             // Every color has its own hue and algorithms. 
             // For example, if the color is red, the red pixel must be with higher value
             // both from the green and the blue pixel.
-            // So we check the current pixel color by calling this function 8 times
-            // for every available color for colorizing. 
-            // The if statements check the pixel color if it ISN'T the desired color.
-            // If it is, it just leave the switch statement and returns true.
-            switch (colorToLeave)
-            {
-                case ("blue"):
-                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2]
-                        || hue > 260 || hue < 210)
+            // So we check the current pixel color by checking for the selected color
+            // if it's true, we check the value of the pixel. If the value is fine, we return true 
+            // and leave the pixel the way it is.
+            // The if statements check the pixel color if it is the desired color.
+            // If it isn't, it will reach to the end of the function and return false.
+            if (Blue)
+                if (_dstPixels[CurrentByte] > _dstPixels[CurrentByte + 1] && _dstPixels[CurrentByte] > _dstPixels[CurrentByte + 2]
+                    && hue < 260 && hue >= 210)
+                {
+                    return true;
+                }
+            if (Red)
+                if (_dstPixels[CurrentByte + 2] > _dstPixels[CurrentByte + 1] && _dstPixels[CurrentByte + 2] > _dstPixels[CurrentByte]
+                    && (hue <= 10 || hue >= 350))
+                {
+                    if (hue > 8)
                     {
-                        return false;
+                        if (saturation >= 99 && bright < 50) return true;
                     }
-                    break;
-                case ("red"):
-                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
-                        || (hue > 10 && hue < 350))
-                    {
-                        return false;
-                    }
-                    break;
-                case ("green"):
-                    if (_dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
-                        || hue > 160 || hue < 90)
-                    {
-                        return false;
-                    }
-                    break;
-                case ("yellow"):
-                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte]
-                        || hue > 65 || hue < 35)
-                    {
-                        return false;
-                    }
-                    break;
-                case ("orange"):
-                    if (_dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte]
-                        || hue > 50 || hue < 10)
-                    {
-                        return false;
-                    }
-                    break;
-                case ("purple"):
-                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 1] || _dstPixels[CurrentByte + 2] < _dstPixels[CurrentByte + 1]
-                        || hue < 260 || hue > 350)
-                    {
-                        return false;
-                    }
-                    break;
-                case ("cyan"):
-                    if (_dstPixels[CurrentByte] < _dstPixels[CurrentByte + 2] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
-                        || hue < 170 || hue > 210)
-                    {
-                        return false;
-                    }
-                    break;
-                case ("lime"):
-                    if (_dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte] || _dstPixels[CurrentByte + 1] < _dstPixels[CurrentByte + 2]
-                        || hue > 100 || hue < 60)
-                    {
-                        return false;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            return true;
+                    else
+                    
+                        return true;
+                }
+            if (Green)
+                if (_dstPixels[CurrentByte + 1] > _dstPixels[CurrentByte] && _dstPixels[CurrentByte + 1] > _dstPixels[CurrentByte + 2]
+                    && hue < 160 && hue > 90)
+                {
+                    return true;
+                }
+            if (Yellow)
+                if (_dstPixels[CurrentByte + 2] > _dstPixels[CurrentByte] && _dstPixels[CurrentByte + 1] > _dstPixels[CurrentByte]
+                    && hue <= 70 && hue > 35)
+                {
+                    return true;
+                }
+            if (Orange)
+                if (_dstPixels[CurrentByte + 2] > _dstPixels[CurrentByte + 1] && _dstPixels[CurrentByte + 2] > _dstPixels[CurrentByte]
+                    && hue <= 35 && hue > 8)
+                {
+                    return true;
+                }
+            if (Purple)
+                if (_dstPixels[CurrentByte] > _dstPixels[CurrentByte + 1] && _dstPixels[CurrentByte + 2] > _dstPixels[CurrentByte + 1]
+                    && hue > 260 && hue < 350)
+                {
+                    return true;
+                }
+            if (Cyan)
+                if (_dstPixels[CurrentByte] > _dstPixels[CurrentByte + 2] && _dstPixels[CurrentByte + 1] > _dstPixels[CurrentByte + 2]
+                    && hue >= 165 && hue < 210)
+                {
+                    return true;
+                }
+            if (Lime)
+                if (_dstPixels[CurrentByte + 1] > _dstPixels[CurrentByte] && _dstPixels[CurrentByte + 1] > _dstPixels[CurrentByte + 2]
+                    && hue <= 100 && hue > 75)
+                {
+                    return true;
+                }
+            return false;
         }
 
         // If all colorize functions return false,
@@ -917,7 +917,7 @@ namespace RemedyPic.Common
         }
 
         // Gets hue value of the given pixel color
-        private double getHue(Color givenColor)
+        private void calculateHue_Sat(Color givenColor, ref double hue, ref double sat, ref double bright)
         {
             double r = givenColor.R / 255.0;
             double g = givenColor.G / 255.0;
@@ -925,7 +925,7 @@ namespace RemedyPic.Common
             double v;
             double m;
 
-            double h = 0;
+            hue = 0;
 
             v = Math.Max(r, g);
             v = Math.Max(v, b);
@@ -933,21 +933,23 @@ namespace RemedyPic.Common
             m = Math.Min(m, b);
 
             double delta = v - m;
+            bright = v * 100;
+            sat = delta / v;
+            sat = sat * 100;
 
             if (v == r)
             {
-                h = 60 * (((g - b) / delta) % 6);
+                hue = 60 * (((g - b) / delta) % 6);
             }
             else if (v == g)
             {
-                h = 60 * (((b - r) / delta) + 2);
+                hue = 60 * (((b - r) / delta) + 2);
             }
             else
             {
-                h = 60 * (((r - g) / delta) + 4);
+                hue = 60 * (((r - g) / delta) + 4);
             }
 
-            return h;
         }
         #endregion
 
@@ -960,11 +962,10 @@ namespace RemedyPic.Common
             while (currentByte < (4 * height * width))
             {
                 int baw = (srcPixels[currentByte] + srcPixels[currentByte + 1] + srcPixels[currentByte + 2]) / 3;
-                Color tempColor = Color.FromArgb(srcPixels[currentByte + 3], (byte)baw, (byte)baw, (byte)baw);
-                dstPixels[currentByte++] = tempColor.B;
-                dstPixels[currentByte++] = tempColor.G;
-                dstPixels[currentByte++] = tempColor.R;
-                dstPixels[currentByte++] = tempColor.A;
+                dstPixels[currentByte++] = (byte)baw;
+                dstPixels[currentByte++] = (byte)baw;
+                dstPixels[currentByte++] = (byte)baw;
+                currentByte++;
             }
         }
         #endregion
@@ -1018,7 +1019,7 @@ namespace RemedyPic.Common
         #endregion
 
         #region Histogram
-       
+
         public void MakeHistogramEqualization()
         {
             Equalize("blue");
@@ -1027,7 +1028,7 @@ namespace RemedyPic.Common
         }
 
         private void Equalize(string colorPixel)
-        { 
+        {
             // Histogram function.
             // The algorithm make the intensities around 
             // the grayscale image to be better distributed.
@@ -1044,7 +1045,7 @@ namespace RemedyPic.Common
 
             for (int CurrentByte = startingPixel; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                int i = _dstPixels[CurrentByte];
+                int i = _srcPixels[CurrentByte];
                 frequency[i] += 1;
             }
             int[] cumulative = new int[256];
@@ -1062,7 +1063,7 @@ namespace RemedyPic.Common
             }
             for (int CurrentByte = startingPixel; CurrentByte < _dstPixels.Length; CurrentByte += 4)
             {
-                int temp = (int)_dstPixels[CurrentByte];
+                int temp = (int)_srcPixels[CurrentByte];
 
                 _dstPixels[CurrentByte] = (byte)(cdf[temp]);
             }

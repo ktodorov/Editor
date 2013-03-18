@@ -1332,19 +1332,18 @@
                                 </Path.Data>
                             </Path>
                             <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="topLeftCorner" Tag="TopLeftCorner" 
-                                                Canvas.Left="{Binding TopLeftCornerCanvasLeft, Mode=OneWay}" 
-                                                Canvas.Top="{Binding TopLeftCornerCanvasTop, Mode=OneWay}"/>
+                				Canvas.Left="{Binding TopLeftCornerCanvasLeft, Mode=OneWay}" 
+                				Canvas.Top="{Binding TopLeftCornerCanvasTop, Mode=OneWay}"/>
                             <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="topRightCorner" Tag="TopRightCorner"
-                                                Canvas.Left="{Binding BottomRightCornerCanvasLeft, Mode=OneWay}" 
-                                                Canvas.Top="{Binding TopLeftCornerCanvasTop, Mode=OneWay}" />
+                				Canvas.Left="{Binding BottomRightCornerCanvasLeft, Mode=OneWay}" 
+                				Canvas.Top="{Binding TopLeftCornerCanvasTop, Mode=OneWay}" />
                             <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="bottomLeftCorner" Tag="BottomLeftCorner" 
-                                                Canvas.Left="{Binding TopLeftCornerCanvasLeft, Mode=OneWay}" 
-                                                Canvas.Top="{Binding BottomRightCornerCanvasTop, Mode=OneWay}" />
+                				Canvas.Left="{Binding TopLeftCornerCanvasLeft, Mode=OneWay}" 
+                				Canvas.Top="{Binding BottomRightCornerCanvasTop, Mode=OneWay}" />
                             <ContentControl ContentTemplate="{StaticResource RoundCorner}"  x:Name="bottomRightCorner" Tag="BottomRightCorner" 
-                                                Canvas.Left="{Binding BottomRightCornerCanvasLeft, Mode=OneWay}"
-                                                Canvas.Top="{Binding BottomRightCornerCanvasTop, Mode=OneWay}"/>
+                				Canvas.Left="{Binding BottomRightCornerCanvasLeft, Mode=OneWay}"
+                				Canvas.Top="{Binding BottomRightCornerCanvasTop, Mode=OneWay}"/>
                         </Canvas>
-                        <ProgressRing x:Name="ImageLoadingRing" HorizontalAlignment="Center" IsActive="False" VerticalAlignment="Center" Width="60" Height="60" Margin="0" Foreground="White"/>
                     </Grid>
                 </Border>
             </StackPanel>
@@ -1839,7 +1838,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupImageOptions" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+            <Popup x:Name="PopupImageOptions" Margin="0,0,380,0" Grid.RowSpan="4" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -2394,5 +2393,6 @@
                 <HyperlinkButton Content="antonvdudov@gmail.com" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Grid.Row="3" NavigateUri="mailto:antonvdudov@gmail.com" Padding="12,0" Height="26" Width="202" Foreground="#FF1D6A00"/>
             </Grid>
         </Popup>
+        <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="80" IsActive="False" Margin="0" VerticalAlignment="Center" Width="80" Grid.Row="2"/>
     </Grid>
 </common:LayoutAwarePage>
