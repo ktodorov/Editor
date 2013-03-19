@@ -820,7 +820,7 @@ namespace RemedyPic
 			}
 		}
 
-		private async Task SaveFile(bool picker)
+		private async Task<bool> SaveFile(bool picker)
 		{
 			// Only execute if there is a picture that is loaded
 			if (pictureIsLoaded)
@@ -849,7 +849,7 @@ namespace RemedyPic
 					if (imageOriginal.dstPixels == null)
 					{
 						// If the array is null, this means no changes were made, so we can use the currently opened file.
-						return;
+						return true;
 					}
 					file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpg", CreationCollisionOption.ReplaceExisting);
 				}
@@ -885,6 +885,7 @@ namespace RemedyPic
 					}
 				}
 			}
+            return true;
 		}
 		#endregion
 
@@ -2694,7 +2695,12 @@ namespace RemedyPic
 		private async void SetLockPic_Clicked(object sender, RoutedEventArgs e)
 		{
 			// This sets the current image as a wallpaper on the lock screen of the current user and inform him that everything was okay.
-			await SaveFile(false);
+            bool savedFile = false;
+            savedFile = await SaveFile(false);
+            while (!savedFile)
+            {
+
+            }
 			await LockScreen.SetImageFileAsync(file);
 			MessageDialog messageDialog = new MessageDialog("Picture set! :)", "All done");
 			await messageDialog.ShowAsync();
@@ -2704,7 +2710,12 @@ namespace RemedyPic
 		private async void SetAccountPic_Clicked(object sender, RoutedEventArgs e)
 		{
 			// This sets the current image as an avatar of the current user and inform him that everything was okay.
-			await SaveFile(false);
+            bool savedFile = false;
+            savedFile = await SaveFile(false);
+            while (!savedFile)
+            {
+
+            }
 			SetAccountPictureResult result = await UserInformation.SetAccountPicturesAsync(null, file, null);
 
 			if (result == SetAccountPictureResult.Success)
