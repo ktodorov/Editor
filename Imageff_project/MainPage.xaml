@@ -2240,8 +2240,8 @@
             </Popup>
         </Grid>
         <ScrollViewer x:Name="MenuScroll" Grid.Row="3" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" >
-            <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,5">
-                <ToggleButton x:Name="SelectFilters" Content="Filters" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
+            <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0">
+                <ToggleButton x:Name="SelectFilters" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnEffectsPointerOver" PointerExited="OnEffectsPointerExited">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2251,6 +2251,7 @@
                             <GradientStop Color="#B23C9F00" Offset="1"/>
                         </LinearGradientBrush>
                     </ToggleButton.BorderBrush>
+                    <Image x:Name="Effects" Source="Assets/Buttons/Effects.png"/>
                 </ToggleButton>
                 <ToggleButton x:Name="SelectColors" Content="Colors" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="100" Unchecked="ColorsUnchecked" Checked="ColorsChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0,0,0,3" Style="{StaticResource ToggleButtonStyle2}" Padding="12,4,12,0">
                     <ToggleButton.BorderBrush>

@@ -1573,11 +1573,17 @@ namespace RemedyPic
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             PopupFilters.IsOpen = true;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-check.png");
+            Effects.Source = temp;
         }
 
         private void FiltersUnchecked(object sender, RoutedEventArgs e)
         {
             PopupFilters.IsOpen = false;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects.png");
+            Effects.Source = temp;
         }
 
         private void ColorsChecked(object sender, RoutedEventArgs e)
@@ -3619,6 +3625,26 @@ namespace RemedyPic
                 importFilePanel.Visibility = Visibility.Collapsed;
         }
         #endregion
+
+        private void OnEffectsPointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectFilters.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-hover.png");
+                Effects.Source = temp;
+            }
+        }
+
+        private void OnEffectsPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectFilters.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects.png");
+                Effects.Source = temp;
+            }
+        }
 
     }
     #endregion

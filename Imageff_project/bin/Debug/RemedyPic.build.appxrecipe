@@ -25,6 +25,18 @@
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-vertical.png">
       <PackagePath>Assets\Arrows\Arrow-vertical.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects-check.png">
+      <PackagePath>Assets\Buttons\Effects-check.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects-click.png">
+      <PackagePath>Assets\Buttons\Effects-click.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects-hover.png">
+      <PackagePath>Assets\Buttons\Effects-hover.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects.png">
+      <PackagePath>Assets\Buttons\Effects.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
