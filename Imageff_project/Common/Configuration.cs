@@ -16,23 +16,8 @@ namespace RemedyPic.Common
     {
 
         public List<string> effects = new List<string>();
+        public StorageFile configFile = null;
 
-        #region Getters and setters.
-        public StorageFile configFile
-        {
-            get
-            {
-                return configFile;
-            }
-            set
-            {
-                configFile = value;
-            }
-        }
-
-
-
-        #endregion
 
         #region Export
         public async void Export(List<string> effectsApplied)
@@ -57,7 +42,7 @@ namespace RemedyPic.Common
         #endregion
 
         #region Import
-        public async void Import(TextBlock givenBlock)
+        public async Task<bool> Import(TextBlock givenBlock)
         {
             FileOpenPicker filePicker = new FileOpenPicker();
             filePicker.FileTypeFilter.Add(".txt");
@@ -66,6 +51,7 @@ namespace RemedyPic.Common
             if (file != null)
             // File is null if user cancels the file picker.
             {
+                configFile = file;
 				givenBlock.Text = file.Name;
                 var stream = await file.OpenReadAsync();
                 var rdr = new StreamReader(stream.AsStream());
@@ -83,9 +69,10 @@ namespace RemedyPic.Common
                 {
                     applyEffects(contents[i]);
                 }
-
+                return true;
             }
-
+            configFile = null;
+            return false;
         }
 
         private void applyEffects(string applies)
