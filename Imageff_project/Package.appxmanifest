@@ -22,19 +22,6 @@
           <Rotation Preference="landscape" />
         </InitialRotationPreference>
       </VisualElements>
-      <Extensions>
-        <Extension Category="windows.shareTarget">
-          <ShareTarget>
-            <SupportedFileTypes>
-              <FileType>.jpg</FileType>
-              <FileType>.jpeg</FileType>
-              <FileType>.bmp</FileType>
-              <FileType>.png</FileType>
-            </SupportedFileTypes>
-            <DataFormat>StorageItems</DataFormat>
-          </ShareTarget>
-        </Extension>
-      </Extensions>
     </Application>
   </Applications>
   <Capabilities>
