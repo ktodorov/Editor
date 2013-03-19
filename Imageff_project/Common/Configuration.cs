@@ -108,7 +108,7 @@ namespace RemedyPic.Common
         private void apply(string effect, string value)
         {
             if (effect != "Filter" && effect != "Color" && effect != "Contrast" && effect != "Exposure"
-                && effect != "Colorize" && effect != "Flip" && effect != "Frame")
+                && effect != "Colorize" && effect != "Flip" && effect != "Frame" && effect != "Histogram")
                 return;
 
             effects.Add(effect);

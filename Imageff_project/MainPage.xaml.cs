@@ -381,13 +381,8 @@ namespace RemedyPic
 			// Reset all sliders
 			ResetAllSliders();
 
-            // Reset archive and archive index and add new image
-            archive_data.Clear();
-            archive_current_index = -1;
+            // Archive the pixel array
             ArchiveAddArray();
-
-            // Clear array with effects
-            effectsApplied.Clear();
 
 			// Set the small WriteableBitmap objects to the three XAML Image objects.
 			setElements(ColorsExamplePicture, exampleBitmap);
@@ -975,7 +970,6 @@ namespace RemedyPic
             if (archive_current_index != -1 && archive_current_index != archive_data.Count - 1)
             {
                 archive_data.RemoveRange(archive_current_index + 1, archive_data.Count - 1 - archive_current_index);
-                effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); // Here we don`t save the start image, so we have -1 index of archive_current_index
             }
             archive_data.Add((byte[])imageOriginal.srcPixels.Clone());
             archive_current_index++;
@@ -1216,8 +1210,9 @@ namespace RemedyPic
 		#region Apply Buttons
 		// Event for apply button on Filters popup. Sets the image with the applied filter
 		private void OnFilterApplyClick(object sender, RoutedEventArgs e)
-		{			
-			ApplyFilter(appliedFilters);            
+		{
+			effectsApplied.Add("Filter = " + appliedFilters);
+			ApplyFilter(appliedFilters);
 			FilterApplyReset.Visibility = Visibility.Collapsed;
 			SelectFilters.IsChecked = false;
 			setFilterBitmaps();
@@ -1298,7 +1293,6 @@ namespace RemedyPic
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ArchiveAddArray();
-            effectsApplied.Add("Filter = " + appliedFilters);
 			ResetFilterMenuData();
 			ImageLoadingRing.IsActive = false;
 		}
@@ -1306,7 +1300,9 @@ namespace RemedyPic
 		// Event for apply button on Colors popup. Sets the image with the applied colors
 		private void OnColorApplyClick(object sender, RoutedEventArgs e)
 		{
-            ApplyColor();
+			effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value);
+			effectsApplied.Add("Contrast = " + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
+			ApplyColor();
 			setFilterBitmaps();
 		}
 
@@ -1323,7 +1319,7 @@ namespace RemedyPic
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
 
             ArchiveAddArray();
-            effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value + "," + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
+
 			ResetColorMenuData();
 			ImageLoadingRing.IsActive = false;
 		}
@@ -1332,8 +1328,12 @@ namespace RemedyPic
 		private void OnRotateApplyClick(object sender, RoutedEventArgs e)
 		{
 			ImageLoadingRing.IsActive = true;
-			SelectRotations.IsChecked = false;			
-			ApplyRotate(appliedRotations);           
+			SelectRotations.IsChecked = false;
+			effectsApplied.Add("Flip = " + appliedRotations);
+			ApplyRotate(appliedRotations);
+			image.srcPixels = (byte[])image.dstPixels.Clone();
+			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            ArchiveAddArray();
 			setFilterBitmaps();
 			ImageLoadingRing.IsActive = false;
 			RotateApplyReset.Visibility = Visibility.Collapsed;
@@ -1356,10 +1356,7 @@ namespace RemedyPic
 				default:
 					break;
 			}
-            image.srcPixels = (byte[])image.dstPixels.Clone();
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone(); 
-            ArchiveAddArray();
-            effectsApplied.Add("Flip = " + appliedRotations);
+                       
 			ResetRotateMenuData();
 		}
 
@@ -1375,11 +1372,11 @@ namespace RemedyPic
 
 		private void ApplyColorize()
 		{
-			ImageLoadingRing.IsActive = true;			
+			ImageLoadingRing.IsActive = true;
+			Colorize_SetColorizeEffect();
 			image.srcPixels = (byte[])image.dstPixels.Clone();
-			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();            
+			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ArchiveAddArray();
-            Colorize_SetColorizeEffect();
 			ImageLoadingRing.IsActive = false;
 		}
 
@@ -1454,7 +1451,8 @@ namespace RemedyPic
 		{
 			ImageLoadingRing.IsActive = true;
 			ExposureApplyReset.Visibility = Visibility.Collapsed;
-			SelectExposure.IsChecked = false;			
+			SelectExposure.IsChecked = false;
+			effectsApplied.Add("Exposure = " + brightSlider.Value + "," + BlueGammaSlider.Value + "," + GreenGammaSlider.Value + "," + RedGammaSlider.Value);
 
 			switch (effect)
 			{
@@ -1471,7 +1469,6 @@ namespace RemedyPic
 			image.srcPixels = (byte[])image.dstPixels.Clone();
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ArchiveAddArray();
-            effectsApplied.Add("Exposure = " + brightSlider.Value + "," + BlueGammaSlider.Value + "," + GreenGammaSlider.Value + "," + RedGammaSlider.Value);
 			ResetExposureMenuData();
 			ImageLoadingRing.IsActive = false;
 		}
@@ -1852,9 +1849,9 @@ namespace RemedyPic
 		// Apply the frame on the image
 		private void OnApplyFramesClick(object sender, RoutedEventArgs e)
 		{
+			effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
 			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ArchiveAddArray();
-            effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
             setExampleImage();
 			setFilterBitmaps();
 			FramesApplyReset.Visibility = Visibility.Collapsed;
@@ -2781,18 +2778,22 @@ namespace RemedyPic
 		{
 			// Equalize the histogram of the current image.
 			SelectHistogram.IsChecked = false;
-			prepareImage(bitmapStream, bitmapImage, imageOriginal);
-			imageOriginal.MakeHistogramEqualization();
-			setStream(bitmapStream, bitmapImage, imageOriginal);
-			prepareImage(exampleStream, exampleBitmap, image);
-			image.MakeHistogramEqualization();
-			setStream(exampleStream, exampleBitmap, image);
-			image.srcPixels = (byte[])image.dstPixels.Clone();
-			imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            effectsApplied.Add("Histogram = true");
+            equalizeHistogram();
             ArchiveAddArray();
 			setFilterBitmaps();
 		}
+
+        private void equalizeHistogram()
+        {
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            imageOriginal.MakeHistogramEqualization();
+            setStream(bitmapStream, bitmapImage, imageOriginal);
+            prepareImage(exampleStream, exampleBitmap, image);
+            image.MakeHistogramEqualization();
+            setStream(exampleStream, exampleBitmap, image);
+            image.srcPixels = (byte[])image.dstPixels.Clone();
+            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+        }
 
 		#region Crop region
 
@@ -3305,12 +3306,7 @@ namespace RemedyPic
 		#region Export/Import
 		private void OnExportButtonClick(object sender, RoutedEventArgs e)
 		{
-            if (archive_current_index != archive_data.Count - 1)
-            {
-                archive_data.RemoveRange(archive_current_index + 1, archive_data.Count - 1 - archive_current_index);
-                effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); // Here we don`t save the start image, so we have -1 index of archive_current_index
-            }
-            configFile.Export(effectsApplied);
+			configFile.Export(effectsApplied);
 		}
 
 		private void onImportButtonClick(object sender, RoutedEventArgs e)
@@ -3327,58 +3323,85 @@ namespace RemedyPic
 			string[] temp = new string[10];
 			switch (configFile.effects[i])
 			{
-				case "filter":
+				case "Filter":
 					ApplyFilter(configFile.effects[i + 1]);
 					break;
 
-				case "color":
+				case "Color":
 					temp = configFile.effects[i + 1].Split(',');
-					BlueColorSlider.Value = Convert.ToDouble(temp[0]);
-					GreenColorSlider.Value = Convert.ToDouble(temp[1]);
-					RedColorSlider.Value = Convert.ToDouble(temp[2]);
-					ApplyColor();
+                    importColor(temp);
 					break;
 
-				case "contrast":
+				case "Contrast":
 					temp = configFile.effects[i + 1].Split(',');
-					BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
-					GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
-					RedContrastSlider.Value = Convert.ToDouble(temp[2]);
-					ApplyColor();
+                    importContrast(temp);
 					break;
 
-				case "exposure":
+				case "Exposure":
 					temp = configFile.effects[i + 1].Split(',');
-					brightSlider.Value = Convert.ToDouble(temp[0]);
-					BlueGammaSlider.Value = Convert.ToDouble(temp[1]);
-					GreenGammaSlider.Value = Convert.ToDouble(temp[2]);
-					RedGammaSlider.Value = Convert.ToDouble(temp[3]);
-					if (brightSlider.Value < 0)
-						ApplyExposure("gammadarken");
-					else
-						ApplyExposure("gammalighten");
+                    importExposure(temp);
 					break;
 
-				case "flip":
+				case "Flip":
 					temp = configFile.effects[i + 1].Split(',');
 					ApplyRotate(temp[0]);
 					break;
 
-				case "colorize":
+				case "Colorize":
 					temp = configFile.effects[i + 1].Split(',');
-					for (int k = 0; k < temp.Length; k++)
-					{
-						checkColorizeColor(temp[k]);
-					}
-					doColorize(bitmapStream, bitmapImage, imageOriginal);
-					ApplyColorize();
+                    importColorize(temp);
 					break;
-
+                case "Histogram":
+                    if (configFile.effects[i + 1] == "true")
+                    {
+                        equalizeHistogram();
+                    }
+                    break;
 				default: break;
 			}
 		}
 
-		private void checkColorizeColor(string color)
+        #region Import Functions
+        private void importColor(string[] temp)
+        {
+            BlueColorSlider.Value = Convert.ToDouble(temp[0]);
+            GreenColorSlider.Value = Convert.ToDouble(temp[1]);
+            RedColorSlider.Value = Convert.ToDouble(temp[2]);
+            ApplyColor();
+        }
+
+        private void importContrast(string[] temp)
+        {
+            BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
+            GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
+            RedContrastSlider.Value = Convert.ToDouble(temp[2]);
+            ApplyColor();
+        }
+
+        private void importExposure(string[] temp)
+        {
+            brightSlider.Value = Convert.ToDouble(temp[0]);
+            BlueGammaSlider.Value = Convert.ToDouble(temp[1]);
+            GreenGammaSlider.Value = Convert.ToDouble(temp[2]);
+            RedGammaSlider.Value = Convert.ToDouble(temp[3]);
+            if (brightSlider.Value < 0)
+                ApplyExposure("gammadarken");
+            else
+                ApplyExposure("gammalighten");
+        }
+
+        private void importColorize(string[] temp)
+        {
+            for (int k = 0; k < temp.Length; k++)
+            {
+                checkColorizeColor(temp[k]);
+            }
+            doColorize(bitmapStream, bitmapImage, imageOriginal);
+            ApplyColorize();
+        }
+        #endregion
+
+        private void checkColorizeColor(string color)
 		{
 			switch (color)
 			{
