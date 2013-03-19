@@ -3297,7 +3297,7 @@ namespace RemedyPic
             if (archive_current_index != archive_data.Count - 1)
             {
                 archive_data.RemoveRange(archive_current_index + 1, archive_data.Count - 1 - archive_current_index);
-                effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); // Here we don`t save the start image, so we have -1 index of archive_current_index
+                effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); 
             }
             configFile.Export(effectsApplied);
 		}
