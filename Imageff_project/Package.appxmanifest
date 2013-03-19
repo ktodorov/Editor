@@ -18,7 +18,23 @@
       <VisualElements DisplayName="RemedyPic" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="RemedyPic" ForegroundText="light" BackgroundColor="#00640e">
         <DefaultTile WideLogo="Assets\WideLogo.png" />
         <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#00640e" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
       </VisualElements>
+      <Extensions>
+        <Extension Category="windows.shareTarget">
+          <ShareTarget>
+            <SupportedFileTypes>
+              <FileType>.jpg</FileType>
+              <FileType>.jpeg</FileType>
+              <FileType>.bmp</FileType>
+              <FileType>.png</FileType>
+            </SupportedFileTypes>
+            <DataFormat>StorageItems</DataFormat>
+          </ShareTarget>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

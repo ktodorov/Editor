@@ -5,7 +5,7 @@
     <WindowsUser>Tony</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>E55198EFE31145BF4E28505F6C7FA376FFEAE092D97421DD1375754857C2D51F</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>74FE2B9216B5DFFE82A0C58F8165408329540DF8E5EA5AE6E775117C94A9A65C</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>DF4D1F28-642E-40AC-AB55-7182B8AD0385_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>DF4D1F28-642E-40AC-AB55-7182B8AD0385_pexwghfzd4yhp!App</RegisteredUserModeAppID>
     <RegisteredPackageID>DF4D1F28-642E-40AC-AB55-7182B8AD0385</RegisteredPackageID>
@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-18T17:06:31.230</Modified>
+      <Modified>2013-03-19T14:41:30.155</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-03-18T21:38:19.794</Modified>
+      <Modified>2013-03-19T17:42:37.905</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-03-18T21:38:19.774</Modified>
+      <Modified>2013-03-19T17:42:37.886</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
@@ -110,11 +110,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-03-18T17:13:09.321</Modified>
+      <Modified>2013-03-18T22:01:15.624</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-03-18T17:06:31.133</Modified>
+      <Modified>2013-03-19T14:41:29.563</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
