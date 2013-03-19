@@ -313,10 +313,10 @@ namespace RemedyPic
                 {
                     file = fileToUse;
                 }
-                bitmapImage = new WriteableBitmap(1, 1);
                 if (file != null)
                 // File is null if user cancels the file picker.
                 {
+                    bitmapImage = new WriteableBitmap(1, 1);
                     ImageLoadingRing.IsActive = true;
                     AnimateOutPicture.Begin();
 
