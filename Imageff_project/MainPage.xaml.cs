@@ -39,6 +39,11 @@ namespace RemedyPic
         #region Variables
         // Those are all the global variables, that are used in MainPage.xaml.cs file.
 
+        private double canvasStartX = 0.00;
+        private double canvasStartY = 0.00;
+        private double canvasEndX = 0.00;
+        private double canvasEndY = 0.00;
+
         private Configuration configFile = new Configuration();
         private List<string> effectsApplied = new List<string>();
 
@@ -2821,19 +2826,45 @@ namespace RemedyPic
             Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
             uint ptrId = pt.PointerId;
 
+            /*
+            &&
+                pt.Position.X > (canvasStartX - 20) && pt.Position.X < (canvasEndX + 20) &&
+                pt.Position.Y > (canvasStartY - 20) && pt.Position.Y < (canvasEndY + 20))
+            */
             if (pointerPositionHistory.ContainsKey(ptrId) && pointerPositionHistory[ptrId].HasValue)
             {
+
+                bool okayForMoving = false;
+
                 Point currentPosition = pt.Position;
                 Point previousPosition = pointerPositionHistory[ptrId].Value;
 
-                double xUpdate = currentPosition.X - previousPosition.X;
-                double yUpdate = currentPosition.Y - previousPosition.Y;
+                // Those scary if's check the new position so the user 
+                // can't expand the crop region if the pointer is out of the image.
+                if (currentPosition.X - previousPosition.X > -10 && currentPosition.X - previousPosition.X < 10
+                    && currentPosition.Y - previousPosition.Y > -10 && currentPosition.Y - previousPosition.Y < 10
+                    && currentPosition.X > (canvasStartX - 20) && currentPosition.X < (canvasEndX + 20)
+                    && currentPosition.Y > (canvasStartY - 20) && currentPosition.Y < (canvasEndY + 20))
+                {
+                    okayForMoving = true;
+                }
+                else if (currentPosition.Y > (canvasStartY) && currentPosition.Y < (canvasEndY)
+                    && currentPosition.X > (canvasStartX) && currentPosition.X < (canvasEndX))
+                {
+                    okayForMoving = true;
+                }
 
-                this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string, xUpdate, yUpdate);
+                if (okayForMoving)
+                {
 
-                pointerPositionHistory[ptrId] = currentPosition;
+                    double xUpdate = currentPosition.X - previousPosition.X;
+                    double yUpdate = currentPosition.Y - previousPosition.Y;
+
+                    this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string, xUpdate, yUpdate);
+
+                    pointerPositionHistory[ptrId] = currentPosition;
+                }
             }
-
             e.Handled = true;
         }
 
@@ -2850,7 +2881,6 @@ namespace RemedyPic
 
             (sender as UIElement).ReleasePointerCapture(e.Pointer);
 
-            CropApply.Visibility = Visibility.Visible;
             e.Handled = true;
 
 
@@ -2860,11 +2890,6 @@ namespace RemedyPic
         {
             this.selectedRegion.UpdateSelectedRect(e.Delta.Scale, e.Delta.Translation.X, e.Delta.Translation.Y);
             e.Handled = true;
-        }
-
-        void selectRegion_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-        {
-            CropApply.Visibility = Visibility.Visible;
         }
 
         #endregion
@@ -2960,7 +2985,6 @@ namespace RemedyPic
 
             // Handle the manipulation events of the selectRegion
             selectRegion.ManipulationDelta += selectRegion_ManipulationDelta;
-            selectRegion.ManipulationCompleted += selectRegion_ManipulationCompleted;
 
             this.displayImage.SizeChanged += sourceImage_SizeChanged;
 
@@ -2981,7 +3005,6 @@ namespace RemedyPic
 
             // Handle the manipulation events of the selectRegion
             selectRegion.ManipulationDelta -= selectRegion_ManipulationDelta;
-            selectRegion.ManipulationCompleted -= selectRegion_ManipulationCompleted;
 
             this.displayImage.SizeChanged -= sourceImage_SizeChanged;
 
@@ -3005,6 +3028,7 @@ namespace RemedyPic
         {
             // Called when the original image size is changed.
             // It calculates the new width and height.
+            calculateCanvasCorners();
 
             if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)
             {
@@ -3031,12 +3055,35 @@ namespace RemedyPic
             }
         }
 
+        private void calculateCanvasCorners()
+        {
+            canvasStartX = 114.00 / 683.00;
+            canvasStartX = Window.Current.Bounds.Width * canvasStartX;
+            canvasStartX = (Window.Current.Bounds.Width - displayImage.ActualWidth) - canvasStartX;
+            canvasStartX = canvasStartX / 2;
+
+            canvasEndX = canvasStartX + displayImage.ActualWidth;
+
+            double temp = Window.Current.Bounds.Height - 140;
+            canvasStartY = 49.00 / 631.00;
+            canvasStartY = temp * canvasStartY;
+            canvasStartY = (Window.Current.Bounds.Height - displayImage.ActualHeight) - canvasStartY;
+            canvasStartY = canvasStartY / 2;
+
+            canvasEndY = canvasStartY + displayImage.ActualHeight;
+        }
+
         void selectedRegion_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             // Called when the user has dragged the crop corner.
             double widthScale = imageCanvas.Width / sourceImagePixelWidth;
             double heightScale = imageCanvas.Height / sourceImagePixelHeight;
 
+            if (this.selectedRegion.SelectedRect.Width != displayImage.ActualWidth ||
+                this.selectedRegion.SelectedRect.Height != displayImage.ActualHeight)
+                CropApply.Visibility = Visibility.Visible;
+            else
+                CropApply.Visibility = Visibility.Collapsed;
             this.selectInfoInBitmapText.Text = string.Format("Resolution: {0}x{1}",
                 Math.Floor(this.selectedRegion.SelectedRect.Width / widthScale),
                 Math.Floor(this.selectedRegion.SelectedRect.Height / heightScale));

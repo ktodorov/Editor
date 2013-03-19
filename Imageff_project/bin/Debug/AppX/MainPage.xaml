@@ -1457,10 +1457,10 @@
                         </LinearGradientBrush>
                     </Border.BorderBrush>
                     <StackPanel x:Name="CropPanel" Orientation="Vertical">
-                        <Border Background="#7F000000" Margin="5">
-                            <TextBlock x:Name="selectInfoInBitmapText" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="White" Margin="10,0,0,0" HorizontalAlignment="Center" />
+                        <Border Margin="5">
+                            <TextBlock x:Name="selectInfoInBitmapText" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="#AAAAFF55" Margin="10,0,0,0" HorizontalAlignment="Center" FontSize="18" />
                         </Border>
-                        <Button x:ConnectionId='116' x:Name="CropApply" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Visibility="Collapsed"/>
+                        <Button x:ConnectionId='116' x:Name="CropApply" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Visibility="Collapsed" Style="{StaticResource ImageOptionsStyle}"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -1548,8 +1548,8 @@
                         <Slider x:ConnectionId='111' x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
                         <Slider x:ConnectionId='112' x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-50" Maximum="50"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" Style="{StaticResource SliderStyle1}" />
                         <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-                            <Button x:ConnectionId='113' x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                           Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
-                            <Button x:ConnectionId='114' x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                           Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
+                            <Button x:ConnectionId='113' x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                           Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
+                            <Button x:ConnectionId='114' x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                           Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1715,8 +1715,8 @@
                             </StackPanel>
                         </StackPanel>
                         <StackPanel x:Name="FilterApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
-                            <Button x:ConnectionId='88' x:Name="FilterApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="0"/>
-                            <Button x:ConnectionId='89' x:Name="FilterResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                            Foreground="Black" Height="40" BorderThickness="1" BorderBrush="White" Background="#7FFFFFFF" Margin="20,0,0,0"/>
+                            <Button x:ConnectionId='88' x:Name="FilterApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
+                            <Button x:ConnectionId='89' x:Name="FilterResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1775,8 +1775,8 @@
                         <Slider x:ConnectionId='83' x:Name ="GreenGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                                  BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40"  Style="{StaticResource SliderStyle1}"/>
                         <Slider x:ConnectionId='84' x:Name ="RedGammaSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="10" Minimum="2" Maximum="50"                                  BorderThickness="1" Margin="50,0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40"  Style="{StaticResource SliderStyle1}" />
                         <StackPanel x:Name="ExposureApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-                            <Button x:ConnectionId='85' x:Name="ExposureApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
-                            <Button x:ConnectionId='86' x:Name="ExposureResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
+                            <Button x:ConnectionId='85' x:Name="ExposureApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
+                            <Button x:ConnectionId='86' x:Name="ExposureResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1833,8 +1833,8 @@
                             </Button>
                         </StackPanel>
                         <StackPanel x:Name="RotateApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
-                            <Button x:ConnectionId='76' x:Name="RotateApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="0"/>
-                            <Button x:ConnectionId='77' x:Name="RotateResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="20,0,0,0"/>
+                            <Button x:ConnectionId='76' x:Name="RotateApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="0" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}"/>
+                            <Button x:ConnectionId='77' x:Name="RotateResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                            Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -1990,8 +1990,8 @@
                             </ToggleButton>
                         </Grid>
                         <StackPanel x:Name="ColorizeApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,50,0,0" Visibility="Collapsed">
-                            <Button x:ConnectionId='53' x:Name="ColorizeApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
-                            <Button x:ConnectionId='54' x:Name="ColorizeResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0"/>
+                            <Button x:ConnectionId='53' x:Name="ColorizeApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
+                            <Button x:ConnectionId='54' x:Name="ColorizeResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                              Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}"/>
                         </StackPanel>
 
                     </StackPanel>
@@ -2190,9 +2190,9 @@
                                 </Button>
                             </Border>
                         </StackPanel>
-                        <StackPanel x:Name="FramesApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0" Visibility="Collapsed">
-                            <Button x:ConnectionId='16' x:Name="ApplyButton" Content="Apply" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
-                            <Button x:ConnectionId='17' x:Name="ResetButton" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0"/>
+                        <StackPanel x:Name="FramesApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,15,0,0" Visibility="Collapsed">
+                            <Button x:ConnectionId='16' x:Name="ApplyButton" Content="Apply" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
+                            <Button x:ConnectionId='17' x:Name="ResetButton" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                            Foreground="White" Height="35" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
