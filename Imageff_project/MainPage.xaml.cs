@@ -39,11 +39,7 @@ namespace RemedyPic
         #region Variables
         // Those are all the global variables, that are used in MainPage.xaml.cs file.
 
-        private double canvasStartX = 0.00;
-        private double canvasStartY = 0.00;
-        private double canvasEndX = 0.00;
-        private double canvasEndY = 0.00;
-
+        // Those are used for the import/export functions.
         private Configuration configFile = new Configuration();
         private List<string> effectsApplied = new List<string>();
 
@@ -56,6 +52,13 @@ namespace RemedyPic
 
         // mruToken is used for LoadState and SaveState functions.
         private string mruToken = null;
+
+        // Those store the corner positions of 
+        // the canvas, used for croping.
+        private double canvasStartX = 0.00;
+        private double canvasStartY = 0.00;
+        private double canvasEndX = 0.00;
+        private double canvasEndY = 0.00;
 
         // This variable holds the current file that we are using.
         StorageFile file;
@@ -2267,8 +2270,8 @@ namespace RemedyPic
 
             _compositeTransform.Rotation = e.Delta.Rotation;
             _compositeTransform.ScaleX = _compositeTransform.ScaleY = e.Delta.Scale;
-            _compositeTransform.TranslateX = e.Delta.Translation.X;
-            _compositeTransform.TranslateY = e.Delta.Translation.Y;
+            _compositeTransform.TranslateX = e.Delta.Translation.X / scale.ScaleX;
+            _compositeTransform.TranslateY = e.Delta.Translation.Y / scale.ScaleY;
 
             e.Handled = true;
         }
