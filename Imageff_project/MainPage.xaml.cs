@@ -2936,6 +2936,7 @@ namespace RemedyPic
             // If a pointer which is captured by the corner moves，the select region will be updated.
             Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
             uint ptrId = pt.PointerId;
+            calculateCanvasCorners();
 
             if (pointerPositionHistory.ContainsKey(ptrId) && pointerPositionHistory[ptrId].HasValue)
             {
@@ -2956,7 +2957,7 @@ namespace RemedyPic
                 }
                 else
                 {
-                    xUpdate = 0;
+                    xUpdate = 0.0;
                 }
                 if ((currentPosition.Y > canvasStartY && currentPosition.Y < canvasEndY)
                     || (currentPosition.Y > previousPosition.Y && currentPosition.Y > canvasEndY)
@@ -3143,7 +3144,6 @@ namespace RemedyPic
         {
             // Called when the original image size is changed.
             // It calculates the new width and height.
-            calculateCanvasCorners();
 
             if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)
             {

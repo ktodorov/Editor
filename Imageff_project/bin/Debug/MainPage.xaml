@@ -1487,7 +1487,7 @@
                     </Border.BorderBrush>
                     <StackPanel x:Name="CropPanel" Orientation="Vertical">
                         <Border Margin="5">
-                            <TextBlock x:Name="selectInfoInBitmapText" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="#AAAAFF55" Margin="10,0,0,0" HorizontalAlignment="Center" FontSize="18" />
+                            <TextBlock x:Name="selectInfoInBitmapText" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="#AAFFFFFF" Margin="10,0,0,0" HorizontalAlignment="Center" FontSize="18" />
                         </Border>
                         <Button x:ConnectionId='116' x:Name="CropApply" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Visibility="Collapsed" Style="{StaticResource ImageOptionsStyle}"/>
                     </StackPanel>
