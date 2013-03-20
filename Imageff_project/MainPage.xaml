@@ -2241,7 +2241,7 @@
         </Grid>
         <ScrollViewer x:Name="MenuScroll" Grid.Row="3" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" >
             <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0" Visibility="Collapsed">
-                <ToggleButton x:Name="SelectFilters" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnEffectsPointerOver" PointerExited="OnEffectsPointerExited">
+                <ToggleButton x:Name="SelectFilters" HorizontalAlignment="Left" VerticalAlignment="Stretch" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnEffectsPointerOver" PointerExited="OnEffectsPointerExited" Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2253,7 +2253,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="EffectsIcon" Source="Assets/Buttons/Effects.png"/>
                 </ToggleButton>
-                <ToggleButton x:Name="SelectColors" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Unchecked="ColorsUnchecked" Checked="ColorsChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnColorsPointerOver" PointerExited="OnColorsPointerExited">
+                <ToggleButton x:Name="SelectColors" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="ColorsUnchecked" Checked="ColorsChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnColorsPointerOver" PointerExited="OnColorsPointerExited" Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2265,7 +2265,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="ColorsIcon" Source="Assets/Buttons/Colors.png"/>
                 </ToggleButton>
-                <ToggleButton x:Name="SelectExposure" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Unchecked="ExposureUnchecked" Checked="ExposureChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnExposurePointerOver" PointerExited="OnExposurePointerExited">
+                <ToggleButton x:Name="SelectExposure" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="ExposureUnchecked" Checked="ExposureChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnExposurePointerOver" PointerExited="OnExposurePointerExited" Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2277,31 +2277,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="ExposureIcon" Source="Assets/Buttons/Exposure.png"/>
                 </ToggleButton>
-                <ToggleButton x:Name="SelectRotations" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Unchecked="RotationsUnchecked" Checked="RotationsChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnRotatePointerOver" PointerExited="OnRotatePointerExited">
-                    <ToggleButton.BorderBrush>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#B23CAF00"/>
-                            <GradientStop Color="#B23CCF00" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ToggleButton.BorderBrush>
-                    <Image x:Name="RotateIcon" Source="Assets/Buttons/Rotate.png"/>
-                </ToggleButton>
-                <ToggleButton x:Name="SelectColorize" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Unchecked="ColorizeUnchecked" Checked="ColorizeChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnColorizePointerOver" PointerExited="OnColorizePointerExited">
-                    <ToggleButton.BorderBrush>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#B23CEF00"/>
-                            <GradientStop Color="#B23CFF00" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ToggleButton.BorderBrush>
-                    <Image x:Name="ColorizeIcon" Source="Assets/Buttons/Colorize.png"/>
-                </ToggleButton>
-                <ToggleButton x:Name="SelectFrames" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Unchecked="FramesUnchecked" Checked="FramesChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnFramePointerOver" PointerExited="OnFramePointerExited">
+                <ToggleButton x:Name="SelectFrames" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="FramesUnchecked" Checked="FramesChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnFramePointerOver" PointerExited="OnFramePointerExited" Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2313,7 +2289,19 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="FramesIcon" Source="Assets/Buttons/Frame.png"/>
                 </ToggleButton>
-                <ToggleButton x:Name="SelectHistogram" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="120" Unchecked="HistogramUnchecked" Checked="HistogramChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnHistogramPointerOver" PointerExited="OnHistogramPointerExited">
+                <ToggleButton x:Name="SelectColorize" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="ColorizeUnchecked" Checked="ColorizeChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnColorizePointerOver" PointerExited="OnColorizePointerExited" Width="80">
+                    <ToggleButton.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#B23CEF00"/>
+                            <GradientStop Color="#B23CFF00" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ToggleButton.BorderBrush>
+                    <Image x:Name="ColorizeIcon" Source="Assets/Buttons/Colorize.png"/>
+                </ToggleButton>
+                <ToggleButton x:Name="SelectHistogram" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="HistogramUnchecked" Checked="HistogramChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnHistogramPointerOver" PointerExited="OnHistogramPointerExited" Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2325,7 +2313,19 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="HistogramIcon" Source="Assets/Buttons/Histogram.png"/>
                 </ToggleButton>
-                <ToggleButton x:Name="SelectCrop" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Unchecked="CropUnchecked" Checked="CropChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,-1,0,0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnCropPointerOver" PointerExited="OnCropPointerExited">
+                <ToggleButton x:Name="SelectRotations" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="RotationsUnchecked" Checked="RotationsChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnRotatePointerOver" PointerExited="OnRotatePointerExited" Width="80">
+                    <ToggleButton.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#B23CAF00"/>
+                            <GradientStop Color="#B23CCF00" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ToggleButton.BorderBrush>
+                    <Image x:Name="RotateIcon" Source="Assets/Buttons/Rotate.png"/>
+                </ToggleButton>
+                <ToggleButton x:Name="SelectCrop" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="CropUnchecked" Checked="CropChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnCropPointerOver" PointerExited="OnCropPointerExited" Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2337,7 +2337,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="CropIcon" Source="Assets/Buttons/Crop.png"/>
                 </ToggleButton>
-                <ToggleButton x:Name="SelectOptions" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Unchecked="OptionsUnchecked" Checked="OptionsChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnOptionsPointerOver" PointerExited="OnOptionsPointerExited">
+                <ToggleButton x:Name="SelectOptions" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="OptionsUnchecked" Checked="OptionsChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnOptionsPointerOver" PointerExited="OnOptionsPointerExited" Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
