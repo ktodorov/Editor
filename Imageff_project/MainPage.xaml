@@ -788,14 +788,12 @@
                                     </VisualState>
                                     <VisualState x:Name="Disabled">
                                         <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBackgroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledForegroundThemeBrush}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#FFAAAAAA"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
@@ -1427,12 +1425,27 @@
                         </LinearGradientBrush>
                     </Border.BorderBrush>
                     <StackPanel Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <StackPanel Height="40" Orientation="Horizontal">
-                            <Button x:Name="browseButton" Content="BROWSE" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"/>
-                            <Button x:Name="SaveButton" Content="SAVE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="browseButton" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight" PointerEntered="OnBrowsePointerOver" PointerExited="OnBrowsePointerExited">
+                                <StackPanel>
+                                    <Image x:Name="BrowseIcon" Margin="0" Source="Assets/Buttons/Browse.png" Width="45" Height="45"/>
+                                    <TextBlock TextWrapping="Wrap" Text="Browse" Margin="0" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="SaveButton" HorizontalAlignment="Left" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" FontSize="19" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight" PointerEntered="OnSavePointerOver" PointerExited="OnSavePointerExited">
+                                <StackPanel>
+                                    <Image x:Name="SaveIcon" Margin="0" Source="Assets/Buttons/Save.png" Width="45" Height="45"/>
+                                    <TextBlock TextWrapping="Wrap" Text="Save" Margin="0" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button x:Name="CameraButton" Content="USE CAMERA" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19" Click="OnCameraButtonClick" Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"/>
+                            <Button x:Name="CameraButton" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19" Click="OnCameraButtonClick" Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight" PointerEntered="OnCameraPointerOver" PointerExited="OnCameraPointerExited">
+                                <StackPanel>
+                                    <Image x:Name="CameraIcon" Margin="0" Source="Assets/Buttons/Camera.png" Width="45" Height="45"/>
+                                    <TextBlock TextWrapping="Wrap" Text="Use camera" Margin="0" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -1451,8 +1464,14 @@
                             <Button x:Name="ZoomIn" Content="&#xE0C5;" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
                             <Button x:Name="ZoomOut" Content="&#xE0C6;" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
                         </StackPanel>
-                        <Button x:Name="ResetZoom" Content="Reset Image position" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="White" Height="40" BorderThickness="0,0,0,1" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
-                        <CheckBox x:Name="AvailableForMoving" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left" Checked="MoveChecked" Unchecked="MoveUnchecked" HorizontalAlignment="Center" IsChecked="False"/>
+                        <Button x:Name="ResetZoom" Content="Reset Image position" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="White" Height="40" BorderThickness="0,1" BorderBrush="White" Background="{x:Null}" Margin="0,10,0,0" Style="{StaticResource ImageOptionsStyle}"/>
+                        <!--<CheckBox x:Name="AvailableForMoving" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left" Checked="MoveChecked" Unchecked="MoveUnchecked" HorizontalAlignment="Center" IsChecked="False"/>-->
+                        <ToggleButton x:Name="ImageMoving" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="MoveChecked" Unchecked="MoveUnchecked" IsChecked="False" BorderThickness="0" Padding="0" Margin="0,10,0,0" PointerEntered="OnPanPointerOver" PointerExited="OnPanPointerExited" Style="{StaticResource ToggleButtonStyleColorize}" >
+                            <StackPanel HorizontalAlignment="Center">
+                                <Image x:Name="PanIcon" Margin="0" Source="Assets/Buttons/Panning.png" Height="45" HorizontalAlignment="Center"/>
+                                <TextBlock TextWrapping="Wrap" Text="Image moving" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+                        </ToggleButton>
 
                     </StackPanel>
                 </Border>

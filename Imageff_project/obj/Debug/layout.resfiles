@@ -1,6 +1,10 @@
 Assets\Arrows\Arrow-horizontal.png
 Assets\Arrows\Arrow-vertical.png
 Assets\Background.png
+Assets\Buttons\Browse.png
+Assets\Buttons\Browse-hover.png
+Assets\Buttons\Camera.png
+Assets\Buttons\Camera-hover.png
 Assets\Buttons\Colorize.png
 Assets\Buttons\Colorize-checked.png
 Assets\Buttons\Colorize-hover.png
@@ -25,9 +29,14 @@ Assets\Buttons\Histogram-hover.png
 Assets\Buttons\Options.png
 Assets\Buttons\Options-checked.png
 Assets\Buttons\Options-hover.png
+Assets\Buttons\Panning.png
+Assets\Buttons\Panning-checked.png
+Assets\Buttons\Panning-hover.png
 Assets\Buttons\Rotate.png
 Assets\Buttons\Rotate-checked.png
 Assets\Buttons\Rotate-hover.png
+Assets\Buttons\Save.png
+Assets\Buttons\Save-hover.png
 Assets\FramesPictures\Frames-darkness.jpg
 Assets\FramesPictures\Frames-leftandright.jpg
 Assets\FramesPictures\Frames-softangle.jpg

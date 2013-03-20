@@ -129,6 +129,10 @@
     <Content Include="Assets\Arrows\Arrow-horizontal.png" />
     <Content Include="Assets\Arrows\Arrow-vertical.png" />
     <Content Include="Assets\Background.png" />
+    <Content Include="Assets\Buttons\Browse-hover.png" />
+    <Content Include="Assets\Buttons\Browse.png" />
+    <Content Include="Assets\Buttons\Camera-hover.png" />
+    <Content Include="Assets\Buttons\Camera.png" />
     <Content Include="Assets\Buttons\Colorize-checked.png" />
     <Content Include="Assets\Buttons\Colorize-hover.png" />
     <Content Include="Assets\Buttons\Colorize.png" />
@@ -153,9 +157,14 @@
     <Content Include="Assets\Buttons\Options-checked.png" />
     <Content Include="Assets\Buttons\Options-hover.png" />
     <Content Include="Assets\Buttons\Options.png" />
+    <Content Include="Assets\Buttons\Panning-checked.png" />
+    <Content Include="Assets\Buttons\Panning-hover.png" />
+    <Content Include="Assets\Buttons\Panning.png" />
     <Content Include="Assets\Buttons\Rotate-checked.png" />
     <Content Include="Assets\Buttons\Rotate-hover.png" />
     <Content Include="Assets\Buttons\Rotate.png" />
+    <Content Include="Assets\Buttons\Save-hover.png" />
+    <Content Include="Assets\Buttons\Save.png" />
     <Content Include="Assets\FramesPictures\Frames-darkness.jpg" />
     <Content Include="Assets\FramesPictures\Frames-leftandright.jpg" />
     <Content Include="Assets\FramesPictures\Frames-softangle.jpg" />

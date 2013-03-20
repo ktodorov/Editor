@@ -423,7 +423,7 @@ namespace RemedyPic
             AnimateInPicture.Begin();
 
             // We check the CheckBox that is required for the image to move by default.
-            AvailableForMoving.IsChecked = true;
+            ImageMoving.IsChecked = true;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
             displayImage.MaxWidth = imageBorder.ActualWidth * 0.95;
@@ -2279,7 +2279,7 @@ namespace RemedyPic
         {
             scale.ScaleX = scale.ScaleX + 0.1;
             scale.ScaleY = scale.ScaleY + 0.1;
-            ZoomOut.Visibility = Visibility.Visible;
+            ZoomOut.IsEnabled = true;
         }
 
         private void ZoomOutClicked(object sender, RoutedEventArgs e)
@@ -2289,9 +2289,9 @@ namespace RemedyPic
                 scale.ScaleX = scale.ScaleX - 0.1;
                 scale.ScaleY = scale.ScaleY - 0.1;
             }
-            else
+            if (scale.ScaleX <= 0.9 && scale.ScaleY <= 0.9)
             {
-                ZoomOut.Visibility = Visibility.Collapsed;
+                ZoomOut.IsEnabled = false;
             }
         }
 
@@ -2311,11 +2311,17 @@ namespace RemedyPic
         private void MoveChecked(object sender, RoutedEventArgs e)
         {
             displayImage.ManipulationMode = ManipulationModes.All;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning-checked.png");
+            PanIcon.Source = temp;
         }
 
         private void MoveUnchecked(object sender, RoutedEventArgs e)
         {
             displayImage.ManipulationMode = ManipulationModes.None;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning.png");
+            PanIcon.Source = temp;
         }
         #endregion
 
@@ -2783,8 +2789,8 @@ namespace RemedyPic
             {
                 scale.ScaleX = scale.ScaleX + 0.1;
                 scale.ScaleY = scale.ScaleY + 0.1;
-                if (ZoomOut.Visibility != Visibility.Visible)
-                    ZoomOut.Visibility = Visibility.Visible;
+                if (ZoomOut.IsEnabled == false)
+                    ZoomOut.IsEnabled = true;
             }
             else
             {
@@ -2793,9 +2799,9 @@ namespace RemedyPic
                     scale.ScaleX = scale.ScaleX - 0.1;
                     scale.ScaleY = scale.ScaleY - 0.1;
                 }
-                if (ZoomOut.Visibility == Visibility.Visible && scale.ScaleX <= 0.9)
+                if (ZoomOut.IsEnabled == true && scale.ScaleX <= 0.9)
                 {
-                    ZoomOut.Visibility = Visibility.Collapsed;
+                    ZoomOut.IsEnabled = false;
                 }
             }
         }
@@ -3857,6 +3863,68 @@ namespace RemedyPic
             }
         }
         #endregion
+
+        private void OnCameraPointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Camera-hover.png");
+            CameraIcon.Source = temp;
+        }
+
+        private void OnCameraPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Camera.png");
+            CameraIcon.Source = temp;
+        }
+
+        private void OnBrowsePointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Browse-hover.png");
+            BrowseIcon.Source = temp;
+        }
+
+        private void OnBrowsePointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Browse.png");
+            BrowseIcon.Source = temp;
+        }
+
+        private void OnSavePointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Save-hover.png");
+            SaveIcon.Source = temp;
+        }
+
+        private void OnSavePointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Save.png");
+            SaveIcon.Source = temp;
+        }
+
+        private void OnPanPointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (ImageMoving.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning-hover.png");
+                PanIcon.Source = temp;
+            }
+        }
+
+        private void OnPanPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (ImageMoving.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning.png");
+                PanIcon.Source = temp;
+            }
+        }
 
     }
     #endregion
