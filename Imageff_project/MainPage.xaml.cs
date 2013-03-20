@@ -865,7 +865,7 @@ namespace RemedyPic
                         return true;
                     }
                     file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpg", CreationCollisionOption.ReplaceExisting);
-                    
+
                 }
                 System.Guid fileType = BitmapEncoder.JpegEncoderId;
 
@@ -983,9 +983,9 @@ namespace RemedyPic
         {
             if (archive_current_index != -1 && archive_current_index != archive_data.Count - 1)
             {
-                 archive_data.RemoveRange(archive_current_index + 1, archive_data.Count - 1 - archive_current_index);
-                 effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); // Here we don`t save the start image, so we have -1 index of archive_current_index
-             }
+                archive_data.RemoveRange(archive_current_index + 1, archive_data.Count - 1 - archive_current_index);
+                effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); // Here we don`t save the start image, so we have -1 index of archive_current_index
+            }
             archive_data.Add((byte[])imageOriginal.srcPixels.Clone());
             archive_current_index++;
         }
@@ -1225,7 +1225,7 @@ namespace RemedyPic
         #region Apply Buttons
         // Event for apply button on Filters popup. Sets the image with the applied filter
         private void OnFilterApplyClick(object sender, RoutedEventArgs e)
-        {            
+        {
             ApplyFilter(appliedFilters);
             FilterApplyReset.Visibility = Visibility.Collapsed;
             SelectFilters.IsChecked = false;
@@ -1314,7 +1314,7 @@ namespace RemedyPic
 
         // Event for apply button on Colors popup. Sets the image with the applied colors
         private void OnColorApplyClick(object sender, RoutedEventArgs e)
-        {            
+        {
             ApplyColor();
             setFilterBitmaps();
         }
@@ -1341,7 +1341,7 @@ namespace RemedyPic
         private void OnRotateApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
-            SelectRotations.IsChecked = false;            
+            SelectRotations.IsChecked = false;
             ApplyRotate(appliedRotations);
 
             setFilterBitmaps();
@@ -1385,7 +1385,7 @@ namespace RemedyPic
 
         private void ApplyColorize()
         {
-            ImageLoadingRing.IsActive = true;            
+            ImageLoadingRing.IsActive = true;
             image.srcPixels = (byte[])image.dstPixels.Clone();
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ArchiveAddArray();
@@ -1464,7 +1464,7 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
             ExposureApplyReset.Visibility = Visibility.Collapsed;
-            SelectExposure.IsChecked = false;            
+            SelectExposure.IsChecked = false;
 
             switch (effect)
             {
@@ -1575,7 +1575,7 @@ namespace RemedyPic
             PopupFilters.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-check.png");
-            Effects.Source = temp;
+            EffectsIcon.Source = temp;
         }
 
         private void FiltersUnchecked(object sender, RoutedEventArgs e)
@@ -1583,7 +1583,7 @@ namespace RemedyPic
             PopupFilters.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects.png");
-            Effects.Source = temp;
+            EffectsIcon.Source = temp;
         }
 
         private void ColorsChecked(object sender, RoutedEventArgs e)
@@ -1597,11 +1597,18 @@ namespace RemedyPic
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             PopupColors.IsOpen = true;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors-checked.png");
+            ColorsIcon.Source = temp;
+
         }
 
         private void ColorsUnchecked(object sender, RoutedEventArgs e)
         {
             PopupColors.IsOpen = false;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors.png");
+            ColorsIcon.Source = temp;
         }
 
         private void ExposureChecked(object sender, RoutedEventArgs e)
@@ -1615,11 +1622,17 @@ namespace RemedyPic
             SelectColors.IsChecked = false;
             SelectCrop.IsChecked = false;
             PopupExposure.IsOpen = true;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure-checked.png");
+            ExposureIcon.Source = temp;
         }
 
         private void ExposureUnchecked(object sender, RoutedEventArgs e)
         {
             PopupExposure.IsOpen = false;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure.png");
+            ExposureIcon.Source = temp;
         }
 
         private void RotationsChecked(object sender, RoutedEventArgs e)
@@ -1633,11 +1646,17 @@ namespace RemedyPic
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
             PopupRotations.IsOpen = true;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate-checked.png");
+            RotateIcon.Source = temp;
         }
 
         private void RotationsUnchecked(object sender, RoutedEventArgs e)
         {
             PopupRotations.IsOpen = false;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate.png");
+            RotateIcon.Source = temp;
         }
 
         private void OptionsChecked(object sender, RoutedEventArgs e)
@@ -1914,7 +1933,7 @@ namespace RemedyPic
 
         // Apply the frame on the image
         private void OnApplyFramesClick(object sender, RoutedEventArgs e)
-        {            
+        {
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ArchiveAddArray();
             effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
@@ -2772,7 +2791,7 @@ namespace RemedyPic
             await messageDialog.ShowAsync();
             await deleteUsedFile();
         }
-        
+
         private async void SetAccountPic_Clicked(object sender, RoutedEventArgs e)
         {
             // This sets the current image as an avatar of the current user and inform him that everything was okay.
@@ -3632,7 +3651,7 @@ namespace RemedyPic
             {
                 BitmapImage temp = new BitmapImage();
                 temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-hover.png");
-                Effects.Source = temp;
+                EffectsIcon.Source = temp;
             }
         }
 
@@ -3642,9 +3661,70 @@ namespace RemedyPic
             {
                 BitmapImage temp = new BitmapImage();
                 temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects.png");
-                Effects.Source = temp;
+                EffectsIcon.Source = temp;
             }
         }
+
+        private void OnColorsPointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectColors.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors-hover.png");
+                ColorsIcon.Source = temp;
+            }
+        }
+
+        private void OnColorsPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectColors.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors.png");
+                ColorsIcon.Source = temp;
+            }
+        }
+
+        private void OnExposurePointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectExposure.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure-hover.png");
+                ExposureIcon.Source = temp;
+            }
+        }
+
+        private void OnExposurePointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectExposure.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure.png");
+                ExposureIcon.Source = temp;
+            }
+        }
+
+        private void OnRotatePointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectRotations.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate-hover.png");
+                RotateIcon.Source = temp;
+            }
+        }
+
+        private void OnRotatePointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectRotations.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate.png");
+                RotateIcon.Source = temp;
+            }
+        }
+
 
     }
     #endregion
