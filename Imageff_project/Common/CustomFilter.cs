@@ -76,7 +76,7 @@ namespace RemedyPic.Common
         private void GetNewValues(ref int[] BGRValues, int current_byte)
         {
             MultiplyByMatrixValues(ref BGRValues, current_byte);
-            DiviteByScaleAddOffset(ref BGRValues, current_byte);            
+            DivideByScaleAddOffset(ref BGRValues, current_byte);            
         }
 
         // Calculate the B G R values. Depends on the matrix of the filter
@@ -93,7 +93,7 @@ namespace RemedyPic.Common
         }
 
         // Divide the values by scale and add offset
-        private void DiviteByScaleAddOffset(ref int[] BGRValues, int current_byte)
+        private void DivideByScaleAddOffset(ref int[] BGRValues, int current_byte)
         {
             for (int i = 0; i < 3; i++)
             {
