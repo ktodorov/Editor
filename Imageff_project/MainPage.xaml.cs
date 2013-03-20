@@ -1670,11 +1670,17 @@ namespace RemedyPic
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
             PopupImageOptions.IsOpen = true;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options-checked.png");
+            OptionsIcon.Source = temp;
         }
 
         private void OptionsUnchecked(object sender, RoutedEventArgs e)
         {
             PopupImageOptions.IsOpen = false;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options.png");
+            OptionsIcon.Source = temp;
         }
 
         private void ColorizeChecked(object sender, RoutedEventArgs e)
@@ -1688,11 +1694,17 @@ namespace RemedyPic
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             PopupColorize.IsOpen = true;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-checked.png");
+            ColorizeIcon.Source = temp;
         }
 
         private void ColorizeUnchecked(object sender, RoutedEventArgs e)
         {
             PopupColorize.IsOpen = false;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize.png");
+            ColorizeIcon.Source = temp;
         }
 
         private void FramesChecked(object sender, RoutedEventArgs e)
@@ -1706,11 +1718,17 @@ namespace RemedyPic
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             PopupFrames.IsOpen = true;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-checked.png");
+            FramesIcon.Source = temp;
         }
 
         private void FramesUnchecked(object sender, RoutedEventArgs e)
         {
             PopupFrames.IsOpen = false;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame.png");
+            FramesIcon.Source = temp;
         }
 
         private void HistogramChecked(object sender, RoutedEventArgs e)
@@ -1724,11 +1742,17 @@ namespace RemedyPic
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             PopupHistogram.IsOpen = true;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-checked.png");
+            HistogramIcon.Source = temp;
         }
 
         private void HistogramUnchecked(object sender, RoutedEventArgs e)
         {
             PopupHistogram.IsOpen = false;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram.png");
+            HistogramIcon.Source = temp;
         }
 
         #endregion
@@ -2983,6 +3007,9 @@ namespace RemedyPic
             imageCanvas.Visibility = Visibility.Visible;
             displayGrid.Margin = new Thickness(15);
             ResetZoomPos();
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop-checked.png");
+            CropIcon.Source = temp;
         }
 
         private void CropUnchecked(object sender, RoutedEventArgs e)
@@ -2992,6 +3019,9 @@ namespace RemedyPic
             imageCanvas.Visibility = Visibility.Collapsed;
             this.selectedRegion.ResetCorner(0, 0, displayImage.ActualWidth, displayImage.ActualHeight);
             displayGrid.Margin = new Thickness(0);
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop.png");
+            CropIcon.Source = temp;
         }
 
         async void UpdatePreviewImage()
@@ -3645,6 +3675,8 @@ namespace RemedyPic
         }
         #endregion
 
+
+        #region Button Icons Events
         private void OnEffectsPointerOver(object sender, PointerRoutedEventArgs e)
         {
             if (SelectFilters.IsChecked == false)
@@ -3725,6 +3757,106 @@ namespace RemedyPic
             }
         }
 
+        private void OnColorizePointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectColorize.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-hover.png");
+                ColorizeIcon.Source = temp;
+            }
+        }
+
+        private void OnColorizePointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectColorize.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize.png");
+                ColorizeIcon.Source = temp;
+            }
+        }
+
+        private void OnFramePointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectFrames.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-hover.png");
+                FramesIcon.Source = temp;
+            }
+        }
+
+        private void OnFramePointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectFrames.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame.png");
+                FramesIcon.Source = temp;
+            }
+        }
+
+        private void OnHistogramPointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectHistogram.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-hover.png");
+                HistogramIcon.Source = temp;
+            }
+        }
+
+        private void OnHistogramPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectHistogram.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram.png");
+                HistogramIcon.Source = temp;
+            }
+        }
+
+        private void OnCropPointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectCrop.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop-hover.png");
+                CropIcon.Source = temp;
+            }
+        }
+
+        private void OnCropPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectCrop.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop.png");
+                CropIcon.Source = temp;
+            }
+        }
+
+        private void OnOptionsPointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectOptions.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options-hover.png");
+                OptionsIcon.Source = temp;
+            }
+        }
+
+        private void OnOptionsPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectOptions.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options.png");
+                OptionsIcon.Source = temp;
+            }
+        }
+        #endregion
 
     }
     #endregion
