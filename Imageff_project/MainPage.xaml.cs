@@ -2937,44 +2937,42 @@ namespace RemedyPic
             Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
             uint ptrId = pt.PointerId;
 
-            /*
-            &&
-                pt.Position.X > (canvasStartX - 20) && pt.Position.X < (canvasEndX + 20) &&
-                pt.Position.Y > (canvasStartY - 20) && pt.Position.Y < (canvasEndY + 20))
-            */
             if (pointerPositionHistory.ContainsKey(ptrId) && pointerPositionHistory[ptrId].HasValue)
             {
-
-                bool okayForMoving = false;
 
                 Point currentPosition = pt.Position;
                 Point previousPosition = pointerPositionHistory[ptrId].Value;
 
+                double xUpdate = 0.0;
+                double yUpdate = 0.0;
+
                 // Those scary if's check the new position so the user 
-                // can't expand the crop region if the pointer is out of the image.
-                if (currentPosition.X - previousPosition.X > -10 && currentPosition.X - previousPosition.X < 10
-                    && currentPosition.Y - previousPosition.Y > -10 && currentPosition.Y - previousPosition.Y < 10
-                    && currentPosition.X > (canvasStartX - 20) && currentPosition.X < (canvasEndX + 20)
-                    && currentPosition.Y > (canvasStartY - 20) && currentPosition.Y < (canvasEndY + 20))
+                // can't expand the crop region if the pointer is out of the image.             
+                if ((currentPosition.X > canvasStartX && currentPosition.X < canvasEndX)
+                    || (currentPosition.X > previousPosition.X && currentPosition.X > canvasEndX)
+                    || (currentPosition.X < previousPosition.X && currentPosition.X < canvasStartX))
                 {
-                    okayForMoving = true;
+                    xUpdate = currentPosition.X - previousPosition.X;
                 }
-                else if (currentPosition.Y > (canvasStartY) && currentPosition.Y < (canvasEndY)
-                    && currentPosition.X > (canvasStartX) && currentPosition.X < (canvasEndX))
+                else
                 {
-                    okayForMoving = true;
+                    xUpdate = 0;
                 }
-
-                if (okayForMoving)
+                if ((currentPosition.Y > canvasStartY && currentPosition.Y < canvasEndY)
+                    || (currentPosition.Y > previousPosition.Y && currentPosition.Y > canvasEndY)
+                    || (currentPosition.Y < previousPosition.Y && currentPosition.Y < canvasStartY))
                 {
-
-                    double xUpdate = currentPosition.X - previousPosition.X;
-                    double yUpdate = currentPosition.Y - previousPosition.Y;
-
-                    this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string, xUpdate, yUpdate);
-
-                    pointerPositionHistory[ptrId] = currentPosition;
+                    yUpdate = currentPosition.Y - previousPosition.Y;
                 }
+                else
+                {
+                    yUpdate = 0.0;
+                }
+
+                this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string, xUpdate, yUpdate);
+
+                pointerPositionHistory[ptrId] = currentPosition;
+
             }
             e.Handled = true;
         }
