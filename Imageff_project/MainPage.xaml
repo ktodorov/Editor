@@ -1358,6 +1358,16 @@
                     <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
+            <StackPanel Margin="0" Orientation="Vertical">
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+            </StackPanel>
         </Border>
         <Border BorderThickness="0,2,0,0" Margin="0,0,-2,0" Background="#FF515050" Grid.Row="3">
             <Border.BorderBrush>

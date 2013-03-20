@@ -1358,6 +1358,16 @@
                     <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
+            <StackPanel Margin="0" Orientation="Vertical">
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+                <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
+            </StackPanel>
         </Border>
         <Border BorderThickness="0,2,0,0" Margin="0,0,-2,0" Background="#FF515050" Grid.Row="3">
             <Border.BorderBrush>
@@ -2241,7 +2251,7 @@
         </Grid>
         <ScrollViewer x:Name="MenuScroll" Grid.Row="3" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" >
             <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0" Visibility="Collapsed">
-                <ToggleButton x:ConnectionId='5' x:Name="SelectFilters" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                       Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,10,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                              Width="80">
+                <ToggleButton x:ConnectionId='5' x:Name="SelectFilters" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                       Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                              Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2253,7 +2263,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="EffectsIcon" Source="Assets/Buttons/Effects.png"/>
                 </ToggleButton>
-                <ToggleButton x:ConnectionId='6' x:Name="SelectColors" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                     Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,10,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                            Width="80">
+                <ToggleButton x:ConnectionId='6' x:Name="SelectColors" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                     Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                            Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2265,7 +2275,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="ColorsIcon" Source="Assets/Buttons/Colors.png"/>
                 </ToggleButton>
-                <ToggleButton x:ConnectionId='7' x:Name="SelectExposure" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                         Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,10,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                                Width="80">
+                <ToggleButton x:ConnectionId='7' x:Name="SelectExposure" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                         Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                                Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2277,7 +2287,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="ExposureIcon" Source="Assets/Buttons/Exposure.png"/>
                 </ToggleButton>
-                <ToggleButton x:ConnectionId='8' x:Name="SelectFrames" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                     Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,10,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                          Width="80">
+                <ToggleButton x:ConnectionId='8' x:Name="SelectFrames" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                     Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                          Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2289,7 +2299,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="FramesIcon" Source="Assets/Buttons/Frame.png"/>
                 </ToggleButton>
-                <ToggleButton x:ConnectionId='9' x:Name="SelectColorize" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                         Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,10,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                                Width="80">
+                <ToggleButton x:ConnectionId='9' x:Name="SelectColorize" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                         Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                                Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2301,7 +2311,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="ColorizeIcon" Source="Assets/Buttons/Colorize.png"/>
                 </ToggleButton>
-                <ToggleButton x:ConnectionId='10' x:Name="SelectHistogram" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                           Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,10,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                                  Width="80">
+                <ToggleButton x:ConnectionId='10' x:Name="SelectHistogram" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                           Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                                  Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2313,7 +2323,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="HistogramIcon" Source="Assets/Buttons/Histogram.png"/>
                 </ToggleButton>
-                <ToggleButton x:ConnectionId='11' x:Name="SelectRotations" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                           Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,10,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                            Width="80">
+                <ToggleButton x:ConnectionId='11' x:Name="SelectRotations" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                           Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                            Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2325,7 +2335,7 @@
                     </ToggleButton.BorderBrush>
                     <Image x:Name="RotateIcon" Source="Assets/Buttons/Rotate.png"/>
                 </ToggleButton>
-                <ToggleButton x:ConnectionId='12' x:Name="SelectCrop" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                 Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,10,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                        Width="80">
+                <ToggleButton x:ConnectionId='12' x:Name="SelectCrop" HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                 Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0"                                                                        Width="80">
                     <ToggleButton.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
