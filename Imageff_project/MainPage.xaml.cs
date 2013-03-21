@@ -127,6 +127,7 @@ namespace RemedyPic
         // This bool variable checks if the user 
         // has made any changes and if he saved them.
         bool Saved = true;
+        string PopupCalledBy = "";
 
         #endregion
 
@@ -300,6 +301,7 @@ namespace RemedyPic
             }
             else
             {
+                PopupCalledBy = "Browse";
                 DarkenBorder.Visibility = Visibility.Visible;
                 notSaved.IsOpen = true;
             }
@@ -375,11 +377,25 @@ namespace RemedyPic
 
         private async void OnCameraButtonClick(object sender, RoutedEventArgs e)
         {
+            if (Saved)
+            {
+                getCameraPhoto();
+            }
+            else
+            {
+                PopupCalledBy = "Camera";
+                DarkenBorder.Visibility = Visibility.Visible;
+                notSaved.IsOpen = true;
+            }     
+        }
+
+        private async void getCameraPhoto()
+        {
             CameraCaptureUI camera = new CameraCaptureUI();
             camera.PhotoSettings.CroppedAspectRatio = new Size(16, 10);
             StorageFile photoFile = await camera.CaptureFileAsync(CameraCaptureUIMode.Photo);
             if (photoFile != null)
-                GetPhoto(photoFile);
+                GetPhoto(photoFile);   
         }
 
         #endregion
@@ -3960,14 +3976,28 @@ namespace RemedyPic
         private void OnNoSaveClicked(object sender, RoutedEventArgs e)
         {
             OnCancelSaveClicked(sender, e);
-            GetPhoto();
+            if (PopupCalledBy == "Browse")
+            {
+                GetPhoto();
+            }
+            else if (PopupCalledBy == "Camera")
+            {
+                getCameraPhoto();
+            }
         }
 
         private async void OnYesSaveClicked(object sender, RoutedEventArgs e)
         {
             OnCancelSaveClicked(sender, e);
             await SaveFile(true);
-            GetPhoto();
+            if (PopupCalledBy == "Browse")
+            {
+                GetPhoto();
+            }
+            else if (PopupCalledBy == "Camera")
+            {
+                getCameraPhoto();
+            }
         }
 
     }

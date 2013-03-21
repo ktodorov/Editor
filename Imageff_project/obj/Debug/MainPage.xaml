@@ -2447,7 +2447,7 @@
             <Button x:ConnectionId='5' x:Name="Undo" Content="&#xE10E;"                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
             <Button x:ConnectionId='6' x:Name="Redo" Content="&#xE10D;"                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
         </StackPanel>
-        <Border x:Name="DarkenBorder" BorderBrush="Black" BorderThickness="0" Margin="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Background="#7F000000" Visibility="Collapsed"/>
+        <Border x:Name="DarkenBorder" BorderBrush="Black" BorderThickness="0" Margin="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Collapsed" Background="#B2000000"/>
         <Popup x:Name="notSaved" Margin="0,0,0,125" Grid.RowSpan="3" Grid.ColumnSpan="2" VerticalAlignment="Center" IsOpen="False" HorizontalAlignment="Left">
             <Border BorderBrush="#7FFFFFFF" BorderThickness="0,2" Height="250" HorizontalAlignment="Center">
                 <Grid x:Name="notSavedGrid" Background="#CC005708">
