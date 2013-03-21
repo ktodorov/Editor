@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>TONY-PC</Machine>
-    <WindowsUser>Tony</WindowsUser>
+    <Machine>PHOENIX</Machine>
+    <WindowsUser>Konstantin</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
     <RegisteredManifestChecksum>9AEDC5DA9862E00112F135C372610B1564F822AB7D21DEADE7B581A45A89C03C</RegisteredManifestChecksum>
@@ -13,268 +13,268 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-21T14:44:23.033</Modified>
+      <Modified>2013-03-21T21:46:11.739</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-<<<<<<< HEAD
-      <Modified>2013-03-21T19:46:09.843</Modified>
-=======
-      <Modified>2013-03-21T19:20:08.510</Modified>
->>>>>>> c302899b9b3c261ce3a24d9a17531050a496ef73
+      <Modified>2013-03-21T21:47:38.179</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-<<<<<<< HEAD
-      <Modified>2013-03-21T19:46:09.796</Modified>
-=======
-      <Modified>2013-03-21T19:20:08.488</Modified>
->>>>>>> c302899b9b3c261ce3a24d9a17531050a496ef73
+      <Modified>2013-03-21T21:47:38.147</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.407</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Arrows\Arrow-vertical.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-vertical.png">
       <PackagePath>Assets\Arrows\Arrow-vertical.png</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.407</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Background.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Background.png">
       <PackagePath>Assets\Background.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.498</Modified>
+      <Modified>2013-03-20T19:24:44.817</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Browse-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Browse-hover.png">
       <PackagePath>Assets\Buttons\Browse-hover.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.499</Modified>
+      <Modified>2013-03-21T21:42:28.337</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Browse.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Browse.png">
       <PackagePath>Assets\Buttons\Browse.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.499</Modified>
+      <Modified>2013-03-21T21:42:14.726</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Camera-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Camera-hover.png">
       <PackagePath>Assets\Buttons\Camera-hover.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.500</Modified>
+      <Modified>2013-03-21T21:41:02.073</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Camera.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Camera.png">
       <PackagePath>Assets\Buttons\Camera.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.500</Modified>
+      <Modified>2013-03-21T21:41:15.762</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colorize-checked.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colorize-checked.png">
       <PackagePath>Assets\Buttons\Colorize-checked.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.500</Modified>
+      <Modified>2013-03-21T21:12:21.403</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colorize-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colorize-hover.png">
       <PackagePath>Assets\Buttons\Colorize-hover.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.501</Modified>
+      <Modified>2013-03-21T21:12:51.559</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colorize.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colorize.png">
       <PackagePath>Assets\Buttons\Colorize.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.501</Modified>
+      <Modified>2013-03-21T21:12:39.356</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colors-checked.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colors-checked.png">
       <PackagePath>Assets\Buttons\Colors-checked.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.397</Modified>
+      <Modified>2013-03-21T21:39:43.388</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colors-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colors-hover.png">
       <PackagePath>Assets\Buttons\Colors-hover.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.398</Modified>
+      <Modified>2013-03-21T21:40:14.379</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colors.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colors.png">
       <PackagePath>Assets\Buttons\Colors.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.399</Modified>
+      <Modified>2013-03-21T21:40:01.889</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Crop-checked.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Crop-checked.png">
       <PackagePath>Assets\Buttons\Crop-checked.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.502</Modified>
+      <Modified>2013-03-21T21:38:33.010</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Crop-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Crop-hover.png">
       <PackagePath>Assets\Buttons\Crop-hover.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.502</Modified>
+      <Modified>2013-03-21T21:38:58.348</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Crop.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Crop.png">
       <PackagePath>Assets\Buttons\Crop.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.503</Modified>
+      <Modified>2013-03-21T21:38:46.842</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Effects-check.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\CustomFilter-checked.png">
+      <PackagePath>Assets\Buttons\CustomFilter-checked.png</PackagePath>
+      <Modified>2013-03-21T21:36:18.637</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\CustomFilter-hover.png">
+      <PackagePath>Assets\Buttons\CustomFilter-hover.png</PackagePath>
+      <Modified>2013-03-21T21:36:50.991</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\CustomFilter.png">
+      <PackagePath>Assets\Buttons\CustomFilter.png</PackagePath>
+      <Modified>2013-03-21T21:36:37.985</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects-check.png">
       <PackagePath>Assets\Buttons\Effects-check.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.413</Modified>
+      <Modified>2013-03-21T21:34:19.782</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Effects-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects-hover.png">
       <PackagePath>Assets\Buttons\Effects-hover.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.413</Modified>
+      <Modified>2013-03-21T21:35:03.563</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Effects.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects.png">
       <PackagePath>Assets\Buttons\Effects.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.414</Modified>
+      <Modified>2013-03-21T21:34:49.362</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Exposure-checked.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Exposure-checked.png">
       <PackagePath>Assets\Buttons\Exposure-checked.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.414</Modified>
+      <Modified>2013-03-21T21:32:11.529</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Exposure-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Exposure-hover.png">
       <PackagePath>Assets\Buttons\Exposure-hover.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.415</Modified>
+      <Modified>2013-03-21T21:32:37.628</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Exposure.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Exposure.png">
       <PackagePath>Assets\Buttons\Exposure.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.416</Modified>
+      <Modified>2013-03-21T21:32:26.913</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Frame-checked.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Frame-checked.png">
       <PackagePath>Assets\Buttons\Frame-checked.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.504</Modified>
+      <Modified>2013-03-21T21:30:25.167</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Frame-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Frame-hover.png">
       <PackagePath>Assets\Buttons\Frame-hover.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.504</Modified>
+      <Modified>2013-03-21T21:30:52.372</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Frame.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Frame.png">
       <PackagePath>Assets\Buttons\Frame.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.504</Modified>
+      <Modified>2013-03-21T21:30:41.428</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Histogram-checked.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Histogram-checked.png">
       <PackagePath>Assets\Buttons\Histogram-checked.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.505</Modified>
+      <Modified>2013-03-21T21:28:42.399</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Histogram-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Histogram-hover.png">
       <PackagePath>Assets\Buttons\Histogram-hover.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.505</Modified>
+      <Modified>2013-03-21T21:29:26.426</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Histogram.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Histogram.png">
       <PackagePath>Assets\Buttons\Histogram.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.506</Modified>
+      <Modified>2013-03-21T21:29:17.299</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Options-checked.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Options-checked.png">
       <PackagePath>Assets\Buttons\Options-checked.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.506</Modified>
+      <Modified>2013-03-21T21:08:53.736</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Options-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Options-hover.png">
       <PackagePath>Assets\Buttons\Options-hover.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.507</Modified>
+      <Modified>2013-03-21T21:08:35.060</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Options.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Options.png">
       <PackagePath>Assets\Buttons\Options.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.507</Modified>
+      <Modified>2013-03-21T21:08:18.857</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Panning-checked.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Panning-checked.png">
       <PackagePath>Assets\Buttons\Panning-checked.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.513</Modified>
+      <Modified>2013-03-21T21:22:48.004</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Panning-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Panning-hover.png">
       <PackagePath>Assets\Buttons\Panning-hover.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.513</Modified>
+      <Modified>2013-03-21T21:24:44.176</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Panning.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Panning.png">
       <PackagePath>Assets\Buttons\Panning.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.514</Modified>
+      <Modified>2013-03-21T21:22:55.753</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Rotate-checked.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Rotate-checked.png">
       <PackagePath>Assets\Buttons\Rotate-checked.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.416</Modified>
+      <Modified>2013-03-21T21:20:22.674</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Rotate-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Rotate-hover.png">
       <PackagePath>Assets\Buttons\Rotate-hover.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.417</Modified>
+      <Modified>2013-03-21T21:20:53.850</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Rotate.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Rotate.png">
       <PackagePath>Assets\Buttons\Rotate.png</PackagePath>
-      <Modified>2013-03-20T10:51:53.417</Modified>
+      <Modified>2013-03-21T21:20:38.986</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Save-hover.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Save-hover.png">
       <PackagePath>Assets\Buttons\Save-hover.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.514</Modified>
+      <Modified>2013-03-21T21:18:15.409</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Save.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Save.png">
       <PackagePath>Assets\Buttons\Save.png</PackagePath>
-      <Modified>2013-03-20T20:59:53.515</Modified>
+      <Modified>2013-03-21T21:18:24.939</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Logo.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.622</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\RemedyPicLogo.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\RemedyPicLogo.png">
       <PackagePath>Assets\RemedyPicLogo.png</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.623</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\SmallLogo.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\SmallLogo.png">
       <PackagePath>Assets\SmallLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-20T10:51:53.418</Modified>
+      <Modified>2013-03-19T18:36:17.234</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\SplashScreen.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\SplashScreen.png">
       <PackagePath>Assets\SplashScreen.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.628</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\WideLogo.png">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\WideLogo.png">
       <PackagePath>Assets\WideLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.644</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\FramesPictures\Frames-darkness.jpg">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-darkness.jpg">
       <PackagePath>Assets\FramesPictures\Frames-darkness.jpg</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.412</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\FramesPictures\Frames-leftandright.jpg">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-leftandright.jpg">
       <PackagePath>Assets\FramesPictures\Frames-leftandright.jpg</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.606</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\FramesPictures\Frames-softangle.jpg">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-softangle.jpg">
       <PackagePath>Assets\FramesPictures\Frames-softangle.jpg</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.608</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\FramesPictures\Frames-Square.jpg">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-Square.jpg">
       <PackagePath>Assets\FramesPictures\Frames-Square.jpg</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.409</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\FramesPictures\Frames-squaresoft.jpg">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-squaresoft.jpg">
       <PackagePath>Assets\FramesPictures\Frames-squaresoft.jpg</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.610</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\FramesPictures\Frames-topandbottom.jpg">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-topandbottom.jpg">
       <PackagePath>Assets\FramesPictures\Frames-topandbottom.jpg</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.613</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent-leftright.jpg">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent-leftright.jpg">
       <PackagePath>Assets\FramesPictures\Frames-transparent-leftright.jpg</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.615</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent-topbottom.jpg">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent-topbottom.jpg">
       <PackagePath>Assets\FramesPictures\Frames-transparent-topbottom.jpg</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.617</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent.jpg">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent.jpg">
       <PackagePath>Assets\FramesPictures\Frames-transparent.jpg</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.621</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Common\ReadMe.txt">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Common\ReadMe.txt">
       <PackagePath>Common\ReadMe.txt</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.811</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\App.xaml">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\App.xaml">
       <PackagePath>App.xaml</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.402</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\Common\StandardStyles.xaml">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\Common\StandardStyles.xaml">
       <PackagePath>Common\StandardStyles.xaml</PackagePath>
-      <Modified>2013-03-18T06:21:28.000</Modified>
+      <Modified>2013-03-18T13:18:44.833</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\MainPage.xaml">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-<<<<<<< HEAD
-      <Modified>2013-03-21T19:45:40.357</Modified>
-=======
-      <Modified>2013-03-21T14:44:23.021</Modified>
->>>>>>> c302899b9b3c261ce3a24d9a17531050a496ef73
+      <Modified>2013-03-21T21:46:09.256</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-03-20T21:00:09.523</Modified>
+      <Modified>2013-03-21T21:46:11.617</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

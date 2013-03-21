@@ -1445,13 +1445,13 @@
                         <StackPanel Orientation="Horizontal">
                             <Button x:Name="browseButton" FontFamily="Segoe UI" FontSize="19" Click="GetPhotoButton_Click" Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight" PointerEntered="OnBrowsePointerOver" PointerExited="OnBrowsePointerExited">
                                 <StackPanel>
-                                    <Image x:Name="BrowseIcon" Margin="0" Source="Assets/Buttons/Browse.png" Width="45" Height="45"/>
+                                    <Image x:Name="BrowseIcon" Margin="0" Source="Assets/Buttons/Browse.png" Width="55" Height="55"/>
                                     <TextBlock TextWrapping="Wrap" Text="Browse" Margin="0" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="SaveButton" HorizontalAlignment="Left" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" FontSize="19" Click="OnSaveButtonClick" Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight" PointerEntered="OnSavePointerOver" PointerExited="OnSavePointerExited">
                                 <StackPanel>
-                                    <Image x:Name="SaveIcon" Margin="0" Source="Assets/Buttons/Save.png" Width="45" Height="45"/>
+                                    <Image x:Name="SaveIcon" Margin="0" Source="Assets/Buttons/Save.png" Width="55" Height="55"/>
                                     <TextBlock TextWrapping="Wrap" Text="Save" Margin="0" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
@@ -2507,7 +2507,7 @@
                         </ToggleButton.BorderBrush>
                         <Image x:Name="OptionsIcon" Source="Assets/Buttons/Options.png"/>
                     </ToggleButton>
-                    <ToggleButton x:Name="SelectCustom" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="CustomFilterUnchecked" Checked="CustomFilterChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnOptionsPointerOver" PointerExited="OnOptionsPointerExited" Width="80">
+                    <ToggleButton x:Name="SelectCustom" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="CustomFilterUnchecked" Checked="CustomFilterChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnCustomFilterPointerOver" PointerExited="OnCustomFilterPointerExited" Width="80">
                         <ToggleButton.BorderBrush>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <LinearGradientBrush.RelativeTransform>
@@ -2517,7 +2517,7 @@
                                 <GradientStop Color="#B23CFF00" Offset="1"/>
                             </LinearGradientBrush>
                         </ToggleButton.BorderBrush>
-                        <Image x:Name="CustomIcon" Source="Assets/Buttons/Options.png"/>
+                        <Image x:Name="CustomIcon" Source="Assets/Buttons/CustomFilter.png"/>
                     </ToggleButton>
                 </StackPanel>
             </ScrollViewer>
