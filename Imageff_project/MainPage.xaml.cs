@@ -124,6 +124,11 @@ namespace RemedyPic
         // The dictionary holds the history of all previous pointer locations. It is used by the crop function.
         Dictionary<uint, Point?> pointerPositionHistory = new Dictionary<uint, Point?>();
 
+        // This bool variable checks if the user 
+        // has made any changes and if he saved them.
+        bool Saved = true;
+        string PopupCalledBy = "";
+
         #endregion
 
         public MainPage()
@@ -151,6 +156,7 @@ namespace RemedyPic
             selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
             this.DataContext = selectedRegion;
             setPopupsHeight();
+            createMessageDialog();
         }
 
         #region Charms
@@ -278,12 +284,27 @@ namespace RemedyPic
         }
         #endregion
 
+        private void createMessageDialog()
+        {
+
+        }
+
+
         #region Functions, called when opening an image.
         #region Get Photo
         // This occures when GetPhoto button is clicked
         private void GetPhotoButton_Click(object sender, RoutedEventArgs e)
         {
-            GetPhoto();
+            if (Saved)
+            {
+                GetPhoto();
+            }
+            else
+            {
+                PopupCalledBy = "Browse";
+                DarkenBorder.Visibility = Visibility.Visible;
+                notSaved.IsOpen = true;
+            }
         }
 
         private async void GetPhoto(StorageFile fileToUse = null)
@@ -318,6 +339,7 @@ namespace RemedyPic
                 {
                     bitmapImage = new WriteableBitmap(1, 1);
                     ImageLoadingRing.IsActive = true;
+                    Saved = true;
                     AnimateOutPicture.Begin();
 
                     // We create a temporary stream for the opened file.
@@ -353,13 +375,27 @@ namespace RemedyPic
             }
         }
 
-        private async void OnCameraButtonClick(object sender, RoutedEventArgs e)
+        private void OnCameraButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (Saved)
+            {
+                getCameraPhoto();
+            }
+            else
+            {
+                PopupCalledBy = "Camera";
+                DarkenBorder.Visibility = Visibility.Visible;
+                notSaved.IsOpen = true;
+            }     
+        }
+
+        private async void getCameraPhoto()
         {
             CameraCaptureUI camera = new CameraCaptureUI();
             camera.PhotoSettings.CroppedAspectRatio = new Size(16, 10);
             StorageFile photoFile = await camera.CaptureFileAsync(CameraCaptureUIMode.Photo);
             if (photoFile != null)
-                GetPhoto(photoFile);
+                GetPhoto(photoFile);   
         }
 
         #endregion
@@ -427,7 +463,7 @@ namespace RemedyPic
 
             // We set the imagePanel maximum height so the image not to go out of the screen
             displayImage.MaxWidth = imageBorder.ActualWidth * 0.95;
-            displayImage.MaxHeight = imageBorder.ActualHeight * 0.95;
+            displayImage.MaxHeight = imageBorder.ActualHeight * 0.98;
 
             widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
             newWidth.Text = bitmapImage.PixelWidth.ToString();
@@ -528,6 +564,8 @@ namespace RemedyPic
             Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
             Exposure.Height = Window.Current.Bounds.Height;
+            notSaved.Width = Window.Current.Bounds.Width;
+            notSavedGrid.Width = Window.Current.Bounds.Width;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
@@ -544,7 +582,7 @@ namespace RemedyPic
             // Called when the image is loaded.
             // It shows the interface.
             Zoom.Visibility = Visibility.Visible;
-            Menu.Visibility = Visibility.Visible;
+            MenuBorder.Visibility = Visibility.Visible;
             UndoRedoPanel.Visibility = Visibility.Visible;
         }
         #endregion
@@ -838,12 +876,14 @@ namespace RemedyPic
             // Only execute if there is a picture that is loaded
             if (pictureIsLoaded)
             {
+                file = null;
+                ImageLoadingRing.IsActive = true;
                 // If the picker variable is true, we call a FilePicker.
                 // If it's not, we save a temporary file without notifying the user to the local directory of the app.
                 if (picker == true)
                 {
                     FileSavePicker savePicker = new FileSavePicker();
-
+                    Saved = true;
                     // Set My Documents folder as suggested location if no past selected folder is available
                     savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
 
@@ -859,13 +899,7 @@ namespace RemedyPic
                 }
                 else
                 {
-                    if (imageOriginal.dstPixels == null)
-                    {
-                        // If the array is null, this means no changes were made, so we can use the currently opened file.
-                        return true;
-                    }
                     file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpg", CreationCollisionOption.ReplaceExisting);
-
                 }
                 System.Guid fileType = BitmapEncoder.JpegEncoderId;
 
@@ -898,7 +932,8 @@ namespace RemedyPic
                         await encoder.FlushAsync();
                     }
                 }
-            }
+            } 
+            ImageLoadingRing.IsActive = false;
             return true;
         }
         #endregion
@@ -1230,6 +1265,7 @@ namespace RemedyPic
             FilterApplyReset.Visibility = Visibility.Collapsed;
             SelectFilters.IsChecked = false;
             setFilterBitmaps();
+            Saved = false;
         }
 
         public void ApplyFilter(string filter)
@@ -1317,6 +1353,7 @@ namespace RemedyPic
         {
             ApplyColor();
             setFilterBitmaps();
+            Saved = false;
         }
 
         private void ApplyColor()
@@ -1347,6 +1384,7 @@ namespace RemedyPic
             setFilterBitmaps();
             ImageLoadingRing.IsActive = false;
             RotateApplyReset.Visibility = Visibility.Collapsed;
+            Saved = false;
         }
 
         private void ApplyRotate(string rotation)
@@ -1381,6 +1419,7 @@ namespace RemedyPic
             setFilterBitmaps();
             ColorizeApplyReset.Visibility = Visibility.Collapsed;
             SelectColorize.IsChecked = false;
+            Saved = false;
         }
 
         private void ApplyColorize()
@@ -1458,6 +1497,7 @@ namespace RemedyPic
         {
             ApplyExposure(appliedColors);
             setFilterBitmaps();
+            Saved = false;
         }
 
         private void ApplyExposure(string effect)
@@ -1965,6 +2005,7 @@ namespace RemedyPic
             setFilterBitmaps();
             FramesApplyReset.Visibility = Visibility.Collapsed;
             ResetFrameMenuData();
+            Saved = false;
         }
 
         // Reset the image (return the pixels before applying the frame)
@@ -2936,45 +2977,44 @@ namespace RemedyPic
             // If a pointer which is captured by the corner moves，the select region will be updated.
             Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
             uint ptrId = pt.PointerId;
+            calculateCanvasCorners();
 
-            /*
-            &&
-                pt.Position.X > (canvasStartX - 20) && pt.Position.X < (canvasEndX + 20) &&
-                pt.Position.Y > (canvasStartY - 20) && pt.Position.Y < (canvasEndY + 20))
-            */
             if (pointerPositionHistory.ContainsKey(ptrId) && pointerPositionHistory[ptrId].HasValue)
             {
-
-                bool okayForMoving = false;
 
                 Point currentPosition = pt.Position;
                 Point previousPosition = pointerPositionHistory[ptrId].Value;
 
+                double xUpdate = 0.0;
+                double yUpdate = 0.0;
+
                 // Those scary if's check the new position so the user 
-                // can't expand the crop region if the pointer is out of the image.
-                if (currentPosition.X - previousPosition.X > -10 && currentPosition.X - previousPosition.X < 10
-                    && currentPosition.Y - previousPosition.Y > -10 && currentPosition.Y - previousPosition.Y < 10
-                    && currentPosition.X > (canvasStartX - 20) && currentPosition.X < (canvasEndX + 20)
-                    && currentPosition.Y > (canvasStartY - 20) && currentPosition.Y < (canvasEndY + 20))
+                // can't expand the crop region if the pointer is out of the image.             
+                if ((currentPosition.X > canvasStartX && currentPosition.X < canvasEndX)
+                    || (currentPosition.X > previousPosition.X && currentPosition.X > canvasEndX)
+                    || (currentPosition.X < previousPosition.X && currentPosition.X < canvasStartX))
                 {
-                    okayForMoving = true;
+                    xUpdate = currentPosition.X - previousPosition.X;
                 }
-                else if (currentPosition.Y > (canvasStartY) && currentPosition.Y < (canvasEndY)
-                    && currentPosition.X > (canvasStartX) && currentPosition.X < (canvasEndX))
+                else
                 {
-                    okayForMoving = true;
+                    xUpdate = 0.0;
                 }
-
-                if (okayForMoving)
+                if ((currentPosition.Y > canvasStartY && currentPosition.Y < canvasEndY)
+                    || (currentPosition.Y > previousPosition.Y && currentPosition.Y > canvasEndY)
+                    || (currentPosition.Y < previousPosition.Y && currentPosition.Y < canvasStartY))
                 {
-
-                    double xUpdate = currentPosition.X - previousPosition.X;
-                    double yUpdate = currentPosition.Y - previousPosition.Y;
-
-                    this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string, xUpdate, yUpdate);
-
-                    pointerPositionHistory[ptrId] = currentPosition;
+                    yUpdate = currentPosition.Y - previousPosition.Y;
                 }
+                else
+                {
+                    yUpdate = 0.0;
+                }
+
+                this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string, xUpdate, yUpdate);
+
+                pointerPositionHistory[ptrId] = currentPosition;
+
             }
             e.Handled = true;
         }
@@ -3145,7 +3185,6 @@ namespace RemedyPic
         {
             // Called when the original image size is changed.
             // It calculates the new width and height.
-            calculateCanvasCorners();
 
             if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)
             {
@@ -3862,7 +3901,6 @@ namespace RemedyPic
                 OptionsIcon.Source = temp;
             }
         }
-        #endregion
 
         private void OnCameraPointerOver(object sender, PointerRoutedEventArgs e)
         {
@@ -3923,6 +3961,42 @@ namespace RemedyPic
                 BitmapImage temp = new BitmapImage();
                 temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning.png");
                 PanIcon.Source = temp;
+            }
+        }
+
+        #endregion
+
+
+        private void OnCancelSaveClicked(object sender, RoutedEventArgs e)
+        {
+            notSaved.IsOpen = false;
+            DarkenBorder.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnNoSaveClicked(object sender, RoutedEventArgs e)
+        {
+            OnCancelSaveClicked(sender, e);
+            if (PopupCalledBy == "Browse")
+            {
+                GetPhoto();
+            }
+            else if (PopupCalledBy == "Camera")
+            {
+                getCameraPhoto();
+            }
+        }
+
+        private async void OnYesSaveClicked(object sender, RoutedEventArgs e)
+        {
+            OnCancelSaveClicked(sender, e);
+            await SaveFile(true);
+            if (PopupCalledBy == "Browse")
+            {
+                GetPhoto();
+            }
+            else if (PopupCalledBy == "Camera")
+            {
+                getCameraPhoto();
             }
         }
 

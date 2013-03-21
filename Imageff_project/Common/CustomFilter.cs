@@ -217,7 +217,7 @@ namespace RemedyPic.Common
         {
             FillLeftColumn(4);                         // Second Column
             FillLeftColumn(0);                         // First Column
-            FillTopRow(4 * (_width));                  // Second Row
+            FillTopRow(4 * _width);                    // Second Row
             FillTopRow(0);                             // First Row
             FillRightColumn(4 * (_width - 2));         // Last - 1 Column
             FillRightColumn(4 * (_width - 1));         // Last Column
@@ -225,7 +225,7 @@ namespace RemedyPic.Common
             FillBottomRow(4 * _width * (_height - 1)); // Last Row
         }
 
-        // Fill the pixels of one row - left side 
+        // Fill the pixels of one column - left side 
         private void FillLeftColumn(int StartIndex)
         {
             for (int CurrentByte = StartIndex; CurrentByte < _dstPixels.Length; CurrentByte += 4 * _width)
@@ -249,7 +249,7 @@ namespace RemedyPic.Common
             }
         }
 
-        // Fill the pixels of one row - right side 
+        // Fill the pixels of one column - right side 
         private void FillRightColumn(int StartIndex)
         {
             for (int CurrentByte = StartIndex; CurrentByte < _dstPixels.Length; CurrentByte += 4 * _width)
