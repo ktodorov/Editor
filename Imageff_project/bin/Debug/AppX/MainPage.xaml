@@ -1160,7 +1160,7 @@
             <RowDefinition Height="26"/>
             <RowDefinition Height="114"/>
             <RowDefinition Height="582*"/>
-            <RowDefinition Height="70*"/>
+            <RowDefinition x:Name="MenuRow" Height="70"/>
         </Grid.RowDefinitions>
 
 
@@ -1290,22 +1290,11 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
-        <Border BorderThickness="0,0,0,2" Margin="0" Background="#26FFFFFF" Grid.Row="3">
-            <Border.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
-                    </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="#FF21FF00"/>
-                    <GradientStop Color="#FF218900" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.BorderBrush>
-        </Border>
 
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
-        <Border x:Name="imageBorder" BorderThickness="0" Margin="0" Grid.RowSpan="2" Background="#26FFFFFF" Grid.Row="1">
+        <Border x:Name="imageBorder" BorderThickness="0" Margin="0" Grid.RowSpan="3" Background="#26FFFFFF">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1329,6 +1318,7 @@
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
                     <Grid x:Name="displayGrid" Grid.Row="1" Margin="0">
+                        <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="#0CFFFFFF" Margin="0,0,0,-1" FontSize="85" FontFamily="Segoe UI" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Row="1"/>
                         <Image x:ConnectionId='127' x:Name="displayImage" ManipulationMode="None"                                        Margin="0"                                                 />
                         <Canvas x:Name="imageCanvas" Visibility="Collapsed" >
                             <Path x:Name="nonselectRegion" Fill="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Opacity="1" Stroke="White">
@@ -1361,6 +1351,17 @@
                 </Border>
             </StackPanel>
         </Border>
+        <Border BorderThickness="0,0,0,2" Margin="0" Grid.Row="3" Background="#26FFFFFF">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+        </Border>
         <Border BorderThickness="2,0,0,0" Margin="0" Grid.RowSpan="4" Grid.Column="1" Background="#FF515050">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1382,7 +1383,7 @@
                 <Image Source="Assets/Background.png" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Margin="0"/>
             </StackPanel>
         </Border>
-        <Border BorderThickness="0,0,2,0" Margin="0" Background="#FF515050" Grid.Row="1" HorizontalAlignment="Left" Grid.RowSpan="3">
+        <Border BorderThickness="0,0,2,0" Margin="0" Background="#FF515050" HorizontalAlignment="Left" Grid.RowSpan="4">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1393,7 +1394,7 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <Border BorderThickness="0,0,0,2" Margin="0,0,-2,0" Background="#FF515050">
+        <Border BorderThickness="0,0,0,2" Background="#19515050" Margin="0" VerticalAlignment="Top">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -1403,7 +1404,6 @@
                     <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
-            <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="White" Margin="0" FontSize="17" FontFamily="Segoe UI" HorizontalAlignment="Center"/>
         </Border>
         <Grid Grid.RowSpan="4" Grid.Column="1" Margin="0.143,0,-0.571,0.429">
             <Grid.ColumnDefinitions>
@@ -2335,7 +2335,7 @@
             </Grid>
         </Popup>
         <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="60" Margin="0" VerticalAlignment="Center" Width="60" Grid.Row="2"/>
-        <Border x:Name="MenuBorder" BorderThickness="2,2,2,0" Margin="0,0,-2,0" Background="#FF515050" Grid.Row="3" HorizontalAlignment="Center" Visibility="Collapsed">
+        <Border x:Name="MenuBorder" BorderThickness="2,2,2,0" Margin="0" Background="#FF515050" Grid.Row="3" HorizontalAlignment="Center" Visibility="Collapsed">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -2464,8 +2464,8 @@
         </StackPanel>
         <Border x:Name="DarkenBorder" BorderBrush="Black" BorderThickness="0" Margin="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Collapsed" Background="#B2000000"/>
         <Popup x:Name="notSaved" Margin="0,0,0,125" Grid.RowSpan="3" Grid.ColumnSpan="2" VerticalAlignment="Center" IsOpen="False" HorizontalAlignment="Left">
-            <Border BorderBrush="#7FFFFFFF" BorderThickness="0,2" Height="250" HorizontalAlignment="Center">
-                <Grid x:Name="notSavedGrid" Background="#CC005708">
+            <Border BorderBrush="#7F005308" BorderThickness="0,2" Height="250" HorizontalAlignment="Center">
+                <Grid x:Name="notSavedGrid" Background="#CCFFFFFF">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50*"/>
                         <ColumnDefinition Width="30*"/>
@@ -2476,11 +2476,11 @@
                         <RowDefinition Height="40*"/>
                         <RowDefinition Height="39*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock HorizontalAlignment="Center" Margin="20,15,0,11" TextWrapping="Wrap" Text="You have made changes but you didn't save them. Do you want to save now?" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="5" Style="{StaticResource PageSubheaderTextStyle}" Foreground="White"/>
+                    <TextBlock HorizontalAlignment="Center" Margin="20,15,0,11" TextWrapping="Wrap" Text="You have made changes but you didn't save them. Do you want to save now?" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="5" Style="{StaticResource PageSubheaderTextStyle}" Foreground="#FF034400"/>
                     <StackPanel Grid.Column="1" Margin="0" Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button x:ConnectionId='2' x:Name="YesSave" Content="Yes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="White" Foreground="#FF004F00" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                         />
-                        <Button x:ConnectionId='3' x:Name="NoSave" Content="No" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="White" Foreground="#FF004F00" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                        />
-                        <Button x:ConnectionId='4' x:Name="CancelSave" Content="Cancel" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="White" Foreground="#FF004F00" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                            />
+                        <Button x:ConnectionId='2' x:Name="YesSave" Content="Yes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="#FF004703" Foreground="White" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                         />
+                        <Button x:ConnectionId='3' x:Name="NoSave" Content="No" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="#FF004703" Foreground="White" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                        />
+                        <Button x:ConnectionId='4' x:Name="CancelSave" Content="Cancel" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="#FF004703" Foreground="White" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                            />
                     </StackPanel>
                 </Grid>
             </Border>
