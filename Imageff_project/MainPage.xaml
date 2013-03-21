@@ -1294,6 +1294,20 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
+        <Border BorderThickness="0" Margin="0" Grid.Row="3" Background="#26FFFFFF">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+        </Border>
+        <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="#0CFFFFFF" FontSize="85" FontFamily="Segoe UI" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Margin="15,15,0,0"/>
+
+        <!-- Back button and page title -->
         <Border x:Name="imageBorder" BorderThickness="0" Margin="0" Grid.RowSpan="3" Background="#26FFFFFF">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1318,7 +1332,6 @@
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
                     <Grid x:Name="displayGrid" Grid.Row="1" Margin="0">
-                        <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="#0CFFFFFF" Margin="0,0,0,-1" FontSize="85" FontFamily="Segoe UI" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Row="1"/>
                         <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged"/>
                         <Canvas x:Name="imageCanvas" Visibility="Collapsed" >
                             <Path x:Name="nonselectRegion" Fill="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Opacity="1" Stroke="White">
@@ -1351,11 +1364,11 @@
                 </Border>
             </StackPanel>
         </Border>
-        <Border BorderThickness="0,0,0,2" Margin="0" Grid.Row="3" Background="#26FFFFFF">
+        <Border BorderThickness="0,0,0,2" Margin="0" Grid.Row="3" Background="#26FFFFFF" VerticalAlignment="Bottom">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
-                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
                     </LinearGradientBrush.RelativeTransform>
                     <GradientStop Color="#FF21FF00"/>
                     <GradientStop Color="#FF218900" Offset="1"/>
@@ -1418,7 +1431,7 @@
                         </TransitionCollection>
                     </Image.Transitions>
                 </Image>
-                <Border x:Name="Browse_Save" BorderThickness="0,0,0,2" VerticalAlignment="Top" Padding="0,0,0,5">
+                <Border x:Name="Browse_Save" BorderThickness="0,0,0,2" VerticalAlignment="Top" Padding="0,0,0,5" Margin="2,0,0,0">
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1453,7 +1466,7 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
-                <Border x:Name="Zoom" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5" Visibility="Collapsed">
+                <Border x:Name="Zoom" VerticalAlignment="Center" Margin="2,10,0,10" BorderThickness="0,0,0,2" Padding="0,5" Visibility="Collapsed">
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1479,7 +1492,7 @@
 
                     </StackPanel>
                 </Border>
-                <Border x:Name="Crop" Margin="0" BorderThickness="0,0,0,2" Visibility="Collapsed" >
+                <Border x:Name="Crop" Margin="2,0,0,0" BorderThickness="0,0,0,2" Visibility="Collapsed" >
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2335,7 +2348,7 @@
             </Grid>
         </Popup>
         <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="60" Margin="0" VerticalAlignment="Center" Width="60" Grid.Row="2"/>
-        <Border x:Name="MenuBorder" BorderThickness="2,2,2,0" Margin="0" Background="#FF515050" Grid.Row="3" HorizontalAlignment="Center" Visibility="Collapsed">
+        <Border x:Name="MenuBorder" BorderThickness="4,4,4,0" Margin="0" Background="#FF515050" Grid.Row="3" HorizontalAlignment="Center" Visibility="Collapsed">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -2345,8 +2358,8 @@
                     <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
-            <ScrollViewer x:Name="MenuScroll" Margin="0,0,0,-2" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" HorizontalAlignment="Center" >
-                <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0">
+            <ScrollViewer x:Name="MenuScroll" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" HorizontalAlignment="Center" >
+                <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,0">
                     <ToggleButton x:Name="SelectFilters" HorizontalAlignment="Left" VerticalAlignment="Stretch" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnEffectsPointerOver" PointerExited="OnEffectsPointerExited" Width="80">
                         <ToggleButton.BorderBrush>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

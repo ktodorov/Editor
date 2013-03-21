@@ -156,7 +156,6 @@ namespace RemedyPic
             selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
             this.DataContext = selectedRegion;
             setPopupsHeight();
-            createMessageDialog();
         }
 
         #region Charms
@@ -284,11 +283,6 @@ namespace RemedyPic
         }
         #endregion
 
-        private void createMessageDialog()
-        {
-
-        }
-
 
         #region Functions, called when opening an image.
         #region Get Photo
@@ -365,13 +359,13 @@ namespace RemedyPic
                     pictureIsLoaded = true;
                     doAllCalculations();
                     ImageLoadingRing.IsActive = false;
+                    
                 }
             }
             else
             {
                 // If the window can't be unsnapped, show alert.
-                MessageDialog messageDialog = new MessageDialog("Can't open in snapped state. Please unsnap the app and try again", "Close");
-                await messageDialog.ShowAsync();
+                await new MessageDialog("Can't open in snapped state. Please unsnap the app and try again", "Close").ShowAsync();
             }
         }
 
@@ -462,9 +456,8 @@ namespace RemedyPic
             ImageMoving.IsChecked = true;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
-            displayImage.MaxWidth = imageBorder.ActualWidth * 0.95;
-            displayImage.MaxHeight = imageBorder.ActualHeight * 0.98;
-            //MenuRow.Height = Window.Current.Bounds.Height * 0.10;
+            displayImage.MaxWidth = imageBorder.ActualWidth * 0.90;
+            displayImage.MaxHeight = imageBorder.ActualHeight * 0.90;
 
             widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
             newWidth.Text = bitmapImage.PixelWidth.ToString();
@@ -943,6 +936,12 @@ namespace RemedyPic
         {
             // This sets the file name to the text box
             fileName.Text = file.Name;
+            if (fileName.Text.Length > 20)
+                fileName.FontSize = 45;
+            if (fileName.Text.Length > 50)
+                fileName.FontSize = 25;
+            if (fileName.Text.Length < 15)
+                fileName.FontSize = 85;
         }
 
         void setStream(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
@@ -2825,10 +2824,16 @@ namespace RemedyPic
         private void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
         {
             // Event for the mouse wheel. 
-            // It zooms in or out the image.
+            // It zooms in or out the image
             var delta = e.GetCurrentPoint(displayImage).Properties.MouseWheelDelta;
+
             if (delta > 0)
             {
+                if (scale.ScaleX < 2.5)
+                {
+                    scale.CenterX = e.GetCurrentPoint(displayImage).Position.X;
+                    scale.CenterY = e.GetCurrentPoint(displayImage).Position.Y;
+                }
                 scale.ScaleX = scale.ScaleX + 0.1;
                 scale.ScaleY = scale.ScaleY + 0.1;
                 if (ZoomOut.IsEnabled == false)
