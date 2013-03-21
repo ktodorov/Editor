@@ -1294,6 +1294,20 @@
         <!-- Back button and page title -->
 
         <!-- Back button and page title -->
+        <Border BorderThickness="0" Margin="0" Grid.Row="3" Background="#26FFFFFF">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+        </Border>
+        <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="#0CFFFFFF" FontSize="85" FontFamily="Segoe UI" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Margin="15,15,0,0"/>
+
+        <!-- Back button and page title -->
         <Border x:Name="imageBorder" BorderThickness="0" Margin="0" Grid.RowSpan="3" Background="#26FFFFFF">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1318,7 +1332,6 @@
                         <ScaleTransform x:Name="scale"/>
                     </Border.RenderTransform>
                     <Grid x:Name="displayGrid" Grid.Row="1" Margin="0">
-                        <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="#0CFFFFFF" Margin="0,0,0,-1" FontSize="85" FontFamily="Segoe UI" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Row="1"/>
                         <Image x:Name="displayImage" ManipulationMode="None" PointerReleased="ImagePointerReleased" Margin="0" PointerWheelChanged="OnImagePointerWheelChanged"/>
                         <Canvas x:Name="imageCanvas" Visibility="Collapsed" >
                             <Path x:Name="nonselectRegion" Fill="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Opacity="1" Stroke="White">
@@ -1351,11 +1364,11 @@
                 </Border>
             </StackPanel>
         </Border>
-        <Border BorderThickness="0,0,0,2" Margin="0" Grid.Row="3" Background="#26FFFFFF">
+        <Border BorderThickness="0,0,0,2" Margin="0" Grid.Row="3" Background="#26FFFFFF" VerticalAlignment="Bottom">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
-                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
                     </LinearGradientBrush.RelativeTransform>
                     <GradientStop Color="#FF21FF00"/>
                     <GradientStop Color="#FF218900" Offset="1"/>
@@ -1418,7 +1431,7 @@
                         </TransitionCollection>
                     </Image.Transitions>
                 </Image>
-                <Border x:Name="Browse_Save" BorderThickness="0,0,0,2" VerticalAlignment="Top" Padding="0,0,0,5">
+                <Border x:Name="Browse_Save" BorderThickness="0,0,0,2" VerticalAlignment="Top" Padding="0,0,0,5" Margin="2,0,0,0">
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1453,7 +1466,7 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
-                <Border x:Name="Zoom" VerticalAlignment="Center" Margin="0,10" BorderThickness="0,0,0,2" Padding="0,5" Visibility="Collapsed">
+                <Border x:Name="Zoom" VerticalAlignment="Center" Margin="2,10,0,10" BorderThickness="0,0,0,2" Padding="0,5" Visibility="Collapsed">
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1479,7 +1492,7 @@
 
                     </StackPanel>
                 </Border>
-                <Border x:Name="Crop" Margin="0" BorderThickness="0,0,0,2" Visibility="Collapsed" >
+                <Border x:Name="Crop" Margin="2,0,0,0" BorderThickness="0,0,0,2" Visibility="Collapsed" >
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2271,6 +2284,98 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
+            <Popup x:Name="PopupCustomFilter" Margin="0,0,380,-1.429" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+                <Popup.ChildTransitions>
+                    <TransitionCollection>
+                        <PaneThemeTransition/>
+                    </TransitionCollection>
+                </Popup.ChildTransitions>
+                <ScrollViewer x:Name="CustomFilter" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                    <ScrollViewer.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF21FF00"/>
+                            <GradientStop Color="#FF215500" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ScrollViewer.BorderBrush>
+                    <StackPanel x:Name="CustomFilterPanel" VerticalAlignment="Top" Width="340" Height="539">
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
+                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                            <StackPanel Orientation="Horizontal" Margin="0">
+                                <Button x:Name="BackCustomFilter" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                                <TextBlock TextWrapping="Wrap" Text="Custom Filter" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                            </StackPanel>
+                        </Border>
+                        <Image x:Name="Logo_Copy9" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
+                        <StackPanel x:Name="Matrixx" Background="#19FFFFFF" HorizontalAlignment="Center">
+                            <TextBlock TextWrapping="Wrap" Text="Matrix" Margin="0,0,0,2" HorizontalAlignment="Center" Foreground="White" Style="{StaticResource BasicTextStyle}"/>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBox x:Name="coeff00" TextWrapping="Wrap" TextAlignment="Center" Width="28" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnCoeff00Changed" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff10" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff20" TextWrapping="Wrap" TextAlignment="Center"  Width="0" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff30" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff40" TextWrapping="Wrap" TextAlignment="Center" Width="3" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBox x:Name="coeff01" TextWrapping="Wrap" TextAlignment="Center" Width="28" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff11" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff21" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff31" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff41" TextWrapping="Wrap" TextAlignment="Center" Width="3" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBox x:Name="coeff02" TextWrapping="Wrap" TextAlignment="Center" Width="28" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff12" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff22" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff32" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff42" TextWrapping="Wrap" TextAlignment="Center" Width="3" HorizontalAlignment="Left" MaxLength="3"  TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBox x:Name="coeff03" TextWrapping="Wrap" TextAlignment="Center" Width="28" HorizontalAlignment="Left" MaxLength="3"  TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff13" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3"  TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff23" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3"  TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff33" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3"  TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff43" TextWrapping="Wrap" TextAlignment="Center" Width="3" HorizontalAlignment="Left" MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBox x:Name="coeff04" TextWrapping="Wrap" TextAlignment="Center" Width="28" HorizontalAlignment="Left" MaxLength="3"  TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff14" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3"  TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff24" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left" MaxLength="3"  TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff34" TextWrapping="Wrap" TextAlignment="Center" Width="0" HorizontalAlignment="Left"  MaxLength="3" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBox x:Name="coeff44" TextWrapping="Wrap" TextAlignment="Center" Width="3" HorizontalAlignment="Left" MaxLength="3"  TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="SclaAndOffset" Margin="20,20,20,20"  HorizontalAlignment="Center" Orientation="Horizontal" >
+                            <StackPanel Background="#19FFFFFF" Margin="10,0,0,0">
+                                <TextBlock TextWrapping="Wrap" Text="Scale" Margin="0,0,0,2" HorizontalAlignment="Center" Foreground="White" Style="{StaticResource BasicTextStyle}"/>
+                                <TextBox x:Name="Scale" TextAlignment="Center" TextWrapping="Wrap" Margin="10,0,10,5" Width="100" HorizontalAlignment="Left" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <StackPanel Background="#19FFFFFF" Margin="10,0,0,0">
+                                <TextBlock TextWrapping="Wrap" Text="Offset" Margin="0,0,0,2" HorizontalAlignment="Center" Foreground="White" Style="{StaticResource BasicTextStyle}"/>
+                                <TextBox x:Name="Offset" TextAlignment="Center" TextWrapping="Wrap" Margin="10,0,10,5" Width="100" HorizontalAlignment="Right" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel x:Name="CustomApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Visible">
+                            <Button x:Name="CustomApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"  Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
+                            <Button x:Name="CustomResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"  Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}"/>
+                        </StackPanel>
+
+                            </StackPanel>
+                </ScrollViewer>
+            </Popup>
         </Grid>
 
         <!-- Back button and page title -->
@@ -2335,7 +2440,7 @@
             </Grid>
         </Popup>
         <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="60" Margin="0" VerticalAlignment="Center" Width="60" Grid.Row="2"/>
-        <Border x:Name="MenuBorder" BorderThickness="2,2,2,0" Margin="0" Background="#FF515050" Grid.Row="3" HorizontalAlignment="Center" Visibility="Collapsed">
+        <Border x:Name="MenuBorder" BorderThickness="4,4,4,0" Margin="0" Background="#FF515050" Grid.Row="3" HorizontalAlignment="Center">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -2345,8 +2450,8 @@
                     <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
-            <ScrollViewer x:Name="MenuScroll" Margin="0,0,0,-2" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" HorizontalAlignment="Center" >
-                <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0">
+            <ScrollViewer x:Name="MenuScroll" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" HorizontalAlignment="Center" >
+                <StackPanel x:Name="Menu" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,0">
                     <ToggleButton x:Name="SelectFilters" HorizontalAlignment="Left" VerticalAlignment="Stretch" Checked="FiltersChecked" Unchecked="FiltersUnchecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3,5,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnEffectsPointerOver" PointerExited="OnEffectsPointerExited" Width="80">
                         <ToggleButton.BorderBrush>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -2454,6 +2559,18 @@
                             </LinearGradientBrush>
                         </ToggleButton.BorderBrush>
                         <Image x:Name="OptionsIcon" Source="Assets/Buttons/Options.png"/>
+                    </ToggleButton>
+                    <ToggleButton x:Name="SelectCustom" HorizontalAlignment="Left" VerticalAlignment="Stretch" Unchecked="CustomFilterUnchecked" Checked="CustomFilterChecked" Foreground="White" FontFamily="Segoe UI" Background="#00000000" Margin="0,3" BorderThickness="0" Style="{StaticResource ToggleButtonStyle2}" Padding="0" PointerEntered="OnOptionsPointerOver" PointerExited="OnOptionsPointerExited" Width="80">
+                        <ToggleButton.BorderBrush>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                                </LinearGradientBrush.RelativeTransform>
+                                <GradientStop Color="#B23CEF00"/>
+                                <GradientStop Color="#B23CFF00" Offset="1"/>
+                            </LinearGradientBrush>
+                        </ToggleButton.BorderBrush>
+                        <Image x:Name="CustomIcon" Source="Assets/Buttons/Options.png"/>
                     </ToggleButton>
                 </StackPanel>
             </ScrollViewer>

@@ -156,7 +156,6 @@ namespace RemedyPic
             selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
             this.DataContext = selectedRegion;
             setPopupsHeight();
-            createMessageDialog();
         }
 
         #region Charms
@@ -284,11 +283,6 @@ namespace RemedyPic
         }
         #endregion
 
-        private void createMessageDialog()
-        {
-
-        }
-
 
         #region Functions, called when opening an image.
         #region Get Photo
@@ -365,13 +359,13 @@ namespace RemedyPic
                     pictureIsLoaded = true;
                     doAllCalculations();
                     ImageLoadingRing.IsActive = false;
+                    
                 }
             }
             else
             {
                 // If the window can't be unsnapped, show alert.
-                MessageDialog messageDialog = new MessageDialog("Can't open in snapped state. Please unsnap the app and try again", "Close");
-                await messageDialog.ShowAsync();
+                await new MessageDialog("Can't open in snapped state. Please unsnap the app and try again", "Close").ShowAsync();
             }
         }
 
@@ -462,9 +456,8 @@ namespace RemedyPic
             ImageMoving.IsChecked = true;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
-            displayImage.MaxWidth = imageBorder.ActualWidth * 0.95;
-            displayImage.MaxHeight = imageBorder.ActualHeight * 0.98;
-            //MenuRow.Height = Window.Current.Bounds.Height * 0.10;
+            displayImage.MaxWidth = imageBorder.ActualWidth * 0.90;
+            displayImage.MaxHeight = imageBorder.ActualHeight * 0.90;
 
             widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
             newWidth.Text = bitmapImage.PixelWidth.ToString();
@@ -565,6 +558,7 @@ namespace RemedyPic
             Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
             Exposure.Height = Window.Current.Bounds.Height;
+            CustomFilter.Height = Window.Current.Bounds.Height;
             notSaved.Width = Window.Current.Bounds.Width;
             notSavedGrid.Width = Window.Current.Bounds.Width;
         }
@@ -943,6 +937,12 @@ namespace RemedyPic
         {
             // This sets the file name to the text box
             fileName.Text = file.Name;
+            if (fileName.Text.Length > 20)
+                fileName.FontSize = 45;
+            if (fileName.Text.Length > 50)
+                fileName.FontSize = 25;
+            if (fileName.Text.Length < 15)
+                fileName.FontSize = 85;
         }
 
         void setStream(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
@@ -1613,6 +1613,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupFilters.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-check.png");
@@ -1637,6 +1638,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupColors.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors-checked.png");
@@ -1662,6 +1664,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectColors.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupExposure.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure-checked.png");
@@ -1686,6 +1689,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupRotations.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate-checked.png");
@@ -1710,6 +1714,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupImageOptions.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options-checked.png");
@@ -1734,6 +1739,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupColorize.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-checked.png");
@@ -1758,6 +1764,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupFrames.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-checked.png");
@@ -1782,6 +1789,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupHistogram.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-checked.png");
@@ -1794,6 +1802,26 @@ namespace RemedyPic
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram.png");
             HistogramIcon.Source = temp;
+        }
+
+
+        private void CustomFilterChecked(object sender, RoutedEventArgs e)
+        {
+            SelectFilters.IsChecked = false;
+            SelectColors.IsChecked = false;
+            SelectRotations.IsChecked = false;
+            SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            SelectExposure.IsChecked = false;
+            SelectCrop.IsChecked = false;
+            SelectHistogram.IsChecked = false;
+            PopupCustomFilter.IsOpen = true;
+        }
+
+        private void CustomFilterUnchecked(object sender, RoutedEventArgs e)
+        {
+            PopupCustomFilter.IsOpen = false;
         }
 
         #endregion
@@ -2306,6 +2334,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCustom.IsChecked = false;
         }
 
         private void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -2825,10 +2854,16 @@ namespace RemedyPic
         private void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
         {
             // Event for the mouse wheel. 
-            // It zooms in or out the image.
+            // It zooms in or out the image
             var delta = e.GetCurrentPoint(displayImage).Properties.MouseWheelDelta;
+
             if (delta > 0)
             {
+                if (scale.ScaleX < 2.5)
+                {
+                    scale.CenterX = e.GetCurrentPoint(displayImage).Position.X;
+                    scale.CenterY = e.GetCurrentPoint(displayImage).Position.Y;
+                }
                 scale.ScaleX = scale.ScaleX + 0.1;
                 scale.ScaleY = scale.ScaleY + 0.1;
                 if (ZoomOut.IsEnabled == false)
@@ -3513,6 +3548,18 @@ namespace RemedyPic
             var borderSender = sender as Border;
             borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
         }
+        #region Custom Filter :)
+        private void OnCoeff00Changed(object sender, TextChangedEventArgs e)
+        {
+            string c = coeff00.Text;
+            coeff00.MaxLength = 3;
+            if (c.Length > 0 && !char.IsNumber(c[c.Length - 1]))
+            {
+                coeff00.Text = "";               
+            }
+        }
+        #endregion
+
 
         #region Export/Import
         private void OnExportButtonClick(object sender, RoutedEventArgs e)
@@ -4000,6 +4047,7 @@ namespace RemedyPic
                 getCameraPhoto();
             }
         }
+
 
     }
     #endregion
