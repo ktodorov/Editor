@@ -124,6 +124,10 @@ namespace RemedyPic
         // The dictionary holds the history of all previous pointer locations. It is used by the crop function.
         Dictionary<uint, Point?> pointerPositionHistory = new Dictionary<uint, Point?>();
 
+        // This bool variable checks if the user 
+        // has made any changes and if he saved them.
+        bool Saved = true;
+
         #endregion
 
         public MainPage()
@@ -151,6 +155,7 @@ namespace RemedyPic
             selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
             this.DataContext = selectedRegion;
             setPopupsHeight();
+            createMessageDialog();
         }
 
         #region Charms
@@ -278,12 +283,26 @@ namespace RemedyPic
         }
         #endregion
 
+        private void createMessageDialog()
+        {
+
+        }
+
+
         #region Functions, called when opening an image.
         #region Get Photo
         // This occures when GetPhoto button is clicked
         private void GetPhotoButton_Click(object sender, RoutedEventArgs e)
         {
-            GetPhoto();
+            if (Saved)
+            {
+                GetPhoto();
+            }
+            else
+            {
+                DarkenBorder.Visibility = Visibility.Visible;
+                notSaved.IsOpen = true;
+            }
         }
 
         private async void GetPhoto(StorageFile fileToUse = null)
@@ -318,6 +337,7 @@ namespace RemedyPic
                 {
                     bitmapImage = new WriteableBitmap(1, 1);
                     ImageLoadingRing.IsActive = true;
+                    Saved = true;
                     AnimateOutPicture.Begin();
 
                     // We create a temporary stream for the opened file.
@@ -528,6 +548,8 @@ namespace RemedyPic
             Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
             Exposure.Height = Window.Current.Bounds.Height;
+            notSaved.Width = Window.Current.Bounds.Width;
+            notSavedGrid.Width = Window.Current.Bounds.Width;
         }
 
         private void setElements(Windows.UI.Xaml.Controls.Image imageElement, WriteableBitmap source)
@@ -838,12 +860,14 @@ namespace RemedyPic
             // Only execute if there is a picture that is loaded
             if (pictureIsLoaded)
             {
+                file = null;
+                ImageLoadingRing.IsActive = true;
                 // If the picker variable is true, we call a FilePicker.
                 // If it's not, we save a temporary file without notifying the user to the local directory of the app.
                 if (picker == true)
                 {
                     FileSavePicker savePicker = new FileSavePicker();
-
+                    Saved = true;
                     // Set My Documents folder as suggested location if no past selected folder is available
                     savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
 
@@ -859,13 +883,7 @@ namespace RemedyPic
                 }
                 else
                 {
-                    if (imageOriginal.dstPixels == null)
-                    {
-                        // If the array is null, this means no changes were made, so we can use the currently opened file.
-                        return true;
-                    }
                     file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpg", CreationCollisionOption.ReplaceExisting);
-
                 }
                 System.Guid fileType = BitmapEncoder.JpegEncoderId;
 
@@ -898,7 +916,8 @@ namespace RemedyPic
                         await encoder.FlushAsync();
                     }
                 }
-            }
+            } 
+            ImageLoadingRing.IsActive = false;
             return true;
         }
         #endregion
@@ -1230,6 +1249,7 @@ namespace RemedyPic
             FilterApplyReset.Visibility = Visibility.Collapsed;
             SelectFilters.IsChecked = false;
             setFilterBitmaps();
+            Saved = false;
         }
 
         public void ApplyFilter(string filter)
@@ -1317,6 +1337,7 @@ namespace RemedyPic
         {
             ApplyColor();
             setFilterBitmaps();
+            Saved = false;
         }
 
         private void ApplyColor()
@@ -1347,6 +1368,7 @@ namespace RemedyPic
             setFilterBitmaps();
             ImageLoadingRing.IsActive = false;
             RotateApplyReset.Visibility = Visibility.Collapsed;
+            Saved = false;
         }
 
         private void ApplyRotate(string rotation)
@@ -1381,6 +1403,7 @@ namespace RemedyPic
             setFilterBitmaps();
             ColorizeApplyReset.Visibility = Visibility.Collapsed;
             SelectColorize.IsChecked = false;
+            Saved = false;
         }
 
         private void ApplyColorize()
@@ -1458,6 +1481,7 @@ namespace RemedyPic
         {
             ApplyExposure(appliedColors);
             setFilterBitmaps();
+            Saved = false;
         }
 
         private void ApplyExposure(string effect)
@@ -1965,6 +1989,7 @@ namespace RemedyPic
             setFilterBitmaps();
             FramesApplyReset.Visibility = Visibility.Collapsed;
             ResetFrameMenuData();
+            Saved = false;
         }
 
         // Reset the image (return the pixels before applying the frame)
@@ -3860,7 +3885,6 @@ namespace RemedyPic
                 OptionsIcon.Source = temp;
             }
         }
-        #endregion
 
         private void OnCameraPointerOver(object sender, PointerRoutedEventArgs e)
         {
@@ -3922,6 +3946,28 @@ namespace RemedyPic
                 temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning.png");
                 PanIcon.Source = temp;
             }
+        }
+
+        #endregion
+
+
+        private void OnCancelSaveClicked(object sender, RoutedEventArgs e)
+        {
+            notSaved.IsOpen = false;
+            DarkenBorder.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnNoSaveClicked(object sender, RoutedEventArgs e)
+        {
+            OnCancelSaveClicked(sender, e);
+            GetPhoto();
+        }
+
+        private async void OnYesSaveClicked(object sender, RoutedEventArgs e)
+        {
+            OnCancelSaveClicked(sender, e);
+            await SaveFile(true);
+            GetPhoto();
         }
 
     }

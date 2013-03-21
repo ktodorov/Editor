@@ -2442,10 +2442,33 @@
                 <HyperlinkButton Content="antonvdudov@gmail.com" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,3,15,0" Grid.Row="4" NavigateUri="mailto:antonvdudov@gmail.com" Padding="12,0" Height="26" Width="202" Foreground="#FF1D6A00"/>
             </Grid>
         </Popup>
-        <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="80" IsActive="False" Margin="0" VerticalAlignment="Center" Width="80" Grid.Row="2"/>
+        <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="60" Margin="0" VerticalAlignment="Center" Width="60" Grid.Row="2"/>
         <StackPanel x:Name="UndoRedoPanel" Margin="0" Orientation="Vertical" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Collapsed">
             <Button x:Name="Undo" Content="&#xE10E;" Click="OnUndoClick" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
             <Button x:Name="Redo" Content="&#xE10D;" Click="OnRedoClick" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
         </StackPanel>
+        <Border x:Name="DarkenBorder" BorderBrush="Black" BorderThickness="0" Margin="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Background="#7F000000" Visibility="Collapsed"/>
+        <Popup x:Name="notSaved" Margin="0,0,0,125" Grid.RowSpan="3" Grid.ColumnSpan="2" VerticalAlignment="Center" IsOpen="False" HorizontalAlignment="Left">
+            <Border BorderBrush="#7FFFFFFF" BorderThickness="0,2" Height="250" HorizontalAlignment="Center">
+                <Grid x:Name="notSavedGrid" Background="#CC005708">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="30*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="39*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" Margin="20,15,0,11" TextWrapping="Wrap" Text="You have made changes but you didn't save them. Do you want to save now?" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="5" Style="{StaticResource PageSubheaderTextStyle}" Foreground="White"/>
+                    <Button x:Name="YesSave" Content="Yes" HorizontalAlignment="Stretch" Margin="0,0,0,15" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="1" Background="White" Foreground="#FF004F00" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2" Click="OnYesSaveClicked"/>
+                    <Button x:Name="NoSave" Content="No" HorizontalAlignment="Stretch" Margin="0,0,0,15" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="2" Background="White" Foreground="#FF004F00" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2" Click="OnNoSaveClicked"/>
+                    <Button x:Name="CancelSave" Content="Cancel" HorizontalAlignment="Stretch" Margin="0,0,0,15" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="3" Background="White" Foreground="#FF004F00" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2" Click="OnCancelSaveClicked"/>
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
 </common:LayoutAwarePage>
