@@ -5,7 +5,7 @@
     <WindowsUser>Tony</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>9AEDC5DA9862E00112F135C372610B1564F822AB7D21DEADE7B581A45A89C03C</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>232E839493F8C98646A3B3D9ECBF8D51807AC07B50A37F2A957E49D10F23AD84</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>DF4D1F28-642E-40AC-AB55-7182B8AD0385_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>DF4D1F28-642E-40AC-AB55-7182B8AD0385_pexwghfzd4yhp!App</RegisteredUserModeAppID>
     <RegisteredPackageID>DF4D1F28-642E-40AC-AB55-7182B8AD0385</RegisteredPackageID>
@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-20T10:51:53.473</Modified>
+      <Modified>2013-03-20T21:00:09.803</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-03-20T10:52:18.617</Modified>
+      <Modified>2013-03-20T21:00:09.435</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-03-20T10:52:18.595</Modified>
+      <Modified>2013-03-20T21:00:09.381</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
@@ -35,6 +35,38 @@
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Arrows\Arrow-vertical.png">
       <PackagePath>Assets\Arrows\Arrow-vertical.png</PackagePath>
       <Modified>2013-03-18T06:21:28.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Background.png">
+      <PackagePath>Assets\Background.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.498</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Browse-hover.png">
+      <PackagePath>Assets\Buttons\Browse-hover.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.499</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Browse.png">
+      <PackagePath>Assets\Buttons\Browse.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.499</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Camera-hover.png">
+      <PackagePath>Assets\Buttons\Camera-hover.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Camera.png">
+      <PackagePath>Assets\Buttons\Camera.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colorize-checked.png">
+      <PackagePath>Assets\Buttons\Colorize-checked.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colorize-hover.png">
+      <PackagePath>Assets\Buttons\Colorize-hover.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.501</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colorize.png">
+      <PackagePath>Assets\Buttons\Colorize.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.501</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colors-checked.png">
       <PackagePath>Assets\Buttons\Colors-checked.png</PackagePath>
@@ -47,6 +79,18 @@
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Colors.png">
       <PackagePath>Assets\Buttons\Colors.png</PackagePath>
       <Modified>2013-03-20T10:51:53.399</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Crop-checked.png">
+      <PackagePath>Assets\Buttons\Crop-checked.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.502</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Crop-hover.png">
+      <PackagePath>Assets\Buttons\Crop-hover.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.502</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Crop.png">
+      <PackagePath>Assets\Buttons\Crop.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.503</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Effects-check.png">
       <PackagePath>Assets\Buttons\Effects-check.png</PackagePath>
@@ -72,6 +116,54 @@
       <PackagePath>Assets\Buttons\Exposure.png</PackagePath>
       <Modified>2013-03-20T10:51:53.416</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Frame-checked.png">
+      <PackagePath>Assets\Buttons\Frame-checked.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.504</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Frame-hover.png">
+      <PackagePath>Assets\Buttons\Frame-hover.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.504</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Frame.png">
+      <PackagePath>Assets\Buttons\Frame.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.504</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Histogram-checked.png">
+      <PackagePath>Assets\Buttons\Histogram-checked.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.505</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Histogram-hover.png">
+      <PackagePath>Assets\Buttons\Histogram-hover.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.505</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Histogram.png">
+      <PackagePath>Assets\Buttons\Histogram.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.506</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Options-checked.png">
+      <PackagePath>Assets\Buttons\Options-checked.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.506</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Options-hover.png">
+      <PackagePath>Assets\Buttons\Options-hover.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.507</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Options.png">
+      <PackagePath>Assets\Buttons\Options.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.507</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Panning-checked.png">
+      <PackagePath>Assets\Buttons\Panning-checked.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.513</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Panning-hover.png">
+      <PackagePath>Assets\Buttons\Panning-hover.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.513</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Panning.png">
+      <PackagePath>Assets\Buttons\Panning.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.514</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Rotate-checked.png">
       <PackagePath>Assets\Buttons\Rotate-checked.png</PackagePath>
       <Modified>2013-03-20T10:51:53.416</Modified>
@@ -83,6 +175,14 @@
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Rotate.png">
       <PackagePath>Assets\Buttons\Rotate.png</PackagePath>
       <Modified>2013-03-20T10:51:53.417</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Save-hover.png">
+      <PackagePath>Assets\Buttons\Save-hover.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.514</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Save.png">
+      <PackagePath>Assets\Buttons\Save.png</PackagePath>
+      <Modified>2013-03-20T20:59:53.515</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
@@ -158,11 +258,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-03-20T10:51:53.432</Modified>
+      <Modified>2013-03-20T20:59:53.530</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-03-20T10:52:18.687</Modified>
+      <Modified>2013-03-20T21:00:09.523</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

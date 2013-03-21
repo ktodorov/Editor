@@ -48,7 +48,7 @@ namespace RemedyPic.Common
                 }
                 else
                 {
-                    current_width = 3;  // avoid first two columns
+                    current_width = 3;  // avoid last one and first two columns
                     current_height++;
                     current_byte += 16; // avoid last two colums and first two colums
                 }
@@ -64,19 +64,11 @@ namespace RemedyPic.Common
             SetNewValues(current_byte, BGRValues);
         }
 
-        // Set the new values of pixel colors
-        private void SetNewValues(int current_byte, int[] BGRValues)
-        {
-            _dstPixels[current_byte++] = (byte)BGRValues[0];
-            _dstPixels[current_byte++] = (byte)BGRValues[1];
-            _dstPixels[current_byte++] = (byte)BGRValues[2];
-        }
-
         // Calculate the B G R values
         private void GetNewValues(ref int[] BGRValues, int current_byte)
         {
             MultiplyByMatrixValues(ref BGRValues, current_byte);
-            DivideByScaleAddOffset(ref BGRValues, current_byte);            
+            DivideByScaleAddOffset(ref BGRValues);            
         }
 
         // Calculate the B G R values. Depends on the matrix of the filter
@@ -93,7 +85,7 @@ namespace RemedyPic.Common
         }
 
         // Divide the values by scale and add offset
-        private void DivideByScaleAddOffset(ref int[] BGRValues, int current_byte)
+        private void DivideByScaleAddOffset(ref int[] BGRValues)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -117,6 +109,14 @@ namespace RemedyPic.Common
                 val = 255;
             else if (val < 0)
                 val = 0;
+        }
+
+        // Set the new values of pixel colors
+        private void SetNewValues(int current_byte, int[] BGRValues)
+        {
+            _dstPixels[current_byte++] = (byte)BGRValues[0];
+            _dstPixels[current_byte++] = (byte)BGRValues[1];
+            _dstPixels[current_byte++] = (byte)BGRValues[2];
         }
 
         // Get the borders of the matrix
