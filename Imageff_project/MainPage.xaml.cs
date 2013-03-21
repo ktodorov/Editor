@@ -558,6 +558,7 @@ namespace RemedyPic
             Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
             Exposure.Height = Window.Current.Bounds.Height;
+            CustomFilter.Height = Window.Current.Bounds.Height;
             notSaved.Width = Window.Current.Bounds.Width;
             notSavedGrid.Width = Window.Current.Bounds.Width;
         }
@@ -1612,6 +1613,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupFilters.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-check.png");
@@ -1636,6 +1638,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupColors.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors-checked.png");
@@ -1661,6 +1664,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectColors.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupExposure.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure-checked.png");
@@ -1685,6 +1689,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupRotations.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate-checked.png");
@@ -1709,6 +1714,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupImageOptions.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options-checked.png");
@@ -1733,6 +1739,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupColorize.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-checked.png");
@@ -1757,6 +1764,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupFrames.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-checked.png");
@@ -1781,6 +1789,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
+            SelectCustom.IsChecked = false;
             PopupHistogram.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-checked.png");
@@ -1793,6 +1802,26 @@ namespace RemedyPic
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram.png");
             HistogramIcon.Source = temp;
+        }
+
+
+        private void CustomFilterChecked(object sender, RoutedEventArgs e)
+        {
+            SelectFilters.IsChecked = false;
+            SelectColors.IsChecked = false;
+            SelectRotations.IsChecked = false;
+            SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            SelectExposure.IsChecked = false;
+            SelectCrop.IsChecked = false;
+            SelectHistogram.IsChecked = false;
+            PopupCustomFilter.IsOpen = true;
+        }
+
+        private void CustomFilterUnchecked(object sender, RoutedEventArgs e)
+        {
+            PopupCustomFilter.IsOpen = false;
         }
 
         #endregion
@@ -2305,6 +2334,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCustom.IsChecked = false;
         }
 
         private void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -4005,6 +4035,7 @@ namespace RemedyPic
                 getCameraPhoto();
             }
         }
+
 
     }
     #endregion
