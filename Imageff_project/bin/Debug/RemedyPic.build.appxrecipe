@@ -67,6 +67,15 @@
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Crop.png">
       <PackagePath>Assets\Buttons\Crop.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\CustomFilter-checked.png">
+      <PackagePath>Assets\Buttons\CustomFilter-checked.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\CustomFilter-hover.png">
+      <PackagePath>Assets\Buttons\CustomFilter-hover.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\CustomFilter.png">
+      <PackagePath>Assets\Buttons\CustomFilter.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Buttons\Effects-check.png">
       <PackagePath>Assets\Buttons\Effects-check.png</PackagePath>
     </AppxPackagedFile>

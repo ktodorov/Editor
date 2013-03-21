@@ -142,6 +142,9 @@
     <Content Include="Assets\Buttons\Crop-checked.png" />
     <Content Include="Assets\Buttons\Crop-hover.png" />
     <Content Include="Assets\Buttons\Crop.png" />
+    <Content Include="Assets\Buttons\CustomFilter-checked.png" />
+    <Content Include="Assets\Buttons\CustomFilter-hover.png" />
+    <Content Include="Assets\Buttons\CustomFilter.png" />
     <Content Include="Assets\Buttons\Effects-check.png" />
     <Content Include="Assets\Buttons\Effects-hover.png" />
     <Content Include="Assets\Buttons\Effects.png" />

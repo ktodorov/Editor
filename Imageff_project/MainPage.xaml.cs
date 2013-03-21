@@ -938,9 +938,9 @@ namespace RemedyPic
             // This sets the file name to the text box
             fileName.Text = file.Name;
             if (fileName.Text.Length > 20)
-                fileName.FontSize = 45;
+                fileName.FontSize = 55;
             if (fileName.Text.Length > 50)
-                fileName.FontSize = 25;
+                fileName.FontSize = 35;
             if (fileName.Text.Length < 15)
                 fileName.FontSize = 85;
         }
@@ -1817,11 +1817,17 @@ namespace RemedyPic
             SelectCrop.IsChecked = false;
             SelectHistogram.IsChecked = false;
             PopupCustomFilter.IsOpen = true;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter-checked.png");
+            CustomIcon.Source = temp;
         }
 
         private void CustomFilterUnchecked(object sender, RoutedEventArgs e)
         {
             PopupCustomFilter.IsOpen = false;
+            BitmapImage temp = new BitmapImage();
+            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter.png");
+            CustomIcon.Source = temp;
         }
 
         #endregion
@@ -3548,16 +3554,38 @@ namespace RemedyPic
             var borderSender = sender as Border;
             borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
         }
+
         #region Custom Filter :)
         private void OnCoeff00Changed(object sender, TextChangedEventArgs e)
         {
             string c = coeff00.Text;
-            coeff00.MaxLength = 3;
+
             if (c.Length > 0 && !char.IsNumber(c[c.Length - 1]))
             {
                 coeff00.Text = "";               
             }
         }
+
+        private void OnCustomApplyClick(object sender, RoutedEventArgs e)
+        {
+            ApplyFilter(appliedFilters);
+            FilterApplyReset.Visibility = Visibility.Collapsed;
+            SelectFilters.IsChecked = false;
+            setFilterBitmaps();
+            Saved = false;
+        }
+
+        private void CustomApply()
+        {
+            ImageLoadingRing.IsActive = true;
+
+            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
+            ArchiveAddArray();
+            effectsApplied.Add("Custom = " + "TODO");
+
+            ImageLoadingRing.IsActive = false;
+        }
+
         #endregion
 
 
@@ -4012,6 +4040,27 @@ namespace RemedyPic
             }
         }
 
+
+        private void OnCustomFilterPointerOver(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectCustom.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter-hover.png");
+                CustomIcon.Source = temp;
+            }
+        }
+
+        private void OnCustomFilterPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SelectCustom.IsChecked == false)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter.png");
+                CustomIcon.Source = temp;
+            }
+        }
+
         #endregion
 
 
@@ -4047,6 +4096,7 @@ namespace RemedyPic
                 getCameraPhoto();
             }
         }
+
 
 
     }
