@@ -465,9 +465,8 @@ namespace RemedyPic
 
             // Show the interface.
             showInterface();
-
-
         }
+
 
         private async void setExampleImage()
         {
@@ -577,7 +576,7 @@ namespace RemedyPic
             // Called when the image is loaded.
             // It shows the interface.
             Zoom.Visibility = Visibility.Visible;
-            MenuBorder.Visibility = Visibility.Visible;
+            MenuPopup.IsOpen = true;
             UndoRedoPanel.Visibility = Visibility.Visible;
         }
         #endregion
@@ -1063,7 +1062,7 @@ namespace RemedyPic
             var transform = new BitmapTransform
             {
                 ScaledWidth = width,
-                ScaledHeight = height
+                ScaledHeight = height,
             };
             inMemoryRandomStream.Seek(0);
             var decoder = await BitmapDecoder.CreateAsync(inMemoryRandomStream);
@@ -1092,6 +1091,58 @@ namespace RemedyPic
             return bitmap;
         }
         #endregion
+
+        #region Rotate
+        private async Task<WriteableBitmap> RotateImage(WriteableBitmap baseWriteBitmap, uint width, uint height)
+        {
+            // Get the pixel buffer of the writable bitmap in bytes
+            Stream stream = baseWriteBitmap.PixelBuffer.AsStream();
+            byte[] pixels = new byte[(uint)stream.Length];
+            await stream.ReadAsync(pixels, 0, pixels.Length);
+
+            //Encoding the data of the PixelBuffer we have from the writable bitmap
+            var inMemoryRandomStream = new InMemoryRandomAccessStream();
+            var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream);
+            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)baseWriteBitmap.PixelWidth, (uint)baseWriteBitmap.PixelHeight, 96, 96, pixels);
+            await encoder.FlushAsync();
+
+            // At this point we have an encoded image in inMemoryRandomStream
+            // We apply the transform and decode
+            var transform = new BitmapTransform
+            {
+                ScaledWidth = width,
+                ScaledHeight = height,
+                Rotation = BitmapRotation.Clockwise90Degrees
+            };
+            inMemoryRandomStream.Seek(0);
+            var decoder = await BitmapDecoder.CreateAsync(inMemoryRandomStream);
+            var pixelData = await decoder.GetPixelDataAsync(
+                            BitmapPixelFormat.Bgra8,
+                            BitmapAlphaMode.Straight,
+                            transform,
+                            ExifOrientationMode.IgnoreExifOrientation,
+                            ColorManagementMode.DoNotColorManage);
+
+            // An array containing the decoded image data
+            var sourceDecodedPixels = pixelData.DetachPixelData();
+
+            // We encode the image buffer again:
+
+            // Encoding data
+            var inMemoryRandomStream2 = new InMemoryRandomAccessStream();
+            var encoder2 = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream2);
+            encoder2.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, height, width, 96, 96, sourceDecodedPixels);
+            await encoder2.FlushAsync();
+            inMemoryRandomStream2.Seek(0);
+
+            // Finally the resized WritableBitmap
+            var bitmap = new WriteableBitmap((int)width, (int)height);
+            await bitmap.SetSourceAsync(inMemoryRandomStream2);
+            return bitmap;
+        }
+
+        #endregion
+
 
         #region Filters
         // Change the image with black and white filter applied
@@ -2294,6 +2345,14 @@ namespace RemedyPic
             prepareImage(exampleStream, exampleBitmap, image);
             image.VFlip();
             setStream(exampleStream, exampleBitmap, image);
+        }
+
+        private async void OnRotateClick(object sender, RoutedEventArgs e)
+        {
+            bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight);
+            displayImage.Source = bitmapImage;
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         #endregion
@@ -4096,6 +4155,9 @@ namespace RemedyPic
                 getCameraPhoto();
             }
         }
+
+
+
 
 
 
