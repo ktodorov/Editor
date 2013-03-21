@@ -464,6 +464,7 @@ namespace RemedyPic
             // We set the imagePanel maximum height so the image not to go out of the screen
             displayImage.MaxWidth = imageBorder.ActualWidth * 0.95;
             displayImage.MaxHeight = imageBorder.ActualHeight * 0.98;
+            //MenuRow.Height = Window.Current.Bounds.Height * 0.10;
 
             widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
             newWidth.Text = bitmapImage.PixelWidth.ToString();

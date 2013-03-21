@@ -694,17 +694,8 @@ namespace RemedyPic.Common
         private void ColorChange_GetNewColor(int CurrentByte, int value)
         {
             int temp = _dstPixels[CurrentByte] + value;
-            ColorChange_CheckColorValue(ref temp);
+            ColorChange_CheckValue(ref temp);
             _dstPixels[CurrentByte] = (byte)temp;
-        }
-
-        // Sets the value of the color in the bounds [20-200]
-        private void ColorChange_CheckColorValue(ref int val)
-        {
-            if (val > 200)
-                val = 200;
-            else if (val < 20)
-                val = 20;
         }
         #endregion
 
@@ -732,8 +723,8 @@ namespace RemedyPic.Common
         // Get new value for one color of selected pixel of image
         private void Contrast_GetNewContrast(int currentByte, double contrast)
         {
-            double temp = Contrast_GetNewValue(dstPixels[currentByte], contrast);
-            ColorChange_CheckContrastValue(ref temp);
+            int temp = (int)Contrast_GetNewValue(dstPixels[currentByte], contrast);
+            ColorChange_CheckValue(ref temp);
             dstPixels[currentByte] = (byte)temp;
 
         }
@@ -747,9 +738,10 @@ namespace RemedyPic.Common
             temp += 0.5;
             return temp *= 255;
         }
+        #endregion
 
         // Sets the value of the color in the bounds [0-255]
-        private void ColorChange_CheckContrastValue(ref double val)
+        private void ColorChange_CheckValue(ref int val)
         {
             if (val > 255)
                 val = 255;
@@ -758,15 +750,13 @@ namespace RemedyPic.Common
         }
         #endregion
 
-        #endregion
-
         #region Gamma
         // Main function which changes BGR colors
         public void GammaChange(double BlueColorValue, double GreenColorValue, double RedColorValue)
         {                                                             // Divide by 10 because the value must be between 0.2 and 5. 
             byte[] BlueGamma = Gamma_GetArray(BlueColorValue / 10);   // Get new color list for BlueGamma. 
-            byte[] GreenGamma = Gamma_GetArray(GreenColorValue / 10);// Get new color list for GreenGamma  
-            byte[] RedGamma = Gamma_GetArray(RedColorValue / 10);    // Get new color list for RedGamma            
+            byte[] GreenGamma = Gamma_GetArray(GreenColorValue / 10); // Get new color list for GreenGamma  
+            byte[] RedGamma = Gamma_GetArray(RedColorValue / 10);     // Get new color list for RedGamma            
 
             for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
             {
