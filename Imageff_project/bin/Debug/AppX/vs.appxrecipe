@@ -22,11 +22,11 @@
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-03-22T11:37:05.987</Modified>
+      <Modified>2013-03-22T12:56:35.942</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-03-22T11:37:05.956</Modified>
+      <Modified>2013-03-22T12:56:35.909</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>

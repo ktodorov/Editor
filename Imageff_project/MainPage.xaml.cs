@@ -50,6 +50,7 @@ namespace RemedyPic
 
         private double widthHeightRatio = 0;
         private bool keepProportions = true;
+        private bool calledByOther = false;
 
         // mruToken is used for LoadState and SaveState functions.
         private string mruToken = null;
@@ -3427,11 +3428,11 @@ namespace RemedyPic
         {
             int temp;
 
-            if (keepProportions && newWidth.Text != "" && int.TryParse(newWidth.Text, out temp))
+            if (keepProportions && newWidth.Text != "" && int.TryParse(newWidth.Text, out temp) && !calledByOther)
             {
                 newHeight.Text = (Math.Round(temp / widthHeightRatio)).ToString();
             }
-            keepProportions = !keepProportions;
+            calledByOther = !calledByOther;
             if (newWidth.Text != "")
             {
                 ApplyResize.Visibility = Visibility.Visible;
@@ -3445,11 +3446,11 @@ namespace RemedyPic
         private void OnNewHeightTextChanged(object sender, TextChangedEventArgs e)
         {
             int temp;
-            if (keepProportions && newHeight.Text != "" && int.TryParse(newHeight.Text, out temp))
+            if (keepProportions && newHeight.Text != "" && int.TryParse(newHeight.Text, out temp) && !calledByOther)
             {
                 newWidth.Text = (Math.Round(temp * widthHeightRatio)).ToString();
             }
-            keepProportions = !keepProportions;
+            calledByOther = !calledByOther;
             if (newHeight.Text != "")
             {
                 ApplyResize.Visibility = Visibility.Visible;
