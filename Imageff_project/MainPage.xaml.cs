@@ -2412,6 +2412,9 @@ namespace RemedyPic
             setExampleBitmaps();
             setFilterBitmaps();
 
+            sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
+            sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
+
             ImageLoadingRing.IsActive = false;
         }
 
@@ -2974,6 +2977,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCustom.IsChecked = false;
         }
 
         private void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
