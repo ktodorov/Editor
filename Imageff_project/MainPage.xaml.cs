@@ -3781,6 +3781,7 @@ namespace RemedyPic
         {
             CustomApply();
             CustomApplyReset.Visibility = Visibility.Collapsed;
+            setExampleBitmaps();
             setFilterBitmaps();
             Saved = false;
         }
