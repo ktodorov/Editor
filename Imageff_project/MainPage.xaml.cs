@@ -465,9 +465,8 @@ namespace RemedyPic
 
             // Show the interface.
             showInterface();
-
-
         }
+
 
         private async void setExampleImage()
         {
@@ -577,7 +576,7 @@ namespace RemedyPic
             // Called when the image is loaded.
             // It shows the interface.
             Zoom.Visibility = Visibility.Visible;
-            MenuBorder.Visibility = Visibility.Visible;
+            MenuPopup.IsOpen = true;
             UndoRedoPanel.Visibility = Visibility.Visible;
         }
         #endregion
@@ -1063,7 +1062,7 @@ namespace RemedyPic
             var transform = new BitmapTransform
             {
                 ScaledWidth = width,
-                ScaledHeight = height
+                ScaledHeight = height,
             };
             inMemoryRandomStream.Seek(0);
             var decoder = await BitmapDecoder.CreateAsync(inMemoryRandomStream);
@@ -1092,6 +1091,58 @@ namespace RemedyPic
             return bitmap;
         }
         #endregion
+
+        #region Rotate
+        private async Task<WriteableBitmap> RotateImage(WriteableBitmap baseWriteBitmap, uint width, uint height)
+        {
+            // Get the pixel buffer of the writable bitmap in bytes
+            Stream stream = baseWriteBitmap.PixelBuffer.AsStream();
+            byte[] pixels = new byte[(uint)stream.Length];
+            await stream.ReadAsync(pixels, 0, pixels.Length);
+
+            //Encoding the data of the PixelBuffer we have from the writable bitmap
+            var inMemoryRandomStream = new InMemoryRandomAccessStream();
+            var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream);
+            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)baseWriteBitmap.PixelWidth, (uint)baseWriteBitmap.PixelHeight, 96, 96, pixels);
+            await encoder.FlushAsync();
+
+            // At this point we have an encoded image in inMemoryRandomStream
+            // We apply the transform and decode
+            var transform = new BitmapTransform
+            {
+                ScaledWidth = width,
+                ScaledHeight = height,
+                Rotation = BitmapRotation.Clockwise90Degrees
+            };
+            inMemoryRandomStream.Seek(0);
+            var decoder = await BitmapDecoder.CreateAsync(inMemoryRandomStream);
+            var pixelData = await decoder.GetPixelDataAsync(
+                            BitmapPixelFormat.Bgra8,
+                            BitmapAlphaMode.Straight,
+                            transform,
+                            ExifOrientationMode.IgnoreExifOrientation,
+                            ColorManagementMode.DoNotColorManage);
+
+            // An array containing the decoded image data
+            var sourceDecodedPixels = pixelData.DetachPixelData();
+
+            // We encode the image buffer again:
+
+            // Encoding data
+            var inMemoryRandomStream2 = new InMemoryRandomAccessStream();
+            var encoder2 = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream2);
+            encoder2.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, height, width, 96, 96, sourceDecodedPixels);
+            await encoder2.FlushAsync();
+            inMemoryRandomStream2.Seek(0);
+
+            // Finally the resized WritableBitmap
+            var bitmap = new WriteableBitmap((int)width, (int)height);
+            await bitmap.SetSourceAsync(inMemoryRandomStream2);
+            return bitmap;
+        }
+
+        #endregion
+
 
         #region Filters
         // Change the image with black and white filter applied
@@ -2294,6 +2345,14 @@ namespace RemedyPic
             prepareImage(exampleStream, exampleBitmap, image);
             image.VFlip();
             setStream(exampleStream, exampleBitmap, image);
+        }
+
+        private async void OnRotateClick(object sender, RoutedEventArgs e)
+        {
+            bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight);
+            displayImage.Source = bitmapImage;
+            prepareImage(bitmapStream, bitmapImage, imageOriginal);
+            setStream(bitmapStream, bitmapImage, imageOriginal);
         }
 
         #endregion
@@ -3555,22 +3614,123 @@ namespace RemedyPic
             borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
         }
 
-        #region Custom Filter :)
-        private void OnCoeff00Changed(object sender, TextChangedEventArgs e)
-        {
-            string c = coeff00.Text;
 
-            if (c.Length > 0 && !char.IsNumber(c[c.Length - 1]))
+        #region Custom Filter :)
+
+        private void OnCoeffChanged(object sender, TextChangedEventArgs text)
+        {
+            CustomApplyReset.Visibility = Visibility.Visible;
+            TextBox val = (TextBox)text.OriginalSource;
+            if (val != null)
             {
-                coeff00.Text = "";               
+                CustomFilter_CheckValue(ref val);
+            }
+            CustomFilter_CalculateScaleOffset();
+        }        
+        
+        // SCALE AND OFFSET
+        private void OnScaleChanged(object sender, TextChangedEventArgs text)
+        {
+            CustomApplyReset.Visibility = Visibility.Visible;
+            CustomFilter_CheckScale();
+        }
+
+        private void OnOffsetChanged(object sender, TextChangedEventArgs text)
+        {
+            CustomApplyReset.Visibility = Visibility.Visible;
+            CustomFilter_CheckValue(ref Offset);
+        }
+        
+        // Check if the value of text box is number and set scale and offset
+        private void CustomFilter_CheckValue(ref TextBox coeff)
+        {
+            try
+            {
+                Convert.ToInt32(coeff.Text);
+            }
+            catch (FormatException e)
+            {
+                if (!(coeff.Text.Length == 1 && coeff.Text[0] == '-'))
+                    coeff.Text = "";
+            }           
+        }
+
+        // Check if the scale is > 0
+        private void CustomFilter_CheckScale()
+        {
+            try
+            {
+                int val = Convert.ToInt32(Scale.Text);
+
+                if (val == 0)
+                    Scale.Text = "";
+            }
+            catch (FormatException e)
+            {
+                Scale.Text = "";
             }
         }
 
+        //Calculate the Scale and offset
+        private void CustomFilter_CalculateScaleOffset()
+        {
+            int[,] coeff = new int[5, 5];
+            int offset = 0, scale = 1;
+            CustomFilter_SetValues(ref coeff, ref offset, ref scale);
+            int sum = 0;
+
+            foreach (int val in coeff)
+            {
+                sum += val;
+            }
+
+            if (sum != 0)
+                scale = Math.Abs(sum);
+            else
+                scale = 1;
+
+            if (sum / scale == 1)
+                offset = 0;
+            else if (sum == 0)
+                offset = 128;
+            else if (sum / scale == -1)
+                offset = 255;
+
+            Scale.Text = scale.ToString();
+            Offset.Text = offset.ToString();
+        }
+
+        // Review button click
+        private void OnCustomReviewClick(object sender, RoutedEventArgs e)
+        {
+            CustomReview();
+        }
+
+        private void CustomReview()
+        {
+            ImageLoadingRing.IsActive = true;
+
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                CustomFilter_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(imageOriginal.srcPixels, imageOriginal.width, imageOriginal.height, offset, scale, coeff);
+                imageOriginal.dstPixels = custom_image.Filter();
+
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+
+            ImageLoadingRing.IsActive = false;
+        }
+
+        // Apply button click
         private void OnCustomApplyClick(object sender, RoutedEventArgs e)
         {
-            ApplyFilter(appliedFilters);
-            FilterApplyReset.Visibility = Visibility.Collapsed;
-            SelectFilters.IsChecked = false;
+            CustomApply();
+            CustomApplyReset.Visibility = Visibility.Collapsed;
             setFilterBitmaps();
             Saved = false;
         }
@@ -3579,11 +3739,131 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
 
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                int[,] coeff = new int[5, 5];
+                int offset = 0, scale = 0;
+                CustomFilter_SetValues(ref coeff, ref offset, ref scale);
+
+                CustomFilter custom_image = new CustomFilter(imageOriginal.srcPixels, imageOriginal.width, imageOriginal.height, offset, scale, coeff);
+                imageOriginal.dstPixels = custom_image.Filter();
+
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ArchiveAddArray();
             effectsApplied.Add("Custom = " + "TODO");
-
+            CustomFilter_ResetValues();
             ImageLoadingRing.IsActive = false;
+        }
+
+        // Reset button click
+        private void OnCustomResetClick(object sender, RoutedEventArgs e)
+        {
+            CustomFilter_ResetValues();
+
+            if (pictureIsLoaded)
+            {
+                prepareImage(bitmapStream, bitmapImage, imageOriginal);
+                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
+                setStream(bitmapStream, bitmapImage, imageOriginal);
+            }
+            CustomApplyReset.Visibility = Visibility.Collapsed;
+        }
+
+        // Reset All values of custom filter
+        private void CustomFilter_ResetValues()
+        {
+            coeff00.Text = coeff10.Text = coeff20.Text = coeff30.Text = coeff40.Text = "";
+            coeff01.Text = coeff11.Text = coeff21.Text = coeff31.Text = coeff41.Text = "";
+            coeff02.Text = coeff12.Text = coeff32.Text = coeff42.Text = "";
+            coeff03.Text = coeff13.Text = coeff23.Text = coeff33.Text = coeff43.Text = "";
+            coeff04.Text = coeff14.Text = coeff24.Text = coeff34.Text = coeff44.Text = "";
+            coeff22.Text = "1";
+
+            Scale.Text = "1";
+            Offset.Text = "0";
+        }
+    
+        // Set the matrix for custom filter
+        private void CustomFilter_SetValues(ref int[,] coeff, ref int offset, ref int scale)
+        {
+            CustomFilter_SetValue(ref coeff[0, 0], coeff00);
+            CustomFilter_SetValue(ref coeff[1, 0], coeff10);
+            CustomFilter_SetValue(ref coeff[2, 0], coeff20);
+            CustomFilter_SetValue(ref coeff[3, 0], coeff30);
+            CustomFilter_SetValue(ref coeff[4, 0], coeff40);
+
+            CustomFilter_SetValue(ref coeff[0, 1], coeff01);
+            CustomFilter_SetValue(ref coeff[1, 1], coeff11);
+            CustomFilter_SetValue(ref coeff[2, 1], coeff21);
+            CustomFilter_SetValue(ref coeff[3, 1], coeff31);
+            CustomFilter_SetValue(ref coeff[4, 1], coeff41);
+
+            CustomFilter_SetValue(ref coeff[0, 2], coeff02);
+            CustomFilter_SetValue(ref coeff[1, 2], coeff12);
+            CustomFilter_SetValue(ref coeff[2, 2], coeff22);
+            CustomFilter_SetValue(ref coeff[3, 2], coeff32);
+            CustomFilter_SetValue(ref coeff[4, 2], coeff42);
+
+            CustomFilter_SetValue(ref coeff[0, 3], coeff03);
+            CustomFilter_SetValue(ref coeff[1, 3], coeff13);
+            CustomFilter_SetValue(ref coeff[2, 3], coeff23);
+            CustomFilter_SetValue(ref coeff[3, 3], coeff33);
+            CustomFilter_SetValue(ref coeff[4, 3], coeff43);
+
+            CustomFilter_SetValue(ref coeff[0, 4], coeff04);
+            CustomFilter_SetValue(ref coeff[1, 4], coeff14);
+            CustomFilter_SetValue(ref coeff[2, 4], coeff24);
+            CustomFilter_SetValue(ref coeff[3, 4], coeff34);
+            CustomFilter_SetValue(ref coeff[4, 4], coeff44);
+
+            CustomFilter_SetScale(ref scale);
+            CustomFilter_SetValue(ref offset, Offset);
+        }
+
+        // Set one coeff of matrix
+        private void CustomFilter_SetValue(ref int coeff, TextBox val)
+        {
+            int new_val = 0;
+            try
+            {
+                new_val = Convert.ToInt32(val.Text);
+            }
+            catch (FormatException e)
+            {
+                if (!(val.Text.Length == 1 && val.Text[0] == '-'))
+                    val.Text = "";
+            }
+
+            if (new_val != 0)
+                coeff = new_val;
+        }
+
+        // Set the scale value of custom filter
+        private void CustomFilter_SetScale(ref int scale)
+        {
+            int new_val = 0;
+            try
+            {
+                new_val = Convert.ToInt32(Scale.Text);
+
+                if (new_val <= 0)
+                {
+                    Scale.Text = "";
+                    scale = 1;
+                }
+            }
+            catch (FormatException e)
+            {
+                Scale.Text = "";
+                scale = 1;
+            }
+
+            if (new_val > 0)
+                scale = new_val;
         }
 
         #endregion
@@ -4096,6 +4376,9 @@ namespace RemedyPic
                 getCameraPhoto();
             }
         }
+
+
+
 
 
 
