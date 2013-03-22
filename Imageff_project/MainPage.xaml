@@ -1865,13 +1865,13 @@
                         <StackPanel Margin="20,0,20,10" Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button x:Name="RotateLeft" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateClick" Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
                                 <StackPanel Width="120" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Source="Assets/Arrows/Arrow-horizontal.png" Width="50" Height="50"/>
+                                    <Image Source="Assets/Arrows/Rotate-left.png" Width="50" Height="50"/>
                                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Foreground="White" Text="Rotate Left"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="RotateRight" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateClick" Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
                                 <StackPanel Width="120" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Source="Assets/Arrows/Arrow-horizontal.png" Width="50" Height="50"/>
+                                    <Image Source="Assets/Arrows/Rotate-right.png" Width="50" Height="50"/>
                                     <TextBlock TextWrapping="Wrap" Text="Rotate Right" HorizontalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>

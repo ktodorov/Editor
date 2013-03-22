@@ -128,6 +128,8 @@
   <ItemGroup>
     <Content Include="Assets\Arrows\Arrow-horizontal.png" />
     <Content Include="Assets\Arrows\Arrow-vertical.png" />
+    <Content Include="Assets\Arrows\Rotate-left.png" />
+    <Content Include="Assets\Arrows\Rotate-right.png" />
     <Content Include="Assets\Background.png" />
     <Content Include="Assets\Buttons\Browse-hover.png" />
     <Content Include="Assets\Buttons\Browse.png" />
