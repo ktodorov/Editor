@@ -28,6 +28,7 @@ using Windows.Foundation;
 using Windows.UI.ApplicationSettings;
 using Windows.Media.Capture;
 using Windows.System.UserProfile;
+using System.Diagnostics;
 
 #region Namespace RemedyPic
 namespace RemedyPic
@@ -359,7 +360,7 @@ namespace RemedyPic
                     pictureIsLoaded = true;
                     doAllCalculations();
                     ImageLoadingRing.IsActive = false;
-                    
+
                 }
             }
             else
@@ -380,7 +381,7 @@ namespace RemedyPic
                 PopupCalledBy = "Camera";
                 DarkenBorder.Visibility = Visibility.Visible;
                 notSaved.IsOpen = true;
-            }     
+            }
         }
 
         private async void getCameraPhoto()
@@ -389,7 +390,7 @@ namespace RemedyPic
             camera.PhotoSettings.CroppedAspectRatio = new Size(16, 10);
             StorageFile photoFile = await camera.CaptureFileAsync(CameraCaptureUIMode.Photo);
             if (photoFile != null)
-                GetPhoto(photoFile);   
+                GetPhoto(photoFile);
         }
 
         #endregion
@@ -926,11 +927,36 @@ namespace RemedyPic
                         await encoder.FlushAsync();
                     }
                 }
-            } 
+            }
             ImageLoadingRing.IsActive = false;
             return true;
         }
         #endregion
+
+        private void pauseTimer(int miliseconds)
+        {
+            // This pauses the calling function for N miliseconds.
+            Stopwatch sw = new Stopwatch(); // sw cotructor
+            sw.Start(); // starts the stopwatch
+            for (int i = 0; ; i++)
+            {
+                if (i % 100000 == 0) // if in 100000th iteration (could be any other large number
+                // depending on how often you want the time to be checked) 
+                {
+                    sw.Stop(); // stop the time measurement
+                    if (sw.ElapsedMilliseconds > miliseconds) // check if desired period of time has elapsed
+                    {
+                        break; // if more than the given milliseconds have passed, stop looping and return
+                        // to the existing code
+                    }
+                    else
+                    {
+                        sw.Start(); // if less than the given milliseconds have elapsed, continue looping
+                        // and resume time measurement
+                    }
+                }
+            }
+        }
 
         void setFileProperties(Windows.Storage.StorageFile file)
         {
@@ -1093,7 +1119,7 @@ namespace RemedyPic
         #endregion
 
         #region Rotate
-        private async Task<WriteableBitmap> RotateImage(WriteableBitmap baseWriteBitmap, uint width, uint height)
+        private async Task<WriteableBitmap> RotateImage(WriteableBitmap baseWriteBitmap, uint width, uint height, string position)
         {
             // Get the pixel buffer of the writable bitmap in bytes
             Stream stream = baseWriteBitmap.PixelBuffer.AsStream();
@@ -1108,11 +1134,23 @@ namespace RemedyPic
 
             // At this point we have an encoded image in inMemoryRandomStream
             // We apply the transform and decode
+
+            BitmapRotation rotateTo = BitmapRotation.None;
+
+            if (position == "right")
+            {
+                rotateTo = BitmapRotation.Clockwise90Degrees;
+            }
+            else if (position == "left")
+            {
+                rotateTo = BitmapRotation.Clockwise270Degrees;
+            }
+
             var transform = new BitmapTransform
             {
                 ScaledWidth = width,
                 ScaledHeight = height,
-                Rotation = BitmapRotation.Clockwise90Degrees
+                Rotation = rotateTo
             };
             inMemoryRandomStream.Seek(0);
             var decoder = await BitmapDecoder.CreateAsync(inMemoryRandomStream);
@@ -2349,10 +2387,32 @@ namespace RemedyPic
 
         private async void OnRotateClick(object sender, RoutedEventArgs e)
         {
-            bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight);
+            ImageLoadingRing.IsActive = true;
+            SelectRotations.IsChecked = false;
+
+            if (e.OriginalSource.Equals(RotateLeft))
+            {
+                bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, "left");
+            }
+            else if (e.OriginalSource.Equals(RotateRight))
+            {
+                bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, "right");
+            }
+
+            pauseTimer(1000);
+
             displayImage.Source = bitmapImage;
+
+            bitmapStream = bitmapImage.PixelBuffer.AsStream();
+            imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
+            await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
+
+            setExampleBitmaps();
+            setFilterBitmaps();
+
+            ImageLoadingRing.IsActive = false;
         }
 
         #endregion
@@ -3206,17 +3266,7 @@ namespace RemedyPic
             await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
             imageOriginal.Reset();
 
-            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
-
-            exampleStream = exampleBitmap.PixelBuffer.AsStream();
-            image.srcPixels = new byte[(uint)exampleStream.Length];
-            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
-
-            prepareImage(exampleStream, exampleBitmap, image);
-            setStream(exampleStream, exampleBitmap, image);
-            setElements(ColorsExamplePicture, exampleBitmap);
-            setElements(RotationsExamplePicture, exampleBitmap);
-            setElements(ExposureExamplePicture, exampleBitmap);
+            setExampleBitmaps();
             setFilterBitmaps();
 
             SelectCrop.IsChecked = false;
@@ -4377,10 +4427,20 @@ namespace RemedyPic
             }
         }
 
+        private async void setExampleBitmaps()
+        {
+            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
 
+            exampleStream = exampleBitmap.PixelBuffer.AsStream();
+            image.srcPixels = new byte[(uint)exampleStream.Length];
+            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
 
-
-
+            prepareImage(exampleStream, exampleBitmap, image);
+            setStream(exampleStream, exampleBitmap, image);
+            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(RotationsExamplePicture, exampleBitmap);
+            setElements(ExposureExamplePicture, exampleBitmap);
+        }
 
     }
     #endregion
