@@ -573,7 +573,7 @@ namespace RemedyPic
 			// It shows the interface.
 			Zoom.Visibility = Visibility.Visible;
 			MenuPopup.IsOpen = true;
-			UndoRedoPanel.Visibility = Visibility.Visible;
+			UndoRedo.Visibility = Visibility.Visible;
 		}
 		#endregion
 
@@ -4420,21 +4420,21 @@ namespace RemedyPic
 		}
 
 		private async void OnSaveClicked(object sender, RoutedEventArgs e)
-        {
-            OnCancelSaveClicked(sender, e);
+		{
+			OnCancelSaveClicked(sender, e);
 			if (e.OriginalSource.Equals(YesSave))
 			{
-            await SaveFile(true);
+				await SaveFile(true);
 			}
-            if (PopupCalledBy == "Browse")
-            {
-                GetPhoto();
-            }
-            else if (PopupCalledBy == "Camera")
-            {
-                getCameraPhoto();
-            }
-        }
+			if (PopupCalledBy == "Browse")
+			{
+				GetPhoto();
+			}
+			else if (PopupCalledBy == "Camera")
+			{
+				getCameraPhoto();
+			}
+		}
 
 		private async void setExampleBitmaps()
 		{

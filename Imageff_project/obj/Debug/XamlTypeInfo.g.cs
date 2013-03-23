@@ -114,7 +114,9 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
 
         private object Activate_0_LayoutAwarePage() { return new global::RemedyPic.Common.LayoutAwarePage(); }
 
-        private object Activate_1_MainPage() { return new global::RemedyPic.MainPage(); }
+        private object Activate_1_GridMainOptions() { return new global::RemedyPic.GridMainOptions(); }
+
+        private object Activate_2_MainPage() { return new global::RemedyPic.MainPage(); }
 
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(string typeName)
@@ -138,9 +140,15 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
                 xamlType = userType;
                 break;
 
+            case "RemedyPic.GridMainOptions":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.GridMainOptions), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_1_GridMainOptions;
+                xamlType = userType;
+                break;
+
             case "RemedyPic.MainPage":
                 userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.MainPage), GetXamlTypeByName("RemedyPic.Common.LayoutAwarePage"));
-                userType.Activator = Activate_1_MainPage;
+                userType.Activator = Activate_2_MainPage;
                 xamlType = userType;
                 break;
 

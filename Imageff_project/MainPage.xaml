@@ -1767,7 +1767,6 @@
         </Border>
         <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="#0CFFFFFF" FontSize="85" FontFamily="Segoe UI" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Margin="15,15,0,0"/>
 
-        <!-- Back button and page title -->
         <Border x:Name="imageBorder" BorderThickness="0" Margin="0" Grid.RowSpan="3" Background="#26FFFFFF">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1879,6 +1878,17 @@
             </Border.BorderBrush>
         </Border>
         <Grid x:Name="grid" Grid.RowSpan="4" Grid.Column="1" Margin="0.143,0,-0.571,0.429">
+            <!--<Grid.Resources>
+                <Storyboard x:Name="Test">
+                    <DoubleAnimation
+                        Storyboard.TargetName="Zoom"
+                        Storyboard.TargetProperty="(Canvas.Left)"
+                        Duration="0:0:3"
+                        From="226"
+                        To="0"
+                        RepeatBehavior="Forever"/>
+                </Storyboard>
+            </Grid.Resources>-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -1924,7 +1934,43 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
-                <Border x:Name="Zoom" VerticalAlignment="Center" Margin="2,10,0,10" BorderThickness="0,0,0,2" Padding="0,5" Visibility="Collapsed">
+
+                    <Border x:Name="Zoom" VerticalAlignment="Center" BorderThickness="0,0,0,2" Padding="0,5" Margin="0" Visibility="Collapsed">
+                        <Border.ChildTransitions>
+                            <TransitionCollection>
+                                <EdgeUIThemeTransition Edge="Right"/>
+                            </TransitionCollection>
+                        </Border.ChildTransitions>
+                        <Border.BorderBrush>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
+                                </LinearGradientBrush.RelativeTransform>
+                                <GradientStop Color="#FF21FF00"/>
+                                <GradientStop Color="#FF218900" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                        <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center">
+                            <StackPanel x:Name="stackPanel4" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button x:Name="ZoomIn" Content="&#xE0C5;" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
+                                <Button x:Name="ZoomOut" Content="&#xE0C6;" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
+                            </StackPanel>
+                            <Button x:Name="ResetZoom" Content="Reset Image position" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="White" Height="40" BorderThickness="0,1" BorderBrush="White" Background="{x:Null}" Margin="0,10,0,0" Style="{StaticResource ImageOptionsStyle}"/>
+                            <ToggleButton x:Name="ImageMoving" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="MoveChecked" Unchecked="MoveUnchecked" IsChecked="False" BorderThickness="0" Padding="0" Margin="0,10,0,0" PointerEntered="OnPanPointerOver" PointerExited="OnPanPointerExited" Style="{StaticResource ToggleButtonStyleColorize}" >
+                                <StackPanel HorizontalAlignment="Center">
+                                    <Image x:Name="PanIcon" Margin="0" Source="Assets/Buttons/Panning.png" Height="45" HorizontalAlignment="Center"/>
+                                    <TextBlock TextWrapping="Wrap" Text="Image moving" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
+                                </StackPanel>
+                            </ToggleButton>
+
+                        </StackPanel>
+                    </Border>
+                <Border x:Name="UndoRedo" Margin="2,0,0,0" BorderThickness="0,0,0,2" Visibility="Collapsed" >
+                    <Border.ChildTransitions>
+                        <TransitionCollection>
+                            <EdgeUIThemeTransition Edge="Right"/>
+                        </TransitionCollection>
+                    </Border.ChildTransitions>
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1934,23 +1980,23 @@
                             <GradientStop Color="#FF218900" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
-                    <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center">
-                        <StackPanel x:Name="stackPanel4" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="ZoomIn" Content="&#xE0C5;" VerticalAlignment="Top" Click="ZoomInClicked" FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
-                            <Button x:Name="ZoomOut" Content="&#xE0C6;" VerticalAlignment="Top" Click="ZoomOutClicked" FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
+                    <StackPanel x:Name="UndoRedoPanel" Margin="0,10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button x:Name="Undo" Content="&#xE10E;" Click="OnUndoClick" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
+                        <Button x:Name="Redo" Content="&#xE10D;" Click="OnRedoClick" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
+                        <StackPanel x:Name="CropPanel1" Orientation="Vertical" Width="0">
+                            <Border Margin="5">
+                                <TextBlock x:Name="selectInfoInBitmapText1" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="#AAFFFFFF" Margin="10,0,0,0" HorizontalAlignment="Center" FontSize="18" />
+                            </Border>
+                            <Button x:Name="CropApply1" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="saveImageButton_Click" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Visibility="Collapsed" Style="{StaticResource ImageOptionsStyle}"/>
                         </StackPanel>
-                        <Button x:Name="ResetZoom" Content="Reset Image position" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnResetZoomClick" Foreground="White" Height="40" BorderThickness="0,1" BorderBrush="White" Background="{x:Null}" Margin="0,10,0,0" Style="{StaticResource ImageOptionsStyle}"/>
-                        <!--<CheckBox x:Name="AvailableForMoving" Content="Image moving" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Left" Checked="MoveChecked" Unchecked="MoveUnchecked" HorizontalAlignment="Center" IsChecked="False"/>-->
-                        <ToggleButton x:Name="ImageMoving" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="MoveChecked" Unchecked="MoveUnchecked" IsChecked="False" BorderThickness="0" Padding="0" Margin="0,10,0,0" PointerEntered="OnPanPointerOver" PointerExited="OnPanPointerExited" Style="{StaticResource ToggleButtonStyleColorize}" >
-                            <StackPanel HorizontalAlignment="Center">
-                                <Image x:Name="PanIcon" Margin="0" Source="Assets/Buttons/Panning.png" Height="45" HorizontalAlignment="Center"/>
-                                <TextBlock TextWrapping="Wrap" Text="Image moving" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
-                            </StackPanel>
-                        </ToggleButton>
-
                     </StackPanel>
                 </Border>
-                <Border x:Name="Crop" Margin="2,0,0,0" BorderThickness="0,0,0,2" Visibility="Collapsed" >
+                <Border x:Name="Crop" Margin="2,0,0,0" BorderThickness="0,0,0,2" Visibility="Collapsed" Padding="0,5" >
+                    <Border.Transitions>
+                        <TransitionCollection>
+                            <PaneThemeTransition/>
+                        </TransitionCollection>
+                    </Border.Transitions>
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1969,6 +2015,7 @@
                 </Border>
             </StackPanel>
         </Grid>
+        <local:GridMainOptions Foreground="{x:Null}" Grid.Column="1" Grid.RowSpan="4" d:IsHidden="True"/>
         <Grid x:Name="contentGrid" Margin="0,0,-38.571,3.429" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
             <Grid.RowDefinitions>
                 <RowDefinition Height="69"/>
@@ -3054,10 +3101,6 @@
                 </Border>
             </ScrollViewer>
         </Popup>
-        <StackPanel x:Name="UndoRedoPanel" Margin="0" Orientation="Vertical" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Collapsed">
-            <Button x:Name="Undo" Content="&#xE10E;" Click="OnUndoClick" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
-            <Button x:Name="Redo" Content="&#xE10D;" Click="OnRedoClick" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
-        </StackPanel>
         <Border x:Name="DarkenBorder" BorderBrush="Black" BorderThickness="0" Margin="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Collapsed" Background="#B2000000"/>
         <Popup x:Name="notSaved" Margin="0,0,0,125" Grid.RowSpan="3" Grid.ColumnSpan="2" VerticalAlignment="Center" IsOpen="False" HorizontalAlignment="Left">
             <Border BorderBrush="#7F005308" BorderThickness="0,2" Height="250" HorizontalAlignment="Center">

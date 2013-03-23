@@ -59,4 +59,5 @@ Assets\WideLogo.png
 App.xaml
 Common\StandardStyles.xaml
 MainPage.xaml
+UserControls\GridMainOptions.xaml
 Common\ReadMe.txt

@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-23T13:16:04.428</Modified>
+      <Modified>2013-03-23T14:50:00.626</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-03-23T13:16:04.240</Modified>
+      <Modified>2013-03-23T14:50:00.466</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-03-23T13:16:04.215</Modified>
+      <Modified>2013-03-23T14:50:00.440</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
@@ -278,11 +278,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-03-23T13:12:44.031</Modified>
+      <Modified>2013-03-23T14:44:40.154</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\GridMainOptions.xaml">
+      <PackagePath>UserControls\GridMainOptions.xaml</PackagePath>
+      <Modified>2013-03-23T14:14:43.738</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-03-23T13:16:04.323</Modified>
+      <Modified>2013-03-23T14:50:00.542</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
