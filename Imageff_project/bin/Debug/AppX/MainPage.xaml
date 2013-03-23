@@ -1498,7 +1498,7 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="MenuPopup">
                             <DiscreteObjectKeyFrame KeyTime="0">
                                 <DiscreteObjectKeyFrame.Value>
-                                    <HorizontalAlignment>Right</HorizontalAlignment>
+                                    <HorizontalAlignment>Stretch</HorizontalAlignment>
                                 </DiscreteObjectKeyFrame.Value>
                             </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
@@ -1610,7 +1610,135 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderThickness)" Storyboard.TargetName="MenuBorder">
                             <DiscreteObjectKeyFrame KeyTime="0">
                                 <DiscreteObjectKeyFrame.Value>
-                                    <Thickness>4,4,0,4</Thickness>
+                                    <Thickness>2,2,0,4</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="fileName">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(StackPanel.Orientation)" Storyboard.TargetName="stackPanel3">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Orientation>Horizontal</Orientation>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Zoom">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Thickness>0</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Padding)" Storyboard.TargetName="Zoom">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Thickness>0</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)" Storyboard.TargetName="Browse_Save">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <VerticalAlignment>Bottom</VerticalAlignment>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="grid">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Thickness>0</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ImageMoving">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Zoom">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Duration="0" To="15" Storyboard.TargetProperty="(Control.FontSize)" Storyboard.TargetName="ZoomIn" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0" To="15" Storyboard.TargetProperty="(Control.FontSize)" Storyboard.TargetName="ZoomOut" d:IsOptimized="True"/>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ZoomIn">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Double>35</x:Double>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ZoomOut">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Double>35</x:Double>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ZoomIn">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Double>35</x:Double>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ZoomOut">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <x:Double>35</x:Double>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)" Storyboard.TargetName="stackPanel4">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <VerticalAlignment>Top</VerticalAlignment>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ResetZoom">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Thickness>0</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="MenuPopup">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Thickness>0</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="MenuScroll">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <HorizontalAlignment>Stretch</HorizontalAlignment>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="MenuBorder">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <HorizontalAlignment>Stretch</HorizontalAlignment>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="Menu">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <HorizontalAlignment>Stretch</HorizontalAlignment>
                                 </DiscreteObjectKeyFrame.Value>
                             </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
@@ -1755,7 +1883,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.ColumnSpan="2" Margin="0" Orientation="Vertical">
+            <StackPanel x:Name="stackPanel3" Grid.ColumnSpan="2" Margin="0" Orientation="Vertical">
                 <Image x:Name="Logo" Margin="20,10,20,0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <Image.Transitions>
                         <TransitionCollection>
@@ -1807,7 +1935,7 @@
                         </LinearGradientBrush>
                     </Border.BorderBrush>
                     <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel x:Name="stackPanel4" Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button x:ConnectionId='156' x:Name="ZoomIn" Content="&#xE0C5;" VerticalAlignment="Top"                       FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
                             <Button x:ConnectionId='157' x:Name="ZoomOut" Content="&#xE0C6;" VerticalAlignment="Top"                        FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
                         </StackPanel>
@@ -1853,7 +1981,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Colors" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" Background="#FF323131" VerticalScrollBarVisibility="Hidden" Height="768" HorizontalAlignment="Right">
+                <ScrollViewer x:Name="Colors" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" Background="#FF323131" VerticalScrollBarVisibility="Hidden" Height="768" HorizontalAlignment="Right" MaxZoomFactor="1" MinZoomFactor="1">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -1936,7 +2064,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Filters" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="767">
+                <ScrollViewer x:Name="Filters" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="767" MaxZoomFactor="1" MinZoomFactor="1">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2103,7 +2231,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Exposure" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" Background="#FF323131" VerticalScrollBarVisibility="Hidden" Height="768" HorizontalAlignment="Right">
+                <ScrollViewer x:Name="Exposure" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" Background="#FF323131" VerticalScrollBarVisibility="Hidden" Height="768" HorizontalAlignment="Right" MaxZoomFactor="1" MinZoomFactor="1">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2163,7 +2291,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Rotations" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                <ScrollViewer x:Name="Rotations" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768" MaxZoomFactor="1" MinZoomFactor="1">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2235,7 +2363,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="ImageOptions" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                <ScrollViewer x:Name="ImageOptions" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768" MaxZoomFactor="1" MinZoomFactor="1">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2314,7 +2442,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Colorize" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                <ScrollViewer x:Name="Colorize" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768" MaxZoomFactor="1" MinZoomFactor="1">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2393,7 +2521,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Frames" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden">
+                <ScrollViewer x:Name="Frames" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" MaxZoomFactor="1" MinZoomFactor="1">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2593,7 +2721,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Histogram" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                <ScrollViewer x:Name="Histogram" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768" MaxZoomFactor="1" MinZoomFactor="1">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2634,7 +2762,7 @@
                         <PaneThemeTransition/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
-                <ScrollViewer x:Name="CustomFilter" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768">
+                <ScrollViewer x:Name="CustomFilter" HorizontalAlignment="Right" Margin="0" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768" MaxZoomFactor="1" MinZoomFactor="1">
                     <ScrollViewer.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -2715,10 +2843,10 @@
                         <StackPanel x:Name="CustomApplyReset" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
                             <Button x:ConnectionId='18' x:Name="CustomReviewButton"                              Content="REVIEW" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"  Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
                             <Button x:ConnectionId='19' x:Name="CustomApplyButton"                             Content="APPLY" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"  Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}"/>
-                            <Button x:ConnectionId='20' x:Name="CustomResetButton"                            Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"  Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}"/>                            
+                            <Button x:ConnectionId='20' x:Name="CustomResetButton"                            Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"  Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}"/>
                         </StackPanel>
 
-                            </StackPanel>
+                    </StackPanel>
                 </ScrollViewer>
             </Popup>
         </Grid>
@@ -2790,7 +2918,7 @@
                     <PopupThemeTransition/>
                 </TransitionCollection>
             </Popup.ChildTransitions>
-            <ScrollViewer x:Name="MenuScroll" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" HorizontalAlignment="Center" >
+            <ScrollViewer x:Name="MenuScroll" Margin="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center" HorizontalAlignment="Center" MaxZoomFactor="1" MinZoomFactor="1" >
                 <Border x:Name="MenuBorder" BorderThickness="4,4,4,0" Margin="0" Background="#FF515050" HorizontalAlignment="Center">
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

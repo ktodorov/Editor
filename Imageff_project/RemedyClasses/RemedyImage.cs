@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
 
-namespace RemedyPic.Common
+namespace RemedyPic.RemedyClasses
 {
     class RemedyImage
     {

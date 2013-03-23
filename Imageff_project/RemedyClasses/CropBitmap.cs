@@ -37,7 +37,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace RemedyPic.Common
+namespace RemedyPic.RemedyClasses
 {
     public class CropBitmap
     {

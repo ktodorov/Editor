@@ -21,7 +21,7 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
 using Windows.Storage.Streams;
-using RemedyPic.Common;
+using RemedyPic.RemedyClasses;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel;
 using Windows.Foundation;

@@ -21,7 +21,7 @@ using System.ComponentModel;
 using System.Linq;
 using Windows.Foundation;
 
-namespace RemedyPic.Common
+namespace RemedyPic.RemedyClasses
 {
     public class SelectedRegion : INotifyPropertyChanged
     {

@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 using System.IO;
 using RemedyPic;
 
-namespace RemedyPic.Common
+namespace RemedyPic.RemedyClasses
 {
     class Configuration
     {
