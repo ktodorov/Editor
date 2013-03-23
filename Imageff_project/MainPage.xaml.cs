@@ -2386,21 +2386,33 @@ namespace RemedyPic
             setStream(exampleStream, exampleBitmap, image);
         }
 
-        private async void OnRotateClick(object sender, RoutedEventArgs e)
+        private void OnRotateClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
             SelectRotations.IsChecked = false;
 
             if (e.OriginalSource.Equals(RotateLeft))
             {
-                bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, "left");
+				RotateBitmap("RotateLeft");
             }
             else if (e.OriginalSource.Equals(RotateRight))
             {
-                bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, "right");
+				RotateBitmap("RotateRight");
             }
 
-            pauseTimer(1000);
+            ImageLoadingRing.IsActive = false;
+        }
+
+		private async void RotateBitmap(string givenElementString)
+		{
+			if (givenElementString == "RotateLeft")
+            {
+                bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, "left");
+            }
+			else if (givenElementString == "RotateRight")
+            {
+                bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, "right");
+            }
 
             displayImage.Source = bitmapImage;
 
@@ -2415,9 +2427,7 @@ namespace RemedyPic
 
             sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
             sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
-
-            ImageLoadingRing.IsActive = false;
-        }
+		}
 
         #endregion
 
@@ -3943,11 +3953,16 @@ namespace RemedyPic
                 effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); // Here we don`t save the start image, so we have -1 index of archive_current_index
             }
 
+			ImageLoadingRing.IsActive = true;
+			DarkenBorder.Visibility = Visibility.Visible;
+
             for (int i = 0; i < configFile.effects.Count; i += 2)
             {
                 checkEffect(i);
             }
             setFilterBitmaps();
+			ImageLoadingRing.IsActive = false;
+			DarkenBorder.Visibility = Visibility.Collapsed;
         }
 
         private void checkEffect(int i)
@@ -3989,6 +4004,11 @@ namespace RemedyPic
                     checkAndApplyFrames(temp);
                     imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
                     break;
+
+				case "Rotate":
+					temp = configFile.effects[i + 1].Split(',');
+					RotateBitmap(temp[0]);
+					break;
 
                 case "Histogram":
                     if (configFile.effects[i + 1] == "true")
