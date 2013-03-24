@@ -59,5 +59,6 @@ Assets\WideLogo.png
 App.xaml
 Common\StandardStyles.xaml
 MainPage.xaml
-UserControls\GridMainOptions.xaml
+UserControls\DisplayImage.xaml
+UserControls\MenuPopup.xaml
 Common\ReadMe.txt

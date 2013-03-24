@@ -12,7 +12,7 @@ using RemedyPic;
 
 namespace RemedyPic.RemedyClasses
 {
-    class Configuration
+    public class Configuration
     {
 
         public List<string> effects = new List<string>();

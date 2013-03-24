@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace RemedyPic.RemedyClasses
 {
-    class RemedyImage
+    public class RemedyImage
     {
         private int _width, _height;
         private byte[] _dstPixels, _srcPixels;
