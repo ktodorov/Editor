@@ -111,6 +111,7 @@ namespace RemedyPic
 
 		public MenuPopup Menu;
         public MainOptionsPanel Panel;
+        public DisplayImage imageDisplayed;
         #endregion
 
         public MainPage()
@@ -123,11 +124,21 @@ namespace RemedyPic
             // They are used later for the image panning and crop function.
             // Finally, we set the selected crop region width and height.
             this.InitializeComponent();
-			Current = this;
-			Menu = new MenuPopup();
+			
+            Current = this;
+
+            Menu = new MenuPopup();
             Panel = new MainOptionsPanel();
-			MainMenuPanel.Children.Add(Menu);
+
+            double displayImageWidth = (Window.Current.Bounds.Width * (569.00 / 683.00)) * 0.90;
+            double displayImageHeight = Window.Current.Bounds.Height * 0.90;
+
+            imageDisplayed = new DisplayImage(displayImageWidth, displayImageHeight);
+
+            MainMenuPanel.Children.Add(Menu);
             PanelStack.Children.Add(Panel);
+            ImageStack.Children.Add(imageDisplayed);
+
             RegisterCharms();
             setPopupsHeight();
         }
@@ -263,114 +274,7 @@ namespace RemedyPic
         #endregion
 
         #region Functions, called when opening an image.
-        #region Get Photo
-        // This occures when GetPhoto button is clicked
-        public void GetPhotoButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Saved)
-            {
-                Panel.GetPhoto();
-            }
-            else
-            {
-                PopupCalledBy = "Browse";
-                DarkenBorder.Visibility = Visibility.Visible;
-                notSaved.IsOpen = true;
-            }
-        }
 
-        //public async void GetPhoto(StorageFile fileToUse = null)
-        //{
-        //    // File picker APIs don't work if the app is in a snapped state.
-        //    // If the app is snapped, try to unsnap it first. Only show the picker if it unsnaps.
-        //    if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
-        //         Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
-        //    {
-        //        if (fileToUse == null)
-        //        {
-        //            // First, create a new file picker.
-        //            FileOpenPicker filePicker = new FileOpenPicker();
-        //            // Make the file picker view mode to Thumbnails.
-        //            filePicker.ViewMode = PickerViewMode.Thumbnail;
-        //            // Add several file extensions to be available for opening.
-        //            filePicker.FileTypeFilter.Add(".jpg");
-        //            filePicker.FileTypeFilter.Add(".png");
-        //            filePicker.FileTypeFilter.Add(".bmp");
-        //            filePicker.FileTypeFilter.Add(".jpeg");
-
-        //            // Get the selected file and save it to the StorageFile variable.
-        //            file = await filePicker.PickSingleFileAsync();
-        //            // We create the new WriteableBitmap.
-        //        }
-        //        else
-        //        {
-        //            file = fileToUse;
-        //        }
-        //        if (file != null)
-        //        // File is null if user cancels the file picker.
-        //        {
-        //            bitmapImage = new WriteableBitmap(1, 1);
-        //            ImageLoadingRing.IsActive = true;
-        //            Saved = true;
-        //            imageDisplayed.AnimateOutPicture.Begin();
-
-        //            // We create a temporary stream for the opened file.
-        //            // Then we decode the stream to a BitmapDecoder
-        //            // so we can set the image width and height to the variables.
-        //            // Then we set the Stream to the WriteableBitmap
-        //            // and set the pictureIsLoaded variable to true.
-        //            Windows.Storage.Streams.IRandomAccessStream fileStream =
-        //                    await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
-
-        //            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(fileStream);
-
-        //            imageDisplayed.sourceImagePixelHeight = decoder.PixelHeight;
-        //            imageDisplayed.sourceImagePixelWidth = decoder.PixelWidth;
-
-
-        //            bitmapImage.SetSource(fileStream);
-        //            RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
-
-        //            // If the interface was changed from previous image, it should be resetted.
-        //            ResetZoomPos();
-
-        //            pictureIsLoaded = true;
-        //            doAllCalculations();
-        //            ImageLoadingRing.IsActive = false;
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        // If the window can't be unsnapped, show alert.
-        //        await new MessageDialog("Can't open in snapped state. Please unsnap the app and try again", "Close").ShowAsync();
-        //    }
-        //}
-
-        //public void OnCameraButtonClick(object sender, RoutedEventArgs e)
-        //{
-        //    if (Saved)
-        //    {
-        //        getCameraPhoto();
-        //    }
-        //    else
-        //    {
-        //        PopupCalledBy = "Camera";
-        //        DarkenBorder.Visibility = Visibility.Visible;
-        //        notSaved.IsOpen = true;
-        //    }
-        //}
-
-        //public async void getCameraPhoto()
-        //{
-        //    CameraCaptureUI camera = new CameraCaptureUI();
-        //    camera.PhotoSettings.CroppedAspectRatio = new Size(16, 10);
-        //    StorageFile photoFile = await camera.CaptureFileAsync(CameraCaptureUIMode.Photo);
-        //    if (photoFile != null)
-        //        GetPhoto(photoFile);
-        //}
-
-        #endregion
 
         public async void doAllCalculations()
         {
@@ -436,6 +340,8 @@ namespace RemedyPic
             // We set the imagePanel maximum height so the image not to go out of the screen
             imageDisplayed.displayImage.MaxWidth = imageDisplayed.imageBorder.ActualWidth * 0.90;
             imageDisplayed.displayImage.MaxHeight = imageDisplayed.imageBorder.ActualHeight * 0.90;
+
+
 
             widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
             newWidth.Text = bitmapImage.PixelWidth.ToString();
@@ -2618,38 +2524,6 @@ namespace RemedyPic
             // When the user double-clicks on the interface, 
             // the currently opened popup closes.
             Menu.deselectPopups();
-        }
-
-        public void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
-        {
-            // Event for the mouse wheel. 
-            // It zooms in or out the image
-            var delta = e.GetCurrentPoint(imageDisplayed.displayImage).Properties.MouseWheelDelta;
-
-            if (delta > 0)
-            {
-                if (imageDisplayed.scale.ScaleX < 2.5)
-                {
-                   imageDisplayed.scale.CenterX = e.GetCurrentPoint(imageDisplayed.displayImage).Position.X;
-                   imageDisplayed.scale.CenterY = e.GetCurrentPoint(imageDisplayed.displayImage).Position.Y;
-                }
-               imageDisplayed.scale.ScaleX =imageDisplayed.scale.ScaleX + 0.1;
-               imageDisplayed.scale.ScaleY =imageDisplayed.scale.ScaleY + 0.1;
-                if (Panel.ZoomOut.IsEnabled == false)
-                    Panel.ZoomOut.IsEnabled = true;
-            }
-            else
-            {
-                if (imageDisplayed.scale.ScaleX > 0.9 && imageDisplayed.scale.ScaleY > 0.9)
-                {
-                   imageDisplayed.scale.ScaleX =imageDisplayed.scale.ScaleX - 0.1;
-                   imageDisplayed.scale.ScaleY =imageDisplayed.scale.ScaleY - 0.1;
-                }
-                if (Panel.ZoomOut.IsEnabled == true &&imageDisplayed.scale.ScaleX <= 0.9)
-                {
-                    Panel.ZoomOut.IsEnabled = false;
-                }
-            }
         }
 
         #region Image Options
