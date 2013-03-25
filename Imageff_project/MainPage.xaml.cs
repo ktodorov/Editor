@@ -101,34 +101,6 @@ namespace RemedyPic
         public Stream uneditedStream;
         public WriteableBitmap uneditedBitmap;
 
-        /*// Those are variables used with the manipulations of the Image
-        public TransformGroup _transformGroup;
-        public MatrixTransform _previousTransform;
-        public CompositeTransform _compositeTransform;
-        public bool forceManipulationsToEnd;
-
-        // SelectedRegion variable, used by the crop function.
-        SelectedRegion selectedRegion;
-
-        // The original Width and Height of the image in pixels.
-        uint sourceImagePixelWidth;
-        uint sourceImagePixelHeight;
-
-        // The size of the corners of the crop rectangle.
-        double cornerSize;
-        double CornerSize
-        {
-            get
-            {
-                if (cornerSize <= 0)
-                {
-                    cornerSize = (double)Application.Current.Resources["Size"];
-                }
-
-                return cornerSize;
-            }
-        }
-        */
         // The dictionary holds the history of all previous pointer locations. It is used by the crop function.
         Dictionary<uint, Point?> pointerPositionHistory = new Dictionary<uint, Point?>();
 
@@ -2939,7 +2911,7 @@ namespace RemedyPic
             // A simple "hot key".
             // When the user double-clicks on the interface, 
             // the currently opened popup closes.
-            //deselectPopups();
+            Menu.deselectPopups();
         }
 
      /*   public void deselectPopups()
