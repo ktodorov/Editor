@@ -37,7 +37,7 @@ namespace RemedyPic.UserControls.Popups
         public void OnColorApplyClick(object sender, RoutedEventArgs e)
         {
             ApplyColor();
-            rootPage.setFilterBitmaps();
+            rootPage.FiltersPopup.setFilterBitmaps();
             rootPage.Saved = false;
         }
 

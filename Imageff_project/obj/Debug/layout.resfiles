@@ -63,4 +63,5 @@ UserControls\DisplayImage.xaml
 UserControls\MainOptionsPanel.xaml
 UserControls\MenuPopup.xaml
 UserControls\Popups\RemedyColors.xaml
+UserControls\Popups\RemedyFilters.xaml
 Common\ReadMe.txt

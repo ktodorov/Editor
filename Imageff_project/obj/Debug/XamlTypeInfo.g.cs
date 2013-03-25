@@ -122,6 +122,8 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
 
         private object Activate_5_RemedyColors() { return new global::RemedyPic.UserControls.Popups.RemedyColors(); }
 
+        private object Activate_6_RemedyFilters() { return new global::RemedyPic.UserControls.Popups.RemedyFilters(); }
+
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(string typeName)
         {
@@ -170,6 +172,12 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
             case "RemedyPic.UserControls.Popups.RemedyColors":
                 userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyColors), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
                 userType.Activator = Activate_5_RemedyColors;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyFilters":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyFilters), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_6_RemedyFilters;
                 xamlType = userType;
                 break;
 

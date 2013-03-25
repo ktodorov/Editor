@@ -40,7 +40,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupFilters.IsOpen = true;
+            rootPage.FiltersPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects-check.png");
             EffectsIcon.Source = temp;
@@ -48,7 +48,7 @@ namespace RemedyPic.UserControls
 
         public void FiltersUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupFilters.IsOpen = false;
+            rootPage.FiltersPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects.png");
             EffectsIcon.Source = temp;

@@ -258,7 +258,7 @@ namespace RemedyPic.UserControls
             pageRoot.imageOriginal.dstPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
             pageRoot.setStream(pageRoot.bitmapStream, pageRoot.bitmapImage, pageRoot.imageOriginal);
             pageRoot.setExampleImage();
-            pageRoot.setFilterBitmaps();
+            pageRoot.FiltersPopup.setFilterBitmaps();
             pageRoot.imageDisplayed.displayImage.Source = pageRoot.bitmapImage;
         }
 

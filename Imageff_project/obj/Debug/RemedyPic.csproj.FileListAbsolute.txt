@@ -122,3 +122,6 @@ C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfil
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.i.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.xaml

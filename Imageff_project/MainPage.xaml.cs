@@ -73,7 +73,7 @@ namespace RemedyPic
         public StorageFile file;
 
         // String variables that hold the current applied changes to the image.
-        public string appliedFilters = null, appliedColors = null,
+        public string appliedColors = null,
                            appliedRotations = null, appliedFrame = null, appliedFrameColor = null;
 
         // We create two WriteableBitmap variables.
@@ -114,6 +114,7 @@ namespace RemedyPic
         public MainOptionsPanel Panel;
         public DisplayImage imageDisplayed;
         public RemedyColors ColorsPopup;
+        public RemedyFilters FiltersPopup;
         #endregion
 
         public MainPage()
@@ -142,10 +143,12 @@ namespace RemedyPic
             ImageStack.Children.Add(imageDisplayed);
 
             ColorsPopup = new RemedyColors();
+            FiltersPopup = new RemedyFilters();
 
             setPopupsHeight();
 
             SmallPopups.Children.Add(ColorsPopup);
+            contentGrid.Children.Add(FiltersPopup);
 
             RegisterCharms();
         }
@@ -332,7 +335,7 @@ namespace RemedyPic
             Panel.ZoomStack.Visibility = Visibility.Visible;
 
             // set the small WriteableBitmap objects to the filter buttons.
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
 
             // Display the file name.
             setFileProperties(file);
@@ -385,8 +388,8 @@ namespace RemedyPic
         // Reset data of Filter menu
         public void ResetFilterMenuData()
         {
-            appliedFilters = null;
-            deselectFilters();
+            FiltersPopup.appliedFilters = null;
+            FiltersPopup.deselectFilters();
         }
 
         // Reset the data of Color menu
@@ -439,11 +442,10 @@ namespace RemedyPic
         public void setPopupsHeight()
         {
             // We set the popups height to match the current machine's resolution
-            Filters.Height = Window.Current.Bounds.Height;
             contentGrid.Height = Window.Current.Bounds.Height;
             SmallPopups.Height = Window.Current.Bounds.Height;
-            ColorsPopup.Popup.Height = Window.Current.Bounds.Height;
-            ColorsPopup.Height = Window.Current.Bounds.Height;
+            ColorsPopup.Colors.Height = Window.Current.Bounds.Height;
+            FiltersPopup.Filters.Height = Window.Current.Bounds.Height;
             Rotations.Height = Window.Current.Bounds.Height;
             ImageOptions.Height = Window.Current.Bounds.Height;
             Colorize.Height = Window.Current.Bounds.Height;
@@ -475,271 +477,7 @@ namespace RemedyPic
         }
         #endregion
 
-        #region Filter functions
-
-        #region Invert Filter
-        // Invert filter function
-        public void OnInvertClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "invert";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Invert_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        // Set the matrix for invert filter
-        public void Invert_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = -1;
-            offset = 255;
-            scale = 1;
-        }
-        #endregion
-
-        #region B&W Filter
-        public void OnBlackWhiteClick(object sender, RoutedEventArgs e)
-        {
-            // This occures when OnBlackWhiteButton is clicked
-            if (pictureIsLoaded)
-            {
-                // First we prepare the image for filtrating, then we call the filter.
-                // After that we save the new data to the current image,
-                // reset all other highlighted buttons and make the B&W button selected
-                appliedFilters = "blackwhite";
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.BlackAndWhite(image.dstPixels, image.srcPixels);
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-        #endregion
-
-        #region Emboss Filter
-        // Emboss filter function
-        public void OnEmbossClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "emboss";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Emboss_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        // Set the matrix for emboss filter
-        public void Emboss_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 1;
-            coeff[3, 3] = -1;
-            offset = 128;
-            scale = 1;
-        }
-        #endregion
-
-        #region Emboss 2 Filter
-        // Emboss 2 filter function
-        public void OnEmboss2Click(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "emboss2";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Emboss2_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        // Set the matrix for emboss2 filter
-        public void Emboss2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 1;
-            coeff[2, 1] = -1;
-            coeff[1, 2] = -1;
-            coeff[1, 1] = -2;
-            coeff[2, 3] = 1;
-            coeff[3, 2] = 1;
-            coeff[4, 3] = 2;
-            offset = 0;
-            scale = 1;
-        }
-        #endregion
-
-        #region Sharpen Filter
-        // Sharpen filter function
-        public void OnSharpenClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "sharpen";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Sharpen_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        // Set the matrix for sharpen filter
-        public void Sharpen_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 5;
-            coeff[2, 3] = -1;
-            coeff[2, 1] = -1;
-            coeff[1, 2] = -1;
-            coeff[3, 2] = -1;
-            offset = 0;
-            scale = 1;
-        }
-        #endregion
-
-        #region Blur Filter
-        // Blur filter function
-        public void OnBlurClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "blur";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Blur_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        // Set the matrix for blur filter
-        public void Blur_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 3;
-            coeff[0, 0] = coeff[1, 0] = coeff[2, 0] = coeff[3, 0] = coeff[4, 0] = 1;
-            coeff[0, 1] = coeff[0, 2] = coeff[0, 3] = coeff[4, 1] = coeff[4, 2] = coeff[4, 3] = 1;
-            coeff[0, 4] = coeff[1, 4] = coeff[2, 4] = coeff[3, 4] = coeff[4, 4] = 1;
-            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 2;
-            coeff[1, 2] = coeff[3, 2] = 2;
-            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 2;
-            offset = 0;
-            scale = 35;
-        }
-        #endregion
-
-        #region Blur2 Filter
-        // Blur2 filter function
-        public void OnBlur2Click(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "blur2";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                Blur2_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        // Set the matrix for blur2 filter
-        public void Blur2_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 1;
-            coeff[1, 1] = coeff[2, 1] = coeff[3, 1] = 1;
-            coeff[1, 2] = coeff[3, 2] = 1;
-            coeff[1, 3] = coeff[2, 3] = coeff[3, 3] = 1;
-            offset = 0;
-            scale = 9;
-        }
-
-        #endregion
-
-        #region EdgeDetect Filter
-        // EdgeDetect filter function
-        public void OnEdgeDetectClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "EdgeDetect";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                EdgeDetect_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        // Set the matrix for edgeDetect filter
-        public void EdgeDetect_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = -4;
-            coeff[1, 2] = coeff[2, 1] = coeff[2, 3] = coeff[3, 2] = 1;
-            offset = 0;
-            scale = 1;
-        }
-        #endregion
-
-        #region EdgeEnhance Filter
-        // EdgeEnhance filter function
-        public void OnEdgeEnhanceClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                appliedFilters = "EdgeEnhance";
-                prepareImage(exampleStream, exampleBitmap, image);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                EdgeEnhance_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(image.srcPixels, image.width, image.height, offset, scale, coeff);
-                image.dstPixels = custom_image.Filter();
-
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        // Set the matrix for edgeEnhance filter
-        public void EdgeEnhance_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            coeff[2, 2] = 1;
-            coeff[3, 0] = -1;
-            offset = 0;
-            scale = 1;
-        }
-
-        #endregion
-
-        #endregion
+       
 
         #region Save
 
@@ -856,8 +594,8 @@ namespace RemedyPic
             givenBitmap.Invalidate();
             if (givenImage == image)
             {
-                if (PopupFilters.IsOpen)
-                    FilterApplyReset.Visibility = Visibility.Visible;
+                if (FiltersPopup.Popup.IsOpen)
+                    FiltersPopup.FilterApplyReset.Visibility = Visibility.Visible;
                 else if (ColorsPopup.Popup.IsOpen)
                     ColorsPopup.ColorApplyReset.Visibility = Visibility.Visible;
                 else if (PopupRotations.IsOpen)
@@ -934,7 +672,7 @@ namespace RemedyPic
             imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
             setStream(bitmapStream, bitmapImage, imageOriginal);
             setExampleImage();
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
             imageDisplayed.displayImage.Source = bitmapImage;
         }
 
@@ -1068,262 +806,10 @@ namespace RemedyPic
         #endregion
 
 
-        #region Filters
-        // Change the image with black and white filter applied
-        private void doBlackWhite(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            givenImage.BlackAndWhite(givenImage.dstPixels, givenImage.srcPixels);
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with invert filter applied
-        public void doInvert(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            Invert_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with emboss filter applied
-        public void doEmboss(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            Emboss_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with emboss2 filter applied
-        public void doEmboss2(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            Emboss2_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with sharpen filter applied
-        public void doSharpen(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            Sharpen_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with noise filter applied
-        public void doNoise(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-
-            givenImage.Noise(givenImage.Noise_GetSquareWidth(20));
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with hardnoise filter applied
-        public void doHardNoise(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-
-            givenImage.Noise(1);
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with blur filter applied
-        public void doBlur(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            Blur_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with blur2 filter applied
-        public void doBlur2(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            Blur2_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with edgeDetect filter applied
-        public void doEdgeDetect(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            EdgeDetect_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with edgeEnhance filter applied
-        public void doEdgeEnhance(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 0;
-            EdgeEnhance_SetValues(ref coeff, ref offset, ref scale);
-            CustomFilter custom_image = new CustomFilter(givenImage.srcPixels, givenImage.width, givenImage.height, offset, scale, coeff);
-            givenImage.dstPixels = custom_image.Filter();
-            setStream(stream, bitmap, givenImage);
-
-        }
-
-        // Change the image with retro filter applied
-        public void doRetro(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            givenImage.ColorChange(0, 0, 0, 50, 50, -50);
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with darken filter applied
-        public void doDarken(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            givenImage.ColorChange(0, 0, 0, 50, 50, 0);
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with brighten filter applied
-        public void doBrighten(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            givenImage.ColorChange(70, 70, 70, 0, 0, 0);
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with shadow filter applied
-        public void doShadow(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            givenImage.ColorChange(-80, -80, -80, 0, 0, 0);
-            setStream(stream, bitmap, givenImage);
-        }
-
-        // Change the image with crystal filter applied
-        public void doCrystal(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            prepareImage(stream, bitmap, givenImage);
-            givenImage.ColorChange(0, 0, 0, 50, 35, 35);
-            setStream(stream, bitmap, givenImage);
-        }
-        #endregion
+        
 
         #region Apply Buttons
         // Event for apply button on Filters popup. Sets the image with the applied filter
-        public void OnFilterApplyClick(object sender, RoutedEventArgs e)
-        {
-            ApplyFilter(appliedFilters);
-            FilterApplyReset.Visibility = Visibility.Collapsed;
-            Menu.SelectFilters.IsChecked = false;
-            setFilterBitmaps();
-            Saved = false;
-        }
-
-        public void ApplyFilter(string filter)
-        {
-            ImageLoadingRing.IsActive = true;
-            switch (filter)
-            {
-                case "blackwhite":
-                    doBlackWhite(bitmapStream, bitmapImage, imageOriginal);
-                    doBlackWhite(exampleStream, exampleBitmap, image);
-                    break;
-                case "invert":
-                    doInvert(bitmapStream, bitmapImage, imageOriginal);
-                    doInvert(exampleStream, exampleBitmap, image);
-                    break;
-                case "emboss":
-                    doEmboss(bitmapStream, bitmapImage, imageOriginal);
-                    doEmboss(exampleStream, exampleBitmap, image);
-                    break;
-                case "emboss2":
-                    doEmboss2(bitmapStream, bitmapImage, imageOriginal);
-                    doEmboss2(exampleStream, exampleBitmap, image);
-                    break;
-                case "blur":
-                    doBlur(bitmapStream, bitmapImage, imageOriginal);
-                    doBlur(exampleStream, exampleBitmap, image);
-                    break;
-                case "blur2":
-                    doBlur2(bitmapStream, bitmapImage, imageOriginal);
-                    doBlur2(exampleStream, exampleBitmap, image);
-                    break;
-                case "sharpen":
-                    doSharpen(bitmapStream, bitmapImage, imageOriginal);
-                    doSharpen(exampleStream, exampleBitmap, image);
-                    break;
-                case "noise":
-                    doNoise(bitmapStream, bitmapImage, imageOriginal);
-                    doNoise(exampleStream, exampleBitmap, image);
-                    break;
-                case "hardNoise":
-                    doHardNoise(bitmapStream, bitmapImage, imageOriginal);
-                    doHardNoise(exampleStream, exampleBitmap, image);
-                    break;
-                case "EdgeDetect":
-                    doEdgeDetect(bitmapStream, bitmapImage, imageOriginal);
-                    doEdgeDetect(exampleStream, exampleBitmap, image);
-                    break;
-                case "EdgeEnhance":
-                    doEdgeEnhance(bitmapStream, bitmapImage, imageOriginal);
-                    doEdgeEnhance(exampleStream, exampleBitmap, image);
-                    break;
-                case "retro":
-                    doRetro(bitmapStream, bitmapImage, imageOriginal);
-                    doRetro(exampleStream, exampleBitmap, image);
-                    break;
-                case "darken":
-                    doDarken(bitmapStream, bitmapImage, imageOriginal);
-                    doDarken(exampleStream, exampleBitmap, image);
-                    break;
-                case "brighten":
-                    doBrighten(bitmapStream, bitmapImage, imageOriginal);
-                    doBrighten(exampleStream, exampleBitmap, image);
-                    break;
-                case "shadow":
-                    doShadow(bitmapStream, bitmapImage, imageOriginal);
-                    doShadow(exampleStream, exampleBitmap, image);
-                    break;
-                case "crystal":
-                    doCrystal(bitmapStream, bitmapImage, imageOriginal);
-                    doCrystal(exampleStream, exampleBitmap, image);
-                    break;
-                default:
-                    break;
-            }
-            image.srcPixels = (byte[])image.dstPixels.Clone();
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            ArchiveAddArray();
-            effectsApplied.Add("Filter = " + filter);
-            ResetFilterMenuData();
-            ImageLoadingRing.IsActive = false;
-        }
-
 
         // Event for apply button on  Rotate popup. Sets the image with the applied flip
         public void OnRotateApplyClick(object sender, RoutedEventArgs e)
@@ -1332,7 +818,7 @@ namespace RemedyPic
            // SelectRotations.IsChecked = false;
             ApplyRotate(appliedRotations);
 
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
             ImageLoadingRing.IsActive = false;
             RotateApplyReset.Visibility = Visibility.Collapsed;
             Saved = false;
@@ -1367,7 +853,7 @@ namespace RemedyPic
         {
             doColorize(exampleStream, exampleBitmap, image);
             ApplyColorize();
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
             ColorizeApplyReset.Visibility = Visibility.Collapsed;
             Menu.SelectColorize.IsChecked = false;
             Saved = false;
@@ -1447,7 +933,7 @@ namespace RemedyPic
         public void OnExposureApplyClick(object sender, RoutedEventArgs e)
         {
             ApplyExposure(appliedColors);
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
             Saved = false;
         }
 
@@ -1499,30 +985,7 @@ namespace RemedyPic
 
         #region Reset Buttons
         // All those events reset the interface and return the last applied image.
-        public void OnFilterResetClick(object sender, RoutedEventArgs e)
-        {
-            // This resets the interface and returns the last applied image.
-            if (pictureIsLoaded)
-            {
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.Reset();
-                setStream(exampleStream, exampleBitmap, image);
-            }
-            FilterApplyReset.Visibility = Visibility.Collapsed;
-            ResetFilterMenuData();
-            deselectFilters();
-        }
-
-        public void OnColorResetClick(object sender, RoutedEventArgs e)
-        {
-            // This resets the interface and returns the last applied image.
-            ResetColorMenuData();
-            prepareImage(exampleStream, exampleBitmap, image);
-            image.Reset();
-            setStream(exampleStream, exampleBitmap, image);
-            ColorsPopup.ColorApplyReset.Visibility = Visibility.Collapsed;
-        }
-
+ 
         public void OnRotateResetClick(object sender, RoutedEventArgs e)
         {
             prepareImage(exampleStream, exampleBitmap, image);
@@ -1756,7 +1219,7 @@ namespace RemedyPic
             ArchiveAddArray();
             effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
             setExampleImage();
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
             FramesApplyReset.Visibility = Visibility.Collapsed;
             ResetFrameMenuData();
             Saved = false;
@@ -2052,7 +1515,7 @@ namespace RemedyPic
             setStream(bitmapStream, bitmapImage, imageOriginal);
 
             setExampleBitmaps();
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
 
             imageDisplayed.sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
             imageDisplayed.sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
@@ -2120,375 +1583,9 @@ namespace RemedyPic
         }
 
 
-        #region Small Bitmaps for Filters
-        public async void setFilterBitmaps()
-        {
-            // This creates temporary Streams and WriteableBitmap objects for every filter available.
-            // We set the bitmaps as source to the XAML Image objects.
-            // After this, we apply different filter for each of the WriteableBitmap objects.
+        
 
-            RemedyImage filterimage = new RemedyImage();
-            uint newWidth = (uint)bitmapImage.PixelWidth;
-            uint newHeight = (uint)bitmapImage.PixelHeight;
-
-            while (newWidth > 150 && newHeight > 150)
-            {
-                newWidth = newWidth / 2;
-                newHeight = newHeight / 2;
-            }
-
-            Stream
-            blackWhiteStream = null,
-            emboss2Stream = null,
-            embossStream = null,
-            invertStream = null,
-            blurStream = null,
-            blur2Stream = null,
-            sharpenStream = null,
-            noiseStream = null;
-
-            WriteableBitmap
-            blackWhiteBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            embossBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            emboss2Bitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            invertBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            blurBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            blur2Bitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            sharpenBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            noiseBitmap = await ResizeImage(bitmapImage, newWidth, newHeight);
-
-            blackWhiteFilter.Source = blackWhiteBitmap;
-            embossFilter.Source = embossBitmap;
-            emboss2Filter.Source = emboss2Bitmap;
-            invertFilter.Source = invertBitmap;
-            blurFilter.Source = blurBitmap;
-            blur2Filter.Source = blur2Bitmap;
-            sharpenFilter.Source = sharpenBitmap;
-            noiseFilter.Source = noiseBitmap;
-
-            blackWhiteStream = blackWhiteBitmap.PixelBuffer.AsStream();
-            embossStream = embossBitmap.PixelBuffer.AsStream();
-            emboss2Stream = emboss2Bitmap.PixelBuffer.AsStream();
-            invertStream = invertBitmap.PixelBuffer.AsStream();
-            blurStream = blurBitmap.PixelBuffer.AsStream();
-            blur2Stream = blur2Bitmap.PixelBuffer.AsStream();
-            sharpenStream = sharpenBitmap.PixelBuffer.AsStream();
-            noiseStream = noiseBitmap.PixelBuffer.AsStream();
-
-            initializeBitmap(blackWhiteStream, blackWhiteBitmap, filterimage);
-            initializeBitmap(embossStream, embossBitmap, filterimage);
-            initializeBitmap(emboss2Stream, emboss2Bitmap, filterimage);
-            initializeBitmap(invertStream, invertBitmap, filterimage);
-            initializeBitmap(blurStream, blurBitmap, filterimage);
-            initializeBitmap(blur2Stream, blur2Bitmap, filterimage);
-            initializeBitmap(sharpenStream, sharpenBitmap, filterimage);
-            initializeBitmap(noiseStream, noiseBitmap, filterimage);
-
-            prepareImage(blackWhiteStream, blackWhiteBitmap, filterimage);
-            setStream(blackWhiteStream, blackWhiteBitmap, filterimage);
-
-            doFilter(blackWhiteStream, blackWhiteBitmap, filterimage, "blackwhite");
-            doFilter(embossStream, embossBitmap, filterimage, "emboss");
-            doFilter(emboss2Stream, emboss2Bitmap, filterimage, "emboss2");
-            doFilter(invertStream, invertBitmap, filterimage, "invert");
-            doFilter(blurStream, blurBitmap, filterimage, "blur");
-            doFilter(blur2Stream, blur2Bitmap, filterimage, "blur2");
-            doFilter(sharpenStream, sharpenBitmap, filterimage, "sharpen");
-            doFilter(noiseStream, noiseBitmap, filterimage, "noise");
-
-            Stream
-            hardNoiseStream = null,
-            retroStream = null,
-            darkenStream = null,
-            edgeDetectStream = null,
-            edgeEnhanceStream = null,
-            brightenStream = null,
-            shadowStream = null,
-            crystalStream = null;
-
-            WriteableBitmap
-            hardNoiseBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            edgeDetectBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            edgeEnhanceBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            retroBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            darkenBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            brightenBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            shadowBitmap = await ResizeImage(bitmapImage, newWidth, newHeight),
-            crystalBitmap = await ResizeImage(bitmapImage, newWidth, newHeight);
-
-            hardNoiseFilter.Source = hardNoiseBitmap;
-            edgeDetectFilter.Source = edgeDetectBitmap;
-            edgeEnhanceFilter.Source = edgeEnhanceBitmap;
-            retroFilter.Source = retroBitmap;
-            darkenFilter.Source = darkenBitmap;
-            brightenFilter.Source = brightenBitmap;
-            shadowFilter.Source = shadowBitmap;
-            crystalFilter.Source = crystalBitmap;
-
-            hardNoiseStream = hardNoiseBitmap.PixelBuffer.AsStream();
-            edgeDetectStream = edgeDetectBitmap.PixelBuffer.AsStream();
-            edgeEnhanceStream = edgeEnhanceBitmap.PixelBuffer.AsStream();
-            retroStream = retroBitmap.PixelBuffer.AsStream();
-            darkenStream = darkenBitmap.PixelBuffer.AsStream();
-            brightenStream = brightenBitmap.PixelBuffer.AsStream();
-            shadowStream = shadowBitmap.PixelBuffer.AsStream();
-            crystalStream = crystalBitmap.PixelBuffer.AsStream();
-
-            initializeBitmap(hardNoiseStream, hardNoiseBitmap, filterimage);
-            initializeBitmap(edgeDetectStream, edgeDetectBitmap, filterimage);
-            initializeBitmap(edgeEnhanceStream, edgeEnhanceBitmap, filterimage);
-            initializeBitmap(retroStream, retroBitmap, filterimage);
-            initializeBitmap(darkenStream, darkenBitmap, filterimage);
-            initializeBitmap(brightenStream, brightenBitmap, filterimage);
-            initializeBitmap(shadowStream, shadowBitmap, filterimage);
-            initializeBitmap(crystalStream, crystalBitmap, filterimage);
-
-            prepareImage(hardNoiseStream, hardNoiseBitmap, filterimage);
-            setStream(hardNoiseStream, hardNoiseBitmap, filterimage);
-
-            doFilter(hardNoiseStream, hardNoiseBitmap, filterimage, "hardNoise");
-            doFilter(edgeDetectStream, edgeDetectBitmap, filterimage, "EdgeDetect");
-            doFilter(edgeEnhanceStream, edgeEnhanceBitmap, filterimage, "EdgeEnhance");
-            doFilter(retroStream, retroBitmap, filterimage, "retro");
-            doFilter(darkenStream, darkenBitmap, filterimage, "darken");
-            doFilter(brightenStream, brightenBitmap, filterimage, "brighten");
-            doFilter(shadowStream, shadowBitmap, filterimage, "shadow");
-            doFilter(crystalStream, crystalBitmap, filterimage, "crystal");
-        }
-
-        public async void initializeBitmap(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
-        {
-            // This makes the required operations for initializing the WriteableBitmap.
-            givenStream = givenBitmap.PixelBuffer.AsStream();
-            givenImage.srcPixels = new byte[(uint)givenStream.Length];
-            await givenStream.ReadAsync(givenImage.srcPixels, 0, givenImage.srcPixels.Length);
-        }
-
-        public void doFilter(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage, string filter)
-        {
-            // Filter the passed image with the passed filter as a string.
-            switch (filter)
-            {
-                case "blackwhite":
-                    doBlackWhite(givenStream, givenBitmap, givenImage);
-                    break;
-                case "invert":
-                    doInvert(givenStream, givenBitmap, givenImage);
-                    break;
-                case "emboss":
-                    doEmboss(givenStream, givenBitmap, givenImage);
-                    break;
-                case "emboss2":
-                    doEmboss2(givenStream, givenBitmap, givenImage);
-                    break;
-                case "blur":
-                    doBlur(givenStream, givenBitmap, givenImage);
-                    break;
-                case "blur2":
-                    doBlur2(givenStream, givenBitmap, givenImage);
-                    break;
-                case "sharpen":
-                    doSharpen(givenStream, givenBitmap, givenImage);
-                    break;
-                case "noise":
-                    doNoise(givenStream, givenBitmap, givenImage);
-                    break;
-                case "hardNoise":
-                    doHardNoise(givenStream, givenBitmap, givenImage);
-                    break;
-                case "EdgeDetect":
-                    doEdgeDetect(givenStream, givenBitmap, givenImage);
-                    break;
-                case "EdgeEnhance":
-                    doEdgeEnhance(givenStream, givenBitmap, givenImage);
-                    break;
-                case "retro":
-                    doRetro(givenStream, givenBitmap, givenImage);
-                    break;
-                case "darken":
-                    doDarken(givenStream, givenBitmap, givenImage);
-                    break;
-                case "brighten":
-                    doBrighten(givenStream, givenBitmap, givenImage);
-                    break;
-                case "shadow":
-                    doShadow(givenStream, givenBitmap, givenImage);
-                    break;
-                case "crystal":
-                    doCrystal(givenStream, givenBitmap, givenImage);
-                    break;
-                default:
-                    break;
-            }
-        }
-        #endregion
-
-        #region Filters Check Buttons
-        public void blackWhiteChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "blackwhite";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void invertChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "invert";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void sharpenChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "sharpen";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void colorizeChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "colorize";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void retroChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "retro";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void darkenChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "darken";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void noiseChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "noise";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void hardNoiseChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "hardNoise";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void embossChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "emboss";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void emboss2Checked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "emboss2";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void blurChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "blur";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void blur2Checked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "blur2";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void edgeDetectChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "EdgeDetect";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void edgeEnhanceChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "EdgeEnhance";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void brightenChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "brighten";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void shadowChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "shadow";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void crystalChecked(object sender, RoutedEventArgs e)
-        {
-            appliedFilters = "crystal";
-            deselectFilters();
-            FilterApplyReset.Visibility = Visibility.Visible;
-        }
-
-        public void filterUnchecked(object sender, RoutedEventArgs e)
-        {
-            var filterSender = sender as ToggleButton;
-            filterSender.IsChecked = false;
-            FilterApplyReset.Visibility = Visibility.Collapsed;
-        }
-
-        public void deselectFilters()
-        {
-            String without = appliedFilters;
-            if (without != "blackwhite")
-                blackWhiteCheck.IsChecked = false;
-            if (without != "invert")
-                invertCheck.IsChecked = false;
-            if (without != "sharpen")
-                sharpenCheck.IsChecked = false;
-            if (without != "noise")
-                noiseCheck.IsChecked = false;
-            if (without != "hardNoise")
-                hardNoiseCheck.IsChecked = false;
-            if (without != "emboss2")
-                emboss2Check.IsChecked = false;
-            if (without != "emboss")
-                embossCheck.IsChecked = false;
-            if (without != "EdgeDetect")
-                edgeDetectCheck.IsChecked = false;
-            if (without != "EdgeEnhance")
-                edgeEnhanceCheck.IsChecked = false;
-            if (without != "blur2")
-                blur2Check.IsChecked = false;
-            if (without != "blur")
-                blurCheck.IsChecked = false;
-            if (without != "retro")
-                retroCheck.IsChecked = false;
-            if (without != "darken")
-                darkenCheck.IsChecked = false;
-            if (without != "brighten")
-                brightenCheck.IsChecked = false;
-            if (without != "shadow")
-                shadowCheck.IsChecked = false;
-            if (without != "crystal")
-                crystalCheck.IsChecked = false;
-            if (appliedFilters == null)
-                FilterApplyReset.Visibility = Visibility.Collapsed;
-        }
-        #endregion
+       
 
         public void GridDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
@@ -2565,7 +1662,7 @@ namespace RemedyPic
             setElements(RotationsExamplePicture, exampleBitmap);
             setElements(ExposureExamplePicture, exampleBitmap);
 
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
             imageDisplayed.selectedRegion.ResetCorner(0, 0, imageDisplayed.displayImage.ActualWidth, imageDisplayed.displayImage.ActualHeight);
         }
 
@@ -2586,7 +1683,7 @@ namespace RemedyPic
             // Equalize the histogram of the current image.
             Menu.SelectHistogram.IsChecked = false;
             equalizeHistogram();
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
         }
 
         public void equalizeHistogram()
@@ -2737,7 +1834,7 @@ namespace RemedyPic
             imageOriginal.Reset();
 
             setExampleBitmaps();
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
 
             Menu.SelectCrop.IsChecked = false;
 
@@ -2963,7 +2060,7 @@ namespace RemedyPic
             ArchiveAddArray();
             effectsApplied.Add("Resize " + OrignalWidth + " " + OriginalHeight + " " + (int)resizeWidth + " " + (int)resizeHeight);
             imageDisplayed.displayImage.Source = bitmapImage;
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
         }
 
         #endregion
@@ -3247,7 +2344,7 @@ namespace RemedyPic
             CustomApply();
             CustomApplyReset.Visibility = Visibility.Collapsed;
             setExampleBitmaps();
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
             Saved = false;
         }
 
@@ -3411,7 +2508,7 @@ namespace RemedyPic
             {
                 checkEffect(i);
             }
-            setFilterBitmaps();
+            FiltersPopup.setFilterBitmaps();
             ImageLoadingRing.IsActive = false;
             DarkenBorder.Visibility = Visibility.Collapsed;
         }
@@ -3422,7 +2519,7 @@ namespace RemedyPic
             switch (configFile.effects[i])
             {
                 case "Filter":
-                    ApplyFilter(configFile.effects[i + 1]);
+                    FiltersPopup.ApplyFilter(configFile.effects[i + 1]);
                     break;
 
                 case "Color":

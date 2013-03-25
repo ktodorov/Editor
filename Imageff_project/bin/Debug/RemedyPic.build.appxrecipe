@@ -221,6 +221,9 @@
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyColors.xaml">
       <PackagePath>UserControls\Popups\RemedyColors.xaml</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyFilters.xaml">
+      <PackagePath>UserControls\Popups\RemedyFilters.xaml</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
