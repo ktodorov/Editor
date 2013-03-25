@@ -10,9 +10,9 @@ using Windows.UI.Xaml.Controls;
 using System.IO;
 using RemedyPic;
 
-namespace RemedyPic.Common
+namespace RemedyPic.RemedyClasses
 {
-    class Configuration
+    public class Configuration
     {
 
         public List<string> effects = new List<string>();
@@ -95,7 +95,8 @@ namespace RemedyPic.Common
         private void apply(string effect, string value)
         {
             if (effect != "Filter" && effect != "Color" && effect != "Contrast" && effect != "Exposure"
-                && effect != "Colorize" && effect != "Flip" && effect != "Frame" && effect != "Histogram")
+                && effect != "Colorize" && effect != "Flip" && effect != "Frame" && effect != "Histogram"
+				&& effect != "Rotate")
                 return;
 
             effects.Add(effect);

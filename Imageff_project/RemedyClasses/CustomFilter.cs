@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
 
-namespace RemedyPic.Common
+namespace RemedyPic.RemedyClasses
 {
     class CustomFilter
     {
