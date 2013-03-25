@@ -116,9 +116,9 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
 
         private object Activate_1_DisplayImage() { return new global::RemedyPic.UserControls.DisplayImage(); }
 
-        private object Activate_2_MainPage() { return new global::RemedyPic.MainPage(); }
+        private object Activate_2_MenuPopup() { return new global::RemedyPic.UserControls.MenuPopup(); }
 
-        private object Activate_3_MenuPopup() { return new global::RemedyPic.UserControls.MenuPopup(); }
+        private object Activate_3_MainPage() { return new global::RemedyPic.MainPage(); }
 
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(string typeName)
@@ -148,15 +148,15 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case "RemedyPic.MainPage":
-                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.MainPage), GetXamlTypeByName("RemedyPic.Common.LayoutAwarePage"));
-                userType.Activator = Activate_2_MainPage;
+            case "RemedyPic.UserControls.MenuPopup":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.MenuPopup), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_2_MenuPopup;
                 xamlType = userType;
                 break;
 
-            case "RemedyPic.UserControls.MenuPopup":
-                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.MenuPopup), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
-                userType.Activator = Activate_3_MenuPopup;
+            case "RemedyPic.MainPage":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.MainPage), GetXamlTypeByName("RemedyPic.Common.LayoutAwarePage"));
+                userType.Activator = Activate_3_MainPage;
                 xamlType = userType;
                 break;
 

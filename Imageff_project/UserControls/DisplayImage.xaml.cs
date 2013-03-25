@@ -57,7 +57,7 @@ namespace RemedyPic.UserControls
             InitManipulationTransforms();
             selectRegion.ManipulationMode = ManipulationModes.Scale |
                 ManipulationModes.TranslateX | ManipulationModes.TranslateY;
-            
+
             selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
             this.DataContext = selectedRegion;
         }

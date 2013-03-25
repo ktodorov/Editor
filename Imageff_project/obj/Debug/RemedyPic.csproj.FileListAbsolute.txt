@@ -94,16 +94,15 @@ C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\priconfig.
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\layout.resfiles.intermediate
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\resources.resfiles.intermediate
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfiles.intermediate
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\priconfig.xml.intermediate
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\layout.resfiles.intermediate
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\resources.resfiles.intermediate
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfiles.intermediate
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\GridMainOptions.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\GridMainOptions.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\GridMainOptions.xaml
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.i.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.xaml
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.i.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.xaml

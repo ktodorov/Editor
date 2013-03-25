@@ -1,221 +1,221 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>PHOENIX</Machine>
-    <WindowsUser>Konstantin</WindowsUser>
+    <Machine>PHOENIX-HP</Machine>
+    <WindowsUser>Phoenix</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-vertical.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-vertical.png">
       <PackagePath>Assets\Arrows\Arrow-vertical.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Rotate-left.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Rotate-left.png">
       <PackagePath>Assets\Arrows\Rotate-left.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Rotate-right.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Rotate-right.png">
       <PackagePath>Assets\Arrows\Rotate-right.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Background.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Background.png">
       <PackagePath>Assets\Background.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Browse-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Browse-hover.png">
       <PackagePath>Assets\Buttons\Browse-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Browse.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Browse.png">
       <PackagePath>Assets\Buttons\Browse.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Camera-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Camera-hover.png">
       <PackagePath>Assets\Buttons\Camera-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Camera.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Camera.png">
       <PackagePath>Assets\Buttons\Camera.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colorize-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colorize-checked.png">
       <PackagePath>Assets\Buttons\Colorize-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colorize-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colorize-hover.png">
       <PackagePath>Assets\Buttons\Colorize-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colorize.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colorize.png">
       <PackagePath>Assets\Buttons\Colorize.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colors-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colors-checked.png">
       <PackagePath>Assets\Buttons\Colors-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colors-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colors-hover.png">
       <PackagePath>Assets\Buttons\Colors-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colors.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Colors.png">
       <PackagePath>Assets\Buttons\Colors.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Crop-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Crop-checked.png">
       <PackagePath>Assets\Buttons\Crop-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Crop-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Crop-hover.png">
       <PackagePath>Assets\Buttons\Crop-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Crop.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Crop.png">
       <PackagePath>Assets\Buttons\Crop.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\CustomFilter-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\CustomFilter-checked.png">
       <PackagePath>Assets\Buttons\CustomFilter-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\CustomFilter-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\CustomFilter-hover.png">
       <PackagePath>Assets\Buttons\CustomFilter-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\CustomFilter.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\CustomFilter.png">
       <PackagePath>Assets\Buttons\CustomFilter.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects-check.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects-check.png">
       <PackagePath>Assets\Buttons\Effects-check.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects-hover.png">
       <PackagePath>Assets\Buttons\Effects-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Effects.png">
       <PackagePath>Assets\Buttons\Effects.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Exposure-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Exposure-checked.png">
       <PackagePath>Assets\Buttons\Exposure-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Exposure-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Exposure-hover.png">
       <PackagePath>Assets\Buttons\Exposure-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Exposure.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Exposure.png">
       <PackagePath>Assets\Buttons\Exposure.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Frame-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Frame-checked.png">
       <PackagePath>Assets\Buttons\Frame-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Frame-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Frame-hover.png">
       <PackagePath>Assets\Buttons\Frame-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Frame.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Frame.png">
       <PackagePath>Assets\Buttons\Frame.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Histogram-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Histogram-checked.png">
       <PackagePath>Assets\Buttons\Histogram-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Histogram-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Histogram-hover.png">
       <PackagePath>Assets\Buttons\Histogram-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Histogram.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Histogram.png">
       <PackagePath>Assets\Buttons\Histogram.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Options-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Options-checked.png">
       <PackagePath>Assets\Buttons\Options-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Options-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Options-hover.png">
       <PackagePath>Assets\Buttons\Options-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Options.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Options.png">
       <PackagePath>Assets\Buttons\Options.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Panning-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Panning-checked.png">
       <PackagePath>Assets\Buttons\Panning-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Panning-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Panning-hover.png">
       <PackagePath>Assets\Buttons\Panning-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Panning.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Panning.png">
       <PackagePath>Assets\Buttons\Panning.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Rotate-checked.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Rotate-checked.png">
       <PackagePath>Assets\Buttons\Rotate-checked.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Rotate-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Rotate-hover.png">
       <PackagePath>Assets\Buttons\Rotate-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Rotate.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Rotate.png">
       <PackagePath>Assets\Buttons\Rotate.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Save-hover.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Save-hover.png">
       <PackagePath>Assets\Buttons\Save-hover.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Save.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Buttons\Save.png">
       <PackagePath>Assets\Buttons\Save.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Logo.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\RemedyPicLogo.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\RemedyPicLogo.png">
       <PackagePath>Assets\RemedyPicLogo.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\SmallLogo.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\SmallLogo.png">
       <PackagePath>Assets\SmallLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\SplashScreen.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\SplashScreen.png">
       <PackagePath>Assets\SplashScreen.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\WideLogo.png">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\WideLogo.png">
       <PackagePath>Assets\WideLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-darkness.jpg">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-darkness.jpg">
       <PackagePath>Assets\FramesPictures\Frames-darkness.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-leftandright.jpg">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-leftandright.jpg">
       <PackagePath>Assets\FramesPictures\Frames-leftandright.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-softangle.jpg">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-softangle.jpg">
       <PackagePath>Assets\FramesPictures\Frames-softangle.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-Square.jpg">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-Square.jpg">
       <PackagePath>Assets\FramesPictures\Frames-Square.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-squaresoft.jpg">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-squaresoft.jpg">
       <PackagePath>Assets\FramesPictures\Frames-squaresoft.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-topandbottom.jpg">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-topandbottom.jpg">
       <PackagePath>Assets\FramesPictures\Frames-topandbottom.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent-leftright.jpg">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent-leftright.jpg">
       <PackagePath>Assets\FramesPictures\Frames-transparent-leftright.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent-topbottom.jpg">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent-topbottom.jpg">
       <PackagePath>Assets\FramesPictures\Frames-transparent-topbottom.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent.jpg">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\FramesPictures\Frames-transparent.jpg">
       <PackagePath>Assets\FramesPictures\Frames-transparent.jpg</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Common\ReadMe.txt">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Common\ReadMe.txt">
       <PackagePath>Common\ReadMe.txt</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\App.xaml">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\App.xaml">
       <PackagePath>App.xaml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\Common\StandardStyles.xaml">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\Common\StandardStyles.xaml">
       <PackagePath>Common\StandardStyles.xaml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\MainPage.xaml">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\DisplayImage.xaml">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\DisplayImage.xaml">
       <PackagePath>UserControls\DisplayImage.xaml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\MenuPopup.xaml">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\MenuPopup.xaml">
       <PackagePath>UserControls\MenuPopup.xaml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

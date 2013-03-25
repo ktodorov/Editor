@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using RemedyPic.UserControls;
+using RemedyPic;
 
 namespace RemedyPic.UserControls
 {
@@ -39,7 +40,7 @@ namespace RemedyPic.UserControls
             SelectCustom.IsChecked = false;
             //PopupFilters.IsOpen = true;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-check.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects-check.png");
             EffectsIcon.Source = temp;
         }
 
@@ -47,7 +48,7 @@ namespace RemedyPic.UserControls
         {
             //PopupFilters.IsOpen = false;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects.png");
             EffectsIcon.Source = temp;
         }
 
@@ -62,9 +63,10 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
+
             //PopupColors.IsOpen = true;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors-checked.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colors-checked.png");
             ColorsIcon.Source = temp;
 
         }
@@ -73,7 +75,7 @@ namespace RemedyPic.UserControls
         {
             //PopupColors.IsOpen = false;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colors.png");
             ColorsIcon.Source = temp;
         }
 
@@ -90,7 +92,7 @@ namespace RemedyPic.UserControls
             SelectCustom.IsChecked = false;
             //PopupExposure.IsOpen = true;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure-checked.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Exposure-checked.png");
             ExposureIcon.Source = temp;
         }
 
@@ -98,7 +100,7 @@ namespace RemedyPic.UserControls
         {
             //PopupExposure.IsOpen = false;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Exposure.png");
             ExposureIcon.Source = temp;
         }
 
@@ -115,7 +117,7 @@ namespace RemedyPic.UserControls
             SelectCustom.IsChecked = false;
             //PopupRotations.IsOpen = true;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate-checked.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Rotate-checked.png");
             RotateIcon.Source = temp;
         }
 
@@ -123,7 +125,7 @@ namespace RemedyPic.UserControls
         {
             //PopupRotations.IsOpen = false;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Rotate.png");
             RotateIcon.Source = temp;
         }
 
@@ -140,7 +142,7 @@ namespace RemedyPic.UserControls
             SelectCustom.IsChecked = false;
             //PopupImageOptions.IsOpen = true;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options-checked.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Options-checked.png");
             OptionsIcon.Source = temp;
         }
 
@@ -148,7 +150,7 @@ namespace RemedyPic.UserControls
         {
             //PopupImageOptions.IsOpen = false;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Options.png");
             OptionsIcon.Source = temp;
         }
 
@@ -165,7 +167,7 @@ namespace RemedyPic.UserControls
             SelectCustom.IsChecked = false;
             //PopupColorize.IsOpen = true;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-checked.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colorize-checked.png");
             ColorizeIcon.Source = temp;
         }
 
@@ -173,7 +175,7 @@ namespace RemedyPic.UserControls
         {
             //PopupColorize.IsOpen = false;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colorize.png");
             ColorizeIcon.Source = temp;
         }
 
@@ -190,7 +192,7 @@ namespace RemedyPic.UserControls
             SelectCustom.IsChecked = false;
             //PopupFrames.IsOpen = true;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-checked.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Frame-checked.png");
             FramesIcon.Source = temp;
         }
 
@@ -198,7 +200,7 @@ namespace RemedyPic.UserControls
         {
             //PopupFrames.IsOpen = false;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Frame.png");
             FramesIcon.Source = temp;
         }
 
@@ -215,7 +217,7 @@ namespace RemedyPic.UserControls
             SelectCustom.IsChecked = false;
             //PopupHistogram.IsOpen = true;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-checked.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Histogram-checked.png");
             HistogramIcon.Source = temp;
         }
 
@@ -223,7 +225,7 @@ namespace RemedyPic.UserControls
         {
             //PopupHistogram.IsOpen = false;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Histogram.png");
             HistogramIcon.Source = temp;
         }
 
@@ -241,7 +243,7 @@ namespace RemedyPic.UserControls
             SelectHistogram.IsChecked = false;
             //PopupCustomFilter.IsOpen = true;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter-checked.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/CustomFilter-checked.png");
             CustomIcon.Source = temp;
         }
 
@@ -249,21 +251,36 @@ namespace RemedyPic.UserControls
         {
             //PopupCustomFilter.IsOpen = false;
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/CustomFilter.png");
             CustomIcon.Source = temp;
         }
+
+		public void deselectPopups()
+		 {
+            // Close all popups.
+            SelectColors.IsChecked = false;
+            SelectFilters.IsChecked = false;
+            SelectRotations.IsChecked = false;
+            SelectOptions.IsChecked = false;
+            SelectColorize.IsChecked = false;
+            SelectFrames.IsChecked = false;
+            SelectHistogram.IsChecked = false;
+            SelectExposure.IsChecked = false;
+            SelectCustom.IsChecked = false;
+	}
 
 
         public void CropChecked(object sender, RoutedEventArgs e)
         {
             // Called when the Crop button is checked.
-            //deselectPopups();
+            deselectPopups();
             //Crop.Visibility = Visibility.Visible;
             //imageDisplayed.imageCanvas.Visibility = Visibility.Visible;
             //imageDisplayed.displayGrid.Margin = new Thickness(15);
             //ResetZoomPos();
+			
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop-checked.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Crop-checked.png");
             CropIcon.Source = temp;
         }
 
@@ -275,7 +292,7 @@ namespace RemedyPic.UserControls
             //imageDisplayed.selectedRegion.ResetCorner(0, 0, imageDisplayed.displayImage.ActualWidth, imageDisplayed.displayImage.ActualHeight);
             //imageDisplayed.displayGrid.Margin = new Thickness(0);
             BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop.png");
+            temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Crop.png");
             CropIcon.Source = temp;
         }
 
@@ -287,7 +304,7 @@ namespace RemedyPic.UserControls
             if (SelectFilters.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects-hover.png");
                 EffectsIcon.Source = temp;
             }
         }
@@ -297,7 +314,7 @@ namespace RemedyPic.UserControls
             if (SelectFilters.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects.png");
                 EffectsIcon.Source = temp;
             }
         }
@@ -307,7 +324,7 @@ namespace RemedyPic.UserControls
             if (SelectColors.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colors-hover.png");
                 ColorsIcon.Source = temp;
             }
         }
@@ -317,7 +334,7 @@ namespace RemedyPic.UserControls
             if (SelectColors.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colors.png");
                 ColorsIcon.Source = temp;
             }
         }
@@ -327,7 +344,7 @@ namespace RemedyPic.UserControls
             if (SelectExposure.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Exposure-hover.png");
                 ExposureIcon.Source = temp;
             }
         }
@@ -337,7 +354,7 @@ namespace RemedyPic.UserControls
             if (SelectExposure.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Exposure.png");
                 ExposureIcon.Source = temp;
             }
         }
@@ -347,7 +364,7 @@ namespace RemedyPic.UserControls
             if (SelectRotations.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Rotate-hover.png");
                 RotateIcon.Source = temp;
             }
         }
@@ -357,7 +374,7 @@ namespace RemedyPic.UserControls
             if (SelectRotations.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Rotate.png");
                 RotateIcon.Source = temp;
             }
         }
@@ -367,7 +384,7 @@ namespace RemedyPic.UserControls
             if (SelectColorize.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colorize-hover.png");
                 ColorizeIcon.Source = temp;
             }
         }
@@ -377,7 +394,7 @@ namespace RemedyPic.UserControls
             if (SelectColorize.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colorize.png");
                 ColorizeIcon.Source = temp;
             }
         }
@@ -387,7 +404,7 @@ namespace RemedyPic.UserControls
             if (SelectFrames.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Frame-hover.png");
                 FramesIcon.Source = temp;
             }
         }
@@ -397,7 +414,7 @@ namespace RemedyPic.UserControls
             if (SelectFrames.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Frame.png");
                 FramesIcon.Source = temp;
             }
         }
@@ -407,7 +424,7 @@ namespace RemedyPic.UserControls
             if (SelectHistogram.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Histogram-hover.png");
                 HistogramIcon.Source = temp;
             }
         }
@@ -417,7 +434,7 @@ namespace RemedyPic.UserControls
             if (SelectHistogram.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Histogram.png");
                 HistogramIcon.Source = temp;
             }
         }
@@ -427,7 +444,7 @@ namespace RemedyPic.UserControls
             if (SelectCrop.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Crop-hover.png");
                 CropIcon.Source = temp;
             }
         }
@@ -437,7 +454,7 @@ namespace RemedyPic.UserControls
             if (SelectCrop.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Crop.png");
                 CropIcon.Source = temp;
             }
         }
@@ -447,7 +464,7 @@ namespace RemedyPic.UserControls
             if (SelectOptions.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Options-hover.png");
                 OptionsIcon.Source = temp;
             }
         }
@@ -457,7 +474,7 @@ namespace RemedyPic.UserControls
             if (SelectOptions.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Options.png");
                 OptionsIcon.Source = temp;
             }
         }
@@ -468,7 +485,7 @@ namespace RemedyPic.UserControls
             if (SelectCustom.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter-hover.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/CustomFilter-hover.png");
                 CustomIcon.Source = temp;
             }
         }
@@ -478,7 +495,7 @@ namespace RemedyPic.UserControls
             if (SelectCustom.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter.png");
+                temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/CustomFilter.png");
                 CustomIcon.Source = temp;
             }
         }

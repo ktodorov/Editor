@@ -145,16 +145,7 @@ namespace RemedyPic
             // They are used later for the image panning and crop function.
             // Finally, we set the selected crop region width and height.
             this.InitializeComponent();
-            //AnimateOutPicture.Begin();
             RegisterCharms();
-            //imageDisplayed.forceManipulationsToEnd = false;
-            //imageDisplayed.InitManipulationTransforms();
-
-            //selectRegion.ManipulationMode = ManipulationModes.Scale |
-            //    ManipulationModes.TranslateX | ManipulationModes.TranslateY;
-
-            //selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
-            //this.DataContext = selectedRegion;
             setPopupsHeight();
         }
 
@@ -168,6 +159,11 @@ namespace RemedyPic
                 DataRequestedEventArgs>(this.ShareImageHandler);
             SettingsPane.GetForCurrentView().CommandsRequested += OnSettingsPaneCommandRequested;
         }
+
+		public void ShowPopup(string Popup)
+		{
+			PopupColors.IsOpen = true;
+		}
 
         public void OnSettingsPaneCommandRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
         {
@@ -575,7 +571,7 @@ namespace RemedyPic
             // Called when the image is loaded.
             // It shows the interface.
             Zoom.Visibility = Visibility.Visible;
-            MenuPopup.IsOpen = true;
+            PopupMenu.menuPopup.IsOpen = true;
             UndoRedo.Visibility = Visibility.Visible;
         }
         #endregion
@@ -1351,7 +1347,7 @@ namespace RemedyPic
         {
             ApplyFilter(appliedFilters);
             FilterApplyReset.Visibility = Visibility.Collapsed;
-            SelectFilters.IsChecked = false;
+            //SelectFilters.IsChecked = false;
             setFilterBitmaps();
             Saved = false;
         }
@@ -1448,7 +1444,7 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
             ColorApplyReset.Visibility = Visibility.Collapsed;
-            SelectColors.IsChecked = false;
+            //SelectColors.IsChecked = false;
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             imageOriginal.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
             setStream(bitmapStream, bitmapImage, imageOriginal);
@@ -1466,7 +1462,7 @@ namespace RemedyPic
         public void OnRotateApplyClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
-            SelectRotations.IsChecked = false;
+           // SelectRotations.IsChecked = false;
             ApplyRotate(appliedRotations);
 
             setFilterBitmaps();
@@ -1506,7 +1502,7 @@ namespace RemedyPic
             ApplyColorize();
             setFilterBitmaps();
             ColorizeApplyReset.Visibility = Visibility.Collapsed;
-            SelectColorize.IsChecked = false;
+            //SelectColorize.IsChecked = false;
             Saved = false;
         }
 
@@ -1592,7 +1588,7 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
             ExposureApplyReset.Visibility = Visibility.Collapsed;
-            SelectExposure.IsChecked = false;
+            //SelectExposure.IsChecked = false;
 
             switch (effect)
             {
@@ -1690,7 +1686,7 @@ namespace RemedyPic
         #region Checked Menu Buttons
         // The events are called when a Menu button is checked or unchecked.
 
-        public void FiltersChecked(object sender, RoutedEventArgs e)
+        /*public void FiltersChecked(object sender, RoutedEventArgs e)
         {
             SelectColors.IsChecked = false;
             SelectRotations.IsChecked = false;
@@ -1818,19 +1814,19 @@ namespace RemedyPic
 
         public void ColorizeChecked(object sender, RoutedEventArgs e)
         {
-            SelectFilters.IsChecked = false;
-            SelectColors.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCrop.IsChecked = false;
-            SelectCustom.IsChecked = false;
+            PopupMenu.SelectFilters.IsChecked = false;
+			PopupMenu.SelectColors.IsChecked = false;
+			PopupMenu.SelectRotations.IsChecked = false;
+			PopupMenu.SelectOptions.IsChecked = false;
+			PopupMenu.SelectFrames.IsChecked = false;
+			PopupMenu.SelectHistogram.IsChecked = false;
+			PopupMenu.SelectExposure.IsChecked = false;
+			PopupMenu.SelectCrop.IsChecked = false;
+			PopupMenu.SelectCustom.IsChecked = false;
             PopupColorize.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-checked.png");
-            ColorizeIcon.Source = temp;
+			PopupMenu.ColorizeIcon.Source = temp;
         }
 
         public void ColorizeUnchecked(object sender, RoutedEventArgs e)
@@ -1838,20 +1834,20 @@ namespace RemedyPic
             PopupColorize.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize.png");
-            ColorizeIcon.Source = temp;
+			PopupMenu.ColorizeIcon.Source = temp;
         }
 
         public void FramesChecked(object sender, RoutedEventArgs e)
         {
-            SelectFilters.IsChecked = false;
-            SelectColors.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCrop.IsChecked = false;
-            SelectCustom.IsChecked = false;
+            PopupMenu.SelectFilters.IsChecked = false;
+            PopupMenu.SelectColors.IsChecked = false;
+            PopupMenu.SelectRotations.IsChecked = false;
+            PopupMenu.SelectOptions.IsChecked = false;
+            PopupMenu.SelectColorize.IsChecked = false;
+            PopupMenu.SelectHistogram.IsChecked = false;
+            PopupMenu.SelectExposure.IsChecked = false;
+            PopupMenu.SelectCrop.IsChecked = false;
+            PopupMenu.SelectCustom.IsChecked = false;
             PopupFrames.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-checked.png");
@@ -1868,15 +1864,15 @@ namespace RemedyPic
 
         public void HistogramChecked(object sender, RoutedEventArgs e)
         {
-            SelectFilters.IsChecked = false;
-            SelectColors.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCrop.IsChecked = false;
-            SelectCustom.IsChecked = false;
+            PopupMenu.SelectFilters.IsChecked = false;
+            PopupMenu.SelectColors.IsChecked = false;
+            PopupMenu.SelectRotations.IsChecked = false;
+            PopupMenu.SelectOptions.IsChecked = false;
+            PopupMenu.SelectColorize.IsChecked = false;
+            PopupMenu.SelectFrames.IsChecked = false;
+            PopupMenu.SelectExposure.IsChecked = false;
+            PopupMenu.SelectCrop.IsChecked = false;
+            PopupMenu.SelectCustom.IsChecked = false;
             PopupHistogram.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-checked.png");
@@ -1894,14 +1890,14 @@ namespace RemedyPic
 
         public void CustomFilterChecked(object sender, RoutedEventArgs e)
         {
-            SelectFilters.IsChecked = false;
-            SelectColors.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCrop.IsChecked = false;
+            PopupMenu.SelectFilters.IsChecked = false;
+            PopupMenu.SelectColors.IsChecked = false;
+            PopupMenu.SelectRotations.IsChecked = false;
+            PopupMenu.SelectOptions.IsChecked = false;
+            PopupMenu.SelectColorize.IsChecked = false;
+            PopupMenu.SelectFrames.IsChecked = false;
+            PopupMenu.SelectExposure.IsChecked = false;
+            PopupMenu.SelectCrop.IsChecked = false;
             SelectHistogram.IsChecked = false;
             PopupCustomFilter.IsOpen = true;
             BitmapImage temp = new BitmapImage();
@@ -1915,7 +1911,7 @@ namespace RemedyPic
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter.png");
             CustomIcon.Source = temp;
-        }
+        }*/
 
         #endregion
 
@@ -2386,7 +2382,7 @@ namespace RemedyPic
         public void OnRotateClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
-            SelectRotations.IsChecked = false;
+            //SelectRotations.IsChecked = false;
 
             if (e.OriginalSource.Equals(RotateLeft))
             {
@@ -2462,15 +2458,15 @@ namespace RemedyPic
         public void BackPopupClicked(object sender, RoutedEventArgs e)
         {
             // If the back popup button is clicked, close all popups.
-            SelectColors.IsChecked = false;
-            SelectFilters.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCustom.IsChecked = false;
+            PopupMenu.SelectColors.IsChecked = false;
+            PopupMenu.SelectFilters.IsChecked = false;
+            PopupMenu.SelectRotations.IsChecked = false;
+            PopupMenu.SelectOptions.IsChecked = false;
+            PopupMenu.SelectColorize.IsChecked = false;
+            PopupMenu.SelectFrames.IsChecked = false;
+            PopupMenu.SelectHistogram.IsChecked = false;
+            PopupMenu.SelectExposure.IsChecked = false;
+            PopupMenu.SelectCustom.IsChecked = false;
         }
 
         public void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -2913,10 +2909,10 @@ namespace RemedyPic
             // A simple "hot key".
             // When the user double-clicks on the interface, 
             // the currently opened popup closes.
-            deselectPopups();
+            //deselectPopups();
         }
 
-        public void deselectPopups()
+     /*   public void deselectPopups()
         {
             // Close all popups.
             SelectColors.IsChecked = false;
@@ -2928,7 +2924,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCustom.IsChecked = false;
-        }
+        }*/
 
         public void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
         {
@@ -3048,7 +3044,7 @@ namespace RemedyPic
         public void HistogramClicked(object sender, RoutedEventArgs e)
         {
             // Equalize the histogram of the current image.
-            SelectHistogram.IsChecked = false;
+            //SelectHistogram.IsChecked = false;
             equalizeHistogram();
             setFilterBitmaps();
         }
@@ -3160,7 +3156,7 @@ namespace RemedyPic
 
         #endregion
 
-        public void CropChecked(object sender, RoutedEventArgs e)
+        /*public void CropChecked(object sender, RoutedEventArgs e)
         {
             // Called when the Crop button is checked.
             deselectPopups();
@@ -3183,7 +3179,7 @@ namespace RemedyPic
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop.png");
             CropIcon.Source = temp;
-        }
+        }*/
 
         async void UpdatePreviewImage()
         {
@@ -3223,7 +3219,7 @@ namespace RemedyPic
             setExampleBitmaps();
             setFilterBitmaps();
 
-            SelectCrop.IsChecked = false;
+            //SelectCrop.IsChecked = false;
 
             imageDisplayed.sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
             imageDisplayed.sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
@@ -3358,7 +3354,7 @@ namespace RemedyPic
 
         #endregion
 
-        public void deselectMenu()
+        /*public void deselectMenu()
         {
             // Deselect all Menu Toggle buttons.
             SelectColors.IsChecked = false;
@@ -3369,7 +3365,7 @@ namespace RemedyPic
             SelectHistogram.IsChecked = false;
             SelectFilters.IsChecked = false;
             SelectCrop.IsChecked = false;
-        }
+        }*/
 
         #region Resizing the image
 
@@ -4092,7 +4088,7 @@ namespace RemedyPic
 
 
         #region Button Icons Events
-        public void OnEffectsPointerOver(object sender, PointerRoutedEventArgs e)
+        /*public void OnEffectsPointerOver(object sender, PointerRoutedEventArgs e)
         {
             if (SelectFilters.IsChecked == false)
             {
@@ -4270,7 +4266,7 @@ namespace RemedyPic
                 temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options.png");
                 OptionsIcon.Source = temp;
             }
-        }
+        }*/
 
         public void OnCameraPointerOver(object sender, PointerRoutedEventArgs e)
         {
@@ -4334,26 +4330,26 @@ namespace RemedyPic
             }
         }
 
-
+		/*
         public void OnCustomFilterPointerOver(object sender, PointerRoutedEventArgs e)
         {
-            if (SelectCustom.IsChecked == false)
+            if (PopupMenu.SelectCustom.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
                 temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter-hover.png");
-                CustomIcon.Source = temp;
+				PopupMenu.CustomIcon.Source = temp;
             }
         }
 
         public void OnCustomFilterPointerExited(object sender, PointerRoutedEventArgs e)
         {
-            if (SelectCustom.IsChecked == false)
+			if (PopupMenu.SelectCustom.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
                 temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter.png");
-                CustomIcon.Source = temp;
+				PopupMenu.CustomIcon.Source = temp;
             }
-        }
+        }*/
 
         #endregion
 
