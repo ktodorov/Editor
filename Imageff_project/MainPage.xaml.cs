@@ -35,8 +35,9 @@ using RemedyPic.UserControls;
 namespace RemedyPic
 {
     #region MainPage class
-    public partial class MainPage
+    public sealed partial class MainPage
     {
+
 
         #region Variables
 
@@ -45,6 +46,8 @@ namespace RemedyPic
         // Those are used for the import/export functions.
         public Configuration configFile = new Configuration();
         public List<string> effectsApplied = new List<string>();
+
+		public static MainPage Current;
 
         // Undo Redo archive
         public List<byte[]> archive_data = new List<byte[]>();
@@ -133,6 +136,7 @@ namespace RemedyPic
         bool Saved = true;
         string PopupCalledBy = "";
 
+		MenuPopup Menu;
         #endregion
 
         public MainPage()
@@ -145,6 +149,9 @@ namespace RemedyPic
             // They are used later for the image panning and crop function.
             // Finally, we set the selected crop region width and height.
             this.InitializeComponent();
+			Current = this;
+			Menu = new MenuPopup();
+			MainMenuPanel.Children.Add(Menu);
             RegisterCharms();
             setPopupsHeight();
         }
@@ -571,7 +578,7 @@ namespace RemedyPic
             // Called when the image is loaded.
             // It shows the interface.
             Zoom.Visibility = Visibility.Visible;
-            PopupMenu.menuPopup.IsOpen = true;
+            Menu.menuPopup.IsOpen = true;
             UndoRedo.Visibility = Visibility.Visible;
         }
         #endregion
@@ -1814,19 +1821,19 @@ namespace RemedyPic
 
         public void ColorizeChecked(object sender, RoutedEventArgs e)
         {
-            PopupMenu.SelectFilters.IsChecked = false;
-			PopupMenu.SelectColors.IsChecked = false;
-			PopupMenu.SelectRotations.IsChecked = false;
-			PopupMenu.SelectOptions.IsChecked = false;
-			PopupMenu.SelectFrames.IsChecked = false;
-			PopupMenu.SelectHistogram.IsChecked = false;
-			PopupMenu.SelectExposure.IsChecked = false;
-			PopupMenu.SelectCrop.IsChecked = false;
-			PopupMenu.SelectCustom.IsChecked = false;
+            Menu.SelectFilters.IsChecked = false;
+			Menu.SelectColors.IsChecked = false;
+			Menu.SelectRotations.IsChecked = false;
+			Menu.SelectOptions.IsChecked = false;
+			Menu.SelectFrames.IsChecked = false;
+			Menu.SelectHistogram.IsChecked = false;
+			Menu.SelectExposure.IsChecked = false;
+			Menu.SelectCrop.IsChecked = false;
+			Menu.SelectCustom.IsChecked = false;
             PopupColorize.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-checked.png");
-			PopupMenu.ColorizeIcon.Source = temp;
+			Menu.ColorizeIcon.Source = temp;
         }
 
         public void ColorizeUnchecked(object sender, RoutedEventArgs e)
@@ -1834,20 +1841,20 @@ namespace RemedyPic
             PopupColorize.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize.png");
-			PopupMenu.ColorizeIcon.Source = temp;
+			Menu.ColorizeIcon.Source = temp;
         }
 
         public void FramesChecked(object sender, RoutedEventArgs e)
         {
-            PopupMenu.SelectFilters.IsChecked = false;
-            PopupMenu.SelectColors.IsChecked = false;
-            PopupMenu.SelectRotations.IsChecked = false;
-            PopupMenu.SelectOptions.IsChecked = false;
-            PopupMenu.SelectColorize.IsChecked = false;
-            PopupMenu.SelectHistogram.IsChecked = false;
-            PopupMenu.SelectExposure.IsChecked = false;
-            PopupMenu.SelectCrop.IsChecked = false;
-            PopupMenu.SelectCustom.IsChecked = false;
+            Menu.SelectFilters.IsChecked = false;
+            Menu.SelectColors.IsChecked = false;
+            Menu.SelectRotations.IsChecked = false;
+            Menu.SelectOptions.IsChecked = false;
+            Menu.SelectColorize.IsChecked = false;
+            Menu.SelectHistogram.IsChecked = false;
+            Menu.SelectExposure.IsChecked = false;
+            Menu.SelectCrop.IsChecked = false;
+            Menu.SelectCustom.IsChecked = false;
             PopupFrames.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-checked.png");
@@ -1864,15 +1871,15 @@ namespace RemedyPic
 
         public void HistogramChecked(object sender, RoutedEventArgs e)
         {
-            PopupMenu.SelectFilters.IsChecked = false;
-            PopupMenu.SelectColors.IsChecked = false;
-            PopupMenu.SelectRotations.IsChecked = false;
-            PopupMenu.SelectOptions.IsChecked = false;
-            PopupMenu.SelectColorize.IsChecked = false;
-            PopupMenu.SelectFrames.IsChecked = false;
-            PopupMenu.SelectExposure.IsChecked = false;
-            PopupMenu.SelectCrop.IsChecked = false;
-            PopupMenu.SelectCustom.IsChecked = false;
+            Menu.SelectFilters.IsChecked = false;
+            Menu.SelectColors.IsChecked = false;
+            Menu.SelectRotations.IsChecked = false;
+            Menu.SelectOptions.IsChecked = false;
+            Menu.SelectColorize.IsChecked = false;
+            Menu.SelectFrames.IsChecked = false;
+            Menu.SelectExposure.IsChecked = false;
+            Menu.SelectCrop.IsChecked = false;
+            Menu.SelectCustom.IsChecked = false;
             PopupHistogram.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-checked.png");
@@ -1890,14 +1897,14 @@ namespace RemedyPic
 
         public void CustomFilterChecked(object sender, RoutedEventArgs e)
         {
-            PopupMenu.SelectFilters.IsChecked = false;
-            PopupMenu.SelectColors.IsChecked = false;
-            PopupMenu.SelectRotations.IsChecked = false;
-            PopupMenu.SelectOptions.IsChecked = false;
-            PopupMenu.SelectColorize.IsChecked = false;
-            PopupMenu.SelectFrames.IsChecked = false;
-            PopupMenu.SelectExposure.IsChecked = false;
-            PopupMenu.SelectCrop.IsChecked = false;
+            Menu.SelectFilters.IsChecked = false;
+            Menu.SelectColors.IsChecked = false;
+            Menu.SelectRotations.IsChecked = false;
+            Menu.SelectOptions.IsChecked = false;
+            Menu.SelectColorize.IsChecked = false;
+            Menu.SelectFrames.IsChecked = false;
+            Menu.SelectExposure.IsChecked = false;
+            Menu.SelectCrop.IsChecked = false;
             SelectHistogram.IsChecked = false;
             PopupCustomFilter.IsOpen = true;
             BitmapImage temp = new BitmapImage();
@@ -2458,15 +2465,15 @@ namespace RemedyPic
         public void BackPopupClicked(object sender, RoutedEventArgs e)
         {
             // If the back popup button is clicked, close all popups.
-            PopupMenu.SelectColors.IsChecked = false;
-            PopupMenu.SelectFilters.IsChecked = false;
-            PopupMenu.SelectRotations.IsChecked = false;
-            PopupMenu.SelectOptions.IsChecked = false;
-            PopupMenu.SelectColorize.IsChecked = false;
-            PopupMenu.SelectFrames.IsChecked = false;
-            PopupMenu.SelectHistogram.IsChecked = false;
-            PopupMenu.SelectExposure.IsChecked = false;
-            PopupMenu.SelectCustom.IsChecked = false;
+            Menu.SelectColors.IsChecked = false;
+            Menu.SelectFilters.IsChecked = false;
+            Menu.SelectRotations.IsChecked = false;
+            Menu.SelectOptions.IsChecked = false;
+            Menu.SelectColorize.IsChecked = false;
+            Menu.SelectFrames.IsChecked = false;
+            Menu.SelectHistogram.IsChecked = false;
+            Menu.SelectExposure.IsChecked = false;
+            Menu.SelectCustom.IsChecked = false;
         }
 
         public void BackFeedbackClicked(object sender, RoutedEventArgs e)
@@ -4333,21 +4340,21 @@ namespace RemedyPic
 		/*
         public void OnCustomFilterPointerOver(object sender, PointerRoutedEventArgs e)
         {
-            if (PopupMenu.SelectCustom.IsChecked == false)
+            if (Menu.SelectCustom.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
                 temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter-hover.png");
-				PopupMenu.CustomIcon.Source = temp;
+				Menu.CustomIcon.Source = temp;
             }
         }
 
         public void OnCustomFilterPointerExited(object sender, PointerRoutedEventArgs e)
         {
-			if (PopupMenu.SelectCustom.IsChecked == false)
+			if (Menu.SelectCustom.IsChecked == false)
             {
                 BitmapImage temp = new BitmapImage();
                 temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter.png");
-				PopupMenu.CustomIcon.Source = temp;
+				Menu.CustomIcon.Source = temp;
             }
         }*/
 
