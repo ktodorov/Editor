@@ -531,8 +531,8 @@ namespace RemedyPic.Common
             for (int CurrentByte = 3, AlphaCoeff = 0, CurrentColumn = 0; CurrentByte < _dstPixels.Length; CurrentByte += 4, CurrentColumn++)
             {
                 Noise_GetNewColumn(ref CurrentColumn, ref CurrentByte, SquareWidth);
-                Noise_GetNewAlphacCoeff(CurrentColumn, SquareWidth, ref AlphaCoeff, ref random);
-                Noise_SetNewRow(CurrentByte, AlphaCoeff, SquareWidth);
+                Noise_GetNewAlphacCoeff(CurrentColumn, SquareWidth, ref AlphaCoeff, random);
+                Noise_SetNewColumn(CurrentByte, AlphaCoeff, SquareWidth);
             }
         }
 
@@ -547,7 +547,7 @@ namespace RemedyPic.Common
         }
 
         // If all of the pixel of square are set`s recalculate the new alpha coeff for the new square
-        private void Noise_GetNewAlphacCoeff(int CurrentColumn, int SquareWidth, ref int AlphaCoeff, ref Random random)
+        private void Noise_GetNewAlphacCoeff(int CurrentColumn, int SquareWidth, ref int AlphaCoeff, Random random)
         {
             if (CurrentColumn % SquareWidth == 0)
             {
@@ -555,8 +555,8 @@ namespace RemedyPic.Common
             }
         }
 
-        // Set one row of the square with new alpha
-        private void Noise_SetNewRow(int index, int AlphaCoeff, int SquareWidth)
+        // Set one column    of the square with new alpha
+        private void Noise_SetNewColumn(int index, int AlphaCoeff, int SquareWidth)
         {
             for (int k = 0; k < SquareWidth && index < _dstPixels.Length; k++, index += 4 * _width)
             {
@@ -674,6 +674,12 @@ namespace RemedyPic.Common
         public void ColorChange(double BlueColorValue, double GreenColorValue, double RedColorValue, double BlueContrastValue, double GreenContrastValue, double RedContrastValue)
         {
             _dstPixels = (byte[])_srcPixels.Clone();
+            
+            // Get the contrast values of each color
+            Contrast_GetContrastValue(ref BlueContrastValue);
+            Contrast_GetContrastValue(ref GreenContrastValue);
+            Contrast_GetContrastValue(ref RedContrastValue);
+
             for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
             {
                 ColorChange_GetNewColors(CurrentByte, BlueColorValue, GreenColorValue, RedColorValue);
@@ -703,11 +709,6 @@ namespace RemedyPic.Common
         // Gets new values for B G R color of selected pixel of image (depends of the value of R G B contrast sliders)
         private void ColorChange_GetNewContrasts(int CurrentByte, double BlueContrastValue, double GreenContrastValue, double RedContrastValue)
         {
-            // Get the contrast values of each color
-            Contrast_GetContrastValue(ref BlueContrastValue);
-            Contrast_GetContrastValue(ref GreenContrastValue);
-            Contrast_GetContrastValue(ref RedContrastValue);
-
             Contrast_GetNewContrast(CurrentByte, BlueContrastValue);
             Contrast_GetNewContrast(CurrentByte + 1, GreenContrastValue);
             Contrast_GetNewContrast(CurrentByte + 2, RedContrastValue);
@@ -754,9 +755,9 @@ namespace RemedyPic.Common
         // Main function which changes BGR colors
         public void GammaChange(double BlueColorValue, double GreenColorValue, double RedColorValue)
         {                                                             // Divide by 10 because the value must be between 0.2 and 5. 
-            byte[] BlueGamma = Gamma_GetArray(BlueColorValue / 10);   // Get new color list for BlueGamma. 
-            byte[] GreenGamma = Gamma_GetArray(GreenColorValue / 10); // Get new color list for GreenGamma  
-            byte[] RedGamma = Gamma_GetArray(RedColorValue / 10);     // Get new color list for RedGamma            
+            byte[] BlueGamma = Gamma_GetArray(BlueColorValue / 10);   // Get new color list for Blue color 
+            byte[] GreenGamma = Gamma_GetArray(GreenColorValue / 10); // Get new color list for Green color 
+            byte[] RedGamma = Gamma_GetArray(RedColorValue / 10);     // Get new color list for Red             
 
             for (int CurrentByte = 0; CurrentByte < 4 * _height * _width; CurrentByte += 4)
             {

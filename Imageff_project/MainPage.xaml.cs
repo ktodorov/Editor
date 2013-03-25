@@ -29,6 +29,7 @@ using Windows.UI.ApplicationSettings;
 using Windows.Media.Capture;
 using Windows.System.UserProfile;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 #region Namespace RemedyPic
 namespace RemedyPic
@@ -1011,7 +1012,18 @@ namespace RemedyPic
             if (archive_current_index > 0) // Check if there is no more for undo
             {
                 archive_current_index--;
+                if (effectsApplied.Count > 0 && (Regex.IsMatch(effectsApplied[archive_current_index], "Crop") || Regex.IsMatch(effectsApplied[archive_current_index], "Resize")))
+                {                    
+                    string[] sizes = effectsApplied[archive_current_index].Split(' ');
+                    imageOriginal.width = Convert.ToInt32(sizes[1]);
+                    imageOriginal.height = Convert.ToInt32(sizes[2]);
+                    imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
+                    imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
+                    bitmapImage = new WriteableBitmap(imageOriginal.width, imageOriginal.height);
+                    bitmapStream = bitmapImage.PixelBuffer.AsStream();
+                }
                 ArchiveSetNewImage();
+                setExampleImage();
             }
             ImageLoadingRing.IsActive = false;
         }
@@ -1024,19 +1036,30 @@ namespace RemedyPic
             if (archive_current_index < archive_data.Count - 1) // Check if there is array for redo
             {
                 archive_current_index++;
+                if (Regex.IsMatch(effectsApplied[archive_current_index - 1], "Crop") || Regex.IsMatch(effectsApplied[archive_current_index - 1], "Resize"))
+                {
+                    string[] sizes = effectsApplied[archive_current_index - 1].Split(' ');
+                    imageOriginal.width = Convert.ToInt32(sizes[3]);
+                    imageOriginal.height = Convert.ToInt32(sizes[4]);
+                    imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
+                    imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
+                    bitmapImage = new WriteableBitmap(imageOriginal.width, imageOriginal.height);
+                    bitmapStream = bitmapImage.PixelBuffer.AsStream();
+                }                
                 ArchiveSetNewImage();
             }
             ImageLoadingRing.IsActive = false;
         }
 
         private void ArchiveSetNewImage()
-        {
+        {            
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
             imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
             setStream(bitmapStream, bitmapImage, imageOriginal);
             setExampleImage();
             setFilterBitmaps();
+            displayImage.Source = bitmapImage;
         }
 
         // Add pixel array to the archive and increment current index of the archive
@@ -2412,6 +2435,9 @@ namespace RemedyPic
             setExampleBitmaps();
             setFilterBitmaps();
 
+            sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
+            sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
+
             ImageLoadingRing.IsActive = false;
         }
 
@@ -2974,6 +3000,7 @@ namespace RemedyPic
             SelectFrames.IsChecked = false;
             SelectHistogram.IsChecked = false;
             SelectExposure.IsChecked = false;
+            SelectCustom.IsChecked = false;
         }
 
         private void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
@@ -3244,6 +3271,9 @@ namespace RemedyPic
                 this.selectedRegion.SelectedRect.Width / sourceImageWidthScale,
                 this.selectedRegion.SelectedRect.Height / sourceImageHeightScale);
 
+            int OrignalWidth = imageOriginal.width;
+            int OriginalHeight = imageOriginal.height;
+            
             if (previewImageSize.Width <= imageCanvas.Width &&
                 previewImageSize.Height <= imageCanvas.Height)
             {
@@ -3274,6 +3304,8 @@ namespace RemedyPic
             sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
             sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
 
+            ArchiveAddArray();
+            effectsApplied.Add("Crop " + OrignalWidth + " " + OriginalHeight + " " + (int)previewImageSize.Width + " " + (int)previewImageSize.Height);
             ImageLoadingRing.IsActive = false;
             displayImage.Source = bitmapImage;
         }
@@ -3488,6 +3520,9 @@ namespace RemedyPic
             }
             int resizeWidth = Convert.ToInt32(newWidth.Text);
             int resizeHeight = Convert.ToInt32(newHeight.Text);
+            int OrignalWidth = imageOriginal.width;
+            int OriginalHeight = imageOriginal.height;
+
             ApplyResize.Visibility = Visibility.Collapsed;
 
             bitmapImage = await ResizeImage(bitmapImage, (uint)(resizeWidth), (uint)(resizeHeight));
@@ -3498,6 +3533,8 @@ namespace RemedyPic
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
             displayImage.Source = bitmapImage;
+            ArchiveAddArray();
+            effectsApplied.Add("Resize " + OrignalWidth + " " + OriginalHeight + " " + (int)resizeWidth + " " + (int)resizeHeight);
             setFilterBitmaps();
         }
 
