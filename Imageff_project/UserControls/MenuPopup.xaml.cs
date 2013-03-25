@@ -65,8 +65,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-			rootPage.PopupColors.IsOpen = true;
-            rootPage.PopupColors.IsOpen = true;
+			rootPage.ColorsPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colors-checked.png");
             ColorsIcon.Source = temp;
@@ -75,7 +74,7 @@ namespace RemedyPic.UserControls
 
         public void ColorsUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupColors.IsOpen = false;
+            rootPage.ColorsPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colors.png");
             ColorsIcon.Source = temp;

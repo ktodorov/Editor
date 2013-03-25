@@ -31,6 +31,7 @@ using Windows.System.UserProfile;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using RemedyPic.UserControls;
+using RemedyPic.UserControls.Popups;
 
 #region Namespace RemedyPic
 namespace RemedyPic
@@ -112,6 +113,7 @@ namespace RemedyPic
 		public MenuPopup Menu;
         public MainOptionsPanel Panel;
         public DisplayImage imageDisplayed;
+        public RemedyColors ColorsPopup;
         #endregion
 
         public MainPage()
@@ -139,8 +141,13 @@ namespace RemedyPic
             PanelStack.Children.Add(Panel);
             ImageStack.Children.Add(imageDisplayed);
 
-            RegisterCharms();
+            ColorsPopup = new RemedyColors();
+
             setPopupsHeight();
+
+            SmallPopups.Children.Add(ColorsPopup);
+
+            RegisterCharms();
         }
 
         #region Charms
@@ -156,7 +163,7 @@ namespace RemedyPic
 
 		public void ShowPopup(string Popup)
 		{
-			PopupColors.IsOpen = true;
+			ColorsPopup.Popup.IsOpen = true;
 		}
 
         public void OnSettingsPaneCommandRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
@@ -310,7 +317,7 @@ namespace RemedyPic
             effectsApplied.Clear();
 
             // Set the small WriteableBitmap objects to the three XAML Image objects.
-            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(ColorsPopup.ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
             setElements(ExposureExamplePicture, exampleBitmap);
 
@@ -358,7 +365,7 @@ namespace RemedyPic
             exampleStream = exampleBitmap.PixelBuffer.AsStream();
             image.srcPixels = new byte[(uint)exampleStream.Length];
             await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
-            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(ColorsPopup.ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
             setElements(ExposureExamplePicture, exampleBitmap);
             prepareImage(exampleStream, exampleBitmap, image);
@@ -387,13 +394,13 @@ namespace RemedyPic
         {
             appliedColors = null;
 
-            BlueColorSlider.Value = 0;
-            GreenColorSlider.Value = 0;
-            RedColorSlider.Value = 0;
+            ColorsPopup.BlueColorSlider.Value = 0;
+            ColorsPopup.GreenColorSlider.Value = 0;
+            ColorsPopup.RedColorSlider.Value = 0;
 
-            BlueContrastSlider.Value = 0;
-            GreenContrastSlider.Value = 0;
-            RedContrastSlider.Value = 0;
+            ColorsPopup.BlueContrastSlider.Value = 0;
+            ColorsPopup.GreenContrastSlider.Value = 0;
+            ColorsPopup.RedContrastSlider.Value = 0;
         }
 
         // Reset the slider values of Exposure Menu
@@ -433,7 +440,10 @@ namespace RemedyPic
         {
             // We set the popups height to match the current machine's resolution
             Filters.Height = Window.Current.Bounds.Height;
-            Colors.Height = Window.Current.Bounds.Height;
+            contentGrid.Height = Window.Current.Bounds.Height;
+            SmallPopups.Height = Window.Current.Bounds.Height;
+            ColorsPopup.Popup.Height = Window.Current.Bounds.Height;
+            ColorsPopup.Height = Window.Current.Bounds.Height;
             Rotations.Height = Window.Current.Bounds.Height;
             ImageOptions.Height = Window.Current.Bounds.Height;
             Colorize.Height = Window.Current.Bounds.Height;
@@ -848,8 +858,8 @@ namespace RemedyPic
             {
                 if (PopupFilters.IsOpen)
                     FilterApplyReset.Visibility = Visibility.Visible;
-                else if (PopupColors.IsOpen)
-                    ColorApplyReset.Visibility = Visibility.Visible;
+                else if (ColorsPopup.Popup.IsOpen)
+                    ColorsPopup.ColorApplyReset.Visibility = Visibility.Visible;
                 else if (PopupRotations.IsOpen)
                     RotateApplyReset.Visibility = Visibility.Visible;
                 else if (PopupExposure.IsOpen)
@@ -941,19 +951,6 @@ namespace RemedyPic
         }
         #endregion
 
-        #region Color Change
-
-        public void OnColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        #endregion
 
         #region Resizing an image
 
@@ -1327,31 +1324,6 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = false;
         }
 
-        // Event for apply button on Colors popup. Sets the image with the applied colors
-        public void OnColorApplyClick(object sender, RoutedEventArgs e)
-        {
-            ApplyColor();
-            setFilterBitmaps();
-            Saved = false;
-        }
-
-        public void ApplyColor()
-        {
-            ImageLoadingRing.IsActive = true;
-            ColorApplyReset.Visibility = Visibility.Collapsed;
-            Menu.SelectColors.IsChecked = false;
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-
-            image.srcPixels = (byte[])image.dstPixels.Clone();
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-
-            ArchiveAddArray();
-            effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value + "," + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
-            ResetColorMenuData();
-            ImageLoadingRing.IsActive = false;
-        }
 
         // Event for apply button on  Rotate popup. Sets the image with the applied flip
         public void OnRotateApplyClick(object sender, RoutedEventArgs e)
@@ -1548,7 +1520,7 @@ namespace RemedyPic
             prepareImage(exampleStream, exampleBitmap, image);
             image.Reset();
             setStream(exampleStream, exampleBitmap, image);
-            ColorApplyReset.Visibility = Visibility.Collapsed;
+            ColorsPopup.ColorApplyReset.Visibility = Visibility.Collapsed;
         }
 
         public void OnRotateResetClick(object sender, RoutedEventArgs e)
@@ -2589,7 +2561,7 @@ namespace RemedyPic
             await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
             prepareImage(exampleStream, exampleBitmap, image);
             setStream(exampleStream, exampleBitmap, image);
-            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(ColorsPopup.ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
             setElements(ExposureExamplePicture, exampleBitmap);
 
@@ -3502,18 +3474,18 @@ namespace RemedyPic
         #region Import Functions
         public void importColor(string[] temp)
         {
-            BlueColorSlider.Value = Convert.ToDouble(temp[0]);
-            GreenColorSlider.Value = Convert.ToDouble(temp[1]);
-            RedColorSlider.Value = Convert.ToDouble(temp[2]);
-            ApplyColor();
+            ColorsPopup.BlueColorSlider.Value = Convert.ToDouble(temp[0]);
+            ColorsPopup.GreenColorSlider.Value = Convert.ToDouble(temp[1]);
+            ColorsPopup.RedColorSlider.Value = Convert.ToDouble(temp[2]);
+            ColorsPopup.ApplyColor();
         }
 
         public void importContrast(string[] temp)
         {
-            BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
-            GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
-            RedContrastSlider.Value = Convert.ToDouble(temp[2]);
-            ApplyColor();
+            ColorsPopup.BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
+            ColorsPopup.GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
+            ColorsPopup.RedContrastSlider.Value = Convert.ToDouble(temp[2]);
+            ColorsPopup.ApplyColor();
         }
 
         public void importExposure(string[] temp)
@@ -3664,7 +3636,7 @@ namespace RemedyPic
 
             prepareImage(exampleStream, exampleBitmap, image);
             setStream(exampleStream, exampleBitmap, image);
-            setElements(ColorsExamplePicture, exampleBitmap);
+            setElements(ColorsPopup.ColorsExamplePicture, exampleBitmap);
             setElements(RotationsExamplePicture, exampleBitmap);
             setElements(ExposureExamplePicture, exampleBitmap);
         }

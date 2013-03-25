@@ -120,6 +120,8 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
 
         private object Activate_4_MenuPopup() { return new global::RemedyPic.UserControls.MenuPopup(); }
 
+        private object Activate_5_RemedyColors() { return new global::RemedyPic.UserControls.Popups.RemedyColors(); }
+
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(string typeName)
         {
@@ -162,6 +164,12 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
             case "RemedyPic.UserControls.MenuPopup":
                 userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.MenuPopup), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
                 userType.Activator = Activate_4_MenuPopup;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyColors":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyColors), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_5_RemedyColors;
                 xamlType = userType;
                 break;
 

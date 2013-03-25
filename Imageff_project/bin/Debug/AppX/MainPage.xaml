@@ -105,95 +105,15 @@
             </Border.BorderBrush>
         </Border>
 
-        <Grid x:Name="contentGrid" Margin="0,0,-38.571,3.429" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
+        <Grid x:Name="contentGrid" Margin="0" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
             <Grid.RowDefinitions>
                 <RowDefinition Height="69"/>
                 <RowDefinition Height="43"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Popup x:Name="PopupColors" x:FieldModifier="public" Margin="0,0,380,0" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="5">
-                <Popup.ChildTransitions>
-                    <TransitionCollection>
-                        <PaneThemeTransition/>
-                    </TransitionCollection>
-                </Popup.ChildTransitions>
-                <ScrollViewer x:Name="Colors" Margin="0" BorderThickness="2,0,0,0" VerticalContentAlignment="Top" Grid.RowSpan="3" Background="#FF323131" VerticalScrollBarVisibility="Hidden" Height="768" HorizontalAlignment="Right" MaxZoomFactor="1" MinZoomFactor="1">
-                    <ScrollViewer.BorderBrush>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#FF21FF00"/>
-                            <GradientStop Color="#FF215500" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ScrollViewer.BorderBrush>
-                    <StackPanel x:Name="ColorsPanel"  Width="340" Margin="0" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
-                        <StackPanel.Transitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition/>
-                            </TransitionCollection>
-                        </StackPanel.Transitions>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
-                            <StackPanel Orientation="Horizontal" Margin="0">
-                                <Button x:ConnectionId='140' x:Name="BackColors" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"                          FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
-                                <TextBlock TextWrapping="Wrap" Text="Colors" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
-                            </StackPanel>
-                        </Border>
-                        <Image x:Name="Logo_Copy" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
-                            <Image.Transitions>
-                                <TransitionCollection>
-                                    <EntranceThemeTransition/>
-                                </TransitionCollection>
-                            </Image.Transitions>
-                        </Image>
-                        <Image x:Name="ColorsExamplePicture" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
-                        <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="COLORS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:ConnectionId='132' x:Name ="BlueColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Foreground="{x:Null}" Height="40" Style="{StaticResource SliderStyle1}">
-                            <Slider.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <LinearGradientBrush.RelativeTransform>
-                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                                    </LinearGradientBrush.RelativeTransform>
-                                    <GradientStop Color="#FFF3FF00"/>
-                                    <GradientStop Color="#FF0C00FF" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Slider.Background>
-                        </Slider>
-                        <Slider x:ConnectionId='133' x:Name ="GreenColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Foreground="{x:Null}" Height="40" Style="{StaticResource SliderStyle1}">
-                            <Slider.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <LinearGradientBrush.RelativeTransform>
-                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                                    </LinearGradientBrush.RelativeTransform>
-                                    <GradientStop Color="#FFFF00E8"/>
-                                    <GradientStop Color="#FF17A600" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Slider.Background>
-                        </Slider>
 
-                        <Slider x:ConnectionId='134' x:Name ="RedColorSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Height="40" Foreground="{x:Null}" Style="{StaticResource SliderStyle1}" >
-                            <Slider.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <LinearGradientBrush.RelativeTransform>
-                                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                                    </LinearGradientBrush.RelativeTransform>
-                                    <GradientStop Color="#FF00D1FF"/>
-                                    <GradientStop Color="Red" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Slider.Background>
-                        </Slider>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="CONTRAST" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
-                        <Slider x:ConnectionId='135' x:Name ="BlueContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Blue" Height="40"  Style="{StaticResource SliderStyle1}" />
-                        <Slider x:ConnectionId='136' x:Name ="GreenContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Green" Height="40" Style="{StaticResource SliderStyle1}" />
-                        <Slider x:ConnectionId='137' x:Name ="RedContrastSlider" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100"                               BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Background="#7F6A6A6A" Foreground="Red" Height="40" Style="{StaticResource SliderStyle1}" />
-                        <StackPanel x:Name="ColorApplyReset" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-                            <Button x:ConnectionId='138' x:Name="ColorApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                           Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Style="{StaticResource ImageOptionsStyle}"/>
-                            <Button x:ConnectionId='139' x:Name="ColorResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485"                           Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </ScrollViewer>
-            </Popup>
+            <StackPanel x:Name="SmallPopups" Margin="0" Grid.RowSpan="4" Orientation="Horizontal" Width="340" HorizontalAlignment="Right"/>
+
             <Popup x:Name="PopupFilters"  x:FieldModifier="public" Margin="0,0,420,0" Grid.RowSpan="5" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
