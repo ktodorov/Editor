@@ -4,10 +4,9 @@
     xmlns:local="using:RemedyPic.UserControls"
     xmlns:common="using:RemedyPic.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:sys="using:System"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="pageRoot"
     x:Class="RemedyPic.MainPage"
-    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Mode=Self}}"
     mc:Ignorable="d">
 
     <common:LayoutAwarePage.Resources>
@@ -15,7 +14,7 @@
         <x:String x:Key="AppName">Imageff Project</x:String>
     </common:LayoutAwarePage.Resources>
 
-    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FF515050" PointerReleased="ImagePointerReleased" DoubleTapped="GridDoubleTapped">
+    <Grid x:Name="ContentRoot" Style="{StaticResource LayoutRootStyle}" Background="#FF515050" PointerReleased="ImagePointerReleased" DoubleTapped="GridDoubleTapped">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="FirstCol" Width="569*"/>
             <ColumnDefinition Width="114*"/>
@@ -813,7 +812,7 @@
                 <RowDefinition Height="43"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Popup x:Name="PopupColors" Margin="0,0,380,0" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="5">
+            <Popup x:Name="PopupColors" x:FieldModifier="public" Margin="0,0,380,0" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="5">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -896,7 +895,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupFilters" Margin="0,0,420,0" Grid.RowSpan="5" HorizontalAlignment="Right" IsOpen="False">
+            <Popup x:Name="PopupFilters"  x:FieldModifier="public" Margin="0,0,420,0" Grid.RowSpan="5" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -1063,7 +1062,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupExposure" Margin="0,0,380,-0.429" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="3">
+            <Popup x:Name="PopupExposure" x:FieldModifier="public" Margin="0,0,380,-0.429" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="3">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -1123,7 +1122,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupRotations" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+            <Popup x:Name="PopupRotations" x:FieldModifier="public" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -1195,7 +1194,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupImageOptions" Margin="0,0,380,0" Grid.RowSpan="4" HorizontalAlignment="Right" IsOpen="False">
+            <Popup x:Name="PopupImageOptions" x:FieldModifier="public" Margin="0,0,380,0" Grid.RowSpan="4" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -1274,7 +1273,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupColorize" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+            <Popup x:Name="PopupColorize" x:FieldModifier="public" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -1353,7 +1352,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupFrames" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+            <Popup x:Name="PopupFrames" x:FieldModifier="public" Margin="0,0,380,0" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -1553,7 +1552,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupHistogram" Margin="0,0,380,-1" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+            <Popup x:Name="PopupHistogram" x:FieldModifier="public" Margin="0,0,380,-1" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -1594,7 +1593,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Popup>
-            <Popup x:Name="PopupCustomFilter" Margin="0,0,380,-1.429" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
+            <Popup x:Name="PopupCustomFilter" x:FieldModifier="public" Margin="0,0,380,-1.429" Grid.RowSpan="3" HorizontalAlignment="Right" IsOpen="False">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition/>
@@ -1750,7 +1749,7 @@
                 <HyperlinkButton Content="antonvdudov@gmail.com" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,3,15,0" Grid.Row="4" NavigateUri="mailto:antonvdudov@gmail.com" Padding="12,0" Height="26" Width="202" Foreground="#FF1D6A00"/>
             </Grid>
         </Popup>
-        <local:MenuPopup x:Name="PopupMenu" Grid.Row="3" HorizontalAlignment="Center"/>
+        <!--<local:MenuPopup x:Name="PopupMenu" Grid.Row="3" HorizontalAlignment="Center"/>-->
         <!--<Popup x:Name="MenuPopup" Margin="0,0,900,0" IsOpen="False" Grid.RowSpan="2" Grid.Row="3" HorizontalAlignment="Center">
             <Popup.ChildTransitions>
                 <TransitionCollection>
@@ -1917,5 +1916,6 @@
             </Border>
         </Popup>
         <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="60" Margin="0" VerticalAlignment="Center" Width="60" Grid.Row="2"/>
+        <StackPanel x:Name="MainMenuPanel" Margin="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center"/>
     </Grid>
 </common:LayoutAwarePage>
