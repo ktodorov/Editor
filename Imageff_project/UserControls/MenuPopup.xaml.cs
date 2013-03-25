@@ -40,7 +40,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            //PopupFilters.IsOpen = true;
+            rootPage.PopupFilters.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects-check.png");
             EffectsIcon.Source = temp;
@@ -48,7 +48,7 @@ namespace RemedyPic.UserControls
 
         public void FiltersUnchecked(object sender, RoutedEventArgs e)
         {
-            //PopupFilters.IsOpen = false;
+            rootPage.PopupFilters.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects.png");
             EffectsIcon.Source = temp;
@@ -276,10 +276,10 @@ namespace RemedyPic.UserControls
         {
             // Called when the Crop button is checked.
             deselectPopups();
-            //Crop.Visibility = Visibility.Visible;
-            //imageDisplayed.imageCanvas.Visibility = Visibility.Visible;
-            //imageDisplayed.displayGrid.Margin = new Thickness(15);
-            //ResetZoomPos();
+            rootPage.Panel.Crop.Visibility = Visibility.Visible;
+            rootPage.imageDisplayed.imageCanvas.Visibility = Visibility.Visible;
+            rootPage.imageDisplayed.displayGrid.Margin = new Thickness(15);
+            rootPage.Panel.ResetZoomPos();
 			
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Crop-checked.png");
@@ -289,11 +289,11 @@ namespace RemedyPic.UserControls
         public void CropUnchecked(object sender, RoutedEventArgs e)
         {
             // Called when the Crop button is unchecked.
-            //Crop.Visibility = Visibility.Collapsed;
-			
-            //imageDisplayed.imageCanvas.Visibility = Visibility.Collapsed;
-            //imageDisplayed.selectedRegion.ResetCorner(0, 0, imageDisplayed.displayImage.ActualWidth, imageDisplayed.displayImage.ActualHeight);
-            //imageDisplayed.displayGrid.Margin = new Thickness(0);
+            rootPage.Panel.Crop.Visibility = Visibility.Collapsed;
+
+            rootPage.imageDisplayed.imageCanvas.Visibility = Visibility.Collapsed;
+            rootPage.imageDisplayed.selectedRegion.ResetCorner(0, 0, rootPage.imageDisplayed.displayImage.ActualWidth, rootPage.imageDisplayed.displayImage.ActualHeight);
+            rootPage.imageDisplayed.displayGrid.Margin = new Thickness(0);
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Crop.png");
             CropIcon.Source = temp;

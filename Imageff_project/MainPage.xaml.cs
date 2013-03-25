@@ -69,7 +69,7 @@ namespace RemedyPic
         public double canvasEndY = 0.00;
 
         // This variable holds the current file that we are using.
-        StorageFile file;
+        public StorageFile file;
 
         // String variables that hold the current applied changes to the image.
         public string appliedFilters = null, appliedColors = null,
@@ -81,10 +81,10 @@ namespace RemedyPic
         public WriteableBitmap bitmapImage, exampleBitmap;
 
         // The streams are used to save the pixels as a Stream to the WriteableBitmap objects.
-        Stream bitmapStream, exampleStream;
+        public Stream bitmapStream, exampleStream;
 
         // This is set true when the user opens a picture.
-        bool pictureIsLoaded = false;
+        public bool pictureIsLoaded = false;
 
         // Colorize selected colors
         public bool redForColorize, greenForColorize, blueForColorize, yellowForColorize,
@@ -93,9 +93,9 @@ namespace RemedyPic
         // We create three RemedyImages.
         // One for the original displayed image, one for the small images and
         // one to hold the original loaded image so we can get back to it at any time
-        RemedyImage image = new RemedyImage();
-        RemedyImage imageOriginal = new RemedyImage();
-        RemedyImage uneditedImage = new RemedyImage();
+        public RemedyImage image = new RemedyImage();
+        public RemedyImage imageOriginal = new RemedyImage();
+        public RemedyImage uneditedImage = new RemedyImage();
 
         // We create two streams for two of the WriteableBitmap objects.
         public Stream uneditedStream;
@@ -106,10 +106,11 @@ namespace RemedyPic
 
         // This bool variable checks if the user 
         // has made any changes and if he saved them.
-        bool Saved = true;
-        string PopupCalledBy = "";
+        public bool Saved = true;
+        public string PopupCalledBy = "";
 
-		MenuPopup Menu;
+		public MenuPopup Menu;
+        public MainOptionsPanel Panel;
         #endregion
 
         public MainPage()
@@ -124,7 +125,9 @@ namespace RemedyPic
             this.InitializeComponent();
 			Current = this;
 			Menu = new MenuPopup();
+            Panel = new MainOptionsPanel();
 			MainMenuPanel.Children.Add(Menu);
+            PanelStack.Children.Add(Panel);
             RegisterCharms();
             setPopupsHeight();
         }
@@ -266,7 +269,7 @@ namespace RemedyPic
         {
             if (Saved)
             {
-                GetPhoto();
+                Panel.GetPhoto();
             }
             else
             {
@@ -276,96 +279,96 @@ namespace RemedyPic
             }
         }
 
-        public async void GetPhoto(StorageFile fileToUse = null)
-        {
-            // File picker APIs don't work if the app is in a snapped state.
-            // If the app is snapped, try to unsnap it first. Only show the picker if it unsnaps.
-            if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
-                 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
-            {
-                if (fileToUse == null)
-                {
-                    // First, create a new file picker.
-                    FileOpenPicker filePicker = new FileOpenPicker();
-                    // Make the file picker view mode to Thumbnails.
-                    filePicker.ViewMode = PickerViewMode.Thumbnail;
-                    // Add several file extensions to be available for opening.
-                    filePicker.FileTypeFilter.Add(".jpg");
-                    filePicker.FileTypeFilter.Add(".png");
-                    filePicker.FileTypeFilter.Add(".bmp");
-                    filePicker.FileTypeFilter.Add(".jpeg");
+        //public async void GetPhoto(StorageFile fileToUse = null)
+        //{
+        //    // File picker APIs don't work if the app is in a snapped state.
+        //    // If the app is snapped, try to unsnap it first. Only show the picker if it unsnaps.
+        //    if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
+        //         Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
+        //    {
+        //        if (fileToUse == null)
+        //        {
+        //            // First, create a new file picker.
+        //            FileOpenPicker filePicker = new FileOpenPicker();
+        //            // Make the file picker view mode to Thumbnails.
+        //            filePicker.ViewMode = PickerViewMode.Thumbnail;
+        //            // Add several file extensions to be available for opening.
+        //            filePicker.FileTypeFilter.Add(".jpg");
+        //            filePicker.FileTypeFilter.Add(".png");
+        //            filePicker.FileTypeFilter.Add(".bmp");
+        //            filePicker.FileTypeFilter.Add(".jpeg");
 
-                    // Get the selected file and save it to the StorageFile variable.
-                    file = await filePicker.PickSingleFileAsync();
-                    // We create the new WriteableBitmap.
-                }
-                else
-                {
-                    file = fileToUse;
-                }
-                if (file != null)
-                // File is null if user cancels the file picker.
-                {
-                    bitmapImage = new WriteableBitmap(1, 1);
-                    ImageLoadingRing.IsActive = true;
-                    Saved = true;
-                    imageDisplayed.AnimateOutPicture.Begin();
+        //            // Get the selected file and save it to the StorageFile variable.
+        //            file = await filePicker.PickSingleFileAsync();
+        //            // We create the new WriteableBitmap.
+        //        }
+        //        else
+        //        {
+        //            file = fileToUse;
+        //        }
+        //        if (file != null)
+        //        // File is null if user cancels the file picker.
+        //        {
+        //            bitmapImage = new WriteableBitmap(1, 1);
+        //            ImageLoadingRing.IsActive = true;
+        //            Saved = true;
+        //            imageDisplayed.AnimateOutPicture.Begin();
 
-                    // We create a temporary stream for the opened file.
-                    // Then we decode the stream to a BitmapDecoder
-                    // so we can set the image width and height to the variables.
-                    // Then we set the Stream to the WriteableBitmap
-                    // and set the pictureIsLoaded variable to true.
-                    Windows.Storage.Streams.IRandomAccessStream fileStream =
-                            await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
+        //            // We create a temporary stream for the opened file.
+        //            // Then we decode the stream to a BitmapDecoder
+        //            // so we can set the image width and height to the variables.
+        //            // Then we set the Stream to the WriteableBitmap
+        //            // and set the pictureIsLoaded variable to true.
+        //            Windows.Storage.Streams.IRandomAccessStream fileStream =
+        //                    await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
 
-                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(fileStream);
+        //            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(fileStream);
 
-                    imageDisplayed.sourceImagePixelHeight = decoder.PixelHeight;
-                    imageDisplayed.sourceImagePixelWidth = decoder.PixelWidth;
+        //            imageDisplayed.sourceImagePixelHeight = decoder.PixelHeight;
+        //            imageDisplayed.sourceImagePixelWidth = decoder.PixelWidth;
 
 
-                    bitmapImage.SetSource(fileStream);
-                    RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
+        //            bitmapImage.SetSource(fileStream);
+        //            RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromFile(file);
 
-                    // If the interface was changed from previous image, it should be resetted.
-                    ResetZoomPos();
+        //            // If the interface was changed from previous image, it should be resetted.
+        //            ResetZoomPos();
 
-                    pictureIsLoaded = true;
-                    doAllCalculations();
-                    ImageLoadingRing.IsActive = false;
+        //            pictureIsLoaded = true;
+        //            doAllCalculations();
+        //            ImageLoadingRing.IsActive = false;
 
-                }
-            }
-            else
-            {
-                // If the window can't be unsnapped, show alert.
-                await new MessageDialog("Can't open in snapped state. Please unsnap the app and try again", "Close").ShowAsync();
-            }
-        }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // If the window can't be unsnapped, show alert.
+        //        await new MessageDialog("Can't open in snapped state. Please unsnap the app and try again", "Close").ShowAsync();
+        //    }
+        //}
 
-        public void OnCameraButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (Saved)
-            {
-                getCameraPhoto();
-            }
-            else
-            {
-                PopupCalledBy = "Camera";
-                DarkenBorder.Visibility = Visibility.Visible;
-                notSaved.IsOpen = true;
-            }
-        }
+        //public void OnCameraButtonClick(object sender, RoutedEventArgs e)
+        //{
+        //    if (Saved)
+        //    {
+        //        getCameraPhoto();
+        //    }
+        //    else
+        //    {
+        //        PopupCalledBy = "Camera";
+        //        DarkenBorder.Visibility = Visibility.Visible;
+        //        notSaved.IsOpen = true;
+        //    }
+        //}
 
-        public async void getCameraPhoto()
-        {
-            CameraCaptureUI camera = new CameraCaptureUI();
-            camera.PhotoSettings.CroppedAspectRatio = new Size(16, 10);
-            StorageFile photoFile = await camera.CaptureFileAsync(CameraCaptureUIMode.Photo);
-            if (photoFile != null)
-                GetPhoto(photoFile);
-        }
+        //public async void getCameraPhoto()
+        //{
+        //    CameraCaptureUI camera = new CameraCaptureUI();
+        //    camera.PhotoSettings.CroppedAspectRatio = new Size(16, 10);
+        //    StorageFile photoFile = await camera.CaptureFileAsync(CameraCaptureUIMode.Photo);
+        //    if (photoFile != null)
+        //        GetPhoto(photoFile);
+        //}
 
         #endregion
 
@@ -415,7 +418,7 @@ namespace RemedyPic
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             setStream(bitmapStream, bitmapImage, imageOriginal);
 
-            ZoomStack.Visibility = Visibility.Visible;
+            Panel.ZoomStack.Visibility = Visibility.Visible;
 
             // set the small WriteableBitmap objects to the filter buttons.
             setFilterBitmaps();
@@ -428,7 +431,7 @@ namespace RemedyPic
             imageDisplayed.AnimateInPicture.Begin();
 
             // We check the CheckBox that is required for the image to move by default.
-            ImageMoving.IsChecked = true;
+            Panel.ImageMoving.IsChecked = true;
 
             // We set the imagePanel maximum height so the image not to go out of the screen
             imageDisplayed.displayImage.MaxWidth = imageDisplayed.imageBorder.ActualWidth * 0.90;
@@ -550,9 +553,9 @@ namespace RemedyPic
         {
             // Called when the image is loaded.
             // It shows the interface.
-            Zoom.Visibility = Visibility.Visible;
+            Panel.Zoom.Visibility = Visibility.Visible;
             Menu.menuPopup.IsOpen = true;
-            UndoRedo.Visibility = Visibility.Visible;
+            Panel.UndoRedo.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -823,22 +826,6 @@ namespace RemedyPic
         #endregion
 
         #region Save
-        public async void OnSaveButtonClick(object sender, RoutedEventArgs e)
-        {
-            // File picker APIs don't work if the app is in a snapped state.
-            // If the app is snapped, try to unsnap it first. Only show the picker if it unsnaps.
-            if (Windows.UI.ViewManagement.ApplicationView.Value != Windows.UI.ViewManagement.ApplicationViewState.Snapped ||
-                 Windows.UI.ViewManagement.ApplicationView.TryUnsnap() == true)
-            {
-                // We call the SaveFile function with true so we can use the file picker.
-                await SaveFile(true);
-            }
-            else
-            {
-                MessageDialog messageDialog = new MessageDialog("Can't save in snapped state. Please unsnap the app and try again", "Close");
-                await messageDialog.ShowAsync();
-            }
-        }
 
         public async Task<bool> SaveFile(bool picker)
         {
@@ -944,7 +931,7 @@ namespace RemedyPic
                 fileName.FontSize = 85;
         }
 
-        void setStream(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
+        public void setStream(Stream givenStream, WriteableBitmap givenBitmap, RemedyImage givenImage)
         {
             // This sets the pixels to the bitmap
             // and makes the ApplyReset stackPanel of the current popup to appear.
@@ -964,7 +951,7 @@ namespace RemedyPic
             }
         }
 
-        void prepareImage(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
+        public void prepareImage(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
         {
             // This calculates the width and height of the bitmap image
             // and sets the Stream and the pixels byte array
@@ -1349,7 +1336,7 @@ namespace RemedyPic
         {
             ApplyFilter(appliedFilters);
             FilterApplyReset.Visibility = Visibility.Collapsed;
-            //SelectFilters.IsChecked = false;
+            Menu.SelectFilters.IsChecked = false;
             setFilterBitmaps();
             Saved = false;
         }
@@ -1446,7 +1433,7 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
             ColorApplyReset.Visibility = Visibility.Collapsed;
-            //SelectColors.IsChecked = false;
+            Menu.SelectColors.IsChecked = false;
             prepareImage(bitmapStream, bitmapImage, imageOriginal);
             imageOriginal.ColorChange(BlueColorSlider.Value, GreenColorSlider.Value, RedColorSlider.Value, BlueContrastSlider.Value, GreenContrastSlider.Value, RedContrastSlider.Value);
             setStream(bitmapStream, bitmapImage, imageOriginal);
@@ -1504,7 +1491,7 @@ namespace RemedyPic
             ApplyColorize();
             setFilterBitmaps();
             ColorizeApplyReset.Visibility = Visibility.Collapsed;
-            //SelectColorize.IsChecked = false;
+            Menu.SelectColorize.IsChecked = false;
             Saved = false;
         }
 
@@ -1590,7 +1577,7 @@ namespace RemedyPic
         {
             ImageLoadingRing.IsActive = true;
             ExposureApplyReset.Visibility = Visibility.Collapsed;
-            //SelectExposure.IsChecked = false;
+            Menu.SelectExposure.IsChecked = false;
 
             switch (effect)
             {
@@ -1685,237 +1672,6 @@ namespace RemedyPic
         }
         #endregion
 
-        #region Checked Menu Buttons
-        // The events are called when a Menu button is checked or unchecked.
-
-        /*public void FiltersChecked(object sender, RoutedEventArgs e)
-        {
-            SelectColors.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCrop.IsChecked = false;
-            SelectCustom.IsChecked = false;
-            PopupFilters.IsOpen = true;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-check.png");
-            EffectsIcon.Source = temp;
-        }
-
-        public void FiltersUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupFilters.IsOpen = false;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects.png");
-            EffectsIcon.Source = temp;
-        }
-
-        public void ColorsChecked(object sender, RoutedEventArgs e)
-        {
-            SelectFilters.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCrop.IsChecked = false;
-            SelectCustom.IsChecked = false;
-            PopupColors.IsOpen = true;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors-checked.png");
-            ColorsIcon.Source = temp;
-
-        }
-
-        public void ColorsUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupColors.IsOpen = false;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors.png");
-            ColorsIcon.Source = temp;
-        }
-
-        public void ExposureChecked(object sender, RoutedEventArgs e)
-        {
-            SelectFilters.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectColors.IsChecked = false;
-            SelectCrop.IsChecked = false;
-            SelectCustom.IsChecked = false;
-            PopupExposure.IsOpen = true;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure-checked.png");
-            ExposureIcon.Source = temp;
-        }
-
-        public void ExposureUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupExposure.IsOpen = false;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure.png");
-            ExposureIcon.Source = temp;
-        }
-
-        public void RotationsChecked(object sender, RoutedEventArgs e)
-        {
-            SelectFilters.IsChecked = false;
-            SelectColors.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectCrop.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCustom.IsChecked = false;
-            PopupRotations.IsOpen = true;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate-checked.png");
-            RotateIcon.Source = temp;
-        }
-
-        public void RotationsUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupRotations.IsOpen = false;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate.png");
-            RotateIcon.Source = temp;
-        }
-
-        public void OptionsChecked(object sender, RoutedEventArgs e)
-        {
-            SelectFilters.IsChecked = false;
-            SelectColors.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectCrop.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCustom.IsChecked = false;
-            PopupImageOptions.IsOpen = true;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options-checked.png");
-            OptionsIcon.Source = temp;
-        }
-
-        public void OptionsUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupImageOptions.IsOpen = false;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options.png");
-            OptionsIcon.Source = temp;
-        }
-
-        public void ColorizeChecked(object sender, RoutedEventArgs e)
-        {
-            Menu.SelectFilters.IsChecked = false;
-			Menu.SelectColors.IsChecked = false;
-			Menu.SelectRotations.IsChecked = false;
-			Menu.SelectOptions.IsChecked = false;
-			Menu.SelectFrames.IsChecked = false;
-			Menu.SelectHistogram.IsChecked = false;
-			Menu.SelectExposure.IsChecked = false;
-			Menu.SelectCrop.IsChecked = false;
-			Menu.SelectCustom.IsChecked = false;
-            PopupColorize.IsOpen = true;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-checked.png");
-			Menu.ColorizeIcon.Source = temp;
-        }
-
-        public void ColorizeUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupColorize.IsOpen = false;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize.png");
-			Menu.ColorizeIcon.Source = temp;
-        }
-
-        public void FramesChecked(object sender, RoutedEventArgs e)
-        {
-            Menu.SelectFilters.IsChecked = false;
-            Menu.SelectColors.IsChecked = false;
-            Menu.SelectRotations.IsChecked = false;
-            Menu.SelectOptions.IsChecked = false;
-            Menu.SelectColorize.IsChecked = false;
-            Menu.SelectHistogram.IsChecked = false;
-            Menu.SelectExposure.IsChecked = false;
-            Menu.SelectCrop.IsChecked = false;
-            Menu.SelectCustom.IsChecked = false;
-            PopupFrames.IsOpen = true;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-checked.png");
-            FramesIcon.Source = temp;
-        }
-
-        public void FramesUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupFrames.IsOpen = false;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame.png");
-            FramesIcon.Source = temp;
-        }
-
-        public void HistogramChecked(object sender, RoutedEventArgs e)
-        {
-            Menu.SelectFilters.IsChecked = false;
-            Menu.SelectColors.IsChecked = false;
-            Menu.SelectRotations.IsChecked = false;
-            Menu.SelectOptions.IsChecked = false;
-            Menu.SelectColorize.IsChecked = false;
-            Menu.SelectFrames.IsChecked = false;
-            Menu.SelectExposure.IsChecked = false;
-            Menu.SelectCrop.IsChecked = false;
-            Menu.SelectCustom.IsChecked = false;
-            PopupHistogram.IsOpen = true;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-checked.png");
-            HistogramIcon.Source = temp;
-        }
-
-        public void HistogramUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupHistogram.IsOpen = false;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram.png");
-            HistogramIcon.Source = temp;
-        }
-
-
-        public void CustomFilterChecked(object sender, RoutedEventArgs e)
-        {
-            Menu.SelectFilters.IsChecked = false;
-            Menu.SelectColors.IsChecked = false;
-            Menu.SelectRotations.IsChecked = false;
-            Menu.SelectOptions.IsChecked = false;
-            Menu.SelectColorize.IsChecked = false;
-            Menu.SelectFrames.IsChecked = false;
-            Menu.SelectExposure.IsChecked = false;
-            Menu.SelectCrop.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            PopupCustomFilter.IsOpen = true;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter-checked.png");
-            CustomIcon.Source = temp;
-        }
-
-        public void CustomFilterUnchecked(object sender, RoutedEventArgs e)
-        {
-            PopupCustomFilter.IsOpen = false;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter.png");
-            CustomIcon.Source = temp;
-        }*/
-
-        #endregion
 
         #region Frames
         // The events are called when a frame button is clicked.
@@ -2384,7 +2140,7 @@ namespace RemedyPic
         public void OnRotateClick(object sender, RoutedEventArgs e)
         {
             ImageLoadingRing.IsActive = true;
-            //SelectRotations.IsChecked = false;
+            Menu.SelectRotations.IsChecked = false;
 
             if (e.OriginalSource.Equals(RotateLeft))
             {
@@ -2479,57 +2235,7 @@ namespace RemedyPic
         }
         #endregion
 
-        #region Zoom
-        public void ZoomInClicked(object sender, RoutedEventArgs e)
-        {
-           imageDisplayed.scale.ScaleX =imageDisplayed.scale.ScaleX + 0.1;
-           imageDisplayed.scale.ScaleY =imageDisplayed.scale.ScaleY + 0.1;
-            ZoomOut.IsEnabled = true;
-        }
-
-        public void ZoomOutClicked(object sender, RoutedEventArgs e)
-        {
-            if (imageDisplayed.scale.ScaleX > 0.9 && imageDisplayed.scale.ScaleY > 0.9)
-            {
-               imageDisplayed.scale.ScaleX =imageDisplayed.scale.ScaleX - 0.1;
-               imageDisplayed.scale.ScaleY =imageDisplayed.scale.ScaleY - 0.1;
-            }
-            if (imageDisplayed.scale.ScaleX <= 0.9 && imageDisplayed.scale.ScaleY <= 0.9)
-            {
-                ZoomOut.IsEnabled = false;
-            }
-        }
-
-        public void OnResetZoomClick(object sender, RoutedEventArgs e)
-        {
-            ResetZoomPos();
-        }
-
-        public void ResetZoomPos()
-        {
-            imageDisplayed.displayImage.Margin = new Thickness(0, 0, 0, 0);
-            imageDisplayed.displayImage.RenderTransform = null;
-            imageDisplayed.InitManipulationTransforms();
-           imageDisplayed.scale.ScaleX = 1;
-           imageDisplayed.scale.ScaleY = 1;
-        }
-        public void MoveChecked(object sender, RoutedEventArgs e)
-        {
-            imageDisplayed.displayImage.ManipulationMode = ManipulationModes.All;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning-checked.png");
-            PanIcon.Source = temp;
-        }
-
-        public void MoveUnchecked(object sender, RoutedEventArgs e)
-        {
-            imageDisplayed.displayImage.ManipulationMode = ManipulationModes.None;
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning.png");
-            PanIcon.Source = temp;
-        }
-        #endregion
-
+ 
         public void ImagePointerReleased(object sender, PointerRoutedEventArgs e)
         {
             imageDisplayed.forceManipulationsToEnd = true;
@@ -2914,20 +2620,6 @@ namespace RemedyPic
             Menu.deselectPopups();
         }
 
-     /*   public void deselectPopups()
-        {
-            // Close all popups.
-            SelectColors.IsChecked = false;
-            SelectFilters.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectExposure.IsChecked = false;
-            SelectCustom.IsChecked = false;
-        }*/
-
         public void OnImagePointerWheelChanged(object sender, PointerRoutedEventArgs e)
         {
             // Event for the mouse wheel. 
@@ -2943,8 +2635,8 @@ namespace RemedyPic
                 }
                imageDisplayed.scale.ScaleX =imageDisplayed.scale.ScaleX + 0.1;
                imageDisplayed.scale.ScaleY =imageDisplayed.scale.ScaleY + 0.1;
-                if (ZoomOut.IsEnabled == false)
-                    ZoomOut.IsEnabled = true;
+                if (Panel.ZoomOut.IsEnabled == false)
+                    Panel.ZoomOut.IsEnabled = true;
             }
             else
             {
@@ -2953,9 +2645,9 @@ namespace RemedyPic
                    imageDisplayed.scale.ScaleX =imageDisplayed.scale.ScaleX - 0.1;
                    imageDisplayed.scale.ScaleY =imageDisplayed.scale.ScaleY - 0.1;
                 }
-                if (ZoomOut.IsEnabled == true &&imageDisplayed.scale.ScaleX <= 0.9)
+                if (Panel.ZoomOut.IsEnabled == true &&imageDisplayed.scale.ScaleX <= 0.9)
                 {
-                    ZoomOut.IsEnabled = false;
+                    Panel.ZoomOut.IsEnabled = false;
                 }
             }
         }
@@ -3046,7 +2738,7 @@ namespace RemedyPic
         public void HistogramClicked(object sender, RoutedEventArgs e)
         {
             // Equalize the histogram of the current image.
-            //SelectHistogram.IsChecked = false;
+            Menu.SelectHistogram.IsChecked = false;
             equalizeHistogram();
             setFilterBitmaps();
         }
@@ -3158,32 +2850,9 @@ namespace RemedyPic
 
         #endregion
 
-        /*public void CropChecked(object sender, RoutedEventArgs e)
-        {
-            // Called when the Crop button is checked.
-            deselectPopups();
-            Crop.Visibility = Visibility.Visible;
-            imageDisplayed.imageCanvas.Visibility = Visibility.Visible;
-            imageDisplayed.displayGrid.Margin = new Thickness(15);
-            ResetZoomPos();
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop-checked.png");
-            CropIcon.Source = temp;
-        }
 
-        public void CropUnchecked(object sender, RoutedEventArgs e)
-        {
-            // Called when the Crop button is unchecked.
-            Crop.Visibility = Visibility.Collapsed;
-            imageDisplayed.imageCanvas.Visibility = Visibility.Collapsed;
-            imageDisplayed.selectedRegion.ResetCorner(0, 0, imageDisplayed.displayImage.ActualWidth, imageDisplayed.displayImage.ActualHeight);
-            imageDisplayed.displayGrid.Margin = new Thickness(0);
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop.png");
-            CropIcon.Source = temp;
-        }*/
 
-        async void UpdatePreviewImage()
+        public async void UpdatePreviewImage()
         {
             // Updates the current image with the new cropped one.
             ImageLoadingRing.IsActive = true;
@@ -3224,7 +2893,7 @@ namespace RemedyPic
             setExampleBitmaps();
             setFilterBitmaps();
 
-            //SelectCrop.IsChecked = false;
+            Menu.SelectCrop.IsChecked = false;
 
             imageDisplayed.sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
             imageDisplayed.sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
@@ -3345,10 +3014,10 @@ namespace RemedyPic
 
             if (imageDisplayed.selectedRegion.SelectedRect.Width !=imageDisplayed.displayImage.ActualWidth ||
                 imageDisplayed.selectedRegion.SelectedRect.Height !=imageDisplayed.displayImage.ActualHeight)
-                CropApply.Visibility = Visibility.Visible;
+                Panel.CropApply.Visibility = Visibility.Visible;
             else
-                CropApply.Visibility = Visibility.Collapsed;
-            this.selectInfoInBitmapText.Text = string.Format("Resolution: {0}x{1}",
+                Panel.CropApply.Visibility = Visibility.Collapsed;
+            Panel.selectInfoInBitmapText.Text = string.Format("Resolution: {0}x{1}",
                 Math.Floor(imageDisplayed.selectedRegion.SelectedRect.Width / widthScale),
                 Math.Floor(imageDisplayed.selectedRegion.SelectedRect.Height / heightScale));
         }
@@ -3360,19 +3029,6 @@ namespace RemedyPic
         }
 
         #endregion
-
-        /*public void deselectMenu()
-        {
-            // Deselect all Menu Toggle buttons.
-            SelectColors.IsChecked = false;
-            SelectRotations.IsChecked = false;
-            SelectOptions.IsChecked = false;
-            SelectColorize.IsChecked = false;
-            SelectFrames.IsChecked = false;
-            SelectHistogram.IsChecked = false;
-            SelectFilters.IsChecked = false;
-            SelectCrop.IsChecked = false;
-        }*/
 
         #region Resizing the image
 
@@ -4101,273 +3757,6 @@ namespace RemedyPic
         #endregion
 
 
-        #region Button Icons Events
-        /*public void OnEffectsPointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectFilters.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects-hover.png");
-                EffectsIcon.Source = temp;
-            }
-        }
-
-        public void OnEffectsPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectFilters.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Effects.png");
-                EffectsIcon.Source = temp;
-            }
-        }
-
-        public void OnColorsPointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectColors.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors-hover.png");
-                ColorsIcon.Source = temp;
-            }
-        }
-
-        public void OnColorsPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectColors.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colors.png");
-                ColorsIcon.Source = temp;
-            }
-        }
-
-        public void OnExposurePointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectExposure.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure-hover.png");
-                ExposureIcon.Source = temp;
-            }
-        }
-
-        public void OnExposurePointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectExposure.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Exposure.png");
-                ExposureIcon.Source = temp;
-            }
-        }
-
-        public void OnRotatePointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectRotations.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate-hover.png");
-                RotateIcon.Source = temp;
-            }
-        }
-
-        public void OnRotatePointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectRotations.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Rotate.png");
-                RotateIcon.Source = temp;
-            }
-        }
-
-        public void OnColorizePointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectColorize.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize-hover.png");
-                ColorizeIcon.Source = temp;
-            }
-        }
-
-        public void OnColorizePointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectColorize.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Colorize.png");
-                ColorizeIcon.Source = temp;
-            }
-        }
-
-        public void OnFramePointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectFrames.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame-hover.png");
-                FramesIcon.Source = temp;
-            }
-        }
-
-        public void OnFramePointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectFrames.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Frame.png");
-                FramesIcon.Source = temp;
-            }
-        }
-
-        public void OnHistogramPointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectHistogram.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram-hover.png");
-                HistogramIcon.Source = temp;
-            }
-        }
-
-        public void OnHistogramPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectHistogram.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Histogram.png");
-                HistogramIcon.Source = temp;
-            }
-        }
-
-        public void OnCropPointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectCrop.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop-hover.png");
-                CropIcon.Source = temp;
-            }
-        }
-
-        public void OnCropPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectCrop.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Crop.png");
-                CropIcon.Source = temp;
-            }
-        }
-
-        public void OnOptionsPointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectOptions.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options-hover.png");
-                OptionsIcon.Source = temp;
-            }
-        }
-
-        public void OnOptionsPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (SelectOptions.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Options.png");
-                OptionsIcon.Source = temp;
-            }
-        }*/
-
-        public void OnCameraPointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Camera-hover.png");
-            CameraIcon.Source = temp;
-        }
-
-        public void OnCameraPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Camera.png");
-            CameraIcon.Source = temp;
-        }
-
-        public void OnBrowsePointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Browse-hover.png");
-            BrowseIcon.Source = temp;
-        }
-
-        public void OnBrowsePointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Browse.png");
-            BrowseIcon.Source = temp;
-        }
-
-        public void OnSavePointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Save-hover.png");
-            SaveIcon.Source = temp;
-        }
-
-        public void OnSavePointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            BitmapImage temp = new BitmapImage();
-            temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Save.png");
-            SaveIcon.Source = temp;
-        }
-
-        public void OnPanPointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (ImageMoving.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning-hover.png");
-                PanIcon.Source = temp;
-            }
-        }
-
-        public void OnPanPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (ImageMoving.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/Panning.png");
-                PanIcon.Source = temp;
-            }
-        }
-
-		/*
-        public void OnCustomFilterPointerOver(object sender, PointerRoutedEventArgs e)
-        {
-            if (Menu.SelectCustom.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter-hover.png");
-				Menu.CustomIcon.Source = temp;
-            }
-        }
-
-        public void OnCustomFilterPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-			if (Menu.SelectCustom.IsChecked == false)
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.UriSource = new Uri(this.BaseUri, "Assets/Buttons/CustomFilter.png");
-				Menu.CustomIcon.Source = temp;
-            }
-        }*/
-
-        #endregion
-
-
         public void OnCancelSaveClicked(object sender, RoutedEventArgs e)
         {
             notSaved.IsOpen = false;
@@ -4383,11 +3772,11 @@ namespace RemedyPic
             }
             if (PopupCalledBy == "Browse")
             {
-                GetPhoto();
+                Panel.GetPhoto();
             }
             else if (PopupCalledBy == "Camera")
             {
-                getCameraPhoto();
+                Panel.getCameraPhoto();
             }
         }
 

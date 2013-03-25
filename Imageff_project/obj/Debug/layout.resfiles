@@ -60,5 +60,6 @@ App.xaml
 Common\StandardStyles.xaml
 MainPage.xaml
 UserControls\DisplayImage.xaml
+UserControls\MainOptionsPanel.xaml
 UserControls\MenuPopup.xaml
 Common\ReadMe.txt

@@ -118,7 +118,9 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
 
         private object Activate_2_MainPage() { return new global::RemedyPic.MainPage(); }
 
-        private object Activate_3_MenuPopup() { return new global::RemedyPic.UserControls.MenuPopup(); }
+        private object Activate_3_MainOptionsPanel() { return new global::RemedyPic.UserControls.MainOptionsPanel(); }
+
+        private object Activate_4_MenuPopup() { return new global::RemedyPic.UserControls.MenuPopup(); }
 
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(string typeName)
@@ -154,9 +156,15 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
                 xamlType = userType;
                 break;
 
+            case "RemedyPic.UserControls.MainOptionsPanel":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.MainOptionsPanel), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_3_MainOptionsPanel;
+                xamlType = userType;
+                break;
+
             case "RemedyPic.UserControls.MenuPopup":
                 userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.MenuPopup), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
-                userType.Activator = Activate_3_MenuPopup;
+                userType.Activator = Activate_4_MenuPopup;
                 xamlType = userType;
                 break;
 

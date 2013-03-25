@@ -17,7 +17,7 @@
     <Grid x:ConnectionId='1' x:Name="ContentRoot" Style="{StaticResource LayoutRootStyle}" Background="#FF515050"                                                                       >
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="FirstCol" Width="569*"/>
-            <ColumnDefinition Width="114*"/>
+            <ColumnDefinition x:Name="PanelCol" Width="114*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="26"/>
@@ -605,7 +605,7 @@
         </Border>
         <TextBlock Text="{Binding Name}" x:Name ="fileName" Foreground="#0CFFFFFF" FontSize="85" FontFamily="Segoe UI" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Margin="15,15,0,0"/>
 
-        <local:DisplayImage x:Name="imageDisplayed" Grid.RowSpan="3"/>
+        <local:DisplayImage x:Name="imageDisplayed" x:FieldModifier="public"  Grid.RowSpan="3"/>
         
         <Border BorderThickness="0,0,0,2" Margin="0" Grid.Row="3" Background="#26FFFFFF" VerticalAlignment="Bottom">
             <Border.BorderBrush>
@@ -661,133 +661,7 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <Grid x:Name="grid" Grid.RowSpan="4" Grid.Column="1" Margin="0.143,0,-0.571,0.429">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel x:Name="stackPanel3" Grid.ColumnSpan="2" Margin="0" Orientation="Vertical">
-                <Image x:Name="Logo" Margin="20,10,20,0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <Image.Transitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition/>
-                        </TransitionCollection>
-                    </Image.Transitions>
-                </Image>
-                <Border x:Name="Browse_Save" BorderThickness="0,0,0,2" VerticalAlignment="Top" Padding="0,0,0,5" Margin="2,0,0,0">
-                    <Border.BorderBrush>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#FF21FF00"/>
-                            <GradientStop Color="#FF218900" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.BorderBrush>
-                    <StackPanel x:Name="stackPanel" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <StackPanel x:Name="stackPanel2" Orientation="Horizontal">
-                            <Button x:ConnectionId='150' x:Name="browseButton" FontFamily="Segoe UI" FontSize="19"                              Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" FontWeight="Semilight"                                                                           >
-                                <StackPanel>
-                                    <Image x:Name="BrowseIcon" Margin="0" Source="Assets/Buttons/Browse.png" Width="60" Height="60"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:ConnectionId='151' x:Name="SaveButton" HorizontalAlignment="Left" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" FontSize="19"                           Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"                                                                       >
-                                <StackPanel x:Name="stackPanel1" Margin="0,0,0,1">
-                                    <Image x:Name="SaveIcon" Margin="0" Source="Assets/Buttons/Save.png" Width="60" Height="60"/>
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button x:ConnectionId='149' x:Name="CameraButton" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="19"                             Foreground="#FFF1E9E9" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Semilight"                                                                           >
-                                <StackPanel>
-                                    <Image x:Name="CameraIcon" Margin="0" Source="Assets/Buttons/Camera.png" Width="45" Height="45"/>
-                                    <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Use camera" Margin="0" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
 
-                <Border x:Name="Zoom" VerticalAlignment="Center" BorderThickness="0,0,0,2" Padding="0,5" Margin="0" Visibility="Collapsed">
-                    <Border.ChildTransitions>
-                        <TransitionCollection>
-                            <EdgeUIThemeTransition Edge="Right"/>
-                        </TransitionCollection>
-                    </Border.ChildTransitions>
-                    <Border.BorderBrush>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#FF21FF00"/>
-                            <GradientStop Color="#FF218900" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.BorderBrush>
-                    <StackPanel x:Name="ZoomStack" HorizontalAlignment="Center">
-                        <StackPanel x:Name="stackPanel4" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:ConnectionId='147' x:Name="ZoomIn" Content="&#xE0C5;" VerticalAlignment="Top"                       FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
-                            <Button x:ConnectionId='148' x:Name="ZoomOut" Content="&#xE0C6;" VerticalAlignment="Top"                        FontSize="26" BorderThickness="0" BorderBrush="#33FFFFFF" Width="50" FontFamily="Segoe UI Symbol" Height="50" Foreground="White" Margin="5,0,0,0" Background="{x:Null}" Padding="0" Style="{StaticResource ImageOptionsStyle}"/>
-                        </StackPanel>
-                        <Button x:ConnectionId='145' x:Name="ResetZoom" Content="Reset Image position" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                          Foreground="White" Height="40" BorderThickness="0,1" BorderBrush="White" Background="{x:Null}" Margin="0,10,0,0" Style="{StaticResource ImageOptionsStyle}"/>
-                        <ToggleButton x:ConnectionId='146' x:Name="ImageMoving" HorizontalAlignment="Center" VerticalAlignment="Center"                                                 IsChecked="False" BorderThickness="0" Padding="0" Margin="0,10,0,0"                                                                      Style="{StaticResource ToggleButtonStyleColorize}" >
-                            <StackPanel HorizontalAlignment="Center">
-                                <Image x:Name="PanIcon" Margin="0" Source="Assets/Buttons/Panning.png" Height="45" HorizontalAlignment="Center"/>
-                                <TextBlock TextWrapping="Wrap" Text="Image moving" Margin="0" HorizontalAlignment="Center" Foreground="White"/>
-                            </StackPanel>
-                        </ToggleButton>
-
-                    </StackPanel>
-                </Border>
-                <Border x:Name="UndoRedo" Margin="2,0,0,0" BorderThickness="0,0,0,2" Visibility="Collapsed" >
-                    <Border.ChildTransitions>
-                        <TransitionCollection>
-                            <EdgeUIThemeTransition Edge="Right"/>
-                        </TransitionCollection>
-                    </Border.ChildTransitions>
-                    <Border.BorderBrush>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#FF21FF00"/>
-                            <GradientStop Color="#FF218900" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.BorderBrush>
-                    <StackPanel x:Name="UndoRedoPanel" Margin="0,10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='142' x:Name="Undo" Content="&#xE10E;"                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
-                        <Button x:ConnectionId='143' x:Name="Redo" Content="&#xE10D;"                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" Background="#3FB6B6B6" BorderBrush="#3348FF50" Foreground="White" BorderThickness="0,2,2,2" FontFamily="Segoe UI Symbol" FontSize="28"/>
-                        <StackPanel x:Name="CropPanel1" Orientation="Vertical" Width="0">
-                            <Border Margin="5">
-                                <TextBlock x:Name="selectInfoInBitmapText1" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="#AAFFFFFF" Margin="10,0,0,0" HorizontalAlignment="Center" FontSize="18" />
-                            </Border>
-                            <Button x:ConnectionId='144' x:Name="CropApply1" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Visibility="Collapsed" Style="{StaticResource ImageOptionsStyle}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-                <Border x:Name="Crop" Margin="2,0,0,0" BorderThickness="0,0,0,2" Visibility="Collapsed" Padding="0,5" >
-                    <Border.Transitions>
-                        <TransitionCollection>
-                            <PaneThemeTransition/>
-                        </TransitionCollection>
-                    </Border.Transitions>
-                    <Border.BorderBrush>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#FF21FF00"/>
-                            <GradientStop Color="#FF218900" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.BorderBrush>
-                    <StackPanel x:Name="CropPanel" Orientation="Vertical">
-                        <Border Margin="5">
-                            <TextBlock x:Name="selectInfoInBitmapText" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="#AAFFFFFF" Margin="10,0,0,0" HorizontalAlignment="Center" FontSize="18" />
-                        </Border>
-                        <Button x:ConnectionId='141' x:Name="CropApply" Content="Apply Crop" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"                               Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Visibility="Collapsed" Style="{StaticResource ImageOptionsStyle}"/>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-        </Grid>
         <Grid x:Name="contentGrid" Margin="0,0,-38.571,3.429" Grid.RowSpan="4" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="420">
             <Grid.RowDefinitions>
                 <RowDefinition Height="69"/>
@@ -1731,8 +1605,8 @@
                 <HyperlinkButton Content="antonvdudov@gmail.com" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,3,15,0" Grid.Row="4" NavigateUri="mailto:antonvdudov@gmail.com" Padding="12,0" Height="26" Width="202" Foreground="#FF1D6A00"/>
             </Grid>
         </Popup>
-        <Border x:Name="DarkenBorder" BorderBrush="Black" BorderThickness="0" Margin="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Collapsed" Background="#B2000000"/>
-        <Popup x:Name="notSaved" Margin="0,0,0,125" Grid.RowSpan="3" Grid.ColumnSpan="2" VerticalAlignment="Center" IsOpen="False" HorizontalAlignment="Left">
+        <Border x:Name="DarkenBorder" x:FieldModifier="public" BorderBrush="Black" BorderThickness="0" Margin="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Collapsed" Background="#B2000000"/>
+        <Popup x:Name="notSaved" x:FieldModifier="public" Margin="0,0,0,125" Grid.RowSpan="3" Grid.ColumnSpan="2" VerticalAlignment="Center" IsOpen="False" HorizontalAlignment="Left">
             <Border BorderBrush="#7F005308" BorderThickness="0,2" Height="250" HorizontalAlignment="Center">
                 <Grid x:Name="notSavedGrid" Background="#CCFFFFFF">
                     <Grid.ColumnDefinitions>
@@ -1747,15 +1621,16 @@
                     </Grid.RowDefinitions>
                     <TextBlock HorizontalAlignment="Center" Margin="20,15,0,11" TextWrapping="Wrap" Text="You have made changes but you didn't save them. Do you want to save now?" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="5" Style="{StaticResource PageSubheaderTextStyle}" Foreground="#FF034400"/>
                     <StackPanel Grid.Column="1" Margin="0" Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button x:ConnectionId='2' x:Name="YesSave" Content="Yes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="#FF004703" Foreground="White" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                      />
+                        <Button x:ConnectionId='2' x:Name="YesSave" x:FieldModifier="public" Content="Yes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="#FF004703" Foreground="White" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                      />
                         <Button x:ConnectionId='3' x:Name="NoSave" Content="No" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="#FF004703" Foreground="White" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                      />
                         <Button x:ConnectionId='4' x:Name="CancelSave" Content="Cancel" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Bottom" Background="#FF004703" Foreground="White" Width="90" Height="50" BorderBrush="#33000000" BorderThickness="2"                            />
                     </StackPanel>
                 </Grid>
             </Border>
         </Popup>
-        <ProgressRing x:Name="ImageLoadingRing" Foreground="White" HorizontalAlignment="Center" Height="60" Margin="0" VerticalAlignment="Center" Width="60" Grid.Row="2"/>
+        <ProgressRing x:Name="ImageLoadingRing" x:FieldModifier="public"  Foreground="White" HorizontalAlignment="Center" Height="60" Margin="0" VerticalAlignment="Center" Width="60" Grid.Row="2"/>
         <StackPanel x:Name="MainMenuPanel" Margin="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center"/>
+        <StackPanel x:Name="PanelStack" Margin="0" Grid.RowSpan="4" Grid.Column="1"/>
     </Grid>
 </common:LayoutAwarePage>
 
