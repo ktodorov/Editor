@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-03-25T14:27:14.452</Modified>
+      <Modified>2013-03-26T18:03:21.438</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-03-25T14:31:36.535</Modified>
+      <Modified>2013-03-26T18:13:35.697</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-03-25T14:31:36.497</Modified>
+      <Modified>2013-03-26T18:13:35.658</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
@@ -278,7 +278,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-03-25T14:31:32.872</Modified>
+      <Modified>2013-03-26T17:48:42.559</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\DisplayImage.xaml">
       <PackagePath>UserControls\DisplayImage.xaml</PackagePath>
@@ -294,15 +294,23 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyColors.xaml">
       <PackagePath>UserControls\Popups\RemedyColors.xaml</PackagePath>
-      <Modified>2013-03-25T14:29:40.639</Modified>
+      <Modified>2013-03-26T18:07:24.108</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyExposure.xaml">
+      <PackagePath>UserControls\Popups\RemedyExposure.xaml</PackagePath>
+      <Modified>2013-03-26T17:46:41.007</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyFilters.xaml">
       <PackagePath>UserControls\Popups\RemedyFilters.xaml</PackagePath>
-      <Modified>2013-03-25T14:30:36.497</Modified>
+      <Modified>2013-03-26T17:47:31.541</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyRotations.xaml">
+      <PackagePath>UserControls\Popups\RemedyRotations.xaml</PackagePath>
+      <Modified>2013-03-26T18:11:26.205</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-03-25T14:27:14.373</Modified>
+      <Modified>2013-03-26T18:03:21.286</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

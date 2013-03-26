@@ -73,8 +73,7 @@ namespace RemedyPic
         public StorageFile file;
 
         // String variables that hold the current applied changes to the image.
-        public string appliedColors = null,
-                           appliedRotations = null, appliedFrame = null, appliedFrameColor = null;
+        public string appliedFrame = null, appliedFrameColor = null;
 
         // We create two WriteableBitmap variables.
         // One for the original image and one for the small bitmaps.
@@ -113,8 +112,12 @@ namespace RemedyPic
 		public MenuPopup Menu;
         public MainOptionsPanel Panel;
         public DisplayImage imageDisplayed;
+
         public RemedyColors ColorsPopup;
         public RemedyFilters FiltersPopup;
+        public RemedyExposure ExposurePopup;
+        public RemedyRotations RotatePopup;
+
         #endregion
 
         public MainPage()
@@ -130,6 +133,13 @@ namespace RemedyPic
 			
             Current = this;
 
+            RegisterInterfaceElements();
+
+            RegisterCharms();
+        }
+
+        private void RegisterInterfaceElements()
+        {
             Menu = new MenuPopup();
             Panel = new MainOptionsPanel();
 
@@ -144,14 +154,17 @@ namespace RemedyPic
 
             ColorsPopup = new RemedyColors();
             FiltersPopup = new RemedyFilters();
+            ExposurePopup = new RemedyExposure();
+            RotatePopup = new RemedyRotations();
 
             setPopupsHeight();
 
             SmallPopups.Children.Add(ColorsPopup);
             contentGrid.Children.Add(FiltersPopup);
-
-            RegisterCharms();
+            SmallPopups.Children.Add(RotatePopup);
+            SmallPopups.Children.Add(ExposurePopup);
         }
+
 
         #region Charms
         public void RegisterCharms()
@@ -321,8 +334,8 @@ namespace RemedyPic
 
             // Set the small WriteableBitmap objects to the three XAML Image objects.
             setElements(ColorsPopup.ColorsExamplePicture, exampleBitmap);
-            setElements(RotationsExamplePicture, exampleBitmap);
-            setElements(ExposureExamplePicture, exampleBitmap);
+            setElements(RotatePopup.RotationsExamplePicture, exampleBitmap);
+            setElements(ExposurePopup.ExposureExamplePicture, exampleBitmap);
 
             // Make the images ready for work.
             prepareImage(exampleStream, exampleBitmap, image);
@@ -361,26 +374,12 @@ namespace RemedyPic
             showInterface();
         }
 
-
-        public async void setExampleImage()
-        {
-            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
-            exampleStream = exampleBitmap.PixelBuffer.AsStream();
-            image.srcPixels = new byte[(uint)exampleStream.Length];
-            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
-            setElements(ColorsPopup.ColorsExamplePicture, exampleBitmap);
-            setElements(RotationsExamplePicture, exampleBitmap);
-            setElements(ExposureExamplePicture, exampleBitmap);
-            prepareImage(exampleStream, exampleBitmap, image);
-            setStream(exampleStream, exampleBitmap, image);
-        }
-
         public void ResetAllSliders()
         {
             ResetFilterMenuData();
-            ResetColorMenuData();
-            ResetExposureMenuData();
-            ResetRotateMenuData();
+            ColorsPopup.ResetColorMenuData();
+            ExposurePopup.ResetExposureMenuData();
+            RotatePopup.ResetRotateMenuData();
             ResetColorizeMenuData();
             ResetFrameMenuData();
         }
@@ -392,35 +391,6 @@ namespace RemedyPic
             FiltersPopup.deselectFilters();
         }
 
-        // Reset the data of Color menu
-        public void ResetColorMenuData()
-        {
-            appliedColors = null;
-
-            ColorsPopup.BlueColorSlider.Value = 0;
-            ColorsPopup.GreenColorSlider.Value = 0;
-            ColorsPopup.RedColorSlider.Value = 0;
-
-            ColorsPopup.BlueContrastSlider.Value = 0;
-            ColorsPopup.GreenContrastSlider.Value = 0;
-            ColorsPopup.RedContrastSlider.Value = 0;
-        }
-
-        // Reset the slider values of Exposure Menu
-        public void ResetExposureMenuData()
-        {
-            brightSlider.Value = 0;
-
-            BlueGammaSlider.Value = 10;
-            GreenGammaSlider.Value = 10;
-            RedGammaSlider.Value = 10;
-        }
-
-        // Reset the data of Rotate menu
-        public void ResetRotateMenuData()
-        {
-            appliedRotations = null;
-        }
 
         // Reset the data of Colorize menu
         public void ResetColorizeMenuData()
@@ -446,13 +416,13 @@ namespace RemedyPic
             SmallPopups.Height = Window.Current.Bounds.Height;
             ColorsPopup.Colors.Height = Window.Current.Bounds.Height;
             FiltersPopup.Filters.Height = Window.Current.Bounds.Height;
-            Rotations.Height = Window.Current.Bounds.Height;
+            ExposurePopup.Exposure.Height = Window.Current.Bounds.Height;
+            RotatePopup.Rotations.Height = Window.Current.Bounds.Height;
             ImageOptions.Height = Window.Current.Bounds.Height;
             Colorize.Height = Window.Current.Bounds.Height;
             Frames.Height = Window.Current.Bounds.Height;
             Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
-            Exposure.Height = Window.Current.Bounds.Height;
             CustomFilter.Height = Window.Current.Bounds.Height;
             notSaved.Width = Window.Current.Bounds.Width;
             notSavedGrid.Width = Window.Current.Bounds.Width;
@@ -598,10 +568,10 @@ namespace RemedyPic
                     FiltersPopup.FilterApplyReset.Visibility = Visibility.Visible;
                 else if (ColorsPopup.Popup.IsOpen)
                     ColorsPopup.ColorApplyReset.Visibility = Visibility.Visible;
-                else if (PopupRotations.IsOpen)
-                    RotateApplyReset.Visibility = Visibility.Visible;
-                else if (PopupExposure.IsOpen)
-                    ExposureApplyReset.Visibility = Visibility.Visible;
+                else if (RotatePopup.Popup.IsOpen)
+                    RotatePopup.RotateApplyReset.Visibility = Visibility.Visible;
+                else if (ExposurePopup.Popup.IsOpen)
+                    ExposurePopup.ExposureApplyReset.Visibility = Visibility.Visible;
             }
         }
 
@@ -637,7 +607,7 @@ namespace RemedyPic
                     bitmapStream = bitmapImage.PixelBuffer.AsStream();
                 }
                 ArchiveSetNewImage();
-                setExampleImage();
+                setExampleBitmaps();
             }
             ImageLoadingRing.IsActive = false;
         }
@@ -671,7 +641,7 @@ namespace RemedyPic
             imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
             imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
             setStream(bitmapStream, bitmapImage, imageOriginal);
-            setExampleImage();
+            setExampleBitmaps();
             FiltersPopup.setFilterBitmaps();
             imageDisplayed.displayImage.Source = bitmapImage;
         }
@@ -742,68 +712,6 @@ namespace RemedyPic
         }
         #endregion
 
-        #region Rotate
-        public async Task<WriteableBitmap> RotateImage(WriteableBitmap baseWriteBitmap, uint width, uint height, string position)
-        {
-            // Get the pixel buffer of the writable bitmap in bytes
-            Stream stream = baseWriteBitmap.PixelBuffer.AsStream();
-            byte[] pixels = new byte[(uint)stream.Length];
-            await stream.ReadAsync(pixels, 0, pixels.Length);
-
-            //Encoding the data of the PixelBuffer we have from the writable bitmap
-            var inMemoryRandomStream = new InMemoryRandomAccessStream();
-            var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream);
-            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)baseWriteBitmap.PixelWidth, (uint)baseWriteBitmap.PixelHeight, 96, 96, pixels);
-            await encoder.FlushAsync();
-
-            // At this point we have an encoded image in inMemoryRandomStream
-            // We apply the transform and decode
-
-            BitmapRotation rotateTo = BitmapRotation.None;
-
-            if (position == "right")
-            {
-                rotateTo = BitmapRotation.Clockwise90Degrees;
-            }
-            else if (position == "left")
-            {
-                rotateTo = BitmapRotation.Clockwise270Degrees;
-            }
-
-            var transform = new BitmapTransform
-            {
-                ScaledWidth = width,
-                ScaledHeight = height,
-                Rotation = rotateTo
-            };
-            inMemoryRandomStream.Seek(0);
-            var decoder = await BitmapDecoder.CreateAsync(inMemoryRandomStream);
-            var pixelData = await decoder.GetPixelDataAsync(
-                            BitmapPixelFormat.Bgra8,
-                            BitmapAlphaMode.Straight,
-                            transform,
-                            ExifOrientationMode.IgnoreExifOrientation,
-                            ColorManagementMode.DoNotColorManage);
-
-            // An array containing the decoded image data
-            var sourceDecodedPixels = pixelData.DetachPixelData();
-
-            // We encode the image buffer again:
-
-            // Encoding data
-            var inMemoryRandomStream2 = new InMemoryRandomAccessStream();
-            var encoder2 = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream2);
-            encoder2.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, height, width, 96, 96, sourceDecodedPixels);
-            await encoder2.FlushAsync();
-            inMemoryRandomStream2.Seek(0);
-
-            // Finally the resized WritableBitmap
-            var bitmap = new WriteableBitmap((int)width, (int)height);
-            await bitmap.SetSourceAsync(inMemoryRandomStream2);
-            return bitmap;
-        }
-
-        #endregion
 
 
         
@@ -811,42 +719,7 @@ namespace RemedyPic
         #region Apply Buttons
         // Event for apply button on Filters popup. Sets the image with the applied filter
 
-        // Event for apply button on  Rotate popup. Sets the image with the applied flip
-        public void OnRotateApplyClick(object sender, RoutedEventArgs e)
-        {
-            ImageLoadingRing.IsActive = true;
-           // SelectRotations.IsChecked = false;
-            ApplyRotate(appliedRotations);
 
-            FiltersPopup.setFilterBitmaps();
-            ImageLoadingRing.IsActive = false;
-            RotateApplyReset.Visibility = Visibility.Collapsed;
-            Saved = false;
-        }
-
-        public void ApplyRotate(string rotation)
-        {
-            switch (rotation)
-            {
-                case "hflip":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.HFlip();
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                case "vflip":
-                    prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                    imageOriginal.VFlip();
-                    setStream(bitmapStream, bitmapImage, imageOriginal);
-                    break;
-                default:
-                    break;
-            }
-            image.srcPixels = (byte[])image.dstPixels.Clone();
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            ArchiveAddArray();
-            effectsApplied.Add("Flip = " + rotation);
-            ResetRotateMenuData();
-        }
 
         // Event for apply button on Colorize popup. Sets the image with the applied color
         public void OnColorizeApplyClick(object sender, RoutedEventArgs e)
@@ -929,71 +802,11 @@ namespace RemedyPic
             }
 
         }
-        // Event for apply button on Exposure popup. Sets the image with the applied exposure
-        public void OnExposureApplyClick(object sender, RoutedEventArgs e)
-        {
-            ApplyExposure(appliedColors);
-            FiltersPopup.setFilterBitmaps();
-            Saved = false;
-        }
-
-        public void ApplyExposure(string effect)
-        {
-            ImageLoadingRing.IsActive = true;
-            ExposureApplyReset.Visibility = Visibility.Collapsed;
-            Menu.SelectExposure.IsChecked = false;
-
-            switch (effect)
-            {
-                case "gammadarken":
-                    doGammaDarken();
-                    break;
-                case "gammalighten":
-                    doGammaLighten();
-                    break;
-                default:
-                    break;
-            }
-
-            image.srcPixels = (byte[])image.dstPixels.Clone();
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            ArchiveAddArray();
-            effectsApplied.Add("Exposure = " + brightSlider.Value + "," + BlueGammaSlider.Value + "," + GreenGammaSlider.Value + "," + RedGammaSlider.Value);
-            ResetExposureMenuData();
-            ImageLoadingRing.IsActive = false;
-        }
-
-        public void doGammaDarken()
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
-            imageOriginal.Darken(brightSlider.Value);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        public void doGammaLighten()
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
-            imageOriginal.Lighten(brightSlider.Value);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
 
         #endregion
 
         #region Reset Buttons
         // All those events reset the interface and return the last applied image.
- 
-        public void OnRotateResetClick(object sender, RoutedEventArgs e)
-        {
-            prepareImage(exampleStream, exampleBitmap, image);
-            image.Reset();
-            setStream(exampleStream, exampleBitmap, image);
-            ResetRotateMenuData();
-            RotateApplyReset.Visibility = Visibility.Collapsed;
-        }
 
         public void OnColorizeResetClick(object sender, RoutedEventArgs e)
         {
@@ -1006,11 +819,6 @@ namespace RemedyPic
                  limeForColorize = false;
         }
 
-        public void OnExposureResetClick(object sender, RoutedEventArgs e)
-        {
-            ResetExposureMenuData();
-            ExposureApplyReset.Visibility = Visibility.Collapsed;
-        }
         #endregion
 
 
@@ -1218,7 +1026,7 @@ namespace RemedyPic
             imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
             ArchiveAddArray();
             effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
-            setExampleImage();
+            setExampleBitmaps();
             FiltersPopup.setFilterBitmaps();
             FramesApplyReset.Visibility = Visibility.Collapsed;
             ResetFrameMenuData();
@@ -1459,99 +1267,6 @@ namespace RemedyPic
         }
         #endregion
 
-        #region Rotate
-        // The events are called when a Rotate button is clicked.
-
-        public void OnHFlipClick(object sender, RoutedEventArgs e)
-        {
-            appliedRotations = "hflip";
-            prepareImage(exampleStream, exampleBitmap, image);
-            image.HFlip();
-            setStream(exampleStream, exampleBitmap, image);
-        }
-
-        public void OnVFlipClick(object sender, RoutedEventArgs e)
-        {
-            appliedRotations = "vflip";
-            prepareImage(exampleStream, exampleBitmap, image);
-            image.VFlip();
-            setStream(exampleStream, exampleBitmap, image);
-        }
-
-        public void OnRotateClick(object sender, RoutedEventArgs e)
-        {
-            ImageLoadingRing.IsActive = true;
-            Menu.SelectRotations.IsChecked = false;
-
-            if (e.OriginalSource.Equals(RotateLeft))
-            {
-                RotateBitmap("RotateLeft");
-            }
-            else if (e.OriginalSource.Equals(RotateRight))
-            {
-                RotateBitmap("RotateRight");
-            }
-
-            ImageLoadingRing.IsActive = false;
-        }
-
-        public async void RotateBitmap(string givenElementString)
-        {
-            if (givenElementString == "RotateLeft")
-            {
-                bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, "left");
-            }
-            else if (givenElementString == "RotateRight")
-            {
-                bitmapImage = await RotateImage(bitmapImage, (uint)bitmapImage.PixelWidth, (uint)bitmapImage.PixelHeight, "right");
-            }
-
-            imageDisplayed.displayImage.Source = bitmapImage;
-
-            bitmapStream = bitmapImage.PixelBuffer.AsStream();
-            imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
-            await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-
-            setExampleBitmaps();
-            FiltersPopup.setFilterBitmaps();
-
-            imageDisplayed.sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
-            imageDisplayed.sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
-        }
-
-        #endregion
-
-        #region Exposure
-        // The event is called when the Gama slider or Brighr slider is changed.
-        public void OnExposureChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                prepareImage(exampleStream, exampleBitmap, image);
-                image.dstPixels = (byte[])image.srcPixels.Clone();
-                image.GammaChange(BlueGammaSlider.Value, GreenGammaSlider.Value, RedGammaSlider.Value);
-                // We check if the changed value 
-                // is higher than 0 - we call the brightness function
-                // is lower than 0  - we call the darkness function
-                // And finally we save the new byte array to the image.
-                if (brightSlider.Value < 0)
-                {
-                    appliedColors = "gammadarken";
-                    image.Darken(brightSlider.Value);
-                }
-                else if (brightSlider.Value >= 0)
-                {
-                    appliedColors = "gammalighten";
-                    image.Lighten(brightSlider.Value);
-                }
-                setStream(exampleStream, exampleBitmap, image);
-            }
-        }
-
-        #endregion
-
         #region Back buttons
 
         public void BackPopupClicked(object sender, RoutedEventArgs e)
@@ -1641,7 +1356,7 @@ namespace RemedyPic
             RestoreOriginalBitmap();
         }
 
-        public async void RestoreOriginalBitmap()
+        public void RestoreOriginalBitmap()
         {
             // Reset the current image.
             imageOriginal.srcPixels = (byte[])uneditedImage.srcPixels.Clone();
@@ -1652,15 +1367,7 @@ namespace RemedyPic
             setStream(bitmapStream, bitmapImage, imageOriginal);
             imageDisplayed.displayImage.Source = bitmapImage;
 
-            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
-            exampleStream = exampleBitmap.PixelBuffer.AsStream();
-            image.srcPixels = new byte[(uint)exampleStream.Length];
-            await exampleStream.ReadAsync(image.srcPixels, 0, image.srcPixels.Length);
-            prepareImage(exampleStream, exampleBitmap, image);
-            setStream(exampleStream, exampleBitmap, image);
-            setElements(ColorsPopup.ColorsExamplePicture, exampleBitmap);
-            setElements(RotationsExamplePicture, exampleBitmap);
-            setElements(ExposureExamplePicture, exampleBitmap);
+            setExampleBitmaps();
 
             FiltersPopup.setFilterBitmaps();
             imageDisplayed.selectedRegion.ResetCorner(0, 0, imageDisplayed.displayImage.ActualWidth, imageDisplayed.displayImage.ActualHeight);
@@ -2539,7 +2246,7 @@ namespace RemedyPic
 
                 case "Flip":
                     temp = configFile.effects[i + 1].Split(',');
-                    ApplyRotate(temp[0]);
+                    RotatePopup.ApplyRotate(temp[0]);
                     break;
 
                 case "Colorize":
@@ -2555,7 +2262,7 @@ namespace RemedyPic
 
                 case "Rotate":
                     temp = configFile.effects[i + 1].Split(',');
-                    RotateBitmap(temp[0]);
+                    RotatePopup.RotateBitmap(temp[0]);
                     break;
 
                 case "Histogram":
@@ -2571,30 +2278,17 @@ namespace RemedyPic
         #region Import Functions
         public void importColor(string[] temp)
         {
-            ColorsPopup.BlueColorSlider.Value = Convert.ToDouble(temp[0]);
-            ColorsPopup.GreenColorSlider.Value = Convert.ToDouble(temp[1]);
-            ColorsPopup.RedColorSlider.Value = Convert.ToDouble(temp[2]);
-            ColorsPopup.ApplyColor();
+            ColorsPopup.importColor(temp);
         }
 
         public void importContrast(string[] temp)
         {
-            ColorsPopup.BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
-            ColorsPopup.GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
-            ColorsPopup.RedContrastSlider.Value = Convert.ToDouble(temp[2]);
-            ColorsPopup.ApplyColor();
+            ColorsPopup.importContrast(temp);
         }
 
         public void importExposure(string[] temp)
         {
-            brightSlider.Value = Convert.ToDouble(temp[0]);
-            BlueGammaSlider.Value = Convert.ToDouble(temp[1]);
-            GreenGammaSlider.Value = Convert.ToDouble(temp[2]);
-            RedGammaSlider.Value = Convert.ToDouble(temp[3]);
-            if (brightSlider.Value < 0)
-                ApplyExposure("gammadarken");
-            else
-                ApplyExposure("gammalighten");
+            ExposurePopup.Import(temp);
         }
 
         public void importColorize(string[] temp)
@@ -2734,8 +2428,8 @@ namespace RemedyPic
             prepareImage(exampleStream, exampleBitmap, image);
             setStream(exampleStream, exampleBitmap, image);
             setElements(ColorsPopup.ColorsExamplePicture, exampleBitmap);
-            setElements(RotationsExamplePicture, exampleBitmap);
-            setElements(ExposureExamplePicture, exampleBitmap);
+            setElements(RotatePopup.RotationsExamplePicture, exampleBitmap);
+            setElements(ExposurePopup.ExposureExamplePicture, exampleBitmap);
         }
 
     }

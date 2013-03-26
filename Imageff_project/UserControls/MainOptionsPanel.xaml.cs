@@ -223,7 +223,7 @@ namespace RemedyPic.UserControls
                     pageRoot.bitmapStream = pageRoot.bitmapImage.PixelBuffer.AsStream();
                 }
                 ArchiveSetNewImage();
-                pageRoot.setExampleImage();
+                pageRoot.setExampleBitmaps();
             }
             pageRoot.ImageLoadingRing.IsActive = false;
         }
@@ -257,7 +257,7 @@ namespace RemedyPic.UserControls
             pageRoot.imageOriginal.srcPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
             pageRoot.imageOriginal.dstPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
             pageRoot.setStream(pageRoot.bitmapStream, pageRoot.bitmapImage, pageRoot.imageOriginal);
-            pageRoot.setExampleImage();
+            pageRoot.setExampleBitmaps();
             pageRoot.FiltersPopup.setFilterBitmaps();
             pageRoot.imageDisplayed.displayImage.Source = pageRoot.bitmapImage;
         }

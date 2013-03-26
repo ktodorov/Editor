@@ -91,7 +91,7 @@ namespace RemedyPic.UserControls
             SelectColors.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupExposure.IsOpen = true;
+            rootPage.ExposurePopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Exposure-checked.png");
             ExposureIcon.Source = temp;
@@ -99,7 +99,7 @@ namespace RemedyPic.UserControls
 
         public void ExposureUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupExposure.IsOpen = false;
+            rootPage.ExposurePopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Exposure.png");
             ExposureIcon.Source = temp;
@@ -116,7 +116,7 @@ namespace RemedyPic.UserControls
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupRotations.IsOpen = true;
+            rootPage.RotatePopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Rotate-checked.png");
             RotateIcon.Source = temp;
@@ -124,7 +124,7 @@ namespace RemedyPic.UserControls
 
         public void RotationsUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupRotations.IsOpen = false;
+            rootPage.RotatePopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Rotate.png");
             RotateIcon.Source = temp;

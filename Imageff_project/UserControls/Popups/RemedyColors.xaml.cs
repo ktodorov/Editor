@@ -16,6 +16,7 @@ namespace RemedyPic.UserControls.Popups
 {
     public sealed partial class RemedyColors : UserControl
     {
+        public string appliedColors = null;
         MainPage rootPage = MainPage.Current;
 
         public RemedyColors()
@@ -55,23 +56,53 @@ namespace RemedyPic.UserControls.Popups
 
             rootPage.ArchiveAddArray();
             rootPage.effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value + "," + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
-            rootPage.ResetColorMenuData();
+            ResetColorMenuData();
             rootPage.ImageLoadingRing.IsActive = false;
         }
 
         public void OnColorResetClick(object sender, RoutedEventArgs e)
         {
             // This resets the interface and returns the last applied image.
-            rootPage.ResetColorMenuData();
+            ResetColorMenuData();
             rootPage.prepareImage(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
             rootPage.image.Reset();
             rootPage.setStream(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
-            rootPage.ColorsPopup.ColorApplyReset.Visibility = Visibility.Collapsed;
+            ColorApplyReset.Visibility = Visibility.Collapsed;
         }
 
         public void BackPopupClicked(object sender, RoutedEventArgs e)
         {
             rootPage.BackPopupClicked(sender, e);
+        }
+
+        // Reset the data of Color menu
+        public void ResetColorMenuData()
+        {
+            appliedColors = null;
+
+            BlueColorSlider.Value = 0;
+            GreenColorSlider.Value = 0;
+            RedColorSlider.Value = 0;
+
+            BlueContrastSlider.Value = 0;
+            GreenContrastSlider.Value = 0;
+            RedContrastSlider.Value = 0;
+        }
+
+        public void importColor(string[] temp)
+        {
+            BlueColorSlider.Value = Convert.ToDouble(temp[0]);
+            GreenColorSlider.Value = Convert.ToDouble(temp[1]);
+            RedColorSlider.Value = Convert.ToDouble(temp[2]);
+            ApplyColor();
+        }
+
+        public void importContrast(string[] temp)
+        {
+            BlueContrastSlider.Value = Convert.ToDouble(temp[0]);
+            GreenContrastSlider.Value = Convert.ToDouble(temp[1]);
+            RedContrastSlider.Value = Convert.ToDouble(temp[2]);
+            ApplyColor();
         }
 
     }
