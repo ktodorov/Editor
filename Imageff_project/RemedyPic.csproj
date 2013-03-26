@@ -127,6 +127,9 @@
     <Compile Include="UserControls\MenuPopup.xaml.cs">
       <DependentUpon>MenuPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Popups\RemedyColorize.xaml.cs">
+      <DependentUpon>RemedyColorize.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Popups\RemedyColors.xaml.cs">
       <DependentUpon>RemedyColors.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\MenuPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Popups\RemedyColorize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

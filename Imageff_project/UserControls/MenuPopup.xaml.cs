@@ -166,7 +166,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupColorize.IsOpen = true;
+            rootPage.ColorizePopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colorize-checked.png");
             ColorizeIcon.Source = temp;
@@ -174,7 +174,7 @@ namespace RemedyPic.UserControls
 
         public void ColorizeUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupColorize.IsOpen = false;
+            rootPage.ColorizePopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colorize.png");
             ColorizeIcon.Source = temp;

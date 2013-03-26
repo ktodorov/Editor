@@ -131,3 +131,6 @@ C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserContro
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.i.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.xaml

@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Popup x:Name="Popup" x:FieldModifier="public" Margin="0,0,380,-0.429" HorizontalAlignment="Right" IsOpen="False" Grid.RowSpan="3">
+    <Popup x:Name="Popup" x:FieldModifier="public" Margin="0" IsOpen="False" Grid.RowSpan="3">
         <Popup.ChildTransitions>
             <TransitionCollection>
                 <PaneThemeTransition/>

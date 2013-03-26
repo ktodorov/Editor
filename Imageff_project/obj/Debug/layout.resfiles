@@ -62,6 +62,7 @@ MainPage.xaml
 UserControls\DisplayImage.xaml
 UserControls\MainOptionsPanel.xaml
 UserControls\MenuPopup.xaml
+UserControls\Popups\RemedyColorize.xaml
 UserControls\Popups\RemedyColors.xaml
 UserControls\Popups\RemedyExposure.xaml
 UserControls\Popups\RemedyFilters.xaml

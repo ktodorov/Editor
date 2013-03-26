@@ -86,10 +86,6 @@ namespace RemedyPic
         // This is set true when the user opens a picture.
         public bool pictureIsLoaded = false;
 
-        // Colorize selected colors
-        public bool redForColorize, greenForColorize, blueForColorize, yellowForColorize,
-                         orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize = false;
-
         // We create three RemedyImages.
         // One for the original displayed image, one for the small images and
         // one to hold the original loaded image so we can get back to it at any time
@@ -117,6 +113,7 @@ namespace RemedyPic
         public RemedyFilters FiltersPopup;
         public RemedyExposure ExposurePopup;
         public RemedyRotations RotatePopup;
+        public RemedyColorize ColorizePopup;
 
         #endregion
 
@@ -156,13 +153,15 @@ namespace RemedyPic
             FiltersPopup = new RemedyFilters();
             ExposurePopup = new RemedyExposure();
             RotatePopup = new RemedyRotations();
+            ColorizePopup = new RemedyColorize();
 
             setPopupsHeight();
 
+            SmallPopups.Children.Add(ExposurePopup);
             SmallPopups.Children.Add(ColorsPopup);
             contentGrid.Children.Add(FiltersPopup);
             SmallPopups.Children.Add(RotatePopup);
-            SmallPopups.Children.Add(ExposurePopup);
+            SmallPopups.Children.Add(ColorizePopup);
         }
 
 
@@ -380,7 +379,7 @@ namespace RemedyPic
             ColorsPopup.ResetColorMenuData();
             ExposurePopup.ResetExposureMenuData();
             RotatePopup.ResetRotateMenuData();
-            ResetColorizeMenuData();
+            ColorizePopup.ResetColorizeMenuData();
             ResetFrameMenuData();
         }
 
@@ -389,16 +388,6 @@ namespace RemedyPic
         {
             FiltersPopup.appliedFilters = null;
             FiltersPopup.deselectFilters();
-        }
-
-
-        // Reset the data of Colorize menu
-        public void ResetColorizeMenuData()
-        {
-            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                             orangeForColorize = purpleForColorize = cyanForColorize =
-                             limeForColorize = false;
-            deselectColorizeGridItems();
         }
 
         // Reset the data of Frame menu
@@ -419,7 +408,7 @@ namespace RemedyPic
             ExposurePopup.Exposure.Height = Window.Current.Bounds.Height;
             RotatePopup.Rotations.Height = Window.Current.Bounds.Height;
             ImageOptions.Height = Window.Current.Bounds.Height;
-            Colorize.Height = Window.Current.Bounds.Height;
+            ColorizePopup.Colorize.Height = Window.Current.Bounds.Height;
             Frames.Height = Window.Current.Bounds.Height;
             Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
@@ -714,112 +703,6 @@ namespace RemedyPic
 
 
 
-        
-
-        #region Apply Buttons
-        // Event for apply button on Filters popup. Sets the image with the applied filter
-
-
-
-        // Event for apply button on Colorize popup. Sets the image with the applied color
-        public void OnColorizeApplyClick(object sender, RoutedEventArgs e)
-        {
-            doColorize(exampleStream, exampleBitmap, image);
-            ApplyColorize();
-            FiltersPopup.setFilterBitmaps();
-            ColorizeApplyReset.Visibility = Visibility.Collapsed;
-            Menu.SelectColorize.IsChecked = false;
-            Saved = false;
-        }
-
-        public void ApplyColorize()
-        {
-            ImageLoadingRing.IsActive = true;
-            image.srcPixels = (byte[])image.dstPixels.Clone();
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            ArchiveAddArray();
-            Colorize_SetColorizeEffect();
-            ImageLoadingRing.IsActive = false;
-        }
-
-        public void Colorize_SetColorizeEffect()
-        {
-            string colorizeColors = "";
-            Colorize_GetColorizeColors(ref colorizeColors);
-            effectsApplied.Add("Colorize = " + colorizeColors);
-
-        }
-
-        public void Colorize_GetColorizeColors(ref string colorizeColors)
-        {
-            if (blueForColorize)
-            {
-                Colorize_CheckForFirsColor(ref colorizeColors);
-                colorizeColors += "blue";
-            }
-            if (redForColorize)
-            {
-                Colorize_CheckForFirsColor(ref colorizeColors);
-                colorizeColors += "red";
-            }
-            if (greenForColorize)
-            {
-                Colorize_CheckForFirsColor(ref colorizeColors);
-                colorizeColors += "green";
-            }
-            if (yellowForColorize)
-            {
-                Colorize_CheckForFirsColor(ref colorizeColors);
-                colorizeColors += "yellow";
-            }
-            if (orangeForColorize)
-            {
-                Colorize_CheckForFirsColor(ref colorizeColors);
-                colorizeColors += "orange";
-            }
-            if (purpleForColorize)
-            {
-                Colorize_CheckForFirsColor(ref colorizeColors);
-                colorizeColors += "purple";
-            }
-            if (cyanForColorize)
-            {
-                Colorize_CheckForFirsColor(ref colorizeColors);
-                colorizeColors += "cyan";
-            }
-            if (limeForColorize)
-            {
-                Colorize_CheckForFirsColor(ref colorizeColors);
-                colorizeColors += "lime";
-            }
-        }
-
-        public void Colorize_CheckForFirsColor(ref string colorizeColors)
-        {
-            if (!colorizeColors.Equals(""))
-            {
-                colorizeColors += ",";
-            }
-
-        }
-
-        #endregion
-
-        #region Reset Buttons
-        // All those events reset the interface and return the last applied image.
-
-        public void OnColorizeResetClick(object sender, RoutedEventArgs e)
-        {
-            deselectColorizeGridItems();
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                 orangeForColorize = purpleForColorize = cyanForColorize =
-                 limeForColorize = false;
-        }
-
-        #endregion
 
 
         #region Frames
@@ -1772,153 +1655,6 @@ namespace RemedyPic
 
         #endregion
 
-        #region Colorize
-
-        #region Colorize events
-        // Events for checking and unchecking the colorize rectangles.
-        public void blueColorize_Checked(object sender, RoutedEventArgs e)
-        {
-            blueForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            blueRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255));
-        }
-        public void blueColorize_Unchecked(object sender, RoutedEventArgs e)
-        {
-            blueForColorize = false;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            blueRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 0, 255));
-        }
-
-        public void redColorize_Checked(object sender, RoutedEventArgs e)
-        {
-            redForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            redRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
-        }
-        public void redColorize_Unchecked(object sender, RoutedEventArgs e)
-        {
-            redForColorize = false;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            redRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 0));
-        }
-
-        public void yellowColorize_Checked(object sender, RoutedEventArgs e)
-        {
-            yellowForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            yellowRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
-        }
-        public void yellowColorize_Unchecked(object sender, RoutedEventArgs e)
-        {
-            yellowForColorize = false;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            yellowRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 0));
-        }
-
-        public void orangeColorize_Checked(object sender, RoutedEventArgs e)
-        {
-            orangeForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            orangeRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 116, 0));
-        }
-        public void orangeColorize_Unchecked(object sender, RoutedEventArgs e)
-        {
-            orangeForColorize = false;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            orangeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 116, 0));
-        }
-
-        public void greenColorize_Checked(object sender, RoutedEventArgs e)
-        {
-            greenForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            greenRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 120, 0));
-        }
-        public void greenColorize_Unchecked(object sender, RoutedEventArgs e)
-        {
-            greenForColorize = false;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            greenRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 90, 0));
-        }
-
-        public void cyanColorize_Checked(object sender, RoutedEventArgs e)
-        {
-            cyanForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            cyanRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 255, 255));
-        }
-        public void cyanColorize_Unchecked(object sender, RoutedEventArgs e)
-        {
-            cyanForColorize = false;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            cyanRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 255));
-        }
-
-        public void purpleColorize_Checked(object sender, RoutedEventArgs e)
-        {
-            purpleForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            purpleRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
-        }
-        public void purpleColorize_Unchecked(object sender, RoutedEventArgs e)
-        {
-            purpleForColorize = false;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            purpleRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 255));
-        }
-
-        public void limeColorize_Checked(object sender, RoutedEventArgs e)
-        {
-            limeForColorize = true;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            limeRect.Fill = new SolidColorBrush(Color.FromArgb(255, 25, 255, 25));
-        }
-        public void limeColorize_Unchecked(object sender, RoutedEventArgs e)
-        {
-            limeForColorize = false;
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            limeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 25, 255, 25));
-        }
-
-        #endregion
-
-        public void deselectColorizeGridItems()
-        {
-            // Deselect all colorize rectangles and return their original color.
-            redForColorize = greenForColorize = blueForColorize = yellowForColorize =
-                 orangeForColorize = purpleForColorize = cyanForColorize =
-                 limeForColorize = false;
-            blueColorize.IsChecked = false;
-            redColorize.IsChecked = false;
-            greenColorize.IsChecked = false;
-            yellowColorize.IsChecked = false;
-            orangeColorize.IsChecked = false;
-            purpleColorize.IsChecked = false;
-            cyanColorize.IsChecked = false;
-            limeColorize.IsChecked = false;
-            blueRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 0, 255));
-            redRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 0));
-            greenRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 90, 0));
-            yellowRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 0));
-            orangeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 116, 0));
-            purpleRect.Fill = new SolidColorBrush(Color.FromArgb(100, 255, 0, 255));
-            cyanRect.Fill = new SolidColorBrush(Color.FromArgb(100, 0, 255, 255));
-            limeRect.Fill = new SolidColorBrush(Color.FromArgb(100, 25, 255, 25));
-            ColorizeApplyReset.Visibility = Visibility.Collapsed;
-        }
-
-        public void doColorize(Stream stream, WriteableBitmap bitmap, RemedyImage givenImage)
-        {
-            // Call the colorize function
-            prepareImage(stream, bitmap, givenImage);
-            givenImage.Colorize(blueForColorize, redForColorize, greenForColorize, yellowForColorize,
-                                        orangeForColorize, purpleForColorize, cyanForColorize, limeForColorize);
-            setStream(stream, bitmap, givenImage);
-            ColorizeApplyReset.Visibility = Visibility.Visible;
-        }
-
-        #endregion
-
         public void FramesBorder_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             // This event completes when the mouse pointer enter the frame border.
@@ -2293,55 +2029,10 @@ namespace RemedyPic
 
         public void importColorize(string[] temp)
         {
-            for (int k = 0; k < temp.Length; k++)
-            {
-                checkColorizeColor(temp[k]);
-            }
-            doColorize(bitmapStream, bitmapImage, imageOriginal);
-            ApplyColorize();
+            ColorizePopup.Import(temp);
         }
         #endregion
 
-        public void checkColorizeColor(string color)
-        {
-            switch (color)
-            {
-                case "red":
-                    redForColorize = true;
-                    redRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
-                    break;
-                case "blue":
-                    blueForColorize = true;
-                    blueRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255));
-                    break;
-                case "green":
-                    greenForColorize = true;
-                    greenRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 120, 0));
-                    break;
-                case "lime":
-                    limeForColorize = true;
-                    limeRect.Fill = new SolidColorBrush(Color.FromArgb(255, 25, 255, 25));
-                    break;
-                case "yellow":
-                    yellowForColorize = true;
-                    yellowRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
-                    break;
-                case "cyan":
-                    cyanForColorize = true;
-                    cyanRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 255, 255));
-                    break;
-                case "orange":
-                    orangeForColorize = true;
-                    orangeRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 116, 0));
-                    break;
-                case "purple":
-                    purpleForColorize = true;
-                    purpleRect.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
-                    break;
-                default:
-                    break;
-            }
-        }
 
         public void checkAndApplyFrames(string[] frameStats)
         {
