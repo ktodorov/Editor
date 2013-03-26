@@ -17,13 +17,13 @@ namespace RemedyPic.UserControls.Popups
     public sealed partial class RemedyColors : UserControl
     {
         public string appliedColors = null;
+
         MainPage rootPage = MainPage.Current;
 
         public RemedyColors()
         {
             this.InitializeComponent();
         }
-
 
         public void OnColorChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {

@@ -230,6 +230,9 @@
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyFilters.xaml">
       <PackagePath>UserControls\Popups\RemedyFilters.xaml</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyFrames.xaml">
+      <PackagePath>UserControls\Popups\RemedyFrames.xaml</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyRotations.xaml">
       <PackagePath>UserControls\Popups\RemedyRotations.xaml</PackagePath>
     </AppxPackagedFile>

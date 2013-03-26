@@ -73,7 +73,6 @@ namespace RemedyPic
         public StorageFile file;
 
         // String variables that hold the current applied changes to the image.
-        public string appliedFrame = null, appliedFrameColor = null;
 
         // We create two WriteableBitmap variables.
         // One for the original image and one for the small bitmaps.
@@ -114,6 +113,7 @@ namespace RemedyPic
         public RemedyExposure ExposurePopup;
         public RemedyRotations RotatePopup;
         public RemedyColorize ColorizePopup;
+        public RemedyFrames FramesPopup;
 
         #endregion
 
@@ -154,6 +154,7 @@ namespace RemedyPic
             ExposurePopup = new RemedyExposure();
             RotatePopup = new RemedyRotations();
             ColorizePopup = new RemedyColorize();
+            FramesPopup = new RemedyFrames();
 
             setPopupsHeight();
 
@@ -162,6 +163,7 @@ namespace RemedyPic
             contentGrid.Children.Add(FiltersPopup);
             SmallPopups.Children.Add(RotatePopup);
             SmallPopups.Children.Add(ColorizePopup);
+            SmallPopups.Children.Add(FramesPopup);
         }
 
 
@@ -380,7 +382,7 @@ namespace RemedyPic
             ExposurePopup.ResetExposureMenuData();
             RotatePopup.ResetRotateMenuData();
             ColorizePopup.ResetColorizeMenuData();
-            ResetFrameMenuData();
+            FramesPopup.ResetFrameMenuData();
         }
 
         // Reset data of Filter menu
@@ -390,14 +392,7 @@ namespace RemedyPic
             FiltersPopup.deselectFilters();
         }
 
-        // Reset the data of Frame menu
-        public void ResetFrameMenuData()
-        {
-            appliedFrameColor = "black";
-            BlackFrameColor.IsSelected = true;
-            FrameWidthPercent.Value = 1;
-            appliedFrame = null;
-        }
+
         public void setPopupsHeight()
         {
             // We set the popups height to match the current machine's resolution
@@ -409,7 +404,7 @@ namespace RemedyPic
             RotatePopup.Rotations.Height = Window.Current.Bounds.Height;
             ImageOptions.Height = Window.Current.Bounds.Height;
             ColorizePopup.Colorize.Height = Window.Current.Bounds.Height;
-            Frames.Height = Window.Current.Bounds.Height;
+            FramesPopup.Frames.Height = Window.Current.Bounds.Height;
             Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
             CustomFilter.Height = Window.Current.Bounds.Height;
@@ -702,454 +697,6 @@ namespace RemedyPic
         #endregion
 
 
-
-
-
-        #region Frames
-        // The events are called when a frame button is clicked.
-
-
-        // Set standard frame to the image
-        public void OnStandardClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                appliedFrame = "standard";
-                ApplyStandardFrame((int)FrameWidthPercent.Value);
-            }
-        }
-
-        public void ApplyStandardFrame(int thick)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), thick);
-            imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), thick);
-            imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), thick);
-            imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), thick);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        // Set standard frame (only UP or DOWN) to the image
-        public void OnStandardUpDownClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                appliedFrame = "standard up down";
-                ApplyStandartUpDownFrame((int)FrameWidthPercent.Value);
-            }
-        }
-
-        public void ApplyStandartUpDownFrame(int thick)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), thick);
-            imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), thick);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        // Set standard frame (only LEFT or RIGHT) to the image
-        public void OnStandardLeftRightClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                appliedFrame = "standard left right";
-                ApplyStandardLeftRightFrame((int)FrameWidthPercent.Value);
-            }
-        }
-
-        public void ApplyStandardLeftRightFrame(int thick)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), thick);
-            imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), thick);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        // Set darkness frame to the image
-        public void OnDarknessClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                appliedFrame = "darkness";
-                ApplyDarknessFrame((int)FrameWidthPercent.Value);
-            }
-        }
-
-        public void ApplyDarknessFrame(int thick)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.Frames_DarknessLeftSide(thick);
-            imageOriginal.Frames_DarknessTopSide(thick);
-            imageOriginal.Frames_DarknessRightSide(thick);
-            imageOriginal.Frames_DarknessBottomSide(thick);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        // Set darkness frame (only left or right) to the image
-        public void OnDarknessLeftRightClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                appliedFrame = "darkness left right";
-                ApplyDarknessLeftRightFrame((int)FrameWidthPercent.Value);
-            }
-        }
-
-        public void ApplyDarknessLeftRightFrame(int thick)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.Frames_DarknessLeftSide(thick);
-            imageOriginal.Frames_DarknessRightSide(thick);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        // Set darkness frame (only up or down) to the image
-        public void OnDarknessUpDownSidesClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                appliedFrame = "darkness up down";
-                ApplyDarknessUpDownFrame((int)FrameWidthPercent.Value);
-            }
-        }
-
-        public void ApplyDarknessUpDownFrame(int thick)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.Frames_DarknessTopSide(thick);
-            imageOriginal.Frames_DarknessBottomSide(thick);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        // Set smooth darkness frame to the image
-        public void OnSmoothDarknessClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                appliedFrame = "smooth darkness";
-                ApplySmoothDarknessFrame((int)FrameWidthPercent.Value);
-            }
-        }
-
-        public void ApplySmoothDarknessFrame(int thick)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.Frames_SmoothDarkness(thick);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        // Set standard frame with smooth angles to the image
-        public void OnStandardAngleClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                appliedFrame = "standard angle";
-                ApplyStandardAngleFrame((int)FrameWidthPercent.Value);
-            }
-        }
-
-        public void ApplyStandardAngleFrame(int thick)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.Frames_StandardLeftSide(Frame_GetFrameColor(), thick);
-            imageOriginal.Frames_StandardTopSide(Frame_GetFrameColor(), thick);
-            imageOriginal.Frames_StandardRightSide(Frame_GetFrameColor(), thick);
-            imageOriginal.Frames_StandardBottomSide(Frame_GetFrameColor(), thick);
-            imageOriginal.Frames_StandartAngle(Frame_GetFrameColor(), thick);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        // Set smooth angles frame to the image
-        public void OnAngleClick(object sender, RoutedEventArgs e)
-        {
-            FramesApplyReset.Visibility = Visibility.Visible;
-
-            if (pictureIsLoaded)
-            {
-                appliedFrame = "angle";
-                ApplyAngleFrame((int)FrameWidthPercent.Value);
-            }
-        }
-
-        public void ApplyAngleFrame(int thick)
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-            imageOriginal.Frames_Angle(Frame_GetFrameColor(), thick);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-        }
-
-        // Apply the frame on the image
-        public void OnApplyFramesClick(object sender, RoutedEventArgs e)
-        {
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            ArchiveAddArray();
-            effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
-            setExampleBitmaps();
-            FiltersPopup.setFilterBitmaps();
-            FramesApplyReset.Visibility = Visibility.Collapsed;
-            ResetFrameMenuData();
-            Saved = false;
-        }
-
-        // Reset the image (return the pixels before applying the frame)
-        public void OnResetFramesClick(object sender, RoutedEventArgs e)
-        {
-            if (pictureIsLoaded)
-            {
-                ResetFrameMenuData();
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.Reset();
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-
-            FramesApplyReset.Visibility = Visibility.Collapsed;
-        }
-
-        // If black color is selected
-        public void BlackFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "black";
-        }
-
-        // If gray color is selected
-        public void GrayFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "gray";
-        }
-
-        // If white color is selected
-        public void WhiteFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "white";
-        }
-
-        // If blue color is selected
-        public void BlueFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "blue";
-        }
-
-        // If lime color is selected
-        public void LimeFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "lime";
-        }
-
-        // If yellow color is selected
-        public void YellowFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "yellow";
-        }
-
-        // If cyan color is selected
-        public void CyanFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "cyan";
-        }
-
-        // If magenta color is selected
-        public void MagentaFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "magenta";
-        }
-
-        // If silver color is selected
-        public void SilverFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "silver";
-        }
-
-        // If maroon color is selected
-        public void MaroonFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "maroon";
-        }
-
-        // If olive color is selected
-        public void OliveFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "olive";
-        }
-
-        // If green color is selected
-        public void GreenFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "green";
-        }
-
-        // If purple color is selected
-        public void PurpleFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "purple";
-        }
-
-        // If teal color is selected
-        public void TealFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "teal";
-        }
-
-        // If navy color is selected
-        public void NavyFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "navy";
-        }
-
-        // If red color is selected
-        public void RedFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "red";
-        }
-
-        // Get the B G R value of selected color
-        public byte[] Frame_GetFrameColor()
-        {
-            byte[] Color = { 0, 0, 0 };
-
-            switch (appliedFrameColor)
-            {
-                case "black":
-                    {
-                        Color[0] = 0;
-                        Color[1] = 0;
-                        Color[2] = 0;
-                        break;
-                    }
-                case "gray":
-                    {
-                        Color[0] = 128;
-                        Color[1] = 128;
-                        Color[2] = 128;
-                        break;
-                    }
-                case "white":
-                    {
-                        Color[0] = 255;
-                        Color[1] = 255;
-                        Color[2] = 255;
-                        break;
-                    }
-                case "lime":
-                    {
-                        Color[0] = 0;
-                        Color[1] = 255;
-                        Color[2] = 0;
-                        break;
-                    }
-                case "yellow":
-                    {
-                        Color[0] = 0;
-                        Color[1] = 255;
-                        Color[2] = 255;
-                        break;
-                    }
-                case "blue":
-                    {
-                        Color[0] = 255;
-                        Color[1] = 0;
-                        Color[2] = 0;
-                        break;
-                    }
-                case "red":
-                    {
-                        Color[0] = 0;
-                        Color[1] = 0;
-                        Color[2] = 255;
-                        break;
-                    }
-                case "cyan":
-                    {
-                        Color[0] = 255;
-                        Color[1] = 255;
-                        Color[2] = 0;
-                        break;
-                    }
-                case "magenta":
-                    {
-                        Color[0] = 255;
-                        Color[1] = 0;
-                        Color[2] = 255;
-                        break;
-                    }
-                case "silver":
-                    {
-                        Color[0] = 192;
-                        Color[1] = 192;
-                        Color[2] = 192;
-                        break;
-                    }
-                case "maroon":
-                    {
-                        Color[0] = 0;
-                        Color[1] = 0;
-                        Color[2] = 128;
-                        break;
-                    }
-                case "olive":
-                    {
-                        Color[0] = 0;
-                        Color[1] = 128;
-                        Color[2] = 128;
-                        break;
-                    }
-                case "green":
-                    {
-                        Color[0] = 0;
-                        Color[1] = 128;
-                        Color[2] = 0;
-                        break;
-                    }
-                case "purple":
-                    {
-                        Color[0] = 128;
-                        Color[1] = 0;
-                        Color[2] = 128;
-                        break;
-                    }
-                case "teal":
-                    {
-                        Color[0] = 128;
-                        Color[1] = 128;
-                        Color[2] = 0;
-                        break;
-                    }
-                case "navy":
-                    {
-                        Color[0] = 128;
-                        Color[1] = 0;
-                        Color[2] = 0;
-                        break;
-                    }
-            }
-            return Color;
-        }
-        #endregion
-
         #region Back buttons
 
         public void BackPopupClicked(object sender, RoutedEventArgs e)
@@ -1179,11 +726,6 @@ namespace RemedyPic
         {
             imageDisplayed.forceManipulationsToEnd = true;
         }
-
-
-        
-
-       
 
         public void GridDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
@@ -1655,19 +1197,6 @@ namespace RemedyPic
 
         #endregion
 
-        public void FramesBorder_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            // This event completes when the mouse pointer enter the frame border.
-            var borderSender = sender as Border;
-            borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-        }
-
-        public void FramesBorder_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            // This event completes when the mouse pointer exit the frame border.
-            var borderSender = sender as Border;
-            borderSender.BorderBrush = new Windows.UI.Xaml.Media.SolidColorBrush(Color.FromArgb(255, 25, 112, 0));
-        }
 
 
         #region Custom Filter
@@ -1992,7 +1521,7 @@ namespace RemedyPic
 
                 case "Frame":
                     temp = configFile.effects[i + 1].Split(',');
-                    checkAndApplyFrames(temp);
+                    FramesPopup.checkAndApplyFrames(temp);
                     imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
                     break;
 
@@ -2032,47 +1561,6 @@ namespace RemedyPic
             ColorizePopup.Import(temp);
         }
         #endregion
-
-
-        public void checkAndApplyFrames(string[] frameStats)
-        {
-            int thickPercent = Convert.ToInt32(frameStats[0]);
-            appliedFrameColor = frameStats[1];
-            string frameType = frameStats[2];
-
-            switch (frameType)
-            {
-                case "standard":
-                    ApplyStandardFrame(thickPercent);
-                    break;
-                case "standard up down":
-                    ApplyStandartUpDownFrame(thickPercent);
-                    break;
-                case "standard left right":
-                    ApplyStandardLeftRightFrame(thickPercent);
-                    break;
-                case "darkness":
-                    ApplyDarknessFrame(thickPercent);
-                    break;
-                case "darkness left right":
-                    ApplyDarknessLeftRightFrame(thickPercent);
-                    break;
-                case "darkness up down":
-                    ApplyDarknessUpDownFrame(thickPercent);
-                    break;
-                case "smooth darkness":
-                    ApplySmoothDarknessFrame(thickPercent);
-                    break;
-                case "standard angle":
-                    ApplyStandardAngleFrame(thickPercent);
-                    break;
-                case "angle":
-                    ApplyAngleFrame(thickPercent);
-                    break;
-                default:
-                    break;
-            }
-        }
 
         public async void onImportFileSelectButtonClick(object sender, RoutedEventArgs e)
         {

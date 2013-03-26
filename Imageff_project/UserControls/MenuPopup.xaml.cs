@@ -191,7 +191,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupFrames.IsOpen = true;
+            rootPage.FramesPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Frame-checked.png");
             FramesIcon.Source = temp;
@@ -199,7 +199,7 @@ namespace RemedyPic.UserControls
 
         public void FramesUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupFrames.IsOpen = false;
+            rootPage.FramesPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Frame.png");
             FramesIcon.Source = temp;
