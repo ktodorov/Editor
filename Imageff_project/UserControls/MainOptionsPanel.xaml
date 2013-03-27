@@ -450,6 +450,7 @@
                     </LinearGradientBrush>
                 </Border.BorderBrush>
                 <StackPanel x:Name="CropPanel" Orientation="Vertical">
+                    
                     <Border Margin="5">
                         <TextBlock x:Name="selectInfoInBitmapText" x:FieldModifier="public" Style="{StaticResource BasicTextStyle}" Height="20" Foreground="#AAFFFFFF" Margin="10,0,0,0" HorizontalAlignment="Center" FontSize="18" />
                     </Border>

@@ -37,7 +37,7 @@
                         <TextBlock TextWrapping="Wrap" Text="Image options" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="5,0,0,10"/>
                     </StackPanel>
                 </Border>
-                <Image x:Name="Logo_Copy4" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                <Image x:Name="Logo_Copy4" Margin="0" Source="/Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
                     <Image.Transitions>
                         <TransitionCollection>
                             <EntranceThemeTransition/>

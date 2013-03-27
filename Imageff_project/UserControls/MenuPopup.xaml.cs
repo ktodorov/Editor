@@ -279,7 +279,7 @@ namespace RemedyPic.UserControls
             rootPage.imageDisplayed.imageCanvas.Visibility = Visibility.Visible;
             rootPage.imageDisplayed.displayGrid.Margin = new Thickness(15);
             rootPage.Panel.ResetZoomPos();
-			
+
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Crop-checked.png");
             CropIcon.Source = temp;

@@ -135,8 +135,8 @@ namespace RemedyPic
             Menu = new MenuPopup();
             Panel = new MainOptionsPanel();
 
-            double displayImageWidth = (Window.Current.Bounds.Width * (569.00 / 683.00)) * 0.90;
-            double displayImageHeight = Window.Current.Bounds.Height * 0.90;
+            double displayImageWidth = (Window.Current.Bounds.Width * (569.00 / 683.00)) * 0.97;
+            double displayImageHeight = (Window.Current.Bounds.Height - 70);
 
             imageDisplayed = new DisplayImage(displayImageWidth, displayImageHeight);
 

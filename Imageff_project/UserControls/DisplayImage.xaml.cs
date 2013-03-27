@@ -48,13 +48,11 @@ namespace RemedyPic.UserControls
         // The dictionary holds the history of all previous pointer locations. It is used by the crop function.
         Dictionary<uint, Point?> pointerPositionHistory = new Dictionary<uint, Point?>();
 
-        MainPage pageRoot;
-
+		MainPage pageRoot = MainPage.Current;
 
         public DisplayImage(double width, double height)
         {
             this.InitializeComponent();
-            pageRoot = MainPage.Current;
             AnimateOutPicture.Begin();
             forceManipulationsToEnd = false;
             InitManipulationTransforms();
