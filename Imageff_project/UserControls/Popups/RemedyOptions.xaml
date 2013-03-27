@@ -1,0 +1,91 @@
+﻿<UserControl
+    x:Class="RemedyPic.UserControls.Popups.RemedyOptions"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RemedyPic.UserControls.Popups"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Popup x:Name="Popup" x:FieldModifier="public" Margin="0" Grid.RowSpan="4" HorizontalAlignment="Right" IsOpen="False">
+        <Popup.ChildTransitions>
+            <TransitionCollection>
+                <PaneThemeTransition/>
+            </TransitionCollection>
+        </Popup.ChildTransitions>
+        <ScrollViewer x:Name="ImageOptions" x:FieldModifier="public" HorizontalAlignment="Right" Margin="0" Grid.RowSpan="3" BorderThickness="2,0,0,0" Background="#FF323131" Padding="0" VerticalScrollBarVisibility="Hidden" Height="768" MaxZoomFactor="1" MinZoomFactor="1">
+            <ScrollViewer.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF215500" Offset="1"/>
+                </LinearGradientBrush>
+            </ScrollViewer.BorderBrush>
+            <StackPanel x:Name="OptionsPanel" VerticalAlignment="Top" Width="340" Margin="0,0,0,10" HorizontalAlignment="Right">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+                <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                    <StackPanel Orientation="Horizontal" Margin="0">
+                        <Button x:Name="BackOptions" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                        <TextBlock TextWrapping="Wrap" Text="Image options" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="5,0,0,10"/>
+                    </StackPanel>
+                </Border>
+                <Image x:Name="Logo_Copy4" Margin="0" Source="Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
+                    <Image.Transitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition/>
+                        </TransitionCollection>
+                    </Image.Transitions>
+                </Image>
+                <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Border x:Name="SetLock_Avatar" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
+                        <StackPanel Orientation="Vertical">
+                            <Button x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetLockPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250"/>
+                            <Button x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetAccountPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250"/>
+                        </StackPanel>
+                    </Border>
+                    <Border x:Name="Return_original" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
+                        <Button x:Name="ReturnOriginalButton" Content="Return the original image" Style="{StaticResource ImageOptionsStyle}" Click="ReturnOriginal_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250" HorizontalAlignment="Center"/>
+                    </Border>
+                    <Border x:Name="Import_export" Margin="0" HorizontalAlignment="Center" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
+                        <StackPanel x:Name="Import_Export" Orientation="Vertical" Width="180">
+                            <Button x:Name="importFileButton" Content="Select file to import..." FontFamily="Segoe UI" FontSize="14.667" Click="onImportFileSelectButtonClick" Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Width="250"/>
+                            <StackPanel x:Name="importFilePanel" Margin="0" Orientation="Vertical" HorizontalAlignment="Center" Visibility="Collapsed">
+                                <TextBlock TextWrapping="Wrap" Text="File for import:" Margin="0" Style="{StaticResource BasicTextStyle}" HorizontalAlignment="Center" Foreground="#DEFFFFFF"/>
+                                <TextBlock x:Name="importFileName" TextWrapping="Wrap" Margin="0" Style="{StaticResource BasicTextStyle}" HorizontalAlignment="Center" Foreground="#DEFFFFFF"/>
+                                <Button x:Name="importButton" Content="Import settings" FontFamily="Segoe UI" FontSize="14.667" Click="onImportButtonClick" Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Margin="0" Width="250"/>
+                            </StackPanel>
+                            <Button x:Name="exportButton" Content="Export settings" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ImageOptionsStyle}" FontSize="14.667" Click="OnExportButtonClick" Foreground="#FFF1E9E9" Margin="0" Width="250" Background="{x:Null}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border x:Name="Resize1" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
+                        <StackPanel Margin="0" Orientation="Vertical">
+                            <ToggleButton x:Name="Resize" Content="Change your image resolution" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ToggleResizeButton}" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Checked="Resize_Checked" Unchecked="Resize_Unchecked" BorderThickness="0"/>
+                            <StackPanel x:Name="ResizePanel" Margin="0,10" Visibility="Collapsed">
+                                <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <StackPanel Background="#19FFFFFF">
+                                        <TextBlock TextWrapping="Wrap" Text="New Width" Margin="0,0,0,2" HorizontalAlignment="Center" Foreground="White" Style="{StaticResource BasicTextStyle}"/>
+                                        <TextBox x:Name="newWidth" x:FieldModifier="public" TextWrapping="Wrap" Margin="10,0,10,5" HorizontalAlignment="Left" Width="100" TextChanged="OnNewWidthTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                    <StackPanel Background="#19FFFFFF" Margin="10,0,0,0">
+                                        <TextBlock TextWrapping="Wrap" Text="New Height" Margin="0,0,0,2" HorizontalAlignment="Center" Foreground="White" Style="{StaticResource BasicTextStyle}"/>
+                                        <TextBox x:Name="newHeight" x:FieldModifier="public" TextWrapping="Wrap" Margin="10,0,10,5" Width="100" HorizontalAlignment="Right" TextChanged="OnNewHeightTextChanged" BorderBrush="#A300640E" BorderThickness="3" FontFamily="Segoe UI" FontSize="14" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Button x:Name="ApplyResize" Content="Resize" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}" BorderThickness="0,0,0,2" Click="ApplyResize_Clicked" BorderBrush="White" Foreground="White" Visibility="Collapsed"/>
+                                <CheckBox Content="Keep proportions" Margin="0,10,0,0" Foreground="White" HorizontalAlignment="Center" Unchecked="OnKeepPropsUnchecked" Checked="OnKeepPropsChecked" IsChecked="True"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Popup>
+</UserControl>

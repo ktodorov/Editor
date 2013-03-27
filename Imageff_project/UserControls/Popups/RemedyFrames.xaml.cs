@@ -228,8 +228,8 @@ namespace RemedyPic.UserControls.Popups
         public void OnApplyFramesClick(object sender, RoutedEventArgs e)
         {
             rootPage.imageOriginal.srcPixels = (byte[])rootPage.imageOriginal.dstPixels.Clone();
-            rootPage.ArchiveAddArray();
-            rootPage.effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
+            rootPage.Panel.ArchiveAddArray();
+			rootPage.OptionsPopup.effectsApplied.Add("Frame = " + FrameWidthPercent.Value + "," + appliedFrameColor + "," + appliedFrame);
             rootPage.setExampleBitmaps();
             rootPage.FiltersPopup.setFilterBitmaps();
             FramesApplyReset.Visibility = Visibility.Collapsed;

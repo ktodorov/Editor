@@ -212,9 +212,9 @@ namespace RemedyPic.UserControls
             if (pageRoot.archive_current_index > 0) // Check if there is no more for undo
             {
                 pageRoot.archive_current_index--;
-                if (pageRoot.effectsApplied.Count > 0 && (Regex.IsMatch(pageRoot.effectsApplied[pageRoot.archive_current_index], "Crop") || Regex.IsMatch(pageRoot.effectsApplied[pageRoot.archive_current_index], "Resize")))
+				if (pageRoot.OptionsPopup.effectsApplied.Count > 0 && (Regex.IsMatch(pageRoot.OptionsPopup.effectsApplied[pageRoot.archive_current_index], "Crop") || Regex.IsMatch(pageRoot.OptionsPopup.effectsApplied[pageRoot.archive_current_index], "Resize")))
                 {
-                    string[] sizes = pageRoot.effectsApplied[pageRoot.archive_current_index].Split(' ');
+					string[] sizes = pageRoot.OptionsPopup.effectsApplied[pageRoot.archive_current_index].Split(' ');
                     pageRoot.imageOriginal.width = Convert.ToInt32(sizes[1]);
                     pageRoot.imageOriginal.height = Convert.ToInt32(sizes[2]);
                     pageRoot.imageOriginal.srcPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
@@ -236,9 +236,9 @@ namespace RemedyPic.UserControls
             if (pageRoot.archive_current_index < pageRoot.archive_data.Count - 1) // Check if there is array for redo
             {
                 pageRoot.archive_current_index++;
-                if (Regex.IsMatch(pageRoot.effectsApplied[pageRoot.archive_current_index - 1], "Crop") || Regex.IsMatch(pageRoot.effectsApplied[pageRoot.archive_current_index - 1], "Resize"))
+				if (Regex.IsMatch(pageRoot.OptionsPopup.effectsApplied[pageRoot.archive_current_index - 1], "Crop") || Regex.IsMatch(pageRoot.OptionsPopup.effectsApplied[pageRoot.archive_current_index - 1], "Resize"))
                 {
-                    string[] sizes = pageRoot.effectsApplied[pageRoot.archive_current_index - 1].Split(' ');
+					string[] sizes = pageRoot.OptionsPopup.effectsApplied[pageRoot.archive_current_index - 1].Split(' ');
                     pageRoot.imageOriginal.width = Convert.ToInt32(sizes[3]);
                     pageRoot.imageOriginal.height = Convert.ToInt32(sizes[4]);
                     pageRoot.imageOriginal.srcPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
@@ -268,7 +268,7 @@ namespace RemedyPic.UserControls
             if (pageRoot.archive_current_index != -1 && pageRoot.archive_current_index != pageRoot.archive_data.Count - 1)
             {
                 pageRoot.archive_data.RemoveRange(pageRoot.archive_current_index + 1, pageRoot.archive_data.Count - 1 - pageRoot.archive_current_index);
-                pageRoot.effectsApplied.RemoveRange(pageRoot.archive_current_index, pageRoot.effectsApplied.Count - pageRoot.archive_current_index); // Here we don`t save the start image, so we have -1 index of pageRoot.archive_current_index
+				pageRoot.OptionsPopup.effectsApplied.RemoveRange(pageRoot.archive_current_index, pageRoot.OptionsPopup.effectsApplied.Count - pageRoot.archive_current_index); // Here we don`t save the start image, so we have -1 index of pageRoot.archive_current_index
             }
             pageRoot.archive_data.Add((byte[])pageRoot.imageOriginal.srcPixels.Clone());
             pageRoot.archive_current_index++;

@@ -59,14 +59,14 @@ namespace RemedyPic.UserControls.Popups
             noiseStream = null;
 
             WriteableBitmap
-            blackWhiteBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            embossBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            emboss2Bitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            invertBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            blurBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            blur2Bitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            sharpenBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            noiseBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight);
+            blackWhiteBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			embossBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			emboss2Bitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			invertBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			blurBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			blur2Bitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			sharpenBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			noiseBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight);
 
             blackWhiteFilter.Source = blackWhiteBitmap;
             embossFilter.Source = embossBitmap;
@@ -118,14 +118,14 @@ namespace RemedyPic.UserControls.Popups
             crystalStream = null;
 
             WriteableBitmap
-            hardNoiseBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            edgeDetectBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            edgeEnhanceBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            retroBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            darkenBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            brightenBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            shadowBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
-            crystalBitmap = await rootPage.ResizeImage(rootPage.bitmapImage, newWidth, newHeight);
+			hardNoiseBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			edgeDetectBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			edgeEnhanceBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			retroBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			darkenBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			brightenBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			shadowBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight),
+			crystalBitmap = await rootPage.OptionsPopup.ResizeImage(rootPage.bitmapImage, newWidth, newHeight);
 
             hardNoiseFilter.Source = hardNoiseBitmap;
             edgeDetectFilter.Source = edgeDetectBitmap;
@@ -916,8 +916,8 @@ namespace RemedyPic.UserControls.Popups
             }
             rootPage.image.srcPixels = (byte[])rootPage.image.dstPixels.Clone();
             rootPage.imageOriginal.srcPixels = (byte[])rootPage.imageOriginal.dstPixels.Clone();
-            rootPage.ArchiveAddArray();
-            rootPage.effectsApplied.Add("Filter = " + filter);
+            rootPage.Panel.ArchiveAddArray();
+            rootPage.OptionsPopup.effectsApplied.Add("Filter = " + filter);
             rootPage.ResetFilterMenuData();
             rootPage.ImageLoadingRing.IsActive = false;
         }

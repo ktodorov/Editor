@@ -118,8 +118,8 @@ namespace RemedyPic.UserControls.Popups
             }
             rootPage.image.srcPixels = (byte[])rootPage.image.dstPixels.Clone();
             rootPage.imageOriginal.srcPixels = (byte[])rootPage.imageOriginal.dstPixels.Clone();
-            rootPage.ArchiveAddArray();
-            rootPage.effectsApplied.Add("Flip = " + rotation);
+            rootPage.Panel.ArchiveAddArray();
+            rootPage.OptionsPopup.effectsApplied.Add("Flip = " + rotation);
             ResetRotateMenuData();
         }
 

@@ -133,6 +133,9 @@
     <Compile Include="UserControls\Popups\RemedyColors.xaml.cs">
       <DependentUpon>RemedyColors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Popups\RemedyCustom.xaml.cs">
+      <DependentUpon>RemedyCustom.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Popups\RemedyExposure.xaml.cs">
       <DependentUpon>RemedyExposure.xaml</DependentUpon>
     </Compile>
@@ -141,6 +144,12 @@
     </Compile>
     <Compile Include="UserControls\Popups\RemedyFrames.xaml.cs">
       <DependentUpon>RemedyFrames.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Popups\RemedyHistogram.xaml.cs">
+      <DependentUpon>RemedyHistogram.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Popups\RemedyOptions.xaml.cs">
+      <DependentUpon>RemedyOptions.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Popups\RemedyRotations.xaml.cs">
       <DependentUpon>RemedyRotations.xaml</DependentUpon>
@@ -246,6 +255,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Popups\RemedyCustom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Popups\RemedyExposure.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -255,6 +268,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Popups\RemedyFrames.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Popups\RemedyHistogram.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Popups\RemedyOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

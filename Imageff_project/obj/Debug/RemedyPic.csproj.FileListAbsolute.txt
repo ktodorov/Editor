@@ -137,3 +137,37 @@ C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserContro
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.i.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\priconfig.xml.intermediate
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\layout.resfiles.intermediate
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\resources.resfiles.intermediate
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfiles.intermediate
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.xaml
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.i.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.cs
+C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.xaml

@@ -54,8 +54,8 @@ namespace RemedyPic.UserControls.Popups
 
             rootPage.image.srcPixels = (byte[])rootPage.image.dstPixels.Clone();
             rootPage.imageOriginal.srcPixels = (byte[])rootPage.imageOriginal.dstPixels.Clone();
-            rootPage.ArchiveAddArray();
-            rootPage.effectsApplied.Add("Exposure = " + brightSlider.Value + "," + BlueGammaSlider.Value + "," + GreenGammaSlider.Value + "," + RedGammaSlider.Value);
+            rootPage.Panel.ArchiveAddArray();
+            rootPage.OptionsPopup.effectsApplied.Add("Exposure = " + brightSlider.Value + "," + BlueGammaSlider.Value + "," + GreenGammaSlider.Value + "," + RedGammaSlider.Value);
             ResetExposureMenuData();
             rootPage.ImageLoadingRing.IsActive = false;
         }

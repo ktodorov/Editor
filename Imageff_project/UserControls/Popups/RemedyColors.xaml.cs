@@ -54,8 +54,8 @@ namespace RemedyPic.UserControls.Popups
             rootPage.image.srcPixels = (byte[])rootPage.image.dstPixels.Clone();
             rootPage.imageOriginal.srcPixels = (byte[])rootPage.imageOriginal.dstPixels.Clone();
 
-            rootPage.ArchiveAddArray();
-            rootPage.effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value + "," + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
+            rootPage.Panel.ArchiveAddArray();
+            rootPage.OptionsPopup.effectsApplied.Add("Color = " + BlueColorSlider.Value + "," + GreenColorSlider.Value + "," + RedColorSlider.Value + "," + BlueContrastSlider.Value + "," + GreenContrastSlider.Value + "," + RedContrastSlider.Value);
             ResetColorMenuData();
             rootPage.ImageLoadingRing.IsActive = false;
         }

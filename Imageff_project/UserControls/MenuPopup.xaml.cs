@@ -141,7 +141,7 @@ namespace RemedyPic.UserControls
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupImageOptions.IsOpen = true;
+			rootPage.OptionsPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Options-checked.png");
             OptionsIcon.Source = temp;
@@ -149,7 +149,7 @@ namespace RemedyPic.UserControls
 
         public void OptionsUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupImageOptions.IsOpen = false;
+			rootPage.OptionsPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Options.png");
             OptionsIcon.Source = temp;
@@ -216,7 +216,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupHistogram.IsOpen = true;
+            rootPage.HistogramPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Histogram-checked.png");
             HistogramIcon.Source = temp;
@@ -224,7 +224,7 @@ namespace RemedyPic.UserControls
 
         public void HistogramUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupHistogram.IsOpen = false;
+			rootPage.HistogramPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Histogram.png");
             HistogramIcon.Source = temp;
@@ -242,7 +242,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectHistogram.IsChecked = false;
-            rootPage.PopupCustomFilter.IsOpen = true;
+            rootPage.CustomPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/CustomFilter-checked.png");
             CustomIcon.Source = temp;
@@ -250,7 +250,7 @@ namespace RemedyPic.UserControls
 
         public void CustomFilterUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupCustomFilter.IsOpen = false;
+			rootPage.CustomPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/CustomFilter.png");
             CustomIcon.Source = temp;

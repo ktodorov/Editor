@@ -57,7 +57,7 @@ namespace RemedyPic.UserControls.Popups
             rootPage.ImageLoadingRing.IsActive = true;
             rootPage.image.srcPixels = (byte[])rootPage.image.dstPixels.Clone();
             rootPage.imageOriginal.srcPixels = (byte[])rootPage.imageOriginal.dstPixels.Clone();
-            rootPage.ArchiveAddArray();
+            rootPage.Panel.ArchiveAddArray();
             Colorize_SetColorizeEffect();
             rootPage.ImageLoadingRing.IsActive = false;
         }
@@ -66,7 +66,7 @@ namespace RemedyPic.UserControls.Popups
         {
             string colorizeColors = "";
             Colorize_GetColorizeColors(ref colorizeColors);
-            rootPage.effectsApplied.Add("Colorize = " + colorizeColors);
+            rootPage.OptionsPopup.effectsApplied.Add("Colorize = " + colorizeColors);
 
         }
 

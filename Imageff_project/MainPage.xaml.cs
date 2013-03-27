@@ -45,19 +45,11 @@ namespace RemedyPic
 
         // Those are all the global variables, that are used in MainPage.xaml.cs file.
 
-        // Those are used for the import/export functions.
-        public Configuration configFile = new Configuration();
-        public List<string> effectsApplied = new List<string>();
-
 		public static MainPage Current;
 
         // Undo Redo archive
         public List<byte[]> archive_data = new List<byte[]>();
         public int archive_current_index = -1;     // -1 because we don`t have saved pixel array
-
-        public double widthHeightRatio = 0;
-        public bool keepProportions = true;
-        public bool calledByOther = false;
 
         // mruToken is used for LoadState and SaveState functions.
         public string mruToken = null;
@@ -114,6 +106,9 @@ namespace RemedyPic
         public RemedyRotations RotatePopup;
         public RemedyColorize ColorizePopup;
         public RemedyFrames FramesPopup;
+		public RemedyCustom CustomPopup;
+		public RemedyHistogram HistogramPopup;
+		public RemedyOptions OptionsPopup;
 
         #endregion
 
@@ -155,6 +150,9 @@ namespace RemedyPic
             RotatePopup = new RemedyRotations();
             ColorizePopup = new RemedyColorize();
             FramesPopup = new RemedyFrames();
+			CustomPopup = new RemedyCustom();
+			HistogramPopup = new RemedyHistogram();
+			OptionsPopup = new RemedyOptions();
 
             setPopupsHeight();
 
@@ -164,6 +162,9 @@ namespace RemedyPic
             SmallPopups.Children.Add(RotatePopup);
             SmallPopups.Children.Add(ColorizePopup);
             SmallPopups.Children.Add(FramesPopup);
+			SmallPopups.Children.Add(CustomPopup);
+			SmallPopups.Children.Add(HistogramPopup);
+			SmallPopups.Children.Add(OptionsPopup);
         }
 
 
@@ -311,7 +312,7 @@ namespace RemedyPic
             // The original big image is left in original resolution.
             // After this we get the image pixels as streams and then
             // write the streams to the RemedyImage arrays.
-            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+            exampleBitmap = await OptionsPopup.ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
             exampleStream = exampleBitmap.PixelBuffer.AsStream();
             bitmapStream = bitmapImage.PixelBuffer.AsStream();
             uneditedStream = uneditedBitmap.PixelBuffer.AsStream();
@@ -328,10 +329,10 @@ namespace RemedyPic
             // Reset archive and archive index and add new image
             archive_data.Clear();
             archive_current_index = -1;
-            ArchiveAddArray();
+            Panel.ArchiveAddArray();
 
             // Clear array with effects
-            effectsApplied.Clear();
+            OptionsPopup.effectsApplied.Clear();
 
             // Set the small WriteableBitmap objects to the three XAML Image objects.
             setElements(ColorsPopup.ColorsExamplePicture, exampleBitmap);
@@ -367,9 +368,9 @@ namespace RemedyPic
 
 
 
-            widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
-            newWidth.Text = bitmapImage.PixelWidth.ToString();
-            newHeight.Text = bitmapImage.PixelHeight.ToString();
+			OptionsPopup.widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
+			OptionsPopup.newWidth.Text = bitmapImage.PixelWidth.ToString();
+			OptionsPopup.newHeight.Text = bitmapImage.PixelHeight.ToString();
 
             // Show the interface.
             showInterface();
@@ -402,12 +403,12 @@ namespace RemedyPic
             FiltersPopup.Filters.Height = Window.Current.Bounds.Height;
             ExposurePopup.Exposure.Height = Window.Current.Bounds.Height;
             RotatePopup.Rotations.Height = Window.Current.Bounds.Height;
-            ImageOptions.Height = Window.Current.Bounds.Height;
+            OptionsPopup.ImageOptions.Height = Window.Current.Bounds.Height;
             ColorizePopup.Colorize.Height = Window.Current.Bounds.Height;
             FramesPopup.Frames.Height = Window.Current.Bounds.Height;
-            Histogram.Height = Window.Current.Bounds.Height;
+            HistogramPopup.Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
-            CustomFilter.Height = Window.Current.Bounds.Height;
+            CustomPopup.Popup.Height = Window.Current.Bounds.Height;
             notSaved.Width = Window.Current.Bounds.Width;
             notSavedGrid.Width = Window.Current.Bounds.Width;
         }
@@ -570,133 +571,6 @@ namespace RemedyPic
             givenImage.Reset();
         }
 
-        #region Undo and Redo
-
-        // Undo button click
-        public void OnUndoClick(object sender, RoutedEventArgs e)
-        {
-            ImageLoadingRing.IsActive = true;
-
-            if (archive_current_index > 0) // Check if there is no more for undo
-            {
-                archive_current_index--;
-                if (effectsApplied.Count > 0 && (Regex.IsMatch(effectsApplied[archive_current_index], "Crop") || Regex.IsMatch(effectsApplied[archive_current_index], "Resize")))
-                {                    
-                    string[] sizes = effectsApplied[archive_current_index].Split(' ');
-                    imageOriginal.width = Convert.ToInt32(sizes[1]);
-                    imageOriginal.height = Convert.ToInt32(sizes[2]);
-                    imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
-                    imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
-                    bitmapImage = new WriteableBitmap(imageOriginal.width, imageOriginal.height);
-                    bitmapStream = bitmapImage.PixelBuffer.AsStream();
-                }
-                ArchiveSetNewImage();
-                setExampleBitmaps();
-            }
-            ImageLoadingRing.IsActive = false;
-        }
-
-        //Redo button click
-        public void OnRedoClick(object sender, RoutedEventArgs e)
-        {
-            ImageLoadingRing.IsActive = true;
-
-            if (archive_current_index < archive_data.Count - 1) // Check if there is array for redo
-            {
-                archive_current_index++;
-                if (Regex.IsMatch(effectsApplied[archive_current_index - 1], "Crop") || Regex.IsMatch(effectsApplied[archive_current_index - 1], "Resize"))
-                {
-                    string[] sizes = effectsApplied[archive_current_index - 1].Split(' ');
-                    imageOriginal.width = Convert.ToInt32(sizes[3]);
-                    imageOriginal.height = Convert.ToInt32(sizes[4]);
-                    imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
-                    imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
-                    bitmapImage = new WriteableBitmap(imageOriginal.width, imageOriginal.height);
-                    bitmapStream = bitmapImage.PixelBuffer.AsStream();
-                }                
-                ArchiveSetNewImage();
-            }
-            ImageLoadingRing.IsActive = false;
-        }
-
-        public void ArchiveSetNewImage()
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.srcPixels = (byte[])archive_data[archive_current_index].Clone();
-            imageOriginal.dstPixels = (byte[])archive_data[archive_current_index].Clone();
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-            setExampleBitmaps();
-            FiltersPopup.setFilterBitmaps();
-            imageDisplayed.displayImage.Source = bitmapImage;
-        }
-
-        // Add pixel array to the archive and increment current index of the archive
-        public void ArchiveAddArray()
-        {
-            if (archive_current_index != -1 && archive_current_index != archive_data.Count - 1)
-            {
-                archive_data.RemoveRange(archive_current_index + 1, archive_data.Count - 1 - archive_current_index);
-                effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); // Here we don`t save the start image, so we have -1 index of archive_current_index
-            }
-            archive_data.Add((byte[])imageOriginal.srcPixels.Clone());
-            archive_current_index++;
-        }
-        #endregion
-
-
-        #region Resizing an image
-
-        // This function resize the passed WriteableBitmap object with the passed width and height.
-        // The passed width and height must be proportional of the original width and height( /2, /3, /4 ..).
-        public async Task<WriteableBitmap> ResizeImage(WriteableBitmap baseWriteBitmap, uint width, uint height)
-        {
-            // Get the pixel buffer of the writable bitmap in bytes
-            Stream stream = baseWriteBitmap.PixelBuffer.AsStream();
-            byte[] pixels = new byte[(uint)stream.Length];
-            await stream.ReadAsync(pixels, 0, pixels.Length);
-
-            //Encoding the data of the PixelBuffer we have from the writable bitmap
-            var inMemoryRandomStream = new InMemoryRandomAccessStream();
-            var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream);
-            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)baseWriteBitmap.PixelWidth, (uint)baseWriteBitmap.PixelHeight, 96, 96, pixels);
-            await encoder.FlushAsync();
-
-            // At this point we have an encoded image in inMemoryRandomStream
-            // We apply the transform and decode
-            var transform = new BitmapTransform
-            {
-                ScaledWidth = width,
-                ScaledHeight = height,
-            };
-            inMemoryRandomStream.Seek(0);
-            var decoder = await BitmapDecoder.CreateAsync(inMemoryRandomStream);
-            var pixelData = await decoder.GetPixelDataAsync(
-                            BitmapPixelFormat.Bgra8,
-                            BitmapAlphaMode.Straight,
-                            transform,
-                            ExifOrientationMode.IgnoreExifOrientation,
-                            ColorManagementMode.DoNotColorManage);
-
-            // An array containing the decoded image data
-            var sourceDecodedPixels = pixelData.DetachPixelData();
-
-            // We encode the image buffer again:
-
-            // Encoding data
-            var inMemoryRandomStream2 = new InMemoryRandomAccessStream();
-            var encoder2 = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream2);
-            encoder2.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, width, height, 96, 96, sourceDecodedPixels);
-            await encoder2.FlushAsync();
-            inMemoryRandomStream2.Seek(0);
-
-            // Finally the resized WritableBitmap
-            var bitmap = new WriteableBitmap((int)width, (int)height);
-            await bitmap.SetSourceAsync(inMemoryRandomStream2);
-            return bitmap;
-        }
-        #endregion
-
-
         #region Back buttons
 
         public void BackPopupClicked(object sender, RoutedEventArgs e)
@@ -735,71 +609,6 @@ namespace RemedyPic
             Menu.deselectPopups();
         }
 
-        #region Image Options
-        public async void SetLockPic_Clicked(object sender, RoutedEventArgs e)
-        {
-            // This sets the current image as a wallpaper on the lock screen of the current user and inform him that everything was okay.
-            bool savedFile = false;
-            savedFile = await SaveFile(false);
-            while (!savedFile)
-            {
-
-            }
-            await LockScreen.SetImageFileAsync(file);
-            MessageDialog messageDialog = new MessageDialog("Picture set! :)", "All done");
-            await messageDialog.ShowAsync();
-            await deleteUsedFile();
-        }
-
-        public async void SetAccountPic_Clicked(object sender, RoutedEventArgs e)
-        {
-            // This sets the current image as an avatar of the current user and inform him that everything was okay.
-            bool savedFile = false;
-            savedFile = await SaveFile(false);
-            while (!savedFile)
-            {
-
-            }
-            SetAccountPictureResult result = await UserInformation.SetAccountPicturesAsync(null, file, null);
-
-            if (result == SetAccountPictureResult.Success)
-            {
-                MessageDialog messageDialog = new MessageDialog("Picture set! :)", "All done");
-                await messageDialog.ShowAsync();
-                await deleteUsedFile();
-            }
-            else
-            {
-                MessageDialog messageDialog = new MessageDialog("Something failed :(", "Close");
-                await messageDialog.ShowAsync();
-            }
-        }
-
-        public void ReturnOriginal_Clicked(object sender, RoutedEventArgs e)
-        {
-            // Restore the original image.
-            RestoreOriginalBitmap();
-        }
-
-        public void RestoreOriginalBitmap()
-        {
-            // Reset the current image.
-            imageOriginal.srcPixels = (byte[])uneditedImage.srcPixels.Clone();
-            imageOriginal.dstPixels = (byte[])uneditedImage.dstPixels.Clone();
-            bitmapStream = uneditedStream;
-            bitmapImage = uneditedBitmap;
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-            imageDisplayed.displayImage.Source = bitmapImage;
-
-            setExampleBitmaps();
-
-            FiltersPopup.setFilterBitmaps();
-            imageDisplayed.selectedRegion.ResetCorner(0, 0, imageDisplayed.displayImage.ActualWidth, imageDisplayed.displayImage.ActualHeight);
-        }
-
-        #endregion
-
         public async Task deleteUsedFile()
         {
             // Deletes the temporary created file.
@@ -810,27 +619,6 @@ namespace RemedyPic
             }
         }
 
-        public void HistogramClicked(object sender, RoutedEventArgs e)
-        {
-            // Equalize the histogram of the current image.
-            Menu.SelectHistogram.IsChecked = false;
-            equalizeHistogram();
-            FiltersPopup.setFilterBitmaps();
-        }
-
-        public void equalizeHistogram()
-        {
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            imageOriginal.MakeHistogramEqualization();
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-            prepareImage(exampleStream, exampleBitmap, image);
-            image.MakeHistogramEqualization();
-            setStream(exampleStream, exampleBitmap, image);
-            image.srcPixels = (byte[])image.dstPixels.Clone();
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            ArchiveAddArray();
-            effectsApplied.Add("Histogram = true");
-        }
 
         #region Crop region
 
@@ -973,8 +761,8 @@ namespace RemedyPic
             imageDisplayed.sourceImagePixelHeight = (uint)bitmapImage.PixelHeight;
             imageDisplayed.sourceImagePixelWidth = (uint)bitmapImage.PixelWidth;
 
-            ArchiveAddArray();
-            effectsApplied.Add("Crop " + OrignalWidth + " " + OriginalHeight + " " + (int)previewImageSize.Width + " " + (int)previewImageSize.Height);
+			Panel.ArchiveAddArray();
+			OptionsPopup.effectsApplied.Add("Crop " + OrignalWidth + " " + OriginalHeight + " " + (int)previewImageSize.Width + " " + (int)previewImageSize.Height);
             ImageLoadingRing.IsActive = false;
             imageDisplayed.displayImage.Source = bitmapImage;
         }
@@ -1105,474 +893,7 @@ namespace RemedyPic
 
         #endregion
 
-        #region Resizing the image
-
-        public void OnNewWidthTextChanged(object sender, TextChangedEventArgs e)
-        {
-            int temp;
-
-            if (keepProportions && newWidth.Text != "" && int.TryParse(newWidth.Text, out temp) && !calledByOther)
-            {
-                newHeight.Text = (Math.Round(temp / widthHeightRatio)).ToString();
-            }
-            calledByOther = !calledByOther;
-            if (newWidth.Text != "")
-            {
-                ApplyResize.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                ApplyResize.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        public void OnNewHeightTextChanged(object sender, TextChangedEventArgs e)
-        {
-            int temp;
-            if (keepProportions && newHeight.Text != "" && int.TryParse(newHeight.Text, out temp) && !calledByOther)
-            {
-                newWidth.Text = (Math.Round(temp * widthHeightRatio)).ToString();
-            }
-            calledByOther = !calledByOther;
-            if (newHeight.Text != "")
-            {
-                ApplyResize.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                ApplyResize.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        public void OnKeepPropsUnchecked(object sender, RoutedEventArgs e)
-        {
-            keepProportions = false;
-        }
-
-        public void OnKeepPropsChecked(object sender, RoutedEventArgs e)
-        {
-            keepProportions = true;
-        }
-
-        public void Resize_Checked(object sender, RoutedEventArgs e)
-        {
-            ResizePanel.Visibility = Visibility.Visible;
-        }
-
-        public void Resize_Unchecked(object sender, RoutedEventArgs e)
-        {
-            ResizePanel.Visibility = Visibility.Collapsed;
-        }
-
-        public async void ApplyResize_Clicked(object sender, RoutedEventArgs e)
-        {
-            // Resize the current image.
-            int a = 0;
-            MessageDialog messageDialog = new MessageDialog("Please, input only numbers.", "Error");
-            if (!int.TryParse(newWidth.Text, out a) || !int.TryParse(newHeight.Text, out a))
-            {
-                await messageDialog.ShowAsync();
-                return;
-            }
-            int resizeWidth = Convert.ToInt32(newWidth.Text);
-            int resizeHeight = Convert.ToInt32(newHeight.Text);
-            int OrignalWidth = imageOriginal.width;
-            int OriginalHeight = imageOriginal.height;
-
-            ApplyResize.Visibility = Visibility.Collapsed;
-
-            bitmapImage = await ResizeImage(bitmapImage, (uint)(resizeWidth), (uint)(resizeHeight));
-            bitmapStream = bitmapImage.PixelBuffer.AsStream();
-            imageOriginal.srcPixels = new byte[(uint)bitmapStream.Length];
-            image.srcPixels = new byte[(uint)exampleStream.Length];
-            await bitmapStream.ReadAsync(imageOriginal.srcPixels, 0, imageOriginal.srcPixels.Length);
-            prepareImage(bitmapStream, bitmapImage, imageOriginal);
-            setStream(bitmapStream, bitmapImage, imageOriginal);
-            imageDisplayed.displayImage.Source = bitmapImage;
-            ArchiveAddArray();
-            effectsApplied.Add("Resize " + OrignalWidth + " " + OriginalHeight + " " + (int)resizeWidth + " " + (int)resizeHeight);
-            imageDisplayed.displayImage.Source = bitmapImage;
-            FiltersPopup.setFilterBitmaps();
-        }
-
-        #endregion
-
-
-
-        #region Custom Filter
-
-        public void OnCoeffChanged(object sender, TextChangedEventArgs text)
-        {
-            CustomApplyReset.Visibility = Visibility.Visible;
-            TextBox val = (TextBox)text.OriginalSource;
-            if (val != null)
-            {
-                CustomFilter_CheckValue(ref val);
-            }
-            CustomFilter_CalculateScaleOffset();
-        }
-
-        // SCALE AND OFFSET
-        public void OnScaleChanged(object sender, TextChangedEventArgs text)
-        {
-            CustomApplyReset.Visibility = Visibility.Visible;
-            CustomFilter_CheckScale();
-        }
-
-        public void OnOffsetChanged(object sender, TextChangedEventArgs text)
-        {
-            CustomApplyReset.Visibility = Visibility.Visible;
-            CustomFilter_CheckValue(ref Offset);
-        }
-
-        // Check if the value of text box is number and set scale and offset
-        public void CustomFilter_CheckValue(ref TextBox coeff)
-        {
-            try
-            {
-                Convert.ToInt32(coeff.Text);
-            }
-            catch (FormatException e)
-            {
-                if (!(coeff.Text.Length == 1 && coeff.Text[0] == '-'))
-                    coeff.Text = "";
-            }
-        }
-
-        // Check if the scale is > 0
-        public void CustomFilter_CheckScale()
-        {
-            try
-            {
-                int val = Convert.ToInt32(Scale.Text);
-
-                if (val == 0)
-                    Scale.Text = "";
-            }
-            catch (FormatException e)
-            {
-                Scale.Text = "";
-            }
-        }
-
-        //Calculate the Scale and offset
-        public void CustomFilter_CalculateScaleOffset()
-        {
-            int[,] coeff = new int[5, 5];
-            int offset = 0, scale = 1;
-            CustomFilter_SetValues(ref coeff, ref offset, ref scale);
-            int sum = 0;
-
-            foreach (int val in coeff)
-            {
-                sum += val;
-            }
-
-            if (sum != 0)
-                scale = Math.Abs(sum);
-            else
-                scale = 1;
-
-            if (sum / scale == 1)
-                offset = 0;
-            else if (sum == 0)
-                offset = 128;
-            else if (sum / scale == -1)
-                offset = 255;
-
-            Scale.Text = scale.ToString();
-            Offset.Text = offset.ToString();
-        }
-
-        // Review button click
-        public void OnCustomReviewClick(object sender, RoutedEventArgs e)
-        {
-            CustomReview();
-        }
-
-        public void CustomReview()
-        {
-            ImageLoadingRing.IsActive = true;
-
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                CustomFilter_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(imageOriginal.srcPixels, imageOriginal.width, imageOriginal.height, offset, scale, coeff);
-                imageOriginal.dstPixels = custom_image.Filter();
-
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-
-            ImageLoadingRing.IsActive = false;
-        }
-
-        // Apply button click
-        public void OnCustomApplyClick(object sender, RoutedEventArgs e)
-        {
-            CustomApply();
-            CustomApplyReset.Visibility = Visibility.Collapsed;
-            setExampleBitmaps();
-            FiltersPopup.setFilterBitmaps();
-            Saved = false;
-        }
-
-        public void CustomApply()
-        {
-            ImageLoadingRing.IsActive = true;
-
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                int[,] coeff = new int[5, 5];
-                int offset = 0, scale = 0;
-                CustomFilter_SetValues(ref coeff, ref offset, ref scale);
-
-                CustomFilter custom_image = new CustomFilter(imageOriginal.srcPixels, imageOriginal.width, imageOriginal.height, offset, scale, coeff);
-                imageOriginal.dstPixels = custom_image.Filter();
-
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-
-            imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-            ArchiveAddArray();
-            effectsApplied.Add("Custom = " + "TODO");
-            CustomFilter_ResetValues();
-            ImageLoadingRing.IsActive = false;
-        }
-
-        // Reset button click
-        public void OnCustomResetClick(object sender, RoutedEventArgs e)
-        {
-            CustomFilter_ResetValues();
-
-            if (pictureIsLoaded)
-            {
-                prepareImage(bitmapStream, bitmapImage, imageOriginal);
-                imageOriginal.dstPixels = (byte[])imageOriginal.srcPixels.Clone();
-                setStream(bitmapStream, bitmapImage, imageOriginal);
-            }
-            CustomApplyReset.Visibility = Visibility.Collapsed;
-        }
-
-        // Reset All values of custom filter
-        public void CustomFilter_ResetValues()
-        {
-            coeff00.Text = coeff10.Text = coeff20.Text = coeff30.Text = coeff40.Text = "";
-            coeff01.Text = coeff11.Text = coeff21.Text = coeff31.Text = coeff41.Text = "";
-            coeff02.Text = coeff12.Text = coeff32.Text = coeff42.Text = "";
-            coeff03.Text = coeff13.Text = coeff23.Text = coeff33.Text = coeff43.Text = "";
-            coeff04.Text = coeff14.Text = coeff24.Text = coeff34.Text = coeff44.Text = "";
-            coeff22.Text = "1";
-
-            Scale.Text = "1";
-            Offset.Text = "0";
-        }
-
-        // Set the matrix for custom filter
-        public void CustomFilter_SetValues(ref int[,] coeff, ref int offset, ref int scale)
-        {
-            CustomFilter_SetValue(ref coeff[0, 0], coeff00);
-            CustomFilter_SetValue(ref coeff[1, 0], coeff10);
-            CustomFilter_SetValue(ref coeff[2, 0], coeff20);
-            CustomFilter_SetValue(ref coeff[3, 0], coeff30);
-            CustomFilter_SetValue(ref coeff[4, 0], coeff40);
-
-            CustomFilter_SetValue(ref coeff[0, 1], coeff01);
-            CustomFilter_SetValue(ref coeff[1, 1], coeff11);
-            CustomFilter_SetValue(ref coeff[2, 1], coeff21);
-            CustomFilter_SetValue(ref coeff[3, 1], coeff31);
-            CustomFilter_SetValue(ref coeff[4, 1], coeff41);
-
-            CustomFilter_SetValue(ref coeff[0, 2], coeff02);
-            CustomFilter_SetValue(ref coeff[1, 2], coeff12);
-            CustomFilter_SetValue(ref coeff[2, 2], coeff22);
-            CustomFilter_SetValue(ref coeff[3, 2], coeff32);
-            CustomFilter_SetValue(ref coeff[4, 2], coeff42);
-
-            CustomFilter_SetValue(ref coeff[0, 3], coeff03);
-            CustomFilter_SetValue(ref coeff[1, 3], coeff13);
-            CustomFilter_SetValue(ref coeff[2, 3], coeff23);
-            CustomFilter_SetValue(ref coeff[3, 3], coeff33);
-            CustomFilter_SetValue(ref coeff[4, 3], coeff43);
-
-            CustomFilter_SetValue(ref coeff[0, 4], coeff04);
-            CustomFilter_SetValue(ref coeff[1, 4], coeff14);
-            CustomFilter_SetValue(ref coeff[2, 4], coeff24);
-            CustomFilter_SetValue(ref coeff[3, 4], coeff34);
-            CustomFilter_SetValue(ref coeff[4, 4], coeff44);
-
-            CustomFilter_SetScale(ref scale);
-            CustomFilter_SetValue(ref offset, Offset);
-        }
-
-        // Set one coeff of matrix
-        public void CustomFilter_SetValue(ref int coeff, TextBox val)
-        {
-            int new_val = 0;
-            try
-            {
-                new_val = Convert.ToInt32(val.Text);
-            }
-            catch (FormatException e)
-            {
-                if (!(val.Text.Length == 1 && val.Text[0] == '-'))
-                    val.Text = "";
-            }
-
-            if (new_val != 0)
-                coeff = new_val;
-        }
-
-        // Set the scale value of custom filter
-        public void CustomFilter_SetScale(ref int scale)
-        {
-            int new_val = 0;
-            try
-            {
-                new_val = Convert.ToInt32(Scale.Text);
-
-                if (new_val <= 0)
-                {
-                    Scale.Text = "";
-                    scale = 1;
-                }
-            }
-            catch (FormatException e)
-            {
-                Scale.Text = "";
-                scale = 1;
-            }
-
-            if (new_val > 0)
-                scale = new_val;
-        }
-
-        #endregion
-
-
-        #region Export/Import
-        public void OnExportButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (archive_current_index != archive_data.Count - 1)
-            {
-                archive_data.RemoveRange(archive_current_index + 1, archive_data.Count - 1 - archive_current_index);
-                effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); // Here we don`t save the start image, so we have -1 index of archive_current_index
-            }
-            configFile.Export(effectsApplied);
-        }
-
-        public void onImportButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (archive_current_index != archive_data.Count - 1)
-            {
-                archive_data.RemoveRange(archive_current_index + 1, archive_data.Count - 1 - archive_current_index);
-                effectsApplied.RemoveRange(archive_current_index, effectsApplied.Count - archive_current_index); // Here we don`t save the start image, so we have -1 index of archive_current_index
-            }
-
-            ImageLoadingRing.IsActive = true;
-            DarkenBorder.Visibility = Visibility.Visible;
-
-            for (int i = 0; i < configFile.effects.Count; i += 2)
-            {
-                checkEffect(i);
-            }
-            FiltersPopup.setFilterBitmaps();
-            ImageLoadingRing.IsActive = false;
-            DarkenBorder.Visibility = Visibility.Collapsed;
-        }
-
-        public void checkEffect(int i)
-        {
-            string[] temp = new string[10];
-            switch (configFile.effects[i])
-            {
-                case "Filter":
-                    FiltersPopup.ApplyFilter(configFile.effects[i + 1]);
-                    break;
-
-                case "Color":
-                    temp = configFile.effects[i + 1].Split(',');
-                    importColor(temp);
-                    break;
-
-                case "Contrast":
-                    temp = configFile.effects[i + 1].Split(',');
-                    importContrast(temp);
-                    break;
-
-                case "Exposure":
-                    temp = configFile.effects[i + 1].Split(',');
-                    importExposure(temp);
-                    break;
-
-                case "Flip":
-                    temp = configFile.effects[i + 1].Split(',');
-                    RotatePopup.ApplyRotate(temp[0]);
-                    break;
-
-                case "Colorize":
-                    temp = configFile.effects[i + 1].Split(',');
-                    importColorize(temp);
-                    break;
-
-                case "Frame":
-                    temp = configFile.effects[i + 1].Split(',');
-                    FramesPopup.checkAndApplyFrames(temp);
-                    imageOriginal.srcPixels = (byte[])imageOriginal.dstPixels.Clone();
-                    break;
-
-                case "Rotate":
-                    temp = configFile.effects[i + 1].Split(',');
-                    RotatePopup.RotateBitmap(temp[0]);
-                    break;
-
-                case "Histogram":
-                    if (configFile.effects[i + 1] == "true")
-                    {
-                        equalizeHistogram();
-                    }
-                    break;
-                default: break;
-            }
-        }
-
-        #region Import Functions
-        public void importColor(string[] temp)
-        {
-            ColorsPopup.importColor(temp);
-        }
-
-        public void importContrast(string[] temp)
-        {
-            ColorsPopup.importContrast(temp);
-        }
-
-        public void importExposure(string[] temp)
-        {
-            ExposurePopup.Import(temp);
-        }
-
-        public void importColorize(string[] temp)
-        {
-            ColorizePopup.Import(temp);
-        }
-        #endregion
-
-        public async void onImportFileSelectButtonClick(object sender, RoutedEventArgs e)
-        {
-            bool imported = await configFile.Import(importFileName);
-            if (imported)
-                importFilePanel.Visibility = Visibility.Visible;
-            else if (configFile == null)
-                importFilePanel.Visibility = Visibility.Collapsed;
-        }
-        #endregion
-
-
+       
         public void OnCancelSaveClicked(object sender, RoutedEventArgs e)
         {
             notSaved.IsOpen = false;
@@ -1598,7 +919,7 @@ namespace RemedyPic
 
         public async void setExampleBitmaps()
         {
-            exampleBitmap = await ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
+			exampleBitmap = await OptionsPopup.ResizeImage(bitmapImage, (uint)(bitmapImage.PixelWidth / 5), (uint)(bitmapImage.PixelHeight / 5));
 
             exampleStream = exampleBitmap.PixelBuffer.AsStream();
             image.srcPixels = new byte[(uint)exampleStream.Length];
