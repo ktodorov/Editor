@@ -22,11 +22,6 @@ namespace RemedyPic.UserControls
     {
         MainPage rootPage = MainPage.Current;
 
-        PaneThemeTransition tempAnimation = new PaneThemeTransition()
-            {
-                Edge = EdgeTransitionLocation.Right
-            };
-
         public MenuPopup()
         {
             this.InitializeComponent();
@@ -281,8 +276,6 @@ namespace RemedyPic.UserControls
         {
             // Called when the Crop button is checked.
             deselectPopups();
-            rootPage.Panel.Crop.ChildTransitions = new TransitionCollection();
-            rootPage.Panel.Crop.ChildTransitions.Add(tempAnimation);
             rootPage.Panel.Crop.Visibility = Visibility.Visible;
             rootPage.imageDisplayed.imageCanvas.Visibility = Visibility.Visible;
             rootPage.imageDisplayed.displayGrid.Margin = new Thickness(15);
@@ -297,7 +290,6 @@ namespace RemedyPic.UserControls
         {
             // Called when the Crop button is unchecked.
             rootPage.Panel.Crop.Visibility = Visibility.Collapsed;
-            rootPage.Panel.Crop.ChildTransitions.Remove(tempAnimation);
             rootPage.imageDisplayed.imageCanvas.Visibility = Visibility.Collapsed;
             rootPage.imageDisplayed.selectedRegion.ResetCorner(0, 0, rootPage.imageDisplayed.displayImage.ActualWidth, rootPage.imageDisplayed.displayImage.ActualHeight);
             rootPage.imageDisplayed.displayGrid.Margin = new Thickness(0);

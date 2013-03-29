@@ -26,284 +26,165 @@
             <RowDefinition x:Name="MenuRow" Height="70"/>
         </Grid.RowDefinitions>
 
-        <Border
-    VerticalAlignment="Bottom" Grid.Row="3" Margin="0" Background="#26FFFFFF" BorderThickness="0">
-            <Border.BorderBrush
-    >
-                <LinearGradientBrush
-    StartPoint="0.5,0" EndPoint="0.5,1">
-                    <LinearGradientBrush.RelativeTransform
-    >
-                        <CompositeTransform
-    CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
+        <Border VerticalAlignment="Bottom" Grid.Row="3" Margin="0" Background="#26FFFFFF" BorderThickness="0">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
                     </LinearGradientBrush.RelativeTransform>
-                    <GradientStop
-    Color="#FF21FF00"/>
-                    <GradientStop
-    Color="#FF218900" Offset="1"/>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <TextBlock
-    VerticalAlignment="Top" Text="{Binding Name}" Grid.RowSpan="2" x:Name="fileName" Margin="15,15,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI" FontSize="85" Foreground="#0CFFFFFF"/>
-        <Border
-    Grid.RowSpan="4" Margin="0" Background="#26FFFFFF" BorderThickness="0">
-            <Border.BorderBrush
-    >
-                <LinearGradientBrush
-    StartPoint="0.5,0" EndPoint="0.5,1">
-                    <LinearGradientBrush.RelativeTransform
-    >
-                        <CompositeTransform
-    CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
+        <TextBlock VerticalAlignment="Top" Text="{Binding Name}" Grid.RowSpan="2" x:Name="fileName" Margin="15,15,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI" FontSize="85" Foreground="#0CFFFFFF"/>
+        <Border Grid.RowSpan="4" Margin="0" Background="#26FFFFFF" BorderThickness="0">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
                     </LinearGradientBrush.RelativeTransform>
-                    <GradientStop
-    Color="#FF21FF00"/>
-                    <GradientStop
-    Color="#FF218900" Offset="1"/>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <StackPanel
-    VerticalAlignment="Center" Grid.RowSpan="3" Orientation="Horizontal" x:Name="ImageStack" HorizontalAlignment="Center"/>
-        <Border
-    VerticalAlignment="Bottom" Grid.Row="3" Margin="0" Background="#26FFFFFF" BorderThickness="0,0,0,2">
-            <Border.BorderBrush
-    >
-                <LinearGradientBrush
-    StartPoint="0.5,0" EndPoint="0.5,1">
-                    <LinearGradientBrush.RelativeTransform
-    >
-                        <CompositeTransform
-    CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
+        <StackPanel VerticalAlignment="Center" Grid.RowSpan="3" Orientation="Horizontal" x:Name="ImageStack" HorizontalAlignment="Center"/>
+        <Border VerticalAlignment="Bottom" Grid.Row="3" Margin="0" Background="#26FFFFFF" BorderThickness="0,0,0,2">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="89.8"/>
                     </LinearGradientBrush.RelativeTransform>
-                    <GradientStop
-    Color="#FF21FF00"/>
-                    <GradientStop
-    Color="#FF218900" Offset="1"/>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <Border
-    Grid.RowSpan="4" x:Name="border" Margin="0" Grid.Column="1" Background="#FF515050" BorderThickness="2,0,0,0">
-            <Border.BorderBrush
-    >
-                <LinearGradientBrush
-    StartPoint="0.5,0" EndPoint="0.5,1">
-                    <LinearGradientBrush.RelativeTransform
-    >
-                        <CompositeTransform
-    CenterY="0.5" CenterX="0.5" Rotation="180"/>
+        <Border Grid.RowSpan="4" x:Name="border" Margin="0" Grid.Column="1" Background="#FF515050" BorderThickness="2,0,0,0">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
                     </LinearGradientBrush.RelativeTransform>
-                    <GradientStop
-    Color="#FF21FF00"/>
-                    <GradientStop
-    Color="#FF218900" Offset="1"/>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
-            <StackPanel
-    Margin="0" Orientation="Vertical">
+            <StackPanel Margin="0" Orientation="Vertical">
                 <StackPanel.Background>
                     <ImageBrush ImageSource="/Assets/Backgrounds/GreenCloud.png" Stretch="None" AlignmentX="Right" AlignmentY="Bottom"/>
                 </StackPanel.Background>
             </StackPanel>
         </Border>
-        <Border
-    Grid.RowSpan="4" Margin="0" HorizontalAlignment="Left" Background="#FF515050" BorderThickness="0,0,2,0">
-            <Border.BorderBrush
-    >
-                <LinearGradientBrush
-    StartPoint="0.5,0" EndPoint="0.5,1">
-                    <LinearGradientBrush.RelativeTransform
-    >
-                        <CompositeTransform
-    CenterY="0.5" CenterX="0.5" Rotation="180"/>
+        <Border Grid.RowSpan="4" Margin="0" HorizontalAlignment="Left" Background="#FF515050" BorderThickness="0,0,2,0">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="180"/>
                     </LinearGradientBrush.RelativeTransform>
-                    <GradientStop
-    Color="#FF21FF00"/>
-                    <GradientStop
-    Color="#FF218900" Offset="1"/>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <Border
-    VerticalAlignment="Top" Margin="0" Background="#19515050" BorderThickness="0,0,0,2">
-            <Border.BorderBrush
-    >
-                <LinearGradientBrush
-    StartPoint="0.5,0" EndPoint="0.5,1">
-                    <LinearGradientBrush.RelativeTransform
-    >
-                        <CompositeTransform
-    CenterY="0.5" CenterX="0.5"/>
+        <Border VerticalAlignment="Top" Margin="0" Background="#19515050" BorderThickness="0,0,0,2">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5"/>
                     </LinearGradientBrush.RelativeTransform>
-                    <GradientStop
-    Color="#FF21FF00"/>
-                    <GradientStop
-    Color="#FF218900" Offset="1"/>
+                    <GradientStop Color="#FF21FF00"/>
+                    <GradientStop Color="#FF218900" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
-        <Grid
-    Width="380" Grid.RowSpan="4" x:Name="contentGrid" Margin="0" HorizontalAlignment="Right" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions
-    >
-                <RowDefinition
-    Height="69"/>
-                <RowDefinition
-    Height="43"/>
-                <RowDefinition
-    />
+        <Grid Width="380" Grid.RowSpan="4" x:Name="contentGrid" Margin="0" HorizontalAlignment="Right" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="69"/>
+                <RowDefinition Height="43"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel
-    Width="340" Grid.RowSpan="4" Orientation="Horizontal" x:Name="SmallPopups" Margin="0" HorizontalAlignment="Right"/>
+            <StackPanel Width="340" Grid.RowSpan="4" Orientation="Horizontal" x:Name="SmallPopups" Margin="0" HorizontalAlignment="Right"/>
         </Grid>
         <!-- Back button and page title -->
-        <Popup
-    Width="350" Grid.RowSpan="4" x:Name="Feedback" Margin="0" IsOpen="False" IsLightDismissEnabled="True" HorizontalAlignment="Right" Grid.ColumnSpan="2">
-            <Popup.ChildTransitions
-    >
-                <TransitionCollection
-    >
-                    <PaneThemeTransition
-    />
+        <Popup Width="350" Grid.RowSpan="4" x:Name="Feedback" Margin="0" IsOpen="False" IsLightDismissEnabled="True" HorizontalAlignment="Right" Grid.ColumnSpan="2">
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PaneThemeTransition/>
                 </TransitionCollection>
             </Popup.ChildTransitions>
-            <Grid
-    Width="350" x:Name="FeedbackGrid" Height="768" Background="White">
-                <Grid.RowDefinitions
-    >
-                    <RowDefinition
-    Height="72"/>
-                    <RowDefinition
-    Height="141"/>
-                    <RowDefinition
-    Height="36"/>
-                    <RowDefinition
-    Height="26"/>
-                    <RowDefinition
-    Height="28"/>
-                    <RowDefinition
-    />
+            <Grid Width="350" x:Name="FeedbackGrid" Height="768" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="72"/>
+                    <RowDefinition Height="141"/>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid.ChildrenTransitions
-    >
-                    <TransitionCollection
-    >
-                        <EntranceThemeTransition
-    />
+                <Grid.ChildrenTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition/>
                     </TransitionCollection>
                 </Grid.ChildrenTransitions>
-                <Border
-    Grid.RowSpan="6" Margin="0" BorderThickness="1,0,0,0" BorderBrush="#FF0A4B00"/>
-                <Border
-    VerticalAlignment="Top" Padding="10,10,0,10" Margin="0" Height="72" Background="#FF00610D" BorderThickness="0,0,0,2" BorderBrush="#7FFFFFFF">
-                    <StackPanel
-    VerticalAlignment="Top" Orientation="Horizontal" Height="50">
-                        <Button x:ConnectionId='5'
-    Width="40" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle1}" x:Name="BackFeedback" Margin="0" Height="40" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="48" FontWeight="Normal" Foreground="White" Content="&#xE0D5;"                             Background="{x:Null}" BorderThickness="1" BorderBrush="#7FFFFFFF"/>
-                        <TextBlock
-    Text="Feedback" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="36" Foreground="#DEFFFFFF"/>
-                        <Image
-    Width="70" VerticalAlignment="Bottom" Source="Assets/RemedyPicLogo.png" x:Name="Logo_Copy8" Margin="60,0,0,0" Height="35" HorizontalAlignment="Right">
-                            <Image.Transitions
-    >
-                                <TransitionCollection
-    >
-                                    <EntranceThemeTransition
-    />
+                <Border Grid.RowSpan="6" Margin="0" BorderThickness="1,0,0,0" BorderBrush="#FF0A4B00"/>
+                <Border VerticalAlignment="Top" Padding="10,10,0,10" Margin="0" Height="72" Background="#FF00610D" BorderThickness="0,0,0,2" BorderBrush="#7FFFFFFF">
+                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Height="50">
+                        <Button x:ConnectionId='5' Width="40" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle1}" x:Name="BackFeedback" Margin="0" Height="40" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="48" FontWeight="Normal" Foreground="White" Content="&#xE0D5;"                             Background="{x:Null}" BorderThickness="1" BorderBrush="#7FFFFFFF"/>
+                        <TextBlock Text="Feedback" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="36" Foreground="#DEFFFFFF"/>
+                        <Image Width="70" VerticalAlignment="Bottom" Source="Assets/RemedyPicLogo.png" x:Name="Logo_Copy8" Margin="60,0,0,0" Height="35" HorizontalAlignment="Right">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
                                 </TransitionCollection>
                             </Image.Transitions>
                         </Image>
                     </StackPanel>
                 </Border>
-                <Border
-    VerticalAlignment="Center" Grid.Row="1" x:Name="Border" Margin="5,0" HorizontalAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="#337EFF58">
-                    <RichTextBlock
-    VerticalAlignment="Center" Margin="5,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
-                        <Paragraph
-    FontSize="16">
-                            <Run
-    Text="Feel free to write us back if you find any bugs or you have ideas for improvement!"/>
+                <Border VerticalAlignment="Center" Grid.Row="1" x:Name="Border" Margin="5,0" HorizontalAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="#337EFF58">
+                    <RichTextBlock VerticalAlignment="Center" Margin="5,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
+                        <Paragraph FontSize="16">
+                            <Run Text="Feel free to write us back if you find any bugs or you have ideas for improvement!"/>
                         </Paragraph>
                     </RichTextBlock>
                 </Border>
-                <RichTextBlock
-    VerticalAlignment="Center" Grid.Row="2" Margin="15,0,0,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
-                    <Paragraph
-    FontSize="16">
-                        <Run
-    Text="For contacts with the developers of RemedyPic:"/>
+                <RichTextBlock VerticalAlignment="Center" Grid.Row="2" Margin="15,0,0,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
+                    <Paragraph FontSize="16">
+                        <Run Text="For contacts with the developers of RemedyPic:"/>
                     </Paragraph>
                 </RichTextBlock>
-                <RichTextBlock
-    Width="145" VerticalAlignment="Bottom" Grid.Row="3" Margin="15,0,0,0" Height="18" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
-                    <Paragraph
-    FontSize="15" Margin="10, 0,0,0">
-                        <Run
-    Text="Konstantin Todorov - "/>
-                    </Paragraph>
-                </RichTextBlock>
-                <HyperlinkButton
-    Width="185" VerticalAlignment="Center" Grid.Row="3" Padding="12,0" NavigateUri="mailto:kz.todorov@gmail.com" Margin="0,3,15,0" Height="26" HorizontalAlignment="Right" Foreground="#FF1D6A00" Content="kz.todorov@gmail.com"/>
-                <RichTextBlock
-    Width="106" VerticalAlignment="Bottom" Grid.Row="4" Margin="15,0,0,0" Height="18" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
-                    <Paragraph
-    FontSize="15" Margin="10, 0,0,0">
-                        <Run
-    Text="Anton Dudov - "/>
-                    </Paragraph>
-                </RichTextBlock>
-                <HyperlinkButton
-    Width="202" VerticalAlignment="Center" Grid.Row="4" Padding="12,0" NavigateUri="mailto:antonvdudov@gmail.com" Margin="0,3,15,0" Height="26" HorizontalAlignment="Right" Foreground="#FF1D6A00" Content="antonvdudov@gmail.com"/>
+                <HyperlinkButton VerticalAlignment="Center" Grid.Row="3" Padding="12,0" NavigateUri="mailto:kz.todorov@gmail.com" Margin="0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Konstantin Todorov"/>
+
+                <HyperlinkButton VerticalAlignment="Center" Grid.Row="4" Padding="12,0" NavigateUri="mailto:antonvdudov@gmail.com" Margin="0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Anton Dudov"/>
             </Grid>
         </Popup>
-        <Border
-    x:FieldModifier="public" Visibility="Collapsed" Grid.RowSpan="4" x:Name="DarkenBorder" Margin="0" Grid.ColumnSpan="2" Background="#B2000000" BorderThickness="0" BorderBrush="Black"/>
-        <Popup
-    x:FieldModifier="public" VerticalAlignment="Center" Grid.RowSpan="3" x:Name="notSaved" Margin="0,0,0,125" IsOpen="False" HorizontalAlignment="Left" Grid.ColumnSpan="2">
-            <Border
-    Height="250" HorizontalAlignment="Center" BorderThickness="0,2" BorderBrush="#7F005308">
-                <Grid
-    x:Name="notSavedGrid" Background="#CCFFFFFF">
-                    <Grid.RowDefinitions
-    >
-                        <RowDefinition
-    Height="10*"/>
-                        <RowDefinition
-    Height="40*"/>
-                        <RowDefinition
-    Height="39*"/>
+        <Border x:FieldModifier="public" Visibility="Collapsed" Grid.RowSpan="4" x:Name="DarkenBorder" Margin="0" Grid.ColumnSpan="2" Background="#B2000000" BorderThickness="0" BorderBrush="Black"/>
+        <Popup x:FieldModifier="public" VerticalAlignment="Center" Grid.RowSpan="3" x:Name="notSaved" Margin="0,0,0,125" IsOpen="False" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+            <Border Height="250" HorizontalAlignment="Center" BorderThickness="0,2" BorderBrush="#7F005308">
+                <Grid x:Name="notSavedGrid" Background="#CCFFFFFF">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="39*"/>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions
-    >
-                        <ColumnDefinition
-    Width="50*"/>
-                        <ColumnDefinition
-    Width="30*"/>
-                        <ColumnDefinition
-    Width="20*"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="20*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock
-    VerticalAlignment="Center" Text="You have made changes but you didn't save them. Do you want to save now?" TextWrapping="Wrap" Style="{StaticResource PageSubheaderTextStyle}" Grid.Row="1" Margin="20,15,0,11" HorizontalAlignment="Center" Foreground="#FF034400" Grid.ColumnSpan="5"/>
-                    <StackPanel
-    VerticalAlignment="Center" Grid.Row="2" Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" Grid.Column="1">
-                        <Button x:ConnectionId='2'
-    x:FieldModifier="public" Width="90" VerticalAlignment="Bottom" x:Name="YesSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="Yes"                       Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
-                        <Button x:ConnectionId='3'
-    Width="90" VerticalAlignment="Bottom" x:Name="NoSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="No"                       Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
-                        <Button x:ConnectionId='4'
-    Width="90" VerticalAlignment="Bottom" x:Name="CancelSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="Cancel"                             Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
+                    <TextBlock VerticalAlignment="Center" Text="You have made changes but you didn't save them. Do you want to save now?" TextWrapping="Wrap" Style="{StaticResource PageSubheaderTextStyle}" Grid.Row="1" Margin="20,15,0,11" HorizontalAlignment="Center" Foreground="#FF034400" Grid.ColumnSpan="5"/>
+                    <StackPanel VerticalAlignment="Center" Grid.Row="2" Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" Grid.Column="1">
+                        <Button x:ConnectionId='2' x:FieldModifier="public" Width="90" VerticalAlignment="Bottom" x:Name="YesSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="Yes"                       Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
+                        <Button x:ConnectionId='3' Width="90" VerticalAlignment="Bottom" x:Name="NoSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="No"                       Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
+                        <Button x:ConnectionId='4' Width="90" VerticalAlignment="Bottom" x:Name="CancelSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="Cancel"                             Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
                     </StackPanel>
                 </Grid>
             </Border>
         </Popup>
-        <ProgressRing
-    x:FieldModifier="public" Width="60" VerticalAlignment="Center" Grid.Row="2" x:Name="ImageLoadingRing" Margin="0" Height="60" HorizontalAlignment="Center" Foreground="White"/>
-        <StackPanel
-    Grid.Row="3" Orientation="Horizontal" x:Name="MainMenuPanel" Margin="0" HorizontalAlignment="Center"/>
-        <StackPanel
-    Grid.RowSpan="4" x:Name="PanelStack" Margin="0" Grid.Column="1"/>
+        <ProgressRing x:FieldModifier="public" Width="60" VerticalAlignment="Center" Grid.Row="2" x:Name="ImageLoadingRing" Margin="0" Height="60" HorizontalAlignment="Center" Foreground="White"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" x:Name="MainMenuPanel" Margin="0" HorizontalAlignment="Center"/>
+        <StackPanel Grid.RowSpan="4" x:Name="PanelStack" Margin="0" Grid.Column="1"/>
     </Grid>
 </common:LayoutAwarePage>
 

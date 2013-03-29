@@ -40,7 +40,6 @@ namespace RemedyPic
     public sealed partial class MainPage
     {
 
-
         #region Variables
 
         // Those are all the global variables, that are used in MainPage.xaml.cs file.
@@ -132,8 +131,8 @@ namespace RemedyPic
 
         private void RegisterInterfaceElements()
         {
-            Menu = new MenuPopup();
             Panel = new MainOptionsPanel();
+            Menu = new MenuPopup();
 
             double displayImageWidth = (Window.Current.Bounds.Width * (569.00 / 683.00)) * 0.97;
             double displayImageHeight = (Window.Current.Bounds.Height - 70);

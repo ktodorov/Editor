@@ -29,24 +29,12 @@
                 <StackPanel.Background>
                     <ImageBrush ImageSource="/Assets/Backgrounds/GreenBack340.png" Stretch="None" AlignmentY="Top"/>
                 </StackPanel.Background>
-                <StackPanel.Transitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition/>
-                    </TransitionCollection>
-                </StackPanel.Transitions>
-                <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                <Border VerticalAlignment="Top" Margin="0,5,0,60" BorderBrush="#7FFFFFFF">
                     <StackPanel Orientation="Horizontal" Margin="0">
-                        <Button x:Name="BackHistogram" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
-                        <TextBlock TextWrapping="Wrap" Text="Histogram" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                        <Button x:Name="BackHistogram" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="70" Background="{x:Null}" BorderBrush="#7FFFFFFF" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                        <TextBlock TextWrapping="Wrap" Text="Histogram" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Border>
-                <Image x:Name="Logo_Copy7" Margin="0" Source="/Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
-                    <Image.Transitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition/>
-                        </TransitionCollection>
-                    </Image.Transitions>
-                </Image>
                 <TextBlock TextWrapping="Wrap" Text="Hint: Load a dark image, click equalize and enjoy! :)" Margin="0,15" Foreground="#FFC7C7C7" HorizontalAlignment="Center" FontStyle="Italic" FontSize="14" Width="250"/>
                 <Button Content="Equalize" HorizontalAlignment="Center" VerticalAlignment="Stretch" Click="HistogramClicked" Background="#00B6B6B6" Foreground="White"/>
 

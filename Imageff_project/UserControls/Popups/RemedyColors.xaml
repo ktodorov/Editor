@@ -29,25 +29,13 @@
                 <StackPanel.Background>
                     <ImageBrush ImageSource="/Assets/Backgrounds/GreenBack340.png" Stretch="None" AlignmentY="Top"/>
                 </StackPanel.Background>
-                <StackPanel.Transitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition/>
-                    </TransitionCollection>
-                </StackPanel.Transitions>
-                <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                <Border BorderThickness="0" Margin="0,5,0,10" BorderBrush="#7FFFFFFF" VerticalAlignment="Top">
                     <StackPanel Orientation="Horizontal" Margin="0">
-                        <Button x:Name="BackColors" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="52" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
-                        <TextBlock TextWrapping="Wrap" Text="Colors" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                        <Button x:Name="BackColors" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="70" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0" Padding="0,0,0,5" Style="{StaticResource BackButtonPopupStyle1}"/>
+                        <TextBlock TextWrapping="Wrap" Text="Colors" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Border>
-                <Image x:Name="Logo_Copy" Margin="0" Source="/Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
-                    <Image.Transitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition/>
-                        </TransitionCollection>
-                    </Image.Transitions>
-                </Image>
-                <Image x:Name="ColorsExamplePicture" x:FieldModifier="public"  HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100" Margin="0" MaxWidth="250" MaxHeight="250"/>
+                <Image x:Name="ColorsExamplePicture" x:FieldModifier="public"  Height="100" Width="100" MaxWidth="250" MaxHeight="250" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Border BorderThickness="0,0,0,2" VerticalAlignment="Center" Margin="20,0,20,15" Padding="0,0,0,10" BorderBrush="#7FFFFFFF"/>
                 <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="COLORS" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="14" Foreground="White" Margin="0"/>
                 <Slider x:Name ="BlueColorSlider" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" IntermediateValue="0" Minimum="-100" Maximum="100" ValueChanged="OnColorChanged" BorderThickness="2" Margin="0" BorderBrush="#7FFFFFFF" Foreground="{x:Null}" Height="40" Style="{StaticResource SliderStyle1}">

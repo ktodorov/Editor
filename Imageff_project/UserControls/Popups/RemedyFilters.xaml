@@ -30,24 +30,12 @@
                 <StackPanel.Background>
                     <ImageBrush ImageSource="/Assets/Backgrounds/GreenBack380.png" Stretch="None" AlignmentY="Top"/>
                 </StackPanel.Background>
-                <StackPanel.Transitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition/>
-                    </TransitionCollection>
-                </StackPanel.Transitions>
-                <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                <Border VerticalAlignment="Top" Margin="0,5,0,50" BorderBrush="#7FFFFFFF">
                     <StackPanel Orientation="Horizontal" Margin="0">
-                        <Button x:Name="BackFilters" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
-                        <TextBlock TextWrapping="Wrap" Text="Filters" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                        <Button x:Name="BackFilters" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="70" Background="{x:Null}" BorderBrush="#7FFFFFFF" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                        <TextBlock TextWrapping="Wrap" Text="Filters" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Border>
-                <Image x:Name="Logo_Copy1" Margin="0" Source="/Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
-                    <Image.Transitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition/>
-                        </TransitionCollection>
-                    </Image.Transitions>
-                </Image>
                 <StackPanel Margin="20,0">
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <ToggleButton x:Name="blackWhiteCheck" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="blackWhiteChecked" Unchecked="filterUnchecked" BorderThickness="0,3" BorderBrush="#7FFFFFFF" Style="{StaticResource ToggleButtonStyle1}">

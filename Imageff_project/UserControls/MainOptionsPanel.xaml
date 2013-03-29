@@ -336,7 +336,7 @@
 
 
 
-        <StackPanel x:Name="stackPanel3" Grid.ColumnSpan="2" Margin="0" Orientation="Vertical">
+        <StackPanel x:Name="stackPanel3" x:FieldModifier="public" Grid.ColumnSpan="2" Margin="0" Orientation="Vertical">
             <Image x:Name="Logo" Margin="20,10,20,0" Source="/Assets/RemedyPicLogo.png" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <Image.Transitions>
                     <TransitionCollection>
@@ -436,9 +436,9 @@
             </Border>
             <Border x:Name="Crop" x:FieldModifier="public" Margin="2,0,0,0" BorderThickness="0,0,0,2" Visibility="Collapsed" Padding="0,5" >
                 <Border.ChildTransitions>
-                    <!--<TransitionCollection>
-                        <PaneThemeTransition x:Name="CropAnimation" x:FieldModifier="public" Edge="Right"/>
-                    </TransitionCollection>-->
+                    <TransitionCollection>
+                        <PaneThemeTransition Edge="Right"/>
+                    </TransitionCollection>
                 </Border.ChildTransitions>
                 <Border.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

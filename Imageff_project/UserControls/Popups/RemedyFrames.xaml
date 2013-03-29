@@ -29,25 +29,14 @@
                 <StackPanel.Background>
                     <ImageBrush ImageSource="/Assets/Backgrounds/GreenBack340.png" Stretch="None" AlignmentY="Top"/>
                 </StackPanel.Background>
-                <StackPanel.Transitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition/>
-                    </TransitionCollection>
-                </StackPanel.Transitions>
-                <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                <Border VerticalAlignment="Top" Margin="0,5,0,50" BorderBrush="#7FFFFFFF">
                     <StackPanel Orientation="Horizontal" Margin="0">
-                        <Button x:Name="BackFrames" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
-                        <TextBlock TextWrapping="Wrap" Text="Frames" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="15,0,0,10"/>
+                        <Button x:Name="BackFrames" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="70" Background="{x:Null}" BorderBrush="#7FFFFFFF" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                        <TextBlock TextWrapping="Wrap" Text="Frames" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Border>
-                <Image x:Name="Logo_Copy6" Margin="0" x:FieldModifier="public" Source="/Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
-                    <Image.Transitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition/>
-                        </TransitionCollection>
-                    </Image.Transitions>
-                </Image>
-                <Border Margin="8,0" BorderThickness="0,0,0,2" BorderBrush="#7FFFFFFF">
+
+                <Border Margin="0,10" BorderThickness="0" BorderBrush="#7FFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
 
@@ -111,12 +100,14 @@
 
                     </Grid>
                 </Border>
+                <Border BorderBrush="#33000000" BorderThickness="0,2" Margin="0,10" Padding="0,10,0,0">
 
 
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Frame Width (%)" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="20" Foreground="White" />
-                    <Slider x:Name="FrameWidthPercent" Width="200" Style="{StaticResource SliderStyle1}" Foreground="White" Maximum="25" Minimum="1"/>
-                </StackPanel>
+                    <StackPanel Height="87">
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Frame Width (%)" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="20" Foreground="White" />
+                        <Slider x:Name="FrameWidthPercent" Width="200" Style="{StaticResource SliderStyle1}" Foreground="White" Maximum="25" Minimum="1"/>
+                    </StackPanel>
+                </Border>
                 <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Frames" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="20" Foreground="White" />
                 <StackPanel x:Name="StandardFrames" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
                     <Border HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Margin="3,0" Width="85" BorderThickness="2" BorderBrush="#FF197000" PointerEntered="FramesBorder_PointerEntered" PointerExited="FramesBorder_PointerExited">

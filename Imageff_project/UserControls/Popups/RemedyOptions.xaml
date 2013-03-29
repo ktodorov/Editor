@@ -29,24 +29,12 @@
                 <StackPanel.Background>
                     <ImageBrush ImageSource="/Assets/Backgrounds/GreenBack340.png" Stretch="None" AlignmentY="Top"/>
                 </StackPanel.Background>
-                <StackPanel.Transitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition/>
-                    </TransitionCollection>
-                </StackPanel.Transitions>
-                <Border BorderThickness="0,0,0,2" VerticalAlignment="Top" Margin="20,0,20,10" BorderBrush="#7FFFFFFF">
+                <Border VerticalAlignment="Top" Margin="0,5,0,60" BorderBrush="#7FFFFFFF">
                     <StackPanel Orientation="Horizontal" Margin="0">
-                        <Button x:Name="BackOptions" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="55" FontSize="22" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0,0,2,0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
-                        <TextBlock TextWrapping="Wrap" Text="Image options" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="5,0,0,10"/>
+                        <Button x:Name="BackOptions" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="70" Background="{x:Null}" BorderBrush="#7FFFFFFF" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                        <TextBlock TextWrapping="Wrap" Text="Image options" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Border>
-                <Image x:Name="Logo_Copy4" Margin="0" Source="/Assets/RemedyPicLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Height="60">
-                    <Image.Transitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition/>
-                        </TransitionCollection>
-                    </Image.Transitions>
-                </Image>
                 <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Border x:Name="SetLock_Avatar" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
                         <StackPanel Orientation="Vertical">
@@ -69,9 +57,14 @@
                         </StackPanel>
                     </Border>
                     <Border x:Name="Resize1" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
-                        <StackPanel Margin="0" Orientation="Vertical">
+                        <StackPanel Margin="0" x:Name="tempPanel" x:FieldModifier="public" Orientation="Vertical">
                             <ToggleButton x:Name="Resize" Content="Change your image resolution" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ToggleResizeButton}" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Checked="Resize_Checked" Unchecked="Resize_Unchecked" BorderThickness="0"/>
                             <StackPanel x:Name="ResizePanel" Margin="0,10" Visibility="Collapsed">
+                                <StackPanel.Transitions>
+                                    <TransitionCollection>
+                                        <PopupThemeTransition FromVerticalOffset="-25"/>
+                                    </TransitionCollection>
+                                </StackPanel.Transitions>
                                 <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <StackPanel Background="#19FFFFFF">
                                         <TextBlock TextWrapping="Wrap" Text="New Width" Margin="0,0,0,2" HorizontalAlignment="Center" Foreground="White" Style="{StaticResource BasicTextStyle}"/>
