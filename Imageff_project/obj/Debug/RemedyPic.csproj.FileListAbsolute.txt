@@ -171,3 +171,12 @@ C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserContro
 C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.i.cs
 C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.cs
 C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.xaml

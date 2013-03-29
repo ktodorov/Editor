@@ -26,6 +26,9 @@
                 </LinearGradientBrush>
             </ScrollViewer.BorderBrush>
             <StackPanel x:Name="ColorizePanel" VerticalAlignment="Top" Width="340" Margin="0,0,0,10">
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/Assets/Backgrounds/GreenBack340.png" Stretch="None" AlignmentY="Top"/>
+                </StackPanel.Background>
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>

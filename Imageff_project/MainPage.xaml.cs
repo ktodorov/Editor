@@ -408,7 +408,7 @@ namespace RemedyPic
             FramesPopup.Frames.Height = Window.Current.Bounds.Height;
             HistogramPopup.Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
-            CustomPopup.Popup.Height = Window.Current.Bounds.Height;
+            CustomPopup.CustomFilter.Height = Window.Current.Bounds.Height;
             notSaved.Width = Window.Current.Bounds.Width;
             notSavedGrid.Width = Window.Current.Bounds.Width;
         }

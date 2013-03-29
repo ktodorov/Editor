@@ -26,6 +26,9 @@
                 </LinearGradientBrush>
             </ScrollViewer.BorderBrush>
             <StackPanel x:Name="HistogramPanel" VerticalAlignment="Top" Width="340" Height="539">
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/Assets/Backgrounds/GreenBack340.png" Stretch="None" AlignmentY="Top"/>
+                </StackPanel.Background>
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>

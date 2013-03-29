@@ -436,9 +436,9 @@
             </Border>
             <Border x:Name="Crop" x:FieldModifier="public" Margin="2,0,0,0" BorderThickness="0,0,0,2" Visibility="Collapsed" Padding="0,5" >
                 <Border.ChildTransitions>
-                    <TransitionCollection>
-                        <EdgeUIThemeTransition Edge="Right"/>
-                    </TransitionCollection>
+                    <!--<TransitionCollection>
+                        <PaneThemeTransition x:Name="CropAnimation" x:FieldModifier="public" Edge="Right"/>
+                    </TransitionCollection>-->
                 </Border.ChildTransitions>
                 <Border.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

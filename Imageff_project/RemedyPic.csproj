@@ -166,7 +166,9 @@
     <Content Include="Assets\Arrows\Arrow-vertical.png" />
     <Content Include="Assets\Arrows\Rotate-left.png" />
     <Content Include="Assets\Arrows\Rotate-right.png" />
-    <Content Include="Assets\Background.png" />
+    <Content Include="Assets\Backgrounds\GreenBack340.png" />
+    <Content Include="Assets\Backgrounds\GreenBack380.png" />
+    <Content Include="Assets\Backgrounds\GreenCloud.png" />
     <Content Include="Assets\Buttons\Browse-hover.png" />
     <Content Include="Assets\Buttons\Browse.png" />
     <Content Include="Assets\Buttons\Camera-hover.png" />
