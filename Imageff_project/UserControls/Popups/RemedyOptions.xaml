@@ -36,6 +36,11 @@
                     </StackPanel>
                 </Border>
                 <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel.ChildrenTransitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </StackPanel.ChildrenTransitions>
                     <Border x:Name="SetLock_Avatar" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
                         <StackPanel Orientation="Vertical">
                             <Button x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetLockPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250"/>
@@ -47,6 +52,11 @@
                     </Border>
                     <Border x:Name="Import_export" Margin="0" HorizontalAlignment="Center" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
                         <StackPanel x:Name="Import_Export" Orientation="Vertical" Width="180">
+                            <StackPanel.ChildrenTransitions>
+                                <TransitionCollection>
+                                    <RepositionThemeTransition/>
+                                </TransitionCollection>
+                            </StackPanel.ChildrenTransitions>
                             <Button x:Name="importFileButton" Content="Select file to import..." FontFamily="Segoe UI" FontSize="14.667" Click="onImportFileSelectButtonClick" Background="{x:Null}" BorderThickness="0" BorderBrush="#FF958989" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ImageOptionsStyle}" Foreground="#FFF1E9E9" Width="250"/>
                             <StackPanel x:Name="importFilePanel" Margin="0" Orientation="Vertical" HorizontalAlignment="Center" Visibility="Collapsed">
                                 <TextBlock TextWrapping="Wrap" Text="File for import:" Margin="0" Style="{StaticResource BasicTextStyle}" HorizontalAlignment="Center" Foreground="#DEFFFFFF"/>
