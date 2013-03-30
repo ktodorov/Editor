@@ -48,8 +48,9 @@ namespace RemedyPic.UserControls
         // The dictionary holds the history of all previous pointer locations. It is used by the crop function.
         Dictionary<uint, Point?> pointerPositionHistory = new Dictionary<uint, Point?>();
 
+		MainPage pageRoot = MainPage.Current;
 
-        public DisplayImage()
+        public DisplayImage(double width, double height)
         {
             this.InitializeComponent();
             AnimateOutPicture.Begin();
@@ -58,6 +59,8 @@ namespace RemedyPic.UserControls
             selectRegion.ManipulationMode = ManipulationModes.Scale |
                 ManipulationModes.TranslateX | ManipulationModes.TranslateY;
 
+            imageBorder.Width = width;
+            imageBorder.Height = height;
             selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
             this.DataContext = selectedRegion;
         }
@@ -77,8 +80,8 @@ namespace RemedyPic.UserControls
                 }
                 scale.ScaleX = scale.ScaleX + 0.1;
                 scale.ScaleY = scale.ScaleY + 0.1;
-                //if (ZoomOut.IsEnabled == false)
-                //    ZoomOut.IsEnabled = true;
+                if (pageRoot.Panel.ZoomOut.IsEnabled == false)
+                    pageRoot.Panel.ZoomOut.IsEnabled = true;
             }
             else
             {
@@ -87,10 +90,10 @@ namespace RemedyPic.UserControls
                     scale.ScaleX = scale.ScaleX - 0.1;
                     scale.ScaleY = scale.ScaleY - 0.1;
                 }
-                //if (ZoomOut.IsEnabled == true && scale.ScaleX <= 0.9)
-                //{
-                //    ZoomOut.IsEnabled = false;
-                //}
+                if (pageRoot.Panel.ZoomOut.IsEnabled == true && scale.ScaleX <= 0.9)
+                {
+                    pageRoot.Panel.ZoomOut.IsEnabled = false;
+                }
             }
         }
         #region Manipulation Events

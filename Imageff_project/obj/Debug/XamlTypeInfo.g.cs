@@ -114,11 +114,29 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
 
         private object Activate_0_LayoutAwarePage() { return new global::RemedyPic.Common.LayoutAwarePage(); }
 
-        private object Activate_1_DisplayImage() { return new global::RemedyPic.UserControls.DisplayImage(); }
+        private object Activate_1_MainPage() { return new global::RemedyPic.MainPage(); }
 
-        private object Activate_2_MainPage() { return new global::RemedyPic.MainPage(); }
+        private object Activate_3_MainOptionsPanel() { return new global::RemedyPic.UserControls.MainOptionsPanel(); }
 
-        private object Activate_3_MenuPopup() { return new global::RemedyPic.UserControls.MenuPopup(); }
+        private object Activate_4_MenuPopup() { return new global::RemedyPic.UserControls.MenuPopup(); }
+
+        private object Activate_5_RemedyColorize() { return new global::RemedyPic.UserControls.Popups.RemedyColorize(); }
+
+        private object Activate_6_RemedyColors() { return new global::RemedyPic.UserControls.Popups.RemedyColors(); }
+
+        private object Activate_7_RemedyCustom() { return new global::RemedyPic.UserControls.Popups.RemedyCustom(); }
+
+        private object Activate_8_RemedyExposure() { return new global::RemedyPic.UserControls.Popups.RemedyExposure(); }
+
+        private object Activate_9_RemedyFilters() { return new global::RemedyPic.UserControls.Popups.RemedyFilters(); }
+
+        private object Activate_10_RemedyFrames() { return new global::RemedyPic.UserControls.Popups.RemedyFrames(); }
+
+        private object Activate_11_RemedyHistogram() { return new global::RemedyPic.UserControls.Popups.RemedyHistogram(); }
+
+        private object Activate_12_RemedyOptions() { return new global::RemedyPic.UserControls.Popups.RemedyOptions(); }
+
+        private object Activate_13_RemedyRotations() { return new global::RemedyPic.UserControls.Popups.RemedyRotations(); }
 
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(string typeName)
@@ -142,21 +160,80 @@ namespace RemedyPic.RemedyPic_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case "RemedyPic.UserControls.DisplayImage":
-                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.DisplayImage), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
-                userType.Activator = Activate_1_DisplayImage;
+            case "RemedyPic.MainPage":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.MainPage), GetXamlTypeByName("RemedyPic.Common.LayoutAwarePage"));
+                userType.Activator = Activate_1_MainPage;
                 xamlType = userType;
                 break;
 
-            case "RemedyPic.MainPage":
-                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.MainPage), GetXamlTypeByName("RemedyPic.Common.LayoutAwarePage"));
-                userType.Activator = Activate_2_MainPage;
+            case "RemedyPic.UserControls.DisplayImage":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.DisplayImage), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.MainOptionsPanel":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.MainOptionsPanel), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_3_MainOptionsPanel;
                 xamlType = userType;
                 break;
 
             case "RemedyPic.UserControls.MenuPopup":
                 userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.MenuPopup), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
-                userType.Activator = Activate_3_MenuPopup;
+                userType.Activator = Activate_4_MenuPopup;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyColorize":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyColorize), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_5_RemedyColorize;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyColors":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyColors), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_6_RemedyColors;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyCustom":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyCustom), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_7_RemedyCustom;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyExposure":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyExposure), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_8_RemedyExposure;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyFilters":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyFilters), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_9_RemedyFilters;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyFrames":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyFrames), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_10_RemedyFrames;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyHistogram":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyHistogram), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_11_RemedyHistogram;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyOptions":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyOptions), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_12_RemedyOptions;
+                xamlType = userType;
+                break;
+
+            case "RemedyPic.UserControls.Popups.RemedyRotations":
+                userType = new global::RemedyPic.RemedyPic_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::RemedyPic.UserControls.Popups.RemedyRotations), GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_13_RemedyRotations;
                 xamlType = userType;
                 break;
 

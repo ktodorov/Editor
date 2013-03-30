@@ -40,7 +40,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            //PopupFilters.IsOpen = true;
+            rootPage.FiltersPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects-check.png");
             EffectsIcon.Source = temp;
@@ -48,7 +48,7 @@ namespace RemedyPic.UserControls
 
         public void FiltersUnchecked(object sender, RoutedEventArgs e)
         {
-            //PopupFilters.IsOpen = false;
+            rootPage.FiltersPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Effects.png");
             EffectsIcon.Source = temp;
@@ -65,8 +65,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-			rootPage.PopupColors.IsOpen = true;
-            rootPage.PopupColors.IsOpen = true;
+			rootPage.ColorsPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colors-checked.png");
             ColorsIcon.Source = temp;
@@ -75,7 +74,7 @@ namespace RemedyPic.UserControls
 
         public void ColorsUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupColors.IsOpen = false;
+            rootPage.ColorsPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colors.png");
             ColorsIcon.Source = temp;
@@ -92,7 +91,7 @@ namespace RemedyPic.UserControls
             SelectColors.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupExposure.IsOpen = true;
+            rootPage.ExposurePopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Exposure-checked.png");
             ExposureIcon.Source = temp;
@@ -100,7 +99,7 @@ namespace RemedyPic.UserControls
 
         public void ExposureUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupExposure.IsOpen = false;
+            rootPage.ExposurePopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Exposure.png");
             ExposureIcon.Source = temp;
@@ -117,7 +116,7 @@ namespace RemedyPic.UserControls
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupRotations.IsOpen = true;
+            rootPage.RotatePopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Rotate-checked.png");
             RotateIcon.Source = temp;
@@ -125,7 +124,7 @@ namespace RemedyPic.UserControls
 
         public void RotationsUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupRotations.IsOpen = false;
+            rootPage.RotatePopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Rotate.png");
             RotateIcon.Source = temp;
@@ -142,7 +141,7 @@ namespace RemedyPic.UserControls
             SelectCrop.IsChecked = false;
             SelectExposure.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupImageOptions.IsOpen = true;
+			rootPage.OptionsPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Options-checked.png");
             OptionsIcon.Source = temp;
@@ -150,7 +149,7 @@ namespace RemedyPic.UserControls
 
         public void OptionsUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupImageOptions.IsOpen = false;
+			rootPage.OptionsPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Options.png");
             OptionsIcon.Source = temp;
@@ -167,7 +166,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupColorize.IsOpen = true;
+            rootPage.ColorizePopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colorize-checked.png");
             ColorizeIcon.Source = temp;
@@ -175,7 +174,7 @@ namespace RemedyPic.UserControls
 
         public void ColorizeUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupColorize.IsOpen = false;
+            rootPage.ColorizePopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Colorize.png");
             ColorizeIcon.Source = temp;
@@ -192,7 +191,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupFrames.IsOpen = true;
+            rootPage.FramesPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Frame-checked.png");
             FramesIcon.Source = temp;
@@ -200,7 +199,7 @@ namespace RemedyPic.UserControls
 
         public void FramesUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupFrames.IsOpen = false;
+            rootPage.FramesPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Frame.png");
             FramesIcon.Source = temp;
@@ -217,7 +216,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectCustom.IsChecked = false;
-            rootPage.PopupHistogram.IsOpen = true;
+            rootPage.HistogramPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Histogram-checked.png");
             HistogramIcon.Source = temp;
@@ -225,7 +224,7 @@ namespace RemedyPic.UserControls
 
         public void HistogramUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupHistogram.IsOpen = false;
+			rootPage.HistogramPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Histogram.png");
             HistogramIcon.Source = temp;
@@ -243,7 +242,7 @@ namespace RemedyPic.UserControls
             SelectExposure.IsChecked = false;
             SelectCrop.IsChecked = false;
             SelectHistogram.IsChecked = false;
-            rootPage.PopupCustomFilter.IsOpen = true;
+            rootPage.CustomPopup.Popup.IsOpen = true;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/CustomFilter-checked.png");
             CustomIcon.Source = temp;
@@ -251,7 +250,7 @@ namespace RemedyPic.UserControls
 
         public void CustomFilterUnchecked(object sender, RoutedEventArgs e)
         {
-            rootPage.PopupCustomFilter.IsOpen = false;
+			rootPage.CustomPopup.Popup.IsOpen = false;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/CustomFilter.png");
             CustomIcon.Source = temp;
@@ -276,11 +275,11 @@ namespace RemedyPic.UserControls
         {
             // Called when the Crop button is checked.
             deselectPopups();
-            //Crop.Visibility = Visibility.Visible;
-            //imageDisplayed.imageCanvas.Visibility = Visibility.Visible;
-            //imageDisplayed.displayGrid.Margin = new Thickness(15);
-            //ResetZoomPos();
-			
+            rootPage.Panel.Crop.Visibility = Visibility.Visible;
+            rootPage.imageDisplayed.imageCanvas.Visibility = Visibility.Visible;
+            rootPage.imageDisplayed.displayGrid.Margin = new Thickness(15);
+            rootPage.Panel.ResetZoomPos();
+
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Crop-checked.png");
             CropIcon.Source = temp;
@@ -289,11 +288,11 @@ namespace RemedyPic.UserControls
         public void CropUnchecked(object sender, RoutedEventArgs e)
         {
             // Called when the Crop button is unchecked.
-            //Crop.Visibility = Visibility.Collapsed;
-			
-            //imageDisplayed.imageCanvas.Visibility = Visibility.Collapsed;
-            //imageDisplayed.selectedRegion.ResetCorner(0, 0, imageDisplayed.displayImage.ActualWidth, imageDisplayed.displayImage.ActualHeight);
-            //imageDisplayed.displayGrid.Margin = new Thickness(0);
+            rootPage.Panel.Crop.Visibility = Visibility.Collapsed;
+
+            rootPage.imageDisplayed.imageCanvas.Visibility = Visibility.Collapsed;
+            rootPage.imageDisplayed.selectedRegion.ResetCorner(0, 0, rootPage.imageDisplayed.displayImage.ActualWidth, rootPage.imageDisplayed.displayImage.ActualHeight);
+            rootPage.imageDisplayed.displayGrid.Margin = new Thickness(0);
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Crop.png");
             CropIcon.Source = temp;

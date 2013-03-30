@@ -60,5 +60,15 @@ App.xaml
 Common\StandardStyles.xaml
 MainPage.xaml
 UserControls\DisplayImage.xaml
+UserControls\MainOptionsPanel.xaml
 UserControls\MenuPopup.xaml
+UserControls\Popups\RemedyColorize.xaml
+UserControls\Popups\RemedyColors.xaml
+UserControls\Popups\RemedyCustom.xaml
+UserControls\Popups\RemedyExposure.xaml
+UserControls\Popups\RemedyFilters.xaml
+UserControls\Popups\RemedyFrames.xaml
+UserControls\Popups\RemedyHistogram.xaml
+UserControls\Popups\RemedyOptions.xaml
+UserControls\Popups\RemedyRotations.xaml
 Common\ReadMe.txt
