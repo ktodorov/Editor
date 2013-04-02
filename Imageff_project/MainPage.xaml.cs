@@ -40,7 +40,6 @@ namespace RemedyPic
     public sealed partial class MainPage
     {
 
-
         #region Variables
 
         // Those are all the global variables, that are used in MainPage.xaml.cs file.
@@ -132,8 +131,8 @@ namespace RemedyPic
 
         private void RegisterInterfaceElements()
         {
-            Menu = new MenuPopup();
             Panel = new MainOptionsPanel();
+            Menu = new MenuPopup();
 
             double displayImageWidth = (Window.Current.Bounds.Width * (569.00 / 683.00)) * 0.97;
             double displayImageHeight = (Window.Current.Bounds.Height - 70);
@@ -408,7 +407,7 @@ namespace RemedyPic
             FramesPopup.Frames.Height = Window.Current.Bounds.Height;
             HistogramPopup.Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
-            CustomPopup.Popup.Height = Window.Current.Bounds.Height;
+            CustomPopup.CustomFilter.Height = Window.Current.Bounds.Height;
             notSaved.Width = Window.Current.Bounds.Width;
             notSavedGrid.Width = Window.Current.Bounds.Width;
         }

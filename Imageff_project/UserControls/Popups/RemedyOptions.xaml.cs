@@ -34,11 +34,14 @@ namespace RemedyPic.UserControls.Popups
 		public bool keepProportions = true;
 		public bool calledByOther = false;
 
+        UIElement temp;
 
 
 		public RemedyOptions()
 		{
-			this.InitializeComponent();
+            this.InitializeComponent();
+            temp = ResizePanel;
+            tempPanel.Children.Remove(ResizePanel);
 		}
 
 		#region Export/Import
@@ -210,12 +213,15 @@ namespace RemedyPic.UserControls.Popups
 
 		public void Resize_Checked(object sender, RoutedEventArgs e)
 		{
-			ResizePanel.Visibility = Visibility.Visible;
+            tempPanel.Children.Add(temp);
+			temp.Visibility = Visibility.Visible;
 		}
 
 		public void Resize_Unchecked(object sender, RoutedEventArgs e)
 		{
-			ResizePanel.Visibility = Visibility.Collapsed;
+			temp.Visibility = Visibility.Collapsed;
+            tempPanel.Children.Remove(temp);
+            
 		}
 
 		public async void ApplyResize_Clicked(object sender, RoutedEventArgs e)

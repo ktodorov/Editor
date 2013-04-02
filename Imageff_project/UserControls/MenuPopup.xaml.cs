@@ -14,12 +14,13 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using RemedyPic.UserControls;
 using RemedyPic;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace RemedyPic.UserControls
 {
     public sealed partial class MenuPopup : UserControl
     {
-		MainPage rootPage = MainPage.Current;
+        MainPage rootPage = MainPage.Current;
 
         public MenuPopup()
         {
@@ -289,7 +290,6 @@ namespace RemedyPic.UserControls
         {
             // Called when the Crop button is unchecked.
             rootPage.Panel.Crop.Visibility = Visibility.Collapsed;
-
             rootPage.imageDisplayed.imageCanvas.Visibility = Visibility.Collapsed;
             rootPage.imageDisplayed.selectedRegion.ResetCorner(0, 0, rootPage.imageDisplayed.displayImage.ActualWidth, rootPage.imageDisplayed.displayImage.ActualHeight);
             rootPage.imageDisplayed.displayGrid.Margin = new Thickness(0);
