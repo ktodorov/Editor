@@ -121,14 +121,16 @@
                     <RowDefinition Height="36"/>
                     <RowDefinition Height="26"/>
                     <RowDefinition Height="28"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="62*"/>
+                    <RowDefinition Height="35*"/>
+                    <RowDefinition Height="368*"/>
                 </Grid.RowDefinitions>
                 <Grid.ChildrenTransitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
                     </TransitionCollection>
                 </Grid.ChildrenTransitions>
-                <Border Grid.RowSpan="6" Margin="0" BorderThickness="1,0,0,0" BorderBrush="#FF0A4B00"/>
+                <Border Grid.RowSpan="8" Margin="0" BorderThickness="1,0,0,0" BorderBrush="#FF0A4B00"/>
                 <Border VerticalAlignment="Top" Padding="10,10,0,10" Margin="0" Height="72" Background="#FF00610D" BorderThickness="0,0,0,2" BorderBrush="#7FFFFFFF">
                     <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Height="50">
                         <Button x:ConnectionId='5' Width="40" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle1}" x:Name="BackFeedback" Margin="0" Height="40" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="48" FontWeight="Normal" Foreground="White" Content="&#xE0D5;"                             Background="{x:Null}" BorderThickness="1" BorderBrush="#7FFFFFFF"/>
@@ -142,21 +144,27 @@
                         </Image>
                     </StackPanel>
                 </Border>
-                <Border VerticalAlignment="Center" Grid.Row="1" x:Name="Border" Margin="5,0" HorizontalAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="#337EFF58">
+                <Border VerticalAlignment="Center" Grid.Row="1" x:Name="Border" Margin="5,50" HorizontalAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="#337EFF58">
                     <RichTextBlock VerticalAlignment="Center" Margin="5,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
                         <Paragraph FontSize="16">
                             <Run Text="Feel free to write us back if you find any bugs or you have ideas for improvement!"/>
                         </Paragraph>
                     </RichTextBlock>
                 </Border>
-                <RichTextBlock VerticalAlignment="Center" Grid.Row="2" Margin="15,0,0,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
+                <RichTextBlock VerticalAlignment="Center" Grid.Row="2" Margin="15,9,0,8" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
                     <Paragraph FontSize="16">
                         <Run Text="For contacts with the developers of RemedyPic:"/>
                     </Paragraph>
                 </RichTextBlock>
-                <HyperlinkButton VerticalAlignment="Center" Grid.Row="3" Padding="12,0" NavigateUri="mailto:kz.todorov@gmail.com" Margin="0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Konstantin Todorov"/>
+                <HyperlinkButton VerticalAlignment="Center" Grid.Row="3" Padding="12,0" NavigateUri="mailto:kz.todorov@gmail.com" Margin="95,0,94,0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Konstantin Todorov"/>
 
-                <HyperlinkButton VerticalAlignment="Center" Grid.Row="4" Padding="12,0" NavigateUri="mailto:antonvdudov@gmail.com" Margin="0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Anton Dudov"/>
+                <HyperlinkButton VerticalAlignment="Center" Grid.Row="4" Padding="12,0" NavigateUri="mailto:antonvdudov@gmail.com" Margin="115,1" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Anton Dudov"/>
+                <RichTextBlock VerticalAlignment="Bottom" Grid.Row="5" Margin="15,0,0,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
+                    <Paragraph FontSize="16">
+                        <Run Text="Or you can follow us in"/>
+                    </Paragraph>
+                </RichTextBlock>
+                <HyperlinkButton VerticalAlignment="Center" Grid.Row="6" Padding="12,0" NavigateUri="http://www.facebook.com/RemedyPic" Margin="0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Facebook"/>
             </Grid>
         </Popup>
         <Border x:FieldModifier="public" Visibility="Collapsed" Grid.RowSpan="4" x:Name="DarkenBorder" Margin="0" Grid.ColumnSpan="2" Background="#B2000000" BorderThickness="0" BorderBrush="Black"/>
