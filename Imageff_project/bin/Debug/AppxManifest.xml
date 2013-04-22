@@ -27,6 +27,7 @@
         <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#00640e" />
         <InitialRotationPreference>
           <Rotation Preference="landscape" />
+          <Rotation Preference="landscapeFlipped" />
         </InitialRotationPreference>
       </VisualElements>
     </Application>

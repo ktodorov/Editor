@@ -121,8 +121,8 @@
                     <RowDefinition Height="36"/>
                     <RowDefinition Height="26"/>
                     <RowDefinition Height="28"/>
-                    <RowDefinition Height="62*"/>
-                    <RowDefinition Height="35*"/>
+                    <RowDefinition Height="37*"/>
+                    <RowDefinition Height="60*"/>
                     <RowDefinition Height="368*"/>
                 </Grid.RowDefinitions>
                 <Grid.ChildrenTransitions>
@@ -144,27 +144,27 @@
                         </Image>
                     </StackPanel>
                 </Border>
-                <Border VerticalAlignment="Center" Grid.Row="1" x:Name="Border" Margin="5,50" HorizontalAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="#337EFF58">
+                <Border VerticalAlignment="Center" Grid.Row="1" x:Name="Border" Margin="5,50" HorizontalAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="#337EFF58" Height="41" Width="340">
                     <RichTextBlock VerticalAlignment="Center" Margin="5,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
                         <Paragraph FontSize="16">
                             <Run Text="Feel free to write us back if you find any bugs or you have ideas for improvement!"/>
                         </Paragraph>
                     </RichTextBlock>
                 </Border>
-                <RichTextBlock VerticalAlignment="Center" Grid.Row="2" Margin="15,9,0,8" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
+                <RichTextBlock VerticalAlignment="Center" Grid.Row="2" Margin="15,9,0,8" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black" Height="19" Width="324">
                     <Paragraph FontSize="16">
                         <Run Text="For contacts with the developers of RemedyPic:"/>
                     </Paragraph>
                 </RichTextBlock>
-                <HyperlinkButton VerticalAlignment="Center" Grid.Row="3" Padding="12,0" NavigateUri="mailto:kz.todorov@gmail.com" Margin="95,0,94,0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Konstantin Todorov"/>
+                <HyperlinkButton VerticalAlignment="Center" Grid.Row="3" Padding="12,0" NavigateUri="mailto:kztodorov@outlook.com" Margin="95,0,94,0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Konstantin Todorov" Height="26" Width="161"/>
 
-                <HyperlinkButton VerticalAlignment="Center" Grid.Row="4" Padding="12,0" NavigateUri="mailto:antonvdudov@gmail.com" Margin="115,1" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Anton Dudov"/>
-                <RichTextBlock VerticalAlignment="Bottom" Grid.Row="5" Margin="15,0,0,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black">
+                <HyperlinkButton VerticalAlignment="Center" Grid.Row="4" Padding="12,0" NavigateUri="mailto:antonvdudov@gmail.com" Margin="115,1" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Anton Dudov" Height="26" Width="120"/>
+                <RichTextBlock VerticalAlignment="Bottom" Grid.Row="5" Margin="15,0,0,0" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black" Height="19" Width="170">
                     <Paragraph FontSize="16">
                         <Run Text="Or you can follow us in"/>
                     </Paragraph>
                 </RichTextBlock>
-                <HyperlinkButton VerticalAlignment="Center" Grid.Row="6" Padding="12,0" NavigateUri="http://www.facebook.com/RemedyPic" Margin="0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="Facebook"/>
+                <HyperlinkButton VerticalAlignment="Center" Padding="12,0" NavigateUri="http://www.facebook.com/RemedyPic" Foreground="#FF1D6A00" Content="Facebook" Height="26" Width="94" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="128,36,128,35" Grid.Row="5"/>
             </Grid>
         </Popup>
         <Border x:FieldModifier="public" Visibility="Collapsed" Grid.RowSpan="4" x:Name="DarkenBorder" Margin="0" Grid.ColumnSpan="2" Background="#B2000000" BorderThickness="0" BorderBrush="Black"/>

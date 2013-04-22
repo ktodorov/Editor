@@ -255,96 +255,125 @@ namespace RemedyPic.UserControls.Popups
         public void BlackFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "black";
+            ReDisplay();
         }
 
         // If gray color is selected
         public void GrayFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "gray";
+            ReDisplay();
         }
 
         // If white color is selected
         public void WhiteFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "white";
+            ReDisplay();
         }
 
         // If blue color is selected
         public void BlueFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "blue";
+            ReDisplay();
         }
 
         // If lime color is selected
         public void LimeFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "lime";
+            ReDisplay();
         }
 
         // If yellow color is selected
         public void YellowFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "yellow";
+            ReDisplay();
         }
 
         // If cyan color is selected
         public void CyanFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "cyan";
+            ReDisplay();
         }
 
         // If magenta color is selected
         public void MagentaFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "magenta";
+            ReDisplay();
         }
 
         // If silver color is selected
         public void SilverFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "silver";
+            ReDisplay();
         }
 
         // If maroon color is selected
         public void MaroonFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "maroon";
+            ReDisplay();
         }
 
         // If olive color is selected
         public void OliveFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "olive";
-        }
+            ReDisplay();
+        }   
 
         // If green color is selected
         public void GreenFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "green";
+            ReDisplay();
         }
 
         // If purple color is selected
         public void PurpleFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "purple";
+            ReDisplay();
         }
 
         // If teal color is selected
         public void TealFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "teal";
+            ReDisplay();
         }
 
         // If navy color is selected
         public void NavyFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "navy";
+            ReDisplay();
         }
 
         // If red color is selected
         public void RedFrameTapped(object sender, TappedRoutedEventArgs e)
         {
             appliedFrameColor = "red";
+            ReDisplay();
+        }
+
+        public void OnFrameWidthChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            ReDisplay();
+        }
+
+        private void ReDisplay()
+        {
+            if (appliedFrame != null)
+            {
+                ApplyFrameType(appliedFrame, (int)FrameWidthPercent.Value);
+            }
         }
 
         // Get the B G R value of selected color
@@ -489,9 +518,14 @@ namespace RemedyPic.UserControls.Popups
         {
             int thickPercent = Convert.ToInt32(frameStats[0]);
             appliedFrameColor = frameStats[1];
-            string frameType = frameStats[2];
+            string FrameType = frameStats[2];
 
-            switch (frameType)
+            ApplyFrameType(FrameType, thickPercent);
+        }
+
+        private void ApplyFrameType(string FrameType, int thickPercent)
+        {
+            switch (FrameType)
             {
                 case "standard":
                     ApplyStandardFrame(thickPercent);

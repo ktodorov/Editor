@@ -105,7 +105,7 @@
 
                     <StackPanel Height="87">
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Frame Width (%)" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="20" Foreground="White" />
-                        <Slider x:Name="FrameWidthPercent" Width="200" Style="{StaticResource SliderStyle1}" Foreground="White" Maximum="25" Minimum="1"/>
+                        <Slider x:Name="FrameWidthPercent" Width="200" ValueChanged="OnFrameWidthChanged" Style="{StaticResource SliderStyle1}" Foreground="White" Maximum="25" Minimum="1"/>
                     </StackPanel>
                 </Border>
                 <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Frames" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="20" Foreground="White" />
