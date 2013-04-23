@@ -824,6 +824,9 @@ namespace RemedyPic
         {
             // Called when the original image size is changed.
             // It calculates the new width and height.
+            OptionsPopup.widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
+            OptionsPopup.newWidth.Text = bitmapImage.PixelWidth.ToString();
+            OptionsPopup.newHeight.Text = bitmapImage.PixelHeight.ToString();
 
             if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)
             {
