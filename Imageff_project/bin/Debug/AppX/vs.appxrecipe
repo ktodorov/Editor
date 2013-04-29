@@ -22,11 +22,11 @@
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-04-22T19:11:38.693</Modified>
+      <Modified>2013-04-22T19:51:45.499</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-04-22T19:11:38.648</Modified>
+      <Modified>2013-04-22T19:51:45.478</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
@@ -322,7 +322,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyFrames.xaml">
       <PackagePath>UserControls\Popups\RemedyFrames.xaml</PackagePath>
-      <Modified>2013-04-22T19:09:00.326</Modified>
+      <Modified>2013-04-22T19:51:43.247</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyHistogram.xaml">
       <PackagePath>UserControls\Popups\RemedyHistogram.xaml</PackagePath>

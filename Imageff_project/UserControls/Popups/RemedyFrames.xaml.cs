@@ -497,8 +497,7 @@ namespace RemedyPic.UserControls.Popups
                     }
             }
             return Color;
-        }
-        
+        }        
 
         public void FramesBorder_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
@@ -563,9 +562,9 @@ namespace RemedyPic.UserControls.Popups
         public void ResetFrameMenuData()
         {
             appliedFrameColor = "black";
+            appliedFrame = null;
             BlackFrameColor.IsSelected = true;
             FrameWidthPercent.Value = 1;
-            appliedFrame = null;
         }
 
 
