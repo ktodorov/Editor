@@ -1,49 +1,3 @@
-C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe
-C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb
-C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri
-C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml
-C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.build.appxrecipe
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\App.g.i.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\App.g.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\Common\StandardStyles.g.i.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\Common\StandardStyles.g.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\MainPage.g.i.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\MainPage.g.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\XamlTypeInfo.g.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\App.xaml
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\Common\StandardStyles.xaml
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\MainPage.xaml
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\RemedyPic.exe
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\RemedyPic.pdb
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\priconfig.xml
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\layout.resfiles
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\resources.resfiles
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\pri.resfiles
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\LanguageQualifiers.txt
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\ProjectArchitectures.txt
-C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\RemedyPic.exe
-C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\RemedyPic.pdb
-C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\resources.pri
-C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\AppxManifest.xml
-C:\Users\Phoenix\Editor\Imageff_project\bin\Debug\RemedyPic.build.appxrecipe
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\App.g.i.cs
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\App.g.cs
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\Common\StandardStyles.g.i.cs
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\Common\StandardStyles.g.cs
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\MainPage.g.i.cs
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\MainPage.g.cs
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\XamlTypeInfo.g.cs
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\App.xaml
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\Common\StandardStyles.xaml
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\MainPage.xaml
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\RemedyPic.exe
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\RemedyPic.pdb
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\priconfig.xml
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\layout.resfiles
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\resources.resfiles
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\pri.resfiles
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\LanguageQualifiers.txt
-C:\Users\Phoenix\Editor\Imageff_project\obj\Debug\ProjectArchitectures.txt
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri
@@ -55,10 +9,46 @@ C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\Common\Sta
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\Common\StandardStyles.g.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\MainPage.g.i.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\MainPage.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.i.cs
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\XamlTypeInfo.g.cs
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\App.xaml
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\Common\StandardStyles.xaml
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\MainPage.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.xaml
+C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.xaml
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\RemedyPic.exe
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\RemedyPic.pdb
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\priconfig.xml
@@ -67,113 +57,23 @@ C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\resources.
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfiles
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\LanguageQualifiers.txt
 C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\ProjectArchitectures.txt
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\AppxManifest.xml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.build.appxrecipe
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\App.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\App.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\Common\StandardStyles.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\Common\StandardStyles.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\MainPage.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\MainPage.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\XamlTypeInfo.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\App.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\Common\StandardStyles.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\MainPage.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\RemedyPic.exe
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\RemedyPic.pdb
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\priconfig.xml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\layout.resfiles
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\resources.resfiles
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfiles
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\LanguageQualifiers.txt
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\ProjectArchitectures.txt
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.xaml
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.xaml
+C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe
+C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb
+C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri
+C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml
+C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.build.appxrecipe
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\App.g.i.cs
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\App.g.cs
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\Common\StandardStyles.g.i.cs
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\Common\StandardStyles.g.cs
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\MainPage.g.i.cs
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\MainPage.g.cs
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.i.cs
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.g.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.i.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.cs
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.xaml
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.xaml
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\priconfig.xml.intermediate
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\layout.resfiles.intermediate
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\resources.resfiles.intermediate
-C:\Users\Anton\Editor\Imageff_project\obj\Debug\pri.resfiles.intermediate
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.xaml
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\priconfig.xml.intermediate
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\layout.resfiles.intermediate
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\resources.resfiles.intermediate
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfiles.intermediate
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.xaml
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.xaml
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.xaml
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.xaml
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.xaml
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyExposure.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFilters.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\priconfig.xml.intermediate
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\layout.resfiles.intermediate
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\resources.resfiles.intermediate
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\pri.resfiles.intermediate
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.xaml
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.i.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.cs
-C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.xaml
-<<<<<<< HEAD
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.i.cs
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.g.cs
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.i.cs
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.g.cs
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.i.cs
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.g.cs
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.g.i.cs
@@ -192,7 +92,13 @@ C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOption
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.cs
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.i.cs
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.g.cs
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\XamlTypeInfo.g.cs
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\App.xaml
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\Common\StandardStyles.xaml
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\MainPage.xaml
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\DisplayImage.xaml
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\MainOptionsPanel.xaml
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\MenuPopup.xaml
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColorize.xaml
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyColors.xaml
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.xaml
@@ -202,14 +108,15 @@ C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyFrames
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.xaml
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.xaml
 C:\Users\Anton\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyRotations.xaml
-=======
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.i.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.g.cs
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyCustom.xaml
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyHistogram.xaml
-C:\Users\Konstantin\Documents\GitHub\Editor\Imageff_project\obj\Debug\UserControls\Popups\RemedyOptions.xaml
->>>>>>> 8efe3fc7cf2200fee09f36c573e00c8eea711928
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\RemedyPic.exe
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\RemedyPic.pdb
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\priconfig.xml.intermediate
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\layout.resfiles.intermediate
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\resources.resfiles.intermediate
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\pri.resfiles.intermediate
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\priconfig.xml
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\layout.resfiles
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\resources.resfiles
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\pri.resfiles
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\LanguageQualifiers.txt
+C:\Users\Anton\Editor\Imageff_project\obj\Debug\ProjectArchitectures.txt

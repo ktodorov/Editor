@@ -251,118 +251,7 @@ namespace RemedyPic.UserControls.Popups
             FramesApplyReset.Visibility = Visibility.Collapsed;
         }
 
-        // If black color is selected
-        public void BlackFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "black";
-            ReDisplay();
-        }
-
-        // If gray color is selected
-        public void GrayFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "gray";
-            ReDisplay();
-        }
-
-        // If white color is selected
-        public void WhiteFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "white";
-            ReDisplay();
-        }
-
-        // If blue color is selected
-        public void BlueFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "blue";
-            ReDisplay();
-        }
-
-        // If lime color is selected
-        public void LimeFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "lime";
-            ReDisplay();
-        }
-
-        // If yellow color is selected
-        public void YellowFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "yellow";
-            ReDisplay();
-        }
-
-        // If cyan color is selected
-        public void CyanFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "cyan";
-            ReDisplay();
-        }
-
-        // If magenta color is selected
-        public void MagentaFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "magenta";
-            ReDisplay();
-        }
-
-        // If silver color is selected
-        public void SilverFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "silver";
-            ReDisplay();
-        }
-
-        // If maroon color is selected
-        public void MaroonFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "maroon";
-            ReDisplay();
-        }
-
-        // If olive color is selected
-        public void OliveFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "olive";
-            ReDisplay();
-        }   
-
-        // If green color is selected
-        public void GreenFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "green";
-            ReDisplay();
-        }
-
-        // If purple color is selected
-        public void PurpleFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "purple";
-            ReDisplay();
-        }
-
-        // If teal color is selected
-        public void TealFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "teal";
-            ReDisplay();
-        }
-
-        // If navy color is selected
-        public void NavyFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "navy";
-            ReDisplay();
-        }
-
-        // If red color is selected
-        public void RedFrameTapped(object sender, TappedRoutedEventArgs e)
-        {
-            appliedFrameColor = "red";
-            ReDisplay();
-        }
-
+        // When frame width is changed
         public void OnFrameWidthChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             ReDisplay();
@@ -567,11 +456,89 @@ namespace RemedyPic.UserControls.Popups
             FrameWidthPercent.Value = 1;
         }
 
-
         public void BackPopupClicked(object sender, RoutedEventArgs e)
         {
             rootPage.BackPopupClicked(sender, e);
         }
 
+        // When color is changed
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (rootPage.pictureIsLoaded)
+            {
+                GetSelectedFrameColor();
+                ReDisplay();
+            }
+        }
+
+        // Get selected color of the frame
+        private void GetSelectedFrameColor()
+        {
+            if (BlackFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "black";
+            }
+            else if (GrayFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "gray";
+            }
+            else if (WhiteFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "white";
+            }
+            else if (BlueFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "blue";
+            }
+            else if (LimeFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "lime";
+            }
+            else if (YellowFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "yellow";
+            }
+            else if (CyanFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "cyan";
+            }
+            else if (MagentaFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "magenta";
+            }
+            else if (SilverFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "silver";
+            }
+            else if (MaroonFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "maroon";
+            }
+            else if (OliveFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "olive";
+            }
+            else if (GreenFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "green";
+            }
+            else if (PurpleFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "purple";
+            }
+            else if (TealFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "teal";
+            }
+            else if (NavyFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "navy";
+            }
+            else if (RedFrameColor.IsSelected == true)
+            {
+                appliedFrameColor = "red";
+            }
+        }
+        
     }
 }

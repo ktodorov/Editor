@@ -41,59 +41,59 @@
 
 
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Colors" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="20" Foreground="White" Margin="134,0,133,270"/>
-                        <ListView x:Name="FramesListView" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,37,0,0">
+                        <ListView x:Name="FramesListView" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,37,0,0" SelectionChanged="SelectionChanged">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapGrid Orientation="Horizontal" MaximumRowsOrColumns="6"/>
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
                             <ListViewItem x:Name="BlackFrameColor" IsSelected="True">
-                                <Rectangle x:Name="BlackRect" Fill="Black" Stroke="Black" Height="55" Width="55" Tapped="BlackFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Rectangle x:Name="BlackRect" Fill="Black" Stroke="Black" Height="55" Width="55"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="GrayRect" Fill="#808080" Stroke="Black" Height="55" Width="55" Tapped="GrayFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="GrayFrameColor">
+                                <Rectangle x:Name="GrayRect" Fill="#808080" Stroke="Black" Height="55" Width="55"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="SilverRect" Fill="#C0C0C0" Stroke="Black" Height="55" Width="55"  Tapped="SilverFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="SilverFrameColor">
+                                <Rectangle x:Name="SilverRect" Fill="#C0C0C0" Stroke="Black" Height="55" Width="55"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="WhiteRect" Fill="White" Stroke="Black" Height="55" Width="55"  Tapped="WhiteFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="WhiteFrameColor">
+                                <Rectangle x:Name="WhiteRect" Fill="White" Stroke="Black" Height="55" Width="55"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="NavyRect" Fill="#000080" Stroke="Black" Height="55" Width="55"  Tapped="NavyFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="NavyFrameColor">
+                                <Rectangle x:Name="NavyRect" Fill="#000080" Stroke="Black" Height="55" Width="55"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="BlueRect" Fill="#0000FF" Stroke="Black" Height="55" Width="55"  Tapped="BlueFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="BlueFrameColor">
+                                <Rectangle x:Name="BlueRect" Fill="#0000FF" Stroke="Black" Height="55" Width="55"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="TealRect" Fill="#008080" Stroke="Black" Height="55" Width="55"  Tapped="TealFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="TealFrameColor">
+                                <Rectangle x:Name="TealRect" Fill="#008080" Stroke="Black" Height="55" Width="55"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="CyanRect" Fill="#00FFFF " Stroke="Black" Height="55" Width="55"  Tapped="CyanFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="CyanFrameColor">
+                                <Rectangle x:Name="CyanRect" Fill="#00FFFF " Stroke="Black" Height="55" Width="55"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="MaroonRect" Fill="#800000" Stroke="Black" Height="55" Width="55"  Tapped="MaroonFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="MaroonFrameColor">
+                                <Rectangle x:Name="MaroonRect" Fill="#800000" Stroke="Black" Height="55" Width="55"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="PurpleRect" Fill="#800080" Stroke="Black" Height="55" Width="55"  Tapped="PurpleFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="PurpleFrameColor">
+                                <Rectangle x:Name="PurpleRect" Fill="#800080" Stroke="Black" Height="55" Width="55"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="MagentaRect" Fill="#FF00FF" Stroke="Black" Height="55" Width="55"  Tapped="MagentaFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="MagentaFrameColor">
+                                <Rectangle x:Name="MagentaRect" Fill="#FF00FF" Stroke="Black" Height="55" Width="55"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="RedRect" Fill="#FF0000" Stroke="Black" Height="55" Width="55"  Tapped="RedFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="RedFrameColor">
+                                <Rectangle x:Name="RedRect" Fill="#FF0000" Stroke="Black" Height="55" Width="55"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="GreenRect" Fill="#008000" Stroke="Black" Height="55" Width="55"  Tapped="GreenFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="GreenFrameColor">
+                                <Rectangle x:Name="GreenRect" Fill="#008000" Stroke="Black" Height="55" Width="55"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="LimeRect" Fill="Lime" Stroke="Black" Height="55" Width="55"  Tapped="LimeFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="LimeFrameColor">
+                                <Rectangle x:Name="LimeRect" Fill="Lime" Stroke="Black" Height="55" Width="55"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="OliveRect" Fill="Olive" Stroke="Black" Height="55" Width="55"  Tapped="OliveFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="OliveFrameColor">
+                                <Rectangle x:Name="OliveRect" Fill="Olive" Stroke="Black" Height="55" Width="55"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Rectangle x:Name="YellowRect" Fill="Yellow" Stroke="Black" Height="55" Width="55"  Tapped="YellowFrameTapped" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ListViewItem x:Name="YellowFrameColor">
+                                <Rectangle x:Name="YellowRect" Fill="Yellow" Stroke="Black" Height="55" Width="55"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </ListViewItem>
                         </ListView>
 

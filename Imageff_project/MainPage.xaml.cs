@@ -365,8 +365,6 @@ namespace RemedyPic
             imageDisplayed.displayImage.MaxWidth = imageDisplayed.imageBorder.ActualWidth * 0.90;
             imageDisplayed.displayImage.MaxHeight = imageDisplayed.imageBorder.ActualHeight * 0.90;
 
-
-
 			OptionsPopup.widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
 			OptionsPopup.newWidth.Text = bitmapImage.PixelWidth.ToString();
 			OptionsPopup.newHeight.Text = bitmapImage.PixelHeight.ToString();
@@ -712,7 +710,7 @@ namespace RemedyPic
 
         #endregion
 
-
+            
 
         public async void UpdatePreviewImage()
         {
@@ -720,8 +718,8 @@ namespace RemedyPic
             ImageLoadingRing.IsActive = true;
             await SaveFile(false);
 
-            double sourceImageWidthScale = imageDisplayed.imageCanvas.Width / imageDisplayed.sourceImagePixelWidth;
-            double sourceImageHeightScale = imageDisplayed.imageCanvas.Height / imageDisplayed.sourceImagePixelHeight;
+            double sourceImageWidthScale = imageDisplayed.imageCanvas.Width / bitmapImage.PixelWidth;
+            double sourceImageHeightScale = imageDisplayed.imageCanvas.Height / bitmapImage.PixelHeight;
 
             Size previewImageSize = new Size(
                 imageDisplayed.selectedRegion.SelectedRect.Width / sourceImageWidthScale,
@@ -824,6 +822,9 @@ namespace RemedyPic
         {
             // Called when the original image size is changed.
             // It calculates the new width and height.
+            OptionsPopup.widthHeightRatio = (double)bitmapImage.PixelWidth / (double)bitmapImage.PixelHeight;
+            OptionsPopup.newWidth.Text = bitmapImage.PixelWidth.ToString();
+            OptionsPopup.newHeight.Text = bitmapImage.PixelHeight.ToString();
 
             if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)
             {
@@ -871,8 +872,8 @@ namespace RemedyPic
         void selectedRegion_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             // Called when the user has dragged the crop corner.
-            double widthScale = imageDisplayed.imageCanvas.Width / imageDisplayed.sourceImagePixelWidth;
-            double heightScale = imageDisplayed.imageCanvas.Height / imageDisplayed.sourceImagePixelHeight;
+            double widthScale = imageDisplayed.imageCanvas.Width / bitmapImage.PixelWidth;
+            double heightScale = imageDisplayed.imageCanvas.Height / bitmapImage.PixelHeight;
 
             if (imageDisplayed.selectedRegion.SelectedRect.Width !=imageDisplayed.displayImage.ActualWidth ||
                 imageDisplayed.selectedRegion.SelectedRect.Height !=imageDisplayed.displayImage.ActualHeight)

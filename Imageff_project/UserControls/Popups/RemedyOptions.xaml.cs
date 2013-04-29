@@ -213,6 +213,7 @@ namespace RemedyPic.UserControls.Popups
 
 		public void Resize_Checked(object sender, RoutedEventArgs e)
 		{
+
             tempPanel.Children.Add(temp);
 			temp.Visibility = Visibility.Visible;
 		}
