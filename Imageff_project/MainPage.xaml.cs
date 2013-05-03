@@ -427,9 +427,7 @@ namespace RemedyPic
             Menu.menuPopup.IsOpen = true;
             Panel.UndoRedo.Visibility = Visibility.Visible;
         }
-        #endregion
-
-       
+        #endregion       
 
         #region Save
 

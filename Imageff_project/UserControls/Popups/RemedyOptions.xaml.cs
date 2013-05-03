@@ -19,6 +19,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using Windows.System.UserProfile;
+using System.Text.RegularExpressions;
 
 namespace RemedyPic.UserControls.Popups
 {
@@ -237,12 +238,14 @@ namespace RemedyPic.UserControls.Popups
 			}
 			int resizeWidth = Convert.ToInt32(newWidth.Text);
 			int resizeHeight = Convert.ToInt32(newHeight.Text);
-			int OrignalWidth = rootPage.imageOriginal.width;
-			int OriginalHeight = rootPage.imageOriginal.height;
+            int OrignalWidth = rootPage.imageOriginal.width;
+            int OriginalHeight = rootPage.imageOriginal.height;
+            CheckForCropBeforeResize(ref OrignalWidth, ref OriginalHeight);
 
 			ApplyResize.Visibility = Visibility.Collapsed;
 
 			rootPage.bitmapImage = await ResizeImage(rootPage.bitmapImage, (uint)(resizeWidth), (uint)(resizeHeight));
+
 			rootPage.bitmapStream = rootPage.bitmapImage.PixelBuffer.AsStream();
 			rootPage.imageOriginal.srcPixels = new byte[(uint)rootPage.bitmapStream.Length];
 			rootPage.image.srcPixels = new byte[(uint)rootPage.exampleStream.Length];
@@ -255,6 +258,17 @@ namespace RemedyPic.UserControls.Popups
 			rootPage.imageDisplayed.displayImage.Source = rootPage.bitmapImage;
 			rootPage.FiltersPopup.setFilterBitmaps();
 		}
+
+        // Check if there is crop before resize (one step before resize)
+        private void CheckForCropBeforeResize(ref int OrignalWidth, ref int OriginalHeight)
+        {
+            if (rootPage.archive_current_index - 1 >= 0 && Regex.IsMatch(rootPage.OptionsPopup.effectsApplied[rootPage.archive_current_index - 1], "Crop")) 
+            {
+                string[] sizes = rootPage.OptionsPopup.effectsApplied[rootPage.archive_current_index - 1].Split(' ');
+                OrignalWidth = Convert.ToInt32(sizes[3]);
+                OriginalHeight = Convert.ToInt32(sizes[4]);
+            }
+        }
 		#endregion
 
 
