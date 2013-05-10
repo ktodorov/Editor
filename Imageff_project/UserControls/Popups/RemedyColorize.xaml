@@ -31,11 +31,12 @@
                 </StackPanel.Background>
                 <Border BorderThickness="0,0,0,0" VerticalAlignment="Top" Margin="0,5,0,20" BorderBrush="#7FFFFFFF">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                        <Button x:Name="BackColorize" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="70" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                        <Button x:Name="BackColorize" x:FieldModifier="public" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="70" Background="{x:Null}" BorderBrush="#7FFFFFFF" BorderThickness="0" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                         <TextBlock TextWrapping="Wrap" Text="Colorize" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Border>
-                <Grid x:Name="ColorizeGrid" Margin="0,100,0,20" RenderTransformOrigin="1,0" Width="320">
+                <TextBlock TextWrapping="Wrap" Text="Warning: The selected color must differentiate from the rest on the picture so the colorize can be done normally." Margin="45,100,45,15" Foreground="#FFC7C7C7" HorizontalAlignment="Center" FontStyle="Italic" FontSize="14" Width="250"/>
+                <Grid x:Name="ColorizeGrid" Margin="0,0,0,20" RenderTransformOrigin="1,0" Width="320">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="85*"/>
                         <RowDefinition Height="54*"/>
@@ -79,5 +80,5 @@
             </StackPanel>
         </ScrollViewer>
     </Popup>
-    
+
 </UserControl>

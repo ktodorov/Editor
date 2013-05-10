@@ -40,6 +40,7 @@ namespace RemedyPic.UserControls.Popups
 
 		public RemedyOptions()
 		{
+            // Main function.
             this.InitializeComponent();
             temp = ResizePanel;
             tempPanel.Children.Remove(ResizePanel);
@@ -48,6 +49,7 @@ namespace RemedyPic.UserControls.Popups
 		#region Export/Import
 		public void OnExportButtonClick(object sender, RoutedEventArgs e)
 		{
+            // Called when export button is pressed.
 			if (rootPage.archive_current_index != rootPage.archive_data.Count - 1)
 			{
 				rootPage.archive_data.RemoveRange(rootPage.archive_current_index + 1, rootPage.archive_data.Count - 1 - rootPage.archive_current_index);
@@ -58,6 +60,7 @@ namespace RemedyPic.UserControls.Popups
 
 		public void onImportButtonClick(object sender, RoutedEventArgs e)
 		{
+            // Called when Import button is pressed.
 			if (rootPage.archive_current_index != rootPage.archive_data.Count - 1)
 			{
 				rootPage.archive_data.RemoveRange(rootPage.archive_current_index + 1, rootPage.archive_data.Count - 1 - rootPage.archive_current_index);
@@ -76,6 +79,11 @@ namespace RemedyPic.UserControls.Popups
 			rootPage.DarkenBorder.Visibility = Visibility.Collapsed;
 		}
 
+        /// <summary>
+        /// This checks the loaded config file on the given 'i' position
+        /// and imports the function which is there.
+        /// </summary>
+        /// <param name="i"> The position where the config file must be checked </param>
 		public void checkEffect(int i)
 		{
 			string[] temp = new string[10];
@@ -132,6 +140,7 @@ namespace RemedyPic.UserControls.Popups
 		}
 
 		#region Import Functions
+        // Functions called for importing effects.
 		public void importColor(string[] temp)
 		{
 			rootPage.ColorsPopup.importColor(temp);
@@ -155,6 +164,7 @@ namespace RemedyPic.UserControls.Popups
 
 		public async void onImportFileSelectButtonClick(object sender, RoutedEventArgs e)
 		{
+            // Called when the button for selecting file to import is pressed.
 			bool imported = await configFile.Import(importFileName);
 			if (imported)
 				importFilePanel.Visibility = Visibility.Visible;
@@ -167,6 +177,8 @@ namespace RemedyPic.UserControls.Popups
 
 		public void OnNewWidthTextChanged(object sender, TextChangedEventArgs e)
 		{
+            // Called when the value of the text box with the new width is changed.
+            // If we must keep proportions, calculations are made and the value in the height box is changed proportionally.
 			int temp;
 
 			if (keepProportions && newWidth.Text != "" && int.TryParse(newWidth.Text, out temp) && !calledByOther)
@@ -186,6 +198,8 @@ namespace RemedyPic.UserControls.Popups
 
 		public void OnNewHeightTextChanged(object sender, TextChangedEventArgs e)
 		{
+            // Called when the value of the text box with the new height is changed.
+            // If we must keep proportions, calculations are made and the value in the width box is changed proportionally.
 			int temp;
 			if (keepProportions && newHeight.Text != "" && int.TryParse(newHeight.Text, out temp) && !calledByOther)
 			{
@@ -214,13 +228,14 @@ namespace RemedyPic.UserControls.Popups
 
 		public void Resize_Checked(object sender, RoutedEventArgs e)
 		{
-
+            // Show the resize panel when the resize button is pressed.
             tempPanel.Children.Add(temp);
 			temp.Visibility = Visibility.Visible;
 		}
 
 		public void Resize_Unchecked(object sender, RoutedEventArgs e)
 		{
+            // Hide the resize panel when the resize button is pressed again.
 			temp.Visibility = Visibility.Collapsed;
             tempPanel.Children.Remove(temp);
             
@@ -259,13 +274,17 @@ namespace RemedyPic.UserControls.Popups
 			rootPage.FiltersPopup.setFilterBitmaps();
 		}
 
-        // Check if there is crop before resize (one step before resize)
-        private void CheckForCropBeforeResize(ref int OrignalWidth, ref int OriginalHeight)
+        /// <summary>
+        /// Check if there is crop before resize (one step before resize) 
+        /// </summary>
+        /// <param name="OrignalWidth"> The original width of the bitmap </param>
+        /// <param name="OriginalHeight"> The original height of the bitmap </param>
+        private void CheckForCropBeforeResize(ref int OriginalWidth, ref int OriginalHeight)
         {
             if (rootPage.archive_current_index - 1 >= 0 && Regex.IsMatch(rootPage.OptionsPopup.effectsApplied[rootPage.archive_current_index - 1], "Crop")) 
             {
                 string[] sizes = rootPage.OptionsPopup.effectsApplied[rootPage.archive_current_index - 1].Split(' ');
-                OrignalWidth = Convert.ToInt32(sizes[3]);
+                OriginalWidth = Convert.ToInt32(sizes[3]);
                 OriginalHeight = Convert.ToInt32(sizes[4]);
             }
         }
@@ -274,8 +293,13 @@ namespace RemedyPic.UserControls.Popups
 
 		#region Resizing an image
 
-		// This function resize the passed WriteableBitmap object with the passed width and height.
-		// The passed width and height must be proportional of the original width and height( /2, /3, /4 ..).
+		
+        /// <summary>
+        /// This function resize the passed WriteableBitmap object with the passed width and height.
+        /// </summary>
+        /// <param name="baseWriteBitmap"> The bitmap to be resized </param>
+        /// <param name="width"> New width to be resized to </param>
+        /// <param name="height"> New height to be resized to </param>
 		public async Task<WriteableBitmap> ResizeImage(WriteableBitmap baseWriteBitmap, uint width, uint height)
 		{
 			// Get the pixel buffer of the writable bitmap in bytes
@@ -371,9 +395,11 @@ namespace RemedyPic.UserControls.Popups
 			RestoreOriginalBitmap();
 		}
 
+        /// <summary>
+        /// This restores the original loaded in the beginning bitmap.
+        /// </summary>
 		public void RestoreOriginalBitmap()
 		{
-			// Reset the current image.
 			rootPage.imageOriginal.srcPixels = (byte[])rootPage.uneditedImage.srcPixels.Clone();
 			rootPage.imageOriginal.dstPixels = (byte[])rootPage.uneditedImage.dstPixels.Clone();
 			rootPage.bitmapStream = rootPage.uneditedStream;

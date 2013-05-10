@@ -31,6 +31,13 @@ namespace RemedyPic.UserControls.Popups
         }
 
 
+        /// <summary>
+        /// This function rotates the passed WriteableBitmap clockwise or counter-clockwise
+        /// </summary>
+        /// <param name="baseWriteBitmap"> WriteableBitmap to be rotated </param>
+        /// <param name="width"> Width of the WriteableBitmap </param>
+        /// <param name="height"> Height of the WriteableBitmap </param>
+        /// <param name="position"> If 'right', it rotates clockwise, if 'left' - counterclockwise </param>
         public async Task<WriteableBitmap> RotateImage(WriteableBitmap baseWriteBitmap, uint width, uint height, string position)
         {
             // Get the pixel buffer of the writable bitmap in bytes
@@ -98,7 +105,10 @@ namespace RemedyPic.UserControls.Popups
             appliedRotations = null;
         }
 
-
+        /// <summary>
+        /// Applies the rotation or fliping and saves it to the export array.
+        /// </summary>
+        /// <param name="rotation"> String that shows what operation has been completed </param>
         public void ApplyRotate(string rotation)
         {
             switch (rotation)
@@ -126,6 +136,7 @@ namespace RemedyPic.UserControls.Popups
 
         public void OnRotateResetClick(object sender, RoutedEventArgs e)
         {
+            // Called when the reset button is pressed.
             rootPage.prepareImage(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
             rootPage.image.Reset();
             rootPage.setStream(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
@@ -134,7 +145,7 @@ namespace RemedyPic.UserControls.Popups
         }
 
 
-        // The events are called when a Rotate button is clicked.
+        // These events are called when a Flip or Rotate button is clicked.
         public void OnHFlipClick(object sender, RoutedEventArgs e)
         {
             appliedRotations = "hflip";
@@ -194,9 +205,11 @@ namespace RemedyPic.UserControls.Popups
             rootPage.imageDisplayed.sourceImagePixelWidth = (uint)rootPage.bitmapImage.PixelWidth;
         }
 
-        // Event for apply button on  Rotate popup. Sets the image with the applied flip
+        
         public void OnRotateApplyClick(object sender, RoutedEventArgs e)
         {
+            // Event for apply button on  Rotate popup. Sets the image with the applied flip
+
             rootPage.ImageLoadingRing.IsActive = true;
             // SelectRotations.IsChecked = false;
             ApplyRotate(appliedRotations);
@@ -209,6 +222,7 @@ namespace RemedyPic.UserControls.Popups
 
         public void BackPopupClicked(object sender, RoutedEventArgs e)
         {
+            // Called when the back button is pressed.
             rootPage.BackPopupClicked(sender, e);
         }
 
