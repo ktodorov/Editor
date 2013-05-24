@@ -1,23 +1,23 @@
-﻿<common:LayoutAwarePage
+﻿<common:LayoutAwarePage x:ConnectionId='1'
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:RemedyPic.UserControls"
     xmlns:common="using:RemedyPic.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:sys="using:System"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="LayoutPage"
     x:Class="RemedyPic.MainPage"
-    mc:Ignorable="d">
+    mc:Ignorable="d"                              >
 
     <common:LayoutAwarePage.Resources>
 
         <x:String x:Key="AppName">Imageff Project</x:String>
     </common:LayoutAwarePage.Resources>
 
-    <Grid x:ConnectionId='1' x:Name="ContentRoot" Style="{StaticResource LayoutRootStyle}" Background="#FF515050"                                                                       >
+    <Grid x:ConnectionId='2' x:Name="ContentRoot" Style="{StaticResource LayoutRootStyle}" Background="#FF515050"                                                                       >
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="FirstCol" Width="569*"/>
-            <ColumnDefinition Width="114*"/>
+            <ColumnDefinition x:Name="SecondCol" Width="114*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="26"/>
@@ -133,7 +133,7 @@
                 <Border Grid.RowSpan="8" Margin="0" BorderThickness="1,0,0,0" BorderBrush="#FF0A4B00"/>
                 <Border VerticalAlignment="Top" Padding="10,10,0,10" Margin="0" Height="72" Background="#FF00610D" BorderThickness="0,0,0,2" BorderBrush="#7FFFFFFF">
                     <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Height="50">
-                        <Button x:ConnectionId='5' Width="40" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle1}" x:Name="BackFeedback" Margin="0" Height="40" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="48" FontWeight="Normal" Foreground="White" Content="&#xE0D5;"                             Background="{x:Null}" BorderThickness="1" BorderBrush="#7FFFFFFF"/>
+                        <Button x:ConnectionId='6' Width="40" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle1}" x:Name="BackFeedback" Margin="0" Height="40" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="48" FontWeight="Normal" Foreground="White" Content="&#xE0D5;"                             Background="{x:Null}" BorderThickness="1" BorderBrush="#7FFFFFFF"/>
                         <TextBlock Text="Feedback" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="36" Foreground="#DEFFFFFF"/>
                         <Image Width="70" VerticalAlignment="Bottom" Source="Assets/RemedyPicLogo.png" x:Name="Logo_Copy8" Margin="60,0,0,0" Height="35" HorizontalAlignment="Right">
                             <Image.Transitions>
@@ -167,6 +167,9 @@
                 <HyperlinkButton VerticalAlignment="Center" Padding="12,0" NavigateUri="http://www.facebook.com/RemedyPic" Foreground="#FF1D6A00" Content="Facebook" Height="26" Width="94" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="128,36,128,35" Grid.Row="5"/>
             </Grid>
         </Popup>
+        <ProgressRing x:FieldModifier="public" Width="60" VerticalAlignment="Center" Grid.Row="2" x:Name="ImageLoadingRing" Margin="0" Height="60" HorizontalAlignment="Center" Foreground="White"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" x:Name="MainMenuPanel" Margin="0" HorizontalAlignment="Center"/>
+        <StackPanel Grid.RowSpan="4" x:Name="PanelStack" Margin="0" Grid.Column="1"/>
         <Border x:FieldModifier="public" Visibility="Collapsed" Grid.RowSpan="4" x:Name="DarkenBorder" Margin="0" Grid.ColumnSpan="2" Background="#B2000000" BorderThickness="0" BorderBrush="Black"/>
         <Popup x:FieldModifier="public" VerticalAlignment="Center" Grid.RowSpan="3" x:Name="notSaved" Margin="0,0,0,125" IsOpen="False" HorizontalAlignment="Left" Grid.ColumnSpan="2">
             <Border Height="250" HorizontalAlignment="Center" BorderThickness="0,2" BorderBrush="#7F005308">
@@ -183,16 +186,17 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock VerticalAlignment="Center" Text="You have made changes but you didn't save them. Do you want to save now?" TextWrapping="Wrap" Style="{StaticResource PageSubheaderTextStyle}" Grid.Row="1" Margin="20,15,0,11" HorizontalAlignment="Center" Foreground="#FF034400" Grid.ColumnSpan="5"/>
                     <StackPanel VerticalAlignment="Center" Grid.Row="2" Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" Grid.Column="1">
-                        <Button x:ConnectionId='2' x:FieldModifier="public" Width="90" VerticalAlignment="Bottom" x:Name="YesSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="Yes"                       Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
-                        <Button x:ConnectionId='3' Width="90" VerticalAlignment="Bottom" x:Name="NoSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="No"                       Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
-                        <Button x:ConnectionId='4' Width="90" VerticalAlignment="Bottom" x:Name="CancelSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="Cancel"                             Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
+                        <Button x:ConnectionId='3' x:FieldModifier="public" Width="90" VerticalAlignment="Bottom" x:Name="YesSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="Yes"                       Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
+                        <Button x:ConnectionId='4' Width="90" VerticalAlignment="Bottom" x:Name="NoSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="No"                       Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
+                        <Button x:ConnectionId='5' Width="90" VerticalAlignment="Bottom" x:Name="CancelSave" Margin="0" Height="50" HorizontalAlignment="Stretch" Foreground="White" Content="Cancel"                             Background="#FF004703" BorderThickness="2" BorderBrush="#33000000"/>
                     </StackPanel>
                 </Grid>
             </Border>
         </Popup>
-        <ProgressRing x:FieldModifier="public" Width="60" VerticalAlignment="Center" Grid.Row="2" x:Name="ImageLoadingRing" Margin="0" Height="60" HorizontalAlignment="Center" Foreground="White"/>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" x:Name="MainMenuPanel" Margin="0" HorizontalAlignment="Center"/>
-        <StackPanel Grid.RowSpan="4" x:Name="PanelStack" Margin="0" Grid.Column="1"/>
+        <Border x:FieldModifier="public" Visibility="Collapsed" Grid.RowSpan="4" x:Name="SnappedBorder" Margin="0" Grid.ColumnSpan="2" Background="#FF003605" BorderThickness="0" BorderBrush="Black"/>
+        <Popup x:FieldModifier="public" VerticalAlignment="Center" Grid.RowSpan="3" x:Name="Snapped" Margin="0,0,0,125" IsOpen="False" HorizontalAlignment="Left">
+            <Image x:Name="Snapped_Logo" Source="Assets/RemedyPicLogo.png" Height="206" Width="426"/>
+        </Popup>
     </Grid>
 </common:LayoutAwarePage>
 

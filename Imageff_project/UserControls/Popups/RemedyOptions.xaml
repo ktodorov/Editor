@@ -31,7 +31,7 @@
                 </StackPanel.Background>
                 <Border VerticalAlignment="Top" Margin="0,5,0,60" BorderBrush="#7FFFFFFF">
                     <StackPanel Orientation="Horizontal" Margin="0">
-                        <Button x:Name="BackOptions" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="70" Background="{x:Null}" BorderBrush="#7FFFFFFF" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
+                        <Button x:Name="BackOptions" x:FieldModifier="public" Content="&#xE09F;" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Click="BackPopupClicked" FontFamily="Segoe UI Symbol" Height="50" Width="70" Background="{x:Null}" BorderBrush="#7FFFFFFF" VerticalContentAlignment="Top" Style="{StaticResource BackButtonPopupStyle1}"/>
                         <TextBlock TextWrapping="Wrap" Text="Image options" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Border>

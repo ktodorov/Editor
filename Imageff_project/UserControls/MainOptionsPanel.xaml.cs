@@ -49,6 +49,11 @@ namespace RemedyPic.UserControls
             }
         }
 
+        /// <summary>
+        /// This loads the photo from the path, selected by the FileOpenPicker.
+        /// It can load directly passed file if the fileToUse variable is not null.
+        /// </summary>
+        /// <param name="fileToUse"> If not null, the function will load this file instead of opening FilePicker </param>
         public async void GetPhoto(StorageFile fileToUse = null)
         {
             // File picker APIs don't work if the app is in a snapped state.
@@ -131,6 +136,9 @@ namespace RemedyPic.UserControls
             }
         }
 
+        /// <summary>
+        /// This loads the CameraCaptureUI so the user can capture an image using the camera.
+        /// </summary>
         public async void getCameraPhoto()
         {
             CameraCaptureUI camera = new CameraCaptureUI();
@@ -146,6 +154,7 @@ namespace RemedyPic.UserControls
         #region Zoom
         public void ZoomInClicked(object sender, RoutedEventArgs e)
         {
+            // We enlarge the image scale so it would zoom in.
             pageRoot.imageDisplayed.scale.ScaleX = pageRoot.imageDisplayed.scale.ScaleX + 0.1;
             pageRoot.imageDisplayed.scale.ScaleY = pageRoot.imageDisplayed.scale.ScaleY + 0.1;
             ZoomOut.IsEnabled = true;
@@ -153,6 +162,7 @@ namespace RemedyPic.UserControls
 
         public void ZoomOutClicked(object sender, RoutedEventArgs e)
         {
+            // We shring the image scale so it would zoom out.
             if (pageRoot.imageDisplayed.scale.ScaleX > 0.9 && pageRoot.imageDisplayed.scale.ScaleY > 0.9)
             {
                 pageRoot.imageDisplayed.scale.ScaleX = pageRoot.imageDisplayed.scale.ScaleX - 0.1;
@@ -169,6 +179,9 @@ namespace RemedyPic.UserControls
             ResetZoomPos();
         }
 
+        /// <summary>
+        /// Resets the image scale to 1 and resets all transformations and moves of the image.
+        /// </summary>
         public void ResetZoomPos()
         {
             pageRoot.imageDisplayed.displayImage.Margin = new Thickness(0, 0, 0, 0);
@@ -177,8 +190,10 @@ namespace RemedyPic.UserControls
             pageRoot.imageDisplayed.scale.ScaleX = 1;
             pageRoot.imageDisplayed.scale.ScaleY = 1;
         }
+
         public void MoveChecked(object sender, RoutedEventArgs e)
         {
+            // If checked, the image could be dragged around.
             pageRoot.imageDisplayed.displayImage.ManipulationMode = ManipulationModes.All;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Panning-checked.png");
@@ -187,6 +202,7 @@ namespace RemedyPic.UserControls
 
         public void MoveUnchecked(object sender, RoutedEventArgs e)
         {
+            // If unchecked, the image can't be dragged around.
             pageRoot.imageDisplayed.displayImage.ManipulationMode = ManipulationModes.None;
             BitmapImage temp = new BitmapImage();
             temp.UriSource = new Uri(this.BaseUri, "/Assets/Buttons/Panning.png");
@@ -322,6 +338,7 @@ namespace RemedyPic.UserControls
             }
         }
 
+        #region Hover events for the buttons
 
         public void OnCameraPointerOver(object sender, PointerRoutedEventArgs e)
         {
@@ -384,6 +401,8 @@ namespace RemedyPic.UserControls
                 PanIcon.Source = temp;
             }
         }
+
+        #endregion
 
         public async void OnSaveButtonClick(object sender, RoutedEventArgs e)
         {
