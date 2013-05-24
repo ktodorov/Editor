@@ -172,10 +172,12 @@ namespace RemedyPic.UserControls.Popups
         {
             if (givenElementString == "RotateLeft")
             {
+                rootPage.OptionsPopup.effectsApplied.Add("Rotate left");
                 rootPage.bitmapImage = await RotateImage(rootPage.bitmapImage, (uint)rootPage.bitmapImage.PixelWidth, (uint)rootPage.bitmapImage.PixelHeight, "left");
             }
             else if (givenElementString == "RotateRight")
             {
+                rootPage.OptionsPopup.effectsApplied.Add("Rotate right");
                 rootPage.bitmapImage = await RotateImage(rootPage.bitmapImage, (uint)rootPage.bitmapImage.PixelWidth, (uint)rootPage.bitmapImage.PixelHeight, "right");
             }
 
@@ -192,6 +194,8 @@ namespace RemedyPic.UserControls.Popups
 
             rootPage.imageDisplayed.sourceImagePixelHeight = (uint)rootPage.bitmapImage.PixelHeight;
             rootPage.imageDisplayed.sourceImagePixelWidth = (uint)rootPage.bitmapImage.PixelWidth;
+
+            rootPage.Panel.ArchiveAddArray();            
         }
 
         // Event for apply button on  Rotate popup. Sets the image with the applied flip

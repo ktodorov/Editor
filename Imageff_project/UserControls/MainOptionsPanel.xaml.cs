@@ -222,10 +222,26 @@ namespace RemedyPic.UserControls
                     pageRoot.bitmapImage = new WriteableBitmap(pageRoot.imageOriginal.width, pageRoot.imageOriginal.height);
                     pageRoot.bitmapStream = pageRoot.bitmapImage.PixelBuffer.AsStream();
                 }
+                else if (pageRoot.OptionsPopup.effectsApplied.Count > 0 && Regex.IsMatch(pageRoot.OptionsPopup.effectsApplied[pageRoot.archive_current_index], "Rotate"))
+                {
+                    SwapWidthAndHeightValues();
+                    pageRoot.imageOriginal.srcPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
+                    pageRoot.imageOriginal.dstPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
+                    pageRoot.bitmapImage = new WriteableBitmap(pageRoot.imageOriginal.width, pageRoot.imageOriginal.height);
+                    pageRoot.bitmapStream = pageRoot.bitmapImage.PixelBuffer.AsStream();
+                }
                 ArchiveSetNewImage();
                 pageRoot.setExampleBitmaps();
             }
             pageRoot.ImageLoadingRing.IsActive = false;
+        }
+
+        // Swap width with height
+        private void SwapWidthAndHeightValues()
+        {
+            int temp = pageRoot.imageOriginal.width;
+            pageRoot.imageOriginal.width = pageRoot.imageOriginal.height;
+            pageRoot.imageOriginal.height = temp;
         }
 
         //Redo button click
@@ -241,6 +257,14 @@ namespace RemedyPic.UserControls
 					string[] sizes = pageRoot.OptionsPopup.effectsApplied[pageRoot.archive_current_index - 1].Split(' ');
                     pageRoot.imageOriginal.width = Convert.ToInt32(sizes[3]);
                     pageRoot.imageOriginal.height = Convert.ToInt32(sizes[4]);
+                    pageRoot.imageOriginal.srcPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
+                    pageRoot.imageOriginal.dstPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
+                    pageRoot.bitmapImage = new WriteableBitmap(pageRoot.imageOriginal.width, pageRoot.imageOriginal.height);
+                    pageRoot.bitmapStream = pageRoot.bitmapImage.PixelBuffer.AsStream();
+                }
+                else if (Regex.IsMatch(pageRoot.OptionsPopup.effectsApplied[pageRoot.archive_current_index - 1], "Rotate"))
+                {
+                    SwapWidthAndHeightValues();
                     pageRoot.imageOriginal.srcPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
                     pageRoot.imageOriginal.dstPixels = (byte[])pageRoot.archive_data[pageRoot.archive_current_index].Clone();
                     pageRoot.bitmapImage = new WriteableBitmap(pageRoot.imageOriginal.width, pageRoot.imageOriginal.height);
