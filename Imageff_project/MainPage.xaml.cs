@@ -170,8 +170,11 @@ namespace RemedyPic
 
         public void OnSettingsPaneCommandRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
         {
+			// We add the Privacy Policy to the Settings charm.
+			args.Request.ApplicationCommands.Add(new SettingsCommand("policy",
+																	 "Privacy Policy", PolicyPopup));
             // We add the Feedback settings to the Settings charm.
-            args.Request.ApplicationCommands.Add(new SettingsCommand("commandID",
+            args.Request.ApplicationCommands.Add(new SettingsCommand("feedback",
                                                                      "Feedback", FeedbackPopup));
         }
 
@@ -180,6 +183,12 @@ namespace RemedyPic
             // This event occures when the user clicks on the Feedback in the settings charm.
             Feedback.IsOpen = true;
         }
+
+		public void PolicyPopup(IUICommand command)
+		{
+			// This event occures when the user clicks on the Feedback in the settings charm.
+			Policy.IsOpen = true;
+		}
 
         public async void ShareImageHandler(DataTransferManager sender,
             DataRequestedEventArgs e)
@@ -354,6 +363,7 @@ namespace RemedyPic
             FramesPopup.Frames.Height = Window.Current.Bounds.Height;
             HistogramPopup.Histogram.Height = Window.Current.Bounds.Height;
             FeedbackGrid.Height = Window.Current.Bounds.Height;
+			PolicyGrid.Height = Window.Current.Bounds.Height;
             CustomPopup.CustomFilter.Height = Window.Current.Bounds.Height;
             notSaved.Width = Window.Current.Bounds.Width;
             notSavedGrid.Width = Window.Current.Bounds.Width;
