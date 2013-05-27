@@ -5,7 +5,7 @@
     <WindowsUser>Tony</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>BC6D5576FF9D71BC8C3235DD175C7FFD62F22B906A2E576C35F8779655E953F6</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>455954FD4BF18B37D16C6816630DEBD1BC1A436C40E2FCCCF6BA5B3F2F70617D</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>DF4D1F28-642E-40AC-AB55-7182B8AD0385_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>DF4D1F28-642E-40AC-AB55-7182B8AD0385_pexwghfzd4yhp!App</RegisteredUserModeAppID>
     <RegisteredPackageID>DF4D1F28-642E-40AC-AB55-7182B8AD0385</RegisteredPackageID>
@@ -16,7 +16,7 @@
     <AppXManifest Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-05-24T18:03:13.473</Modified>
+      <Modified>2013-05-24T18:38:38.548</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -338,7 +338,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-04-22T18:40:11.519</Modified>
+      <Modified>2013-05-24T18:38:38.457</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

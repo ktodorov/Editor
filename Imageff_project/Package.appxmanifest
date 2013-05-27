@@ -23,6 +23,9 @@
           <Rotation Preference="landscapeFlipped" />
         </InitialRotationPreference>
       </VisualElements>
+      <Extensions>
+        <Extension Category="windows.accountPictureProvider" />
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>
