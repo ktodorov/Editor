@@ -12,7 +12,10 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>Imageff_project_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>RemedyPic_StoreKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxPackageDir>F:\Work\RemedyPic\RemedyPic Packages\</AppxPackageDir>
+    <PackageCertificateThumbprint>E9C6C0637D8B7C1AE7A3FCC73F7BF89FD2792178</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -160,6 +163,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Imageff_project_TemporaryKey.pfx" />
+    <None Include="RemedyPic_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Arrows\Arrow-horizontal.png" />
@@ -221,8 +225,10 @@
     <Content Include="Assets\RemedyPicLogo.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
+    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\WideLogo.png" />
     <Content Include="Common\ReadMe.txt" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -365,30 +365,6 @@ namespace RemedyPic.UserControls.Popups
 			await rootPage.deleteUsedFile();
 		}
 
-		public async void SetAccountPic_Clicked(object sender, RoutedEventArgs e)
-		{
-			// This sets the current image as an avatar of the current user and inform him that everything was okay.
-			bool savedFile = false;
-			savedFile = await rootPage.SaveFile(false);
-			while (!savedFile)
-			{
-
-			}
-			SetAccountPictureResult result = await UserInformation.SetAccountPicturesAsync(null, rootPage.file, null);
-
-			if (result == SetAccountPictureResult.Success)
-			{
-				MessageDialog messageDialog = new MessageDialog("Picture set! :)", "All done");
-				await messageDialog.ShowAsync();
-				await rootPage.deleteUsedFile();
-			}
-			else
-			{
-				MessageDialog messageDialog = new MessageDialog("Something failed :(", "Close");
-				await messageDialog.ShowAsync();
-			}
-		}
-
 		public void ReturnOriginal_Clicked(object sender, RoutedEventArgs e)
 		{
 			// Restore the original image.

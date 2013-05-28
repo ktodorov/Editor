@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-05-26T15:07:07.088</Modified>
+      <Modified>2013-05-28T09:07:18.227</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-05-26T20:50:09.796</Modified>
+      <Modified>2013-05-28T09:07:17.846</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-05-26T20:50:09.769</Modified>
+      <Modified>2013-05-28T09:07:17.798</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
@@ -330,7 +330,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyOptions.xaml">
       <PackagePath>UserControls\Popups\RemedyOptions.xaml</PackagePath>
-      <Modified>2013-05-11T11:43:47.608</Modified>
+      <Modified>2013-05-28T09:06:55.082</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyRotations.xaml">
       <PackagePath>UserControls\Popups\RemedyRotations.xaml</PackagePath>
@@ -338,7 +338,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Phoenix\My Documents\GitHub\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-05-26T19:32:44.288</Modified>
+      <Modified>2013-05-28T09:07:18.006</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

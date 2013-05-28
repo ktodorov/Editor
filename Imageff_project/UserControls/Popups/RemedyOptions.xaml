@@ -35,7 +35,7 @@
                         <TextBlock TextWrapping="Wrap" Text="Image options" Style="{StaticResource PageHeaderTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="40" Foreground="#DEFFFFFF"  FontWeight="Light" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Border>
-                <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel x:Name="OptionsStack" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,0,0">
                     <StackPanel.ChildrenTransitions>
                         <TransitionCollection>
                             <RepositionThemeTransition/>
@@ -44,7 +44,6 @@
                     <Border x:Name="SetLock_Avatar" Width="300" BorderBrush="#33000000" BorderThickness="0,0,0,2">
                         <StackPanel Orientation="Vertical">
                             <Button x:Name="SetLockButton" Content="Set image on Lock screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetLockPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250"/>
-                            <Button x:Name="SetAccountButton" Content="Set the image as Account picture" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ImageOptionsStyle}" Click="SetAccountPic_Clicked" Background="#00000000" BorderBrush="{x:Null}" Foreground="White" Width="250"/>
                         </StackPanel>
                     </Border>
                     <Border x:Name="Return_original" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10" BorderBrush="#33000000" BorderThickness="0,0,0,2" Width="300">
