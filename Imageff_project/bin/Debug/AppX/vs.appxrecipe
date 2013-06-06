@@ -5,7 +5,7 @@
     <WindowsUser>Tony</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>455954FD4BF18B37D16C6816630DEBD1BC1A436C40E2FCCCF6BA5B3F2F70617D</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>BC6D5576FF9D71BC8C3235DD175C7FFD62F22B906A2E576C35F8779655E953F6</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>DF4D1F28-642E-40AC-AB55-7182B8AD0385_1.0.0.0_neutral__pexwghfzd4yhp</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>DF4D1F28-642E-40AC-AB55-7182B8AD0385_pexwghfzd4yhp!App</RegisteredUserModeAppID>
     <RegisteredPackageID>DF4D1F28-642E-40AC-AB55-7182B8AD0385</RegisteredPackageID>
@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-05-24T18:38:38.548</Modified>
+      <Modified>2013-06-02T11:41:00.325</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.exe">
       <PackagePath>RemedyPic.exe</PackagePath>
-      <Modified>2013-05-24T18:16:53.694</Modified>
+      <Modified>2013-06-06T20:06:30.760</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\RemedyPic.pdb">
       <PackagePath>RemedyPic.pdb</PackagePath>
-      <Modified>2013-05-24T18:16:53.672</Modified>
+      <Modified>2013-06-06T20:06:30.473</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\Assets\Arrows\Arrow-horizontal.png">
       <PackagePath>Assets\Arrows\Arrow-horizontal.png</PackagePath>
@@ -286,7 +286,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-05-24T18:16:39.270</Modified>
+      <Modified>2013-05-27T07:12:45.427</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\UserControls\DisplayImage.xaml">
       <PackagePath>UserControls\DisplayImage.xaml</PackagePath>
@@ -334,11 +334,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\UserControls\Popups\RemedyRotations.xaml">
       <PackagePath>UserControls\Popups\RemedyRotations.xaml</PackagePath>
-      <Modified>2013-05-24T18:16:39.389</Modified>
+      <Modified>2013-06-06T20:06:28.042</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Anton\Editor\Imageff_project\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-05-24T18:38:38.457</Modified>
+      <Modified>2013-06-02T11:40:59.161</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

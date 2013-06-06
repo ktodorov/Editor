@@ -65,6 +65,20 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
+                <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="HMirrorButton" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnHMirrorClick" Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
+                        <StackPanel Width="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="/Assets/Arrows/Arrow-horizontal.png" Width="50" Height="50"/>
+                            <TextBlock TextWrapping="Wrap" Text="Horizontal Mirror" HorizontalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="VMirrorButton" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnVMirrorClick" Foreground="Black" Height="100" BorderThickness="0,0,0,2" BorderBrush="White" Background="{x:Null}" Margin="0" Width="150" Padding="0">
+                        <StackPanel Width="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="/Assets/Arrows/Arrow-vertical.png" Width="50" Height="50"/>
+                            <TextBlock TextWrapping="Wrap" Text="Vertical Mirror" HorizontalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
                 <StackPanel x:Name="RotateApplyReset" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Row="2" Visibility="Collapsed">
                     <Button x:Name="RotateApplyButton" Content="APPLY" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Click="OnRotateApplyClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="0" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}"/>
                     <Button x:Name="RotateResetButton" Content="RESET" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.474,0.485" Click="OnRotateResetClick" Foreground="White" Height="40" BorderThickness="0,0,0,2" BorderBrush="White" Margin="20,0,0,0" Style="{StaticResource ImageOptionsStyle}" Background="{x:Null}"/>

@@ -162,7 +162,7 @@ namespace RemedyPic.UserControls.Popups
 
 			pageRoot.imageOriginal.srcPixels = (byte[])pageRoot.imageOriginal.dstPixels.Clone();
 			pageRoot.Panel.ArchiveAddArray();
-			pageRoot.OptionsPopup.effectsApplied.Add("Custom = " + "TODO");
+			pageRoot.OptionsPopup.effectsApplied.Add("Custom applyed");
 			CustomFilter_ResetValues();
 
 			pageRoot.ImageLoadingRing.IsActive = false;

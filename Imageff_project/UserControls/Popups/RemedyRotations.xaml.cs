@@ -123,6 +123,16 @@ namespace RemedyPic.UserControls.Popups
                     rootPage.imageOriginal.VFlip();
                     rootPage.setStream(rootPage.bitmapStream, rootPage.bitmapImage, rootPage.imageOriginal);
                     break;
+                case "hmirror":
+                    rootPage.prepareImage(rootPage.bitmapStream, rootPage.bitmapImage, rootPage.imageOriginal);
+                    rootPage.imageOriginal.HMirror();
+                    rootPage.setStream(rootPage.bitmapStream, rootPage.bitmapImage, rootPage.imageOriginal);
+                    break;
+                case "vmirror":
+                    rootPage.prepareImage(rootPage.bitmapStream, rootPage.bitmapImage, rootPage.imageOriginal);
+                    rootPage.imageOriginal.VMirror();
+                    rootPage.setStream(rootPage.bitmapStream, rootPage.bitmapImage, rootPage.imageOriginal);
+                    break;
                 default:
                     break;
             }
@@ -159,6 +169,23 @@ namespace RemedyPic.UserControls.Popups
             appliedRotations = "vflip";
             rootPage.prepareImage(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
             rootPage.image.VFlip();
+            rootPage.setStream(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
+        }
+
+        public void OnHMirrorClick(object sender, RoutedEventArgs e)
+        {
+            appliedRotations = "hmirror";
+            rootPage.prepareImage(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
+            rootPage.image.HMirror();
+            rootPage.setStream(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
+        }
+
+
+        public void OnVMirrorClick(object sender, RoutedEventArgs e)
+        {
+            appliedRotations = "vmirror";
+            rootPage.prepareImage(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
+            rootPage.image.VMirror();
             rootPage.setStream(rootPage.exampleStream, rootPage.exampleBitmap, rootPage.image);
         }
 

@@ -133,9 +133,9 @@
                 <Border Grid.RowSpan="8" Margin="0" BorderThickness="1,0,0,0" BorderBrush="#FF0A4B00"/>
                 <Border VerticalAlignment="Top" Padding="10,10,0,10" Margin="0" Height="72" Background="#FF00610D" BorderThickness="0,0,0,2" BorderBrush="#7FFFFFFF">
                     <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Height="50">
-                        <Button x:ConnectionId='6' Width="40" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle1}" x:Name="BackFeedback" Margin="0" Height="40" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="48" FontWeight="Normal" Foreground="White" Content="&#xE0D5;"                             Background="{x:Null}" BorderThickness="1" BorderBrush="#7FFFFFFF"/>
-                        <TextBlock Text="Feedback" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="36" Foreground="#DEFFFFFF"/>
-                        <Image Width="70" VerticalAlignment="Bottom" Source="Assets/RemedyPicLogo.png" x:Name="Logo_Copy8" Margin="60,0,0,0" Height="35" HorizontalAlignment="Right">
+                        <Button x:ConnectionId='7' Width="35" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle1}" x:Name="BackFeedback" Margin="0" Height="30" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="38" FontWeight="Normal" Foreground="White" Content="&#xE0D5;"                             Background="{x:Null}" BorderThickness="1" BorderBrush="#7FFFFFFF"/>
+                        <TextBlock Text="Feedback" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="27" Foreground="#DEFFFFFF" VerticalAlignment="Top"/>
+                        <Image Width="90" VerticalAlignment="Bottom" Source="Assets/RemedyPicLogo.png" x:Name="Logo_Copy8" Margin="80,0,0,0" Height="35" HorizontalAlignment="Right">
                             <Image.Transitions>
                                 <TransitionCollection>
                                     <EntranceThemeTransition/>
@@ -165,6 +165,51 @@
                     </Paragraph>
                 </RichTextBlock>
                 <HyperlinkButton VerticalAlignment="Center" Padding="12,0" NavigateUri="http://www.facebook.com/RemedyPic" Foreground="#FF1D6A00" Content="Facebook" Height="26" Width="94" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="128,36,128,35" Grid.Row="5"/>
+            </Grid>
+        </Popup>
+        <Popup Width="350" Grid.RowSpan="4" x:Name="Policy" Margin="0" IsOpen="False" IsLightDismissEnabled="True" HorizontalAlignment="Right" Grid.ColumnSpan="2">
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PaneThemeTransition/>
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <Grid Width="350" x:Name="PolicyGrid" Height="768" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="72"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="95"/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+                <Grid.ChildrenTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition/>
+                    </TransitionCollection>
+                </Grid.ChildrenTransitions>
+                <Border Grid.RowSpan="8" Margin="0" BorderThickness="1,0,0,0" BorderBrush="#FF0A4B00"/>
+                <Border VerticalAlignment="Top" Padding="10,10,0,10" Margin="0" Height="72" Background="#FF00610D" BorderThickness="0,0,0,2" BorderBrush="#7FFFFFFF">
+                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Height="50">
+                        <Button x:ConnectionId='6' Width="35" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle1}" x:Name="BackPolicy" Margin="0" Height="30" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="38" FontWeight="Normal" Foreground="White" Content="&#xE0D5;"                             Background="{x:Null}" BorderThickness="1" BorderBrush="#7FFFFFFF"/>
+                        <TextBlock Text="Privacy Policy" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="27" Foreground="#DEFFFFFF" VerticalAlignment="Top"/>
+                        <Image Width="90" VerticalAlignment="Bottom" Source="Assets/RemedyPicLogo.png" x:Name="Logo_Copy1" Margin="50,0,0,0" Height="35" HorizontalAlignment="Right">
+                            <Image.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Image.Transitions>
+                        </Image>
+                    </StackPanel>
+                </Border>
+                <RichTextBlock VerticalAlignment="Bottom" Grid.Row="1" Margin="30,9,30,8" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black" Width="290">
+                    <Paragraph FontSize="16">
+                        <Run Text="This application does not share personal information with third parties nor does it store any information about you."/>
+                    </Paragraph>
+                </RichTextBlock>
+                <RichTextBlock VerticalAlignment="Top" Grid.Row="2" Margin="30,9,30,8" HorizontalAlignment="Left" FontFamily="SegoeUI" FontWeight="SemiLight" Foreground="Black" Width="290">
+                    <Paragraph FontSize="16">
+                        <Run Text="This privacy policy is subject to change without notice and was last updated on 26.05.2013. If you have any questions feel free to contact me directly at"/>
+                    </Paragraph>
+                </RichTextBlock>
+                <HyperlinkButton VerticalAlignment="Top" Grid.Row="3" Padding="0" NavigateUri="mailto:kztodorov@outlook.com" Margin="0" HorizontalAlignment="Center" Foreground="#FF1D6A00" Content="kztodorov@outlook.com" Height="30" Width="200"/>
             </Grid>
         </Popup>
         <ProgressRing x:FieldModifier="public" Width="60" VerticalAlignment="Center" Grid.Row="2" x:Name="ImageLoadingRing" Margin="0" Height="60" HorizontalAlignment="Center" Foreground="White"/>

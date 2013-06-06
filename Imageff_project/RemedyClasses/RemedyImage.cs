@@ -431,7 +431,7 @@ namespace RemedyPic.RemedyClasses
             for (double degrees = 90.0; degrees < 180.0; degrees += 45.0 / (double)FrameWidth)
             {
                 Frames_AngleGetNewPixel(ref angle, degrees, ref X, ref Y, FrameWidth);
-                StartIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X) - 4 * (FrameWidth + (int)X);
+                StartIndex = Center - 4 * _width * (int)Y;
                 EndIndex = Center - 4 * _width * (int)Y + 4 * (int)(FrameWidth + X);
                 Frames_DarknessAngleSetRow(StartIndex, EndIndex, Color);
             }
@@ -575,6 +575,53 @@ namespace RemedyPic.RemedyClasses
 
         #region Flip
 
+        #region H Mirror
+        public void HMirror()
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+
+            for (int CurrentByte = 0, CurrentColumn = 0, CurrentRow = 0; CurrentByte < 4 * _height * _width; CurrentColumn++)
+            {
+                HMirror_SetNewValues(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
+            }
+        }
+
+        // Set the new values for the pixel
+        private void HMirror_SetNewValues(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
+        {
+            HFlip_GetNewColumnRowByte(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
+
+            if (CurrentRow != _height)
+            {
+                int index = 4 * ((_width - 1 - CurrentColumn) + _width * CurrentRow);
+                Flip_SetNewMirrorPixels(ref CurrentByte, index);
+            }
+        }
+
+        #endregion
+
+        #region V Mirror
+        // Main Flip function
+        public void VMirror()
+        {
+            _dstPixels = (byte[])_srcPixels.Clone();
+
+            for (int CurrentByte = 0, CurrentColumn = 0, CurrentRow = 0; CurrentByte < 2 * _height * _width; CurrentColumn++)
+            {
+                VMirror_SetNewValues(ref CurrentColumn, ref CurrentRow, ref CurrentByte);
+            }
+        }
+
+        // Set the new values for the pixel
+        private void VMirror_SetNewValues(ref int CurrentColumn, ref int CurrentRow, ref int CurrentByte)
+        {
+            VFlip_GetNewColumnRow(ref CurrentColumn, ref CurrentRow);
+
+            int index = 4 * (_width * (_height - 1 - CurrentRow) + CurrentColumn);
+            Flip_SetNewMirrorPixels(ref CurrentByte, index);
+        }
+        #endregion
+
         #region H Flip
         // Main Flip function
         public void HFlip()
@@ -650,6 +697,21 @@ namespace RemedyPic.RemedyClasses
             }
         }
         #endregion
+
+        // Set new mirror pixels
+        private void Flip_SetNewMirrorPixels(ref int CurrentByte, int index)
+        {
+            Flip_SwapMirrorValues(CurrentByte++, index);
+            Flip_SwapMirrorValues(CurrentByte++, index + 1);
+            Flip_SwapMirrorValues(CurrentByte++, index + 2);
+            Flip_SwapMirrorValues(CurrentByte++, index + 3);
+        }
+
+        // Swap one of BGRA data of the pixel
+        private void Flip_SwapMirrorValues(int CurrentByte, int index)
+        {
+            _dstPixels[index] = _srcPixels[CurrentByte];
+        }
 
         // Swap pixel data of B G R A
         private void Flip_SwapPixelData(ref int CurrentByte, int index)
